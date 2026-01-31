@@ -1,0 +1,83 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+type Props = CollectionEntry<'projects'>['data'];
+
+const { title, date, type, genre, pages } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={`${type} - ${genre.join(', ')}`} />
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+			}
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+				margin: 0 0 0.5em 0;
+			}
+			.meta {
+				margin-bottom: 1em;
+				color: rgb(var(--gray));
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+				align-items: center;
+			}
+			.type {
+				text-transform: capitalize;
+				font-weight: 600;
+			}
+			.genre {
+				font-style: italic;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				<div class="prose">
+					<div class="title">
+						<h1>{title}</h1>
+						<hr />
+						<div class="meta">
+							<span class="type">{type}</span>
+							{genre.length > 0 && (
+								<span class="genre">{genre.join(', ')}</span>
+							)}
+							<span class="date">
+								<FormattedDate date={date} />
+							</span>
+							{pages && (
+								<span class="pages">{pages} pages</span>
+							)}
+						</div>
+					</div>
+					<slot />
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

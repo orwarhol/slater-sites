@@ -1,0 +1,115 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+const projects = (await getCollection('projects')).sort(
+(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+<BaseHead title={`Projects - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+<style>
+main {
+width: 960px;
+max-width: calc(100% - 2em);
+margin: auto;
+padding: 1em;
+}
+h1 {
+margin-bottom: 2em;
+}
+ul {
+display: flex;
+flex-direction: column;
+gap: 2rem;
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+ul li {
+border-bottom: 1px solid rgb(var(--gray-light));
+padding-bottom: 1.5rem;
+}
+ul li:last-child {
+border-bottom: none;
+}
+ul li a {
+text-decoration: none;
+transition: 0.2s ease;
+}
+.title {
+margin: 0 0 0.5rem 0;
+color: rgb(var(--black));
+line-height: 1.2;
+font-size: 1.5rem;
+}
+.meta {
+display: flex;
+gap: 1rem;
+margin: 0.5rem 0;
+color: rgb(var(--gray));
+font-size: 0.95rem;
+}
+.type {
+text-transform: capitalize;
+}
+.genre {
+font-style: italic;
+}
+ul li a:hover .title {
+color: rgb(var(--accent));
+}
+@media (max-width: 720px) {
+main {
+width: calc(100% - 2em);
+}
+ul {
+gap: 1.5rem;
+}
+.meta {
+flex-direction: column;
+gap: 0.25rem;
+}
+}
+</style>
+</head>
+<body>
+<Header />
+<main>
+<h1>Projects</h1>
+<section>
+<ul>
+{
+projects.map((project) => (
+<li>
+<a href={`/projects/${project.id}/`}>
+<h2 class="title">{project.data.title}</h2>
+<div class="meta">
+<span class="type">{project.data.type}</span>
+{project.data.genre.length > 0 && (
+<span class="genre">{project.data.genre.join(', ')}</span>
+)}
+<span class="date">
+<FormattedDate date={project.data.date} />
+</span>
+{project.data.pages && (
+<span class="pages">{project.data.pages} pages</span>
+)}
+</div>
+</a>
+</li>
+))
+}
+</ul>
+</section>
+</main>
+<Footer />
+</body>
+</html>
