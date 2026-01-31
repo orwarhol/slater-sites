@@ -1,0 +1,152 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { getCollection } from 'astro:content';
+
+const novels = (await getCollection('novels')).sort((a, b) => {
+	// Sort by publication date if available, otherwise by title
+	if (a.data.publicationDate && b.data.publicationDate) {
+		return b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf();
+	}
+	return a.data.title.localeCompare(b.data.title);
+});
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead 
+			title="Novels | Charles Slater" 
+			description="Novels by Charles Slater" 
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Novels</h1>
+			<p class="intro">
+				Stories exploring the complexities of human relationships, moral choices, and the paths we take.
+			</p>
+
+			<section class="novels-list">
+				{
+					novels.map((novel) => {
+						const truncatedSynopsis = novel.data.synopsis.length > 300 
+							? novel.data.synopsis.substring(0, 300) + '...'
+							: novel.data.synopsis;
+
+						return (
+							<article class="novel-card">
+								<h2>
+									<a href={`/novels/${novel.id}`}>{novel.data.title}</a>
+								</h2>
+								{novel.data.publicationDate && (
+									<div class="novel-meta">
+										Published: <FormattedDate date={novel.data.publicationDate} />
+										{novel.data.printLength && ` • ${novel.data.printLength} pages`}
+									</div>
+								)}
+								<p class="synopsis">{truncatedSynopsis}</p>
+								{novel.data.purchaseLinks.length > 0 && (
+									<div class="purchase-links">
+										{novel.data.purchaseLinks.map((link) => (
+											<a href={link.url} target="_blank" rel="noopener noreferrer" class="purchase-link">
+												{link.label}
+											</a>
+										))}
+									</div>
+								)}
+								<a href={`/novels/${novel.id}`} class="read-more">Read more →</a>
+							</article>
+						);
+					})
+				}
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.intro {
+		font-size: 1.1em;
+		color: rgb(var(--gray));
+		margin-bottom: 3em;
+	}
+
+	.novels-list {
+		display: flex;
+		flex-direction: column;
+		gap: 3em;
+	}
+
+	.novel-card {
+		padding-bottom: 2.5em;
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+
+	.novel-card:last-child {
+		border-bottom: none;
+	}
+
+	.novel-card h2 {
+		margin: 0 0 0.5em 0;
+		font-size: 1.9em;
+	}
+
+	.novel-card h2 a {
+		color: rgb(var(--black));
+		text-decoration: none;
+	}
+
+	.novel-card h2 a:hover {
+		color: var(--accent-dark);
+	}
+
+	.novel-meta {
+		color: rgb(var(--gray));
+		font-size: 0.9em;
+		margin-bottom: 1em;
+	}
+
+	.synopsis {
+		color: rgb(var(--gray-dark));
+		line-height: 1.7;
+		margin: 1em 0 1.5em 0;
+	}
+
+	.purchase-links {
+		display: flex;
+		gap: 1em;
+		flex-wrap: wrap;
+		margin-bottom: 1em;
+	}
+
+	.purchase-link {
+		display: inline-block;
+		padding: 0.5em 1em;
+		background: var(--accent);
+		color: white;
+		text-decoration: none;
+		border-radius: 4px;
+		font-size: 0.9em;
+		transition: background 0.2s;
+	}
+
+	.purchase-link:hover {
+		background: var(--accent-dark);
+	}
+
+	.read-more {
+		color: var(--accent);
+		text-decoration: none;
+		font-size: 0.95em;
+	}
+
+	.read-more:hover {
+		text-decoration: underline;
+		color: var(--accent-dark);
+	}
+</style>

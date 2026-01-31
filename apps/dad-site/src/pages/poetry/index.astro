@@ -1,0 +1,118 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { getCollection } from 'astro:content';
+
+const poems = (await getCollection('poetry')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead 
+			title="Poetry | Charles Slater" 
+			description="A collection of poems by Charles Slater" 
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Poetry</h1>
+			<p class="intro">
+				A collection of poems exploring themes of memory, family, and the moments that define us.
+			</p>
+
+			<section class="poems-list">
+				{
+					poems.map((poem) => (
+						<article class="poem-card">
+							<h2>
+								<a href={`/poetry/${poem.id}`}>{poem.data.title}</a>
+							</h2>
+							<div class="poem-meta">
+								<FormattedDate date={poem.data.date} />
+							</div>
+							<p class="excerpt">{poem.data.excerpt}</p>
+							{poem.data.tags.length > 0 && (
+								<div class="tags">
+									{poem.data.tags.map((tag) => (
+										<span class="tag">{tag}</span>
+									))}
+								</div>
+							)}
+						</article>
+					))
+				}
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.intro {
+		font-size: 1.1em;
+		color: rgb(var(--gray));
+		margin-bottom: 3em;
+	}
+
+	.poems-list {
+		display: flex;
+		flex-direction: column;
+		gap: 2.5em;
+	}
+
+	.poem-card {
+		padding-bottom: 2em;
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+
+	.poem-card:last-child {
+		border-bottom: none;
+	}
+
+	.poem-card h2 {
+		margin: 0 0 0.5em 0;
+		font-size: 1.75em;
+	}
+
+	.poem-card h2 a {
+		color: rgb(var(--black));
+		text-decoration: none;
+	}
+
+	.poem-card h2 a:hover {
+		color: var(--accent-dark);
+	}
+
+	.poem-meta {
+		color: rgb(var(--gray));
+		font-size: 0.9em;
+		margin-bottom: 1em;
+	}
+
+	.excerpt {
+		color: rgb(var(--gray-dark));
+		line-height: 1.7;
+		margin: 1em 0;
+	}
+
+	.tags {
+		display: flex;
+		gap: 0.5em;
+		flex-wrap: wrap;
+		margin-top: 1em;
+	}
+
+	.tag {
+		background: rgb(var(--gray-light));
+		padding: 0.25em 0.75em;
+		border-radius: 4px;
+		font-size: 0.85em;
+		color: rgb(var(--gray-dark));
+	}
+</style>

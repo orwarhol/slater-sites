@@ -1,16 +1,91 @@
 ---
-// Placeholder homepage for dad-site
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>Charles Slater</title>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
-		<h1>Charles Slater</h1>
-		<p>Welcome to Charles Slater's site.</p>
+		<Header />
+		<main>
+			<h1>Charles Slater</h1>
+			<section class="bio">
+				<p>
+					Charles Slater is a poet and novelist whose work explores themes of memory, 
+					family, and the passage of time. His poetry captures moments of quiet reflection 
+					and profound observation, while his novels delve into the complexities of human 
+					relationships and moral choices.
+				</p>
+				<p>
+					His writing is characterized by careful attention to detail, emotional honesty, 
+					and a deep understanding of the human condition. Whether through verse or prose, 
+					Charles creates works that resonate with readers long after the final page.
+				</p>
+			</section>
+
+			<section class="links">
+				<h2>Explore</h2>
+				<div class="link-cards">
+					<a href="/poetry" class="link-card">
+						<h3>Poetry</h3>
+						<p>Read a collection of poems exploring life, memory, and emotion.</p>
+					</a>
+					<a href="/novels" class="link-card">
+						<h3>Novels</h3>
+						<p>Discover stories of human connection, choice, and consequence.</p>
+					</a>
+				</div>
+			</section>
+		</main>
+		<Footer />
 	</body>
 </html>
+
+<style>
+	.bio {
+		margin: 2em 0 3em 0;
+		line-height: 1.8;
+	}
+
+	.links {
+		margin-top: 3em;
+	}
+
+	.link-cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 1.5em;
+		margin-top: 1.5em;
+	}
+
+	.link-card {
+		display: block;
+		padding: 1.5em;
+		background: white;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 8px;
+		text-decoration: none;
+		transition: all 0.2s;
+	}
+
+	.link-card:hover {
+		border-color: var(--accent);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		transform: translateY(-2px);
+	}
+
+	.link-card h3 {
+		margin-top: 0;
+		color: var(--accent-dark);
+	}
+
+	.link-card p {
+		margin-bottom: 0;
+		color: rgb(var(--gray-dark));
+	}
+</style>
