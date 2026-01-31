@@ -1,36 +1,20 @@
 {
 	"name": "slater-sites",
-	"description": "Build a personal website, blog, or portfolio with Astro.",
-	"cloudflare": {
-		"label": "Astro Framework Starter",
-		"products": [
-			"Workers"
-		],
-		"categories": [],
-		"preview_icon_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/394ca3c9-d351-4036-035a-9f6dfa26dd00/public",
-		"preview_image_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/f40a6577-eed5-4f3e-cef4-b5ef0a1be100/preview",
-		"publish": true
-	},
-	"dependencies": {
-		"@astrojs/cloudflare": "12.6.12",
-		"@astrojs/mdx": "4.3.12",
-		"@astrojs/rss": "4.0.14",
-		"@astrojs/sitemap": "3.6.0",
-		"astro": "5.16.2",
-		"typescript": "5.9.3"
+	"description": "Monorepo for Ian and Charles Slater personal websites",
+	"private": true,
+	"type": "module",
+	"workspaces": [
+		"apps/*"
+	],
+	"scripts": {
+		"dev:ian": "npm run dev --workspace=ian-site",
+		"dev:dad": "npm run dev --workspace=dad-site",
+		"build:ian": "npm run build --workspace=ian-site",
+		"build:dad": "npm run build --workspace=dad-site",
+		"import:ian": "node scripts/import-squarespace-ian.mjs",
+		"import:dad": "node scripts/import-squarespace-dad.mjs"
 	},
 	"devDependencies": {
-		"wrangler": "4.56.0"
-	},
-	"private": true,
-	"scripts": {
-		"astro": "astro",
-		"build": "astro build",
-		"cf-typegen": "wrangler types",
-		"check": "astro build && tsc && wrangler deploy --dry-run",
-		"deploy": "wrangler deploy",
-		"dev": "astro dev",
-		"preview": "astro build && wrangler dev"
-	},
-	"type": "module"
+		"turndown": "^7.2.0"
+	}
 }
