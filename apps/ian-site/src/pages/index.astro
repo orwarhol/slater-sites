@@ -1,0 +1,49 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			main {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+			}
+			.bio {
+				color: rgb(var(--gray-dark));
+			}
+			h1 {
+				margin-bottom: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="bio">
+				<h1>Ian Slater</h1>
+				<p>
+					Writer, filmmaker, and photographer based in the Pacific Northwest.
+				</p>
+				<p>
+					Ian Slater is a creative storyteller working across multiple mediums. His work spans feature
+					screenplays, short films, television scripts, and photography. With a passion for compelling
+					narratives and visual storytelling, Ian crafts stories that explore the human condition
+					through both words and images.
+				</p>
+				<p>
+					When not writing or filming, you can find Ian exploring the Pacific Northwest with his camera,
+					capturing the beauty and complexity of the world around him.
+				</p>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

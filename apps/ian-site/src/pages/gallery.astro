@@ -1,0 +1,401 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+
+const allPhotos = await getCollection('gallery');
+
+// Sort photos according to the requirements:
+// 1. If order exists, sort by order ascending
+// 2. Else if date exists, sort by date descending
+// 3. Else sort alphabetically by title
+const sortedPhotos = allPhotos.sort((a, b) => {
+	// If both have order field, sort by order ascending
+	if (a.data.order !== undefined && b.data.order !== undefined) {
+		return a.data.order - b.data.order;
+	}
+	// If only one has order, prioritize it
+	if (a.data.order !== undefined) return -1;
+	if (b.data.order !== undefined) return 1;
+	
+	// If both have date, sort by date descending (newest first)
+	if (a.data.date && b.data.date) {
+		return b.data.date.getTime() - a.data.date.getTime();
+	}
+	// If only one has date, prioritize it
+	if (a.data.date) return -1;
+	if (b.data.date) return 1;
+	
+	// Otherwise sort alphabetically by title
+	return a.data.title.localeCompare(b.data.title);
+});
+
+const photos = sortedPhotos.map(photo => ({
+	title: photo.data.title,
+	src: photo.data.src,
+	alt: photo.data.alt,
+	date: photo.data.date?.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+	location: photo.data.location,
+	camera: photo.data.camera,
+	notes: photo.data.notes,
+}));
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Gallery - ${SITE_TITLE}`} description="Photography gallery" />
+		<style>
+			.gallery-container {
+				max-width: 1400px;
+				margin: 0 auto;
+				padding: 2em 1em;
+			}
+
+			.gallery-header {
+				margin-bottom: 2em;
+				text-align: center;
+			}
+
+			.gallery-header h1 {
+				margin-bottom: 0.5em;
+			}
+
+			.empty-state {
+				text-align: center;
+				padding: 4em 2em;
+				color: rgb(var(--gray));
+			}
+
+			.gallery-viewer {
+				display: grid;
+				grid-template-columns: 1fr 350px;
+				gap: 2em;
+				align-items: start;
+			}
+
+			.image-area {
+				position: relative;
+				background: rgb(var(--black));
+				border-radius: 8px;
+				overflow: hidden;
+				min-height: 500px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.main-image {
+				width: 100%;
+				height: auto;
+				display: block;
+				max-height: 80vh;
+				object-fit: contain;
+			}
+
+			.nav-button {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				background: rgba(255, 255, 255, 0.9);
+				border: none;
+				width: 48px;
+				height: 48px;
+				border-radius: 50%;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 24px;
+				color: rgb(var(--black));
+				transition: all 0.2s;
+				z-index: 10;
+			}
+
+			.nav-button:hover {
+				background: white;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+			}
+
+			.nav-button:disabled {
+				opacity: 0.3;
+				cursor: not-allowed;
+			}
+
+			.nav-button.prev {
+				left: 1em;
+			}
+
+			.nav-button.next {
+				right: 1em;
+			}
+
+			.metadata-sidebar {
+				background: white;
+				padding: 2em;
+				border-radius: 8px;
+				border: 1px solid rgb(var(--gray-light));
+			}
+
+			.metadata-sidebar h2 {
+				font-size: 1.5em;
+				margin-top: 0;
+				margin-bottom: 0.5em;
+			}
+
+			.metadata-item {
+				margin-bottom: 1.5em;
+			}
+
+			.metadata-item:last-child {
+				margin-bottom: 0;
+			}
+
+			.metadata-label {
+				font-size: 0.85em;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				color: rgb(var(--gray));
+				margin-bottom: 0.25em;
+			}
+
+			.metadata-value {
+				color: rgb(var(--gray-dark));
+				line-height: 1.6;
+			}
+
+			.counter {
+				text-align: center;
+				margin-top: 1em;
+				padding-top: 1em;
+				border-top: 1px solid rgb(var(--gray-light));
+				font-size: 0.9em;
+				color: rgb(var(--gray));
+			}
+
+			@media (max-width: 1024px) {
+				.gallery-viewer {
+					grid-template-columns: 1fr;
+				}
+
+				.metadata-sidebar {
+					order: 2;
+				}
+
+				.image-area {
+					order: 1;
+				}
+
+				.nav-button {
+					width: 40px;
+					height: 40px;
+					font-size: 20px;
+				}
+
+				.nav-button.prev {
+					left: 0.5em;
+				}
+
+				.nav-button.next {
+					right: 0.5em;
+				}
+			}
+
+			@media (max-width: 720px) {
+				.gallery-container {
+					padding: 1em 0.5em;
+				}
+
+				.metadata-sidebar {
+					padding: 1.5em;
+				}
+
+				.image-area {
+					min-height: 300px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<div class="gallery-container">
+			<div class="gallery-header">
+				<h1>Gallery</h1>
+			</div>
+
+			{photos.length === 0 ? (
+				<div class="empty-state">
+					<p>No photos in the gallery yet.</p>
+				</div>
+			) : (
+				<div class="gallery-viewer">
+					<div class="image-area">
+						<button class="nav-button prev" id="prevBtn" aria-label="Previous photo">‹</button>
+						<img 
+							id="mainImage" 
+							class="main-image" 
+							src={photos[0].src} 
+							alt={photos[0].alt}
+						/>
+						<button class="nav-button next" id="nextBtn" aria-label="Next photo">›</button>
+					</div>
+
+					<div class="metadata-sidebar">
+						<h2 id="photoTitle">{photos[0].title}</h2>
+						
+						<div id="metadataContainer">
+							{photos[0].date && (
+								<div class="metadata-item">
+									<div class="metadata-label">Date</div>
+									<div class="metadata-value" id="photoDate">{photos[0].date}</div>
+								</div>
+							)}
+							
+							{photos[0].location && (
+								<div class="metadata-item">
+									<div class="metadata-label">Location</div>
+									<div class="metadata-value" id="photoLocation">{photos[0].location}</div>
+								</div>
+							)}
+							
+							{photos[0].camera && (
+								<div class="metadata-item">
+									<div class="metadata-label">Camera</div>
+									<div class="metadata-value" id="photoCamera">{photos[0].camera}</div>
+								</div>
+							)}
+							
+							{photos[0].notes && (
+								<div class="metadata-item">
+									<div class="metadata-label">Notes</div>
+									<div class="metadata-value" id="photoNotes">{photos[0].notes}</div>
+								</div>
+							)}
+						</div>
+
+						<div class="counter">
+							<span id="currentIndex">1</span> / <span id="totalCount">{photos.length}</span>
+						</div>
+					</div>
+				</div>
+			)}
+		</div>
+		<Footer />
+
+		<script define:vars={{ photos }}>
+			if (photos.length > 0) {
+				let currentIndex = 0;
+
+				// Get initial index from URL query param
+				const urlParams = new URLSearchParams(window.location.search);
+				const urlIndex = parseInt(urlParams.get('i')) || 0;
+				if (urlIndex >= 0 && urlIndex < photos.length) {
+					currentIndex = urlIndex;
+				}
+
+				const mainImage = document.getElementById('mainImage');
+				const prevBtn = document.getElementById('prevBtn');
+				const nextBtn = document.getElementById('nextBtn');
+				const photoTitle = document.getElementById('photoTitle');
+				const currentIndexEl = document.getElementById('currentIndex');
+				const metadataContainer = document.getElementById('metadataContainer');
+
+				function updateDisplay() {
+					const photo = photos[currentIndex];
+					
+					// Update image
+					mainImage.src = photo.src;
+					mainImage.alt = photo.alt;
+					
+					// Update title
+					photoTitle.textContent = photo.title;
+					
+					// Update counter
+					currentIndexEl.textContent = currentIndex + 1;
+					
+					// Update metadata
+					let metadataHTML = '';
+					
+					if (photo.date) {
+						metadataHTML += `
+							<div class="metadata-item">
+								<div class="metadata-label">Date</div>
+								<div class="metadata-value">${photo.date}</div>
+							</div>
+						`;
+					}
+					
+					if (photo.location) {
+						metadataHTML += `
+							<div class="metadata-item">
+								<div class="metadata-label">Location</div>
+								<div class="metadata-value">${photo.location}</div>
+							</div>
+						`;
+					}
+					
+					if (photo.camera) {
+						metadataHTML += `
+							<div class="metadata-item">
+								<div class="metadata-label">Camera</div>
+								<div class="metadata-value">${photo.camera}</div>
+							</div>
+						`;
+					}
+					
+					if (photo.notes) {
+						metadataHTML += `
+							<div class="metadata-item">
+								<div class="metadata-label">Notes</div>
+								<div class="metadata-value">${photo.notes}</div>
+							</div>
+						`;
+					}
+					
+					metadataContainer.innerHTML = metadataHTML;
+					
+					// Update buttons
+					prevBtn.disabled = currentIndex === 0;
+					nextBtn.disabled = currentIndex === photos.length - 1;
+					
+					// Update URL
+					const newUrl = new URL(window.location);
+					newUrl.searchParams.set('i', currentIndex);
+					window.history.pushState({}, '', newUrl);
+				}
+
+				function showPrevious() {
+					if (currentIndex > 0) {
+						currentIndex--;
+						updateDisplay();
+					}
+				}
+
+				function showNext() {
+					if (currentIndex < photos.length - 1) {
+						currentIndex++;
+						updateDisplay();
+					}
+				}
+
+				// Button click handlers
+				prevBtn.addEventListener('click', showPrevious);
+				nextBtn.addEventListener('click', showNext);
+
+				// Keyboard navigation
+				document.addEventListener('keydown', (e) => {
+					if (e.key === 'ArrowLeft') {
+						showPrevious();
+					} else if (e.key === 'ArrowRight') {
+						showNext();
+					}
+				});
+
+				// Initialize display with URL index
+				updateDisplay();
+			}
+		</script>
+	</body>
+</html>
