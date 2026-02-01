@@ -37,7 +37,7 @@ const poems = (await getCollection('poetry')).sort(
 								<FormattedDate date={poem.data.date} />
 							</div>
 							<p class="excerpt">{poem.data.excerpt}</p>
-							{poem.data.tags.length > 0 && (
+							{poem.data.tags && poem.data.tags.length > 0 && (
 								<div class="tags">
 									{poem.data.tags.map((tag) => (
 										<span class="tag">{tag}</span>

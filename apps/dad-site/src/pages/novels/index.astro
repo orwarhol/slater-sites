@@ -49,7 +49,7 @@ const novels = (await getCollection('novels')).sort((a, b) => {
 									</div>
 								)}
 								<p class="synopsis">{truncatedSynopsis}</p>
-								{novel.data.purchaseLinks.length > 0 && (
+								{novel.data.purchaseLinks && novel.data.purchaseLinks.length > 0 && (
 									<div class="purchase-links">
 										{novel.data.purchaseLinks.map((link) => (
 											<a href={link.url} target="_blank" rel="noopener noreferrer" class="purchase-link">

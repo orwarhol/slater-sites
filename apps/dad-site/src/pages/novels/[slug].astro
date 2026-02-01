@@ -3,17 +3,22 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
-import { getCollection, render } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 
-export async function getStaticPaths() {
-	const novels = await getCollection('novels');
-	return novels.map((novel) => ({
-		params: { slug: novel.id },
-		props: novel,
-	}));
+// Get the slug from the URL params
+const { slug } = Astro.params;
+
+// Fetch the entry at runtime
+const novel = slug ? await getEntry('novels', slug) : undefined;
+
+// If no novel found, return 404
+if (!novel) {
+	return new Response(null, {
+		status: 404,
+		statusText: 'Not found'
+	});
 }
 
-const novel = Astro.props;
 const { Content } = await render(novel);
 ---
 
@@ -46,7 +51,7 @@ const { Content } = await render(novel);
 						)}
 					</div>
 
-					{novel.data.purchaseLinks.length > 0 && (
+					{novel.data.purchaseLinks && novel.data.purchaseLinks.length > 0 && (
 						<div class="purchase-links">
 							<h3>Purchase</h3>
 							<div class="links">

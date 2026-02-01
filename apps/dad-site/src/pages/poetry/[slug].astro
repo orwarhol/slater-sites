@@ -3,17 +3,22 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
-import { getCollection, render } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 
-export async function getStaticPaths() {
-	const poems = await getCollection('poetry');
-	return poems.map((poem) => ({
-		params: { slug: poem.id },
-		props: poem,
-	}));
+// Get the slug from the URL params
+const { slug } = Astro.params;
+
+// Fetch the entry at runtime
+const poem = slug ? await getEntry('poetry', slug) : undefined;
+
+// If no poem found, return 404
+if (!poem) {
+	return new Response(null, {
+		status: 404,
+		statusText: 'Not found'
+	});
 }
 
-const poem = Astro.props;
 const { Content } = await render(poem);
 ---
 
@@ -34,7 +39,7 @@ const { Content } = await render(poem);
 					<div class="poem-meta">
 						<FormattedDate date={poem.data.date} />
 					</div>
-					{poem.data.tags.length > 0 && (
+					{poem.data.tags && poem.data.tags.length > 0 && (
 						<div class="tags">
 							{poem.data.tags.map((tag: string) => (
 								<span class="tag">{tag}</span>
