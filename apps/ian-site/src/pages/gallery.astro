@@ -61,12 +61,16 @@ const photos = sortedPhotos.map(photo => ({
 
 			.gallery-header h1 {
 				margin-bottom: 0.5em;
+				background: linear-gradient(135deg, var(--cyan), var(--blue));
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
 			}
 
 			.empty-state {
 				text-align: center;
 				padding: 4em 2em;
-				color: rgb(var(--gray));
+				color: var(--muted);
 			}
 
 			.gallery-viewer {
@@ -78,13 +82,15 @@ const photos = sortedPhotos.map(photo => ({
 
 			.image-area {
 				position: relative;
-				background: rgb(var(--black));
-				border-radius: 8px;
+				background: var(--surface-1);
+				border: 1px solid rgba(49, 129, 178, 0.55);
+				border-radius: var(--radius-md);
 				overflow: hidden;
 				min-height: 500px;
 				display: flex;
 				align-items: center;
 				justify-content: center;
+				box-shadow: var(--shadow);
 			}
 
 			.main-image {
@@ -99,8 +105,8 @@ const photos = sortedPhotos.map(photo => ({
 				position: absolute;
 				top: 50%;
 				transform: translateY(-50%);
-				background: rgba(255, 255, 255, 0.9);
-				border: none;
+				background: var(--surface-2);
+				border: 1px solid var(--border);
 				width: 48px;
 				height: 48px;
 				border-radius: 50%;
@@ -109,14 +115,15 @@ const photos = sortedPhotos.map(photo => ({
 				align-items: center;
 				justify-content: center;
 				font-size: 24px;
-				color: rgb(var(--black));
+				color: var(--cyan);
 				transition: all 0.2s;
 				z-index: 10;
 			}
 
 			.nav-button:hover {
-				background: white;
-				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+				background: var(--surface-1);
+				border-color: var(--cyan);
+				box-shadow: var(--glow-cyan);
 			}
 
 			.nav-button:disabled {
@@ -133,16 +140,30 @@ const photos = sortedPhotos.map(photo => ({
 			}
 
 			.metadata-sidebar {
-				background: white;
+				background: var(--surface-1);
+				border: 1px solid rgba(49, 129, 178, 0.55);
 				padding: 2em;
-				border-radius: 8px;
-				border: 1px solid rgb(var(--gray-light));
+				border-radius: var(--radius-md);
+				box-shadow: var(--shadow);
+				position: relative;
+			}
+
+			.metadata-sidebar::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: linear-gradient(90deg, var(--cyan), var(--blue));
+				border-radius: var(--radius-md) var(--radius-md) 0 0;
 			}
 
 			.metadata-sidebar h2 {
 				font-size: 1.5em;
 				margin-top: 0;
 				margin-bottom: 0.5em;
+				color: var(--text);
 			}
 
 			.metadata-item {
@@ -157,12 +178,12 @@ const photos = sortedPhotos.map(photo => ({
 				font-size: 0.85em;
 				text-transform: uppercase;
 				letter-spacing: 0.05em;
-				color: rgb(var(--gray));
+				color: var(--cyan);
 				margin-bottom: 0.25em;
 			}
 
 			.metadata-value {
-				color: rgb(var(--gray-dark));
+				color: var(--text);
 				line-height: 1.6;
 			}
 
@@ -170,9 +191,9 @@ const photos = sortedPhotos.map(photo => ({
 				text-align: center;
 				margin-top: 1em;
 				padding-top: 1em;
-				border-top: 1px solid rgb(var(--gray-light));
+				border-top: 1px solid rgba(49, 129, 178, 0.4);
 				font-size: 0.9em;
-				color: rgb(var(--gray));
+				color: var(--muted);
 			}
 
 			@media (max-width: 1024px) {

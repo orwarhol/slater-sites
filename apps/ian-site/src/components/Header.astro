@@ -48,8 +48,9 @@ import { SITE_TITLE } from '../consts';
 	header {
 		margin: 0;
 		padding: 0 1em;
-		background: var(--header-bg);
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+		background: var(--bg);
+		border-bottom: 1px solid rgba(49, 129, 178, 0.4);
+		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 	}
 	h2 {
 		margin: 0;
@@ -59,7 +60,7 @@ import { SITE_TITLE } from '../consts';
 	h2 a,
 	h2 a.active {
 		text-decoration: none;
-		color: var(--header-text);
+		color: var(--text);
 	}
 	nav {
 		display: flex;
@@ -68,21 +69,34 @@ import { SITE_TITLE } from '../consts';
 	}
 	nav a {
 		padding: 1em 0.5em;
-		color: var(--header-text);
+		color: var(--text);
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
+		transition: border-bottom-color 0.2s ease, color 0.2s ease;
 	}
 	nav a.active {
 		text-decoration: none;
-		border-bottom-color: var(--header-accent);
+		border-bottom: 4px solid transparent;
+		border-image: linear-gradient(90deg, var(--cyan), var(--blue)) 1;
 	}
 	nav a:hover {
-		border-bottom-color: var(--header-accent);
+		color: var(--cyan);
+		border-bottom: 4px solid transparent;
+		border-image: linear-gradient(90deg, var(--cyan), var(--blue)) 1;
+	}
+	nav a:focus {
+		outline: 2px solid var(--cyan);
+		outline-offset: 2px;
+		box-shadow: var(--glow-cyan);
 	}
 	.social-links,
 	.social-links a {
 		display: flex;
-		color: var(--header-text);
+		color: var(--muted);
+		transition: color 0.2s ease;
+	}
+	.social-links a:hover {
+		color: var(--cyan);
 	}
 	@media (max-width: 720px) {
 		.social-links {
