@@ -10,6 +10,10 @@
 	--surface-1: #0B1A33;
 	--surface-2: #132B4A;
 	--border: #3181B2;
+	--border-strong: rgba(49, 129, 178, 0.55);
+	--border-medium: rgba(49, 129, 178, 0.45);
+	--border-subtle: rgba(49, 129, 178, 0.3);
+	--border-faint: rgba(49, 129, 178, 0.4);
 	--text: #F3FAFF;
 	--muted: #B7D4F0;
 	--cyan: #5FE7FF;
@@ -35,10 +39,12 @@
 	/* Legacy compatibility (for gradual migration) */
 	--accent: var(--cyan);
 	--accent-dark: var(--blue);
-	--black: 243, 250, 255; /* --text as RGB */
-	--gray: 183, 212, 240; /* --muted as RGB */
-	--gray-light: 19, 43, 74; /* --surface-2 as RGB */
-	--gray-dark: 243, 250, 255; /* --text as RGB */
+	/* Note: The following RGB values are inverted from typical naming conventions
+	   to maintain compatibility with existing code. They will be removed in future updates. */
+	--black: 243, 250, 255; /* Maps to --text (light, not dark) */
+	--gray: 183, 212, 240; /* Maps to --muted */
+	--gray-light: 19, 43, 74; /* Maps to --surface-2 (dark, not light) */
+	--gray-dark: 243, 250, 255; /* Maps to --text (light, not dark) */
 	
 	/* Typography */
 	--font-main: "Geist Sans", system-ui, -apple-system, Segoe UI, sans-serif;
@@ -115,7 +121,7 @@ main {
 /* Surface layering system */
 .page-card {
 	background: var(--surface-1);
-	border: 1px solid rgba(49, 129, 178, 0.55);
+	border: 1px solid var(--border-strong);
 	box-shadow: var(--shadow);
 	border-radius: var(--radius-lg);
 	padding: var(--pad-lg);
@@ -125,7 +131,7 @@ main {
 .panel,
 .module {
 	background: var(--surface-2);
-	border: 1px solid rgba(49, 129, 178, 0.45);
+	border: 1px solid var(--border-medium);
 	border-radius: var(--radius-md);
 	padding: var(--pad-md);
 	margin-bottom: 1.5rem;
@@ -217,14 +223,14 @@ code {
 	padding: 2px 5px;
 	background-color: var(--surface-2);
 	color: var(--cyan);
-	border: 1px solid rgba(49, 129, 178, 0.3);
+	border: 1px solid var(--border-subtle);
 	border-radius: var(--radius-sm);
 }
 pre {
 	padding: 1.5em;
 	border-radius: var(--radius-md);
 	background: var(--surface-2);
-	border: 1px solid rgba(49, 129, 178, 0.3);
+	border: 1px solid var(--border-subtle);
 }
 pre > code {
 	all: unset;
@@ -238,7 +244,7 @@ blockquote {
 }
 hr {
 	border: none;
-	border-top: 1px solid rgba(49, 129, 178, 0.4);
+	border-top: 1px solid var(--border-faint);
 }
 @media (max-width: 720px) {
 	body {

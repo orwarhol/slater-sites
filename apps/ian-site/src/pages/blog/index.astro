@@ -30,7 +30,7 @@ const posts = (await getCollection('blog')).sort(
 			ul li {
 				width: calc(50% - 1rem);
 				background: var(--surface-1);
-				border: 1px solid rgba(49, 129, 178, 0.55);
+				border: 1px solid var(--border-strong);
 				border-radius: var(--radius-md);
 				padding: var(--pad-md);
 				transition: all 0.3s ease;
@@ -68,7 +68,7 @@ const posts = (await getCollection('blog')).sort(
 			ul li img {
 				margin-bottom: 0.5rem;
 				border-radius: var(--radius-md);
-				border: 1px solid rgba(49, 129, 178, 0.3);
+				border: 1px solid var(--border-subtle);
 			}
 			ul li a {
 				display: block;
