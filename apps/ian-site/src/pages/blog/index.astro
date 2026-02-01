@@ -29,6 +29,26 @@ const posts = (await getCollection('blog')).sort(
 			}
 			ul li {
 				width: calc(50% - 1rem);
+				background: var(--surface-1);
+				border: 1px solid var(--border-strong);
+				border-radius: var(--radius-md);
+				padding: var(--pad-md);
+				transition: all 0.3s ease;
+				position: relative;
+			}
+			ul li::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: linear-gradient(90deg, rgba(95, 231, 255, 0.3), rgba(74, 163, 255, 0.3));
+				border-radius: var(--radius-md) var(--radius-md) 0 0;
+			}
+			ul li:hover {
+				border-color: var(--cyan);
+				box-shadow: var(--glow-cyan);
 			}
 			ul li * {
 				text-decoration: none;
@@ -47,26 +67,27 @@ const posts = (await getCollection('blog')).sort(
 			}
 			ul li img {
 				margin-bottom: 0.5rem;
-				border-radius: 12px;
+				border-radius: var(--radius-md);
+				border: 1px solid var(--border-subtle);
 			}
 			ul li a {
 				display: block;
 			}
 			.title {
 				margin: 0;
-				color: rgb(var(--black));
+				color: var(--text);
 				line-height: 1;
 			}
 			.date {
 				margin: 0;
-				color: rgb(var(--gray));
+				color: var(--muted);
 			}
 			ul li a:hover h4,
 			ul li a:hover .date {
-				color: rgb(var(--accent));
+				color: var(--cyan);
 			}
 			ul a:hover img {
-				box-shadow: var(--box-shadow);
+				box-shadow: var(--shadow);
 			}
 			@media (max-width: 720px) {
 				ul {

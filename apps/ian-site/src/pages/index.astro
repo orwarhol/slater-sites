@@ -17,10 +17,23 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				padding: 1em;
 			}
 			.bio {
-				color: rgb(var(--gray-dark));
+				background: var(--surface-1);
+				border: 1px solid var(--border-strong);
+				box-shadow: var(--shadow);
+				border-radius: var(--radius-lg);
+				padding: var(--pad-lg);
+				color: var(--text);
 			}
-			h1 {
+			.bio h1 {
 				margin-bottom: 1em;
+				background: linear-gradient(135deg, var(--cyan), var(--blue));
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+			}
+			.bio p {
+				color: var(--muted);
+				line-height: 1.8;
 			}
 		</style>
 	</head>

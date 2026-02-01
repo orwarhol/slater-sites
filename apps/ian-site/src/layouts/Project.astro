@@ -24,20 +24,39 @@ const { title, date, type, genre, pages } = Astro.props;
 				max-width: calc(100% - 2em);
 				margin: auto;
 				padding: 1em;
-				color: rgb(var(--gray-dark));
+				color: var(--text);
 			}
 			.title {
 				margin-bottom: 1em;
-				padding: 1em 0;
+				padding: var(--pad-lg);
+				background: var(--surface-1);
+				border: 1px solid var(--border-strong);
+				border-radius: var(--radius-lg);
+				box-shadow: var(--shadow);
 				text-align: center;
 				line-height: 1;
+				position: relative;
+			}
+			.title::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: linear-gradient(90deg, var(--cyan), var(--blue));
+				border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 			}
 			.title h1 {
 				margin: 0 0 0.5em 0;
+				background: linear-gradient(135deg, var(--cyan), var(--blue));
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
 			}
 			.meta {
 				margin-bottom: 1em;
-				color: rgb(var(--gray));
+				color: var(--muted);
 				display: flex;
 				flex-direction: column;
 				gap: 0.5rem;
@@ -46,6 +65,7 @@ const { title, date, type, genre, pages } = Astro.props;
 			.type {
 				text-transform: capitalize;
 				font-weight: 600;
+				color: var(--cyan);
 			}
 			.genre {
 				font-style: italic;
