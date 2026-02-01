@@ -1,10 +1,10 @@
 ---
-title: "Golden Hour in the Mountains"
-src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&h=1200&fit=crop"
-alt: "Mountain landscape at golden hour with dramatic clouds"
-date: 2024-03-15
-location: "Cascade Range, Washington"
-camera: "Canon EOS R5"
-notes: "Captured during a late afternoon hike. The light was perfect as the sun began to set behind the peaks."
+title: "Americana Silver"
+src: "https://images.squarespace-cdn.com/content/v1/56b7d7f927d4bd6c662e8de5/1456300145777-4MBEJMMHBGBJSKY4EEEP/EmilyAmericana_3000x2000_DSC0106.jpg"
+alt: "A young woman at an outdoor shopping mall smiling at the camera with windblown hair and looking relaxed and happy"
+date: 2016
+location: "Glendale, California"
+camera: "Sony"
+notes: "Captured on a very happy day."
 order: 1
 ---
