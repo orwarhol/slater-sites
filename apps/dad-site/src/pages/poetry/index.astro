@@ -2,12 +2,30 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
 import { getCollection } from 'astro:content';
+import { slugifyTag } from '../../utils/tags';
 
-const poems = (await getCollection('poetry')).sort(
-	(a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const poems = await getCollection('poetry');
+
+// Group poems by year (oldest first)
+const poemsByYear: Record<number, typeof poems> = {};
+poems.forEach(poem => {
+	const year = new Date(poem.data.date).getFullYear();
+	if (!poemsByYear[year]) {
+		poemsByYear[year] = [];
+	}
+	poemsByYear[year].push(poem);
+});
+
+// Sort years ascending (oldest first)
+const sortedYears = Object.keys(poemsByYear)
+	.map(Number)
+	.sort((a, b) => a - b);
+
+// Sort poems within each year by date ascending
+sortedYears.forEach(year => {
+	poemsByYear[year].sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+});
 ---
 
 <!doctype html>
@@ -26,28 +44,31 @@ const poems = (await getCollection('poetry')).sort(
 				A collection of poems exploring themes of memory, family, and the moments that define us.
 			</p>
 
-			<section class="poems-list">
-				{
-					poems.map((poem) => (
-						<article class="poem-card">
-							<h2>
-								<a href={`/poetry/${poem.id}`}>{poem.data.title}</a>
-							</h2>
-							<div class="poem-meta">
-								<FormattedDate date={poem.data.date} />
-							</div>
-							<p class="excerpt">{poem.data.excerpt}</p>
-							{poem.data.tags && poem.data.tags.length > 0 && (
-								<div class="tags">
-									{poem.data.tags.map((tag) => (
-										<span class="tag">{tag}</span>
-									))}
+			<div class="poetry-index">
+				{sortedYears.map(year => (
+					<section class="year-group">
+						<h2 class="year-label">{year}</h2>
+						<div class="poems-in-year">
+							{poemsByYear[year].map(poem => (
+								<div class="poem-entry">
+									<a href={`/poetry/${poem.id}`} class="poem-title">
+										{poem.data.title}
+									</a>
+									{poem.data.tags && poem.data.tags.length > 0 && (
+										<div class="poem-tags">
+											{poem.data.tags.slice(0, 3).map((tag: string) => (
+												<a href={`/poetry/tags/${slugifyTag(tag)}`} class="tag-link">
+													{tag}
+												</a>
+											))}
+										</div>
+									)}
 								</div>
-							)}
-						</article>
-					))
-				}
-			</section>
+							))}
+						</div>
+					</section>
+				))}
+			</div>
 		</main>
 		<Footer />
 	</body>
@@ -60,59 +81,90 @@ const poems = (await getCollection('poetry')).sort(
 		margin-bottom: 3em;
 	}
 
-	.poems-list {
+	.poetry-index {
+		column-count: 4;
+		column-gap: 2em;
+		column-rule: 1px solid rgb(var(--gray-light));
+	}
+
+	.year-group {
+		break-inside: avoid;
+		margin-bottom: 2.5em;
+	}
+
+	.year-label {
+		font-size: 1.5em;
+		font-weight: 700;
+		color: rgb(var(--black));
+		margin: 0 0 1em 0;
+		border-bottom: 2px solid var(--accent);
+		padding-bottom: 0.25em;
+	}
+
+	.poems-in-year {
 		display: flex;
 		flex-direction: column;
-		gap: 2.5em;
+		gap: 1em;
 	}
 
-	.poem-card {
-		padding-bottom: 2em;
-		border-bottom: 1px solid rgb(var(--gray-light));
+	.poem-entry {
+		break-inside: avoid;
 	}
 
-	.poem-card:last-child {
-		border-bottom: none;
-	}
-
-	.poem-card h2 {
-		margin: 0 0 0.5em 0;
-		font-size: 1.75em;
-	}
-
-	.poem-card h2 a {
+	.poem-title {
+		display: block;
 		color: rgb(var(--black));
 		text-decoration: none;
+		font-size: 1em;
+		line-height: 1.4;
+		margin-bottom: 0.25em;
+		font-weight: 500;
 	}
 
-	.poem-card h2 a:hover {
+	.poem-title:hover {
 		color: var(--accent-dark);
+		text-decoration: underline;
 	}
 
-	.poem-meta {
-		color: rgb(var(--gray));
-		font-size: 0.9em;
-		margin-bottom: 1em;
-	}
-
-	.excerpt {
-		color: rgb(var(--gray-dark));
-		line-height: 1.7;
-		margin: 1em 0;
-	}
-
-	.tags {
+	.poem-tags {
 		display: flex;
-		gap: 0.5em;
+		gap: 0.4em;
 		flex-wrap: wrap;
-		margin-top: 1em;
+		margin-top: 0.25em;
 	}
 
-	.tag {
+	.tag-link {
 		background: rgb(var(--gray-light));
-		padding: 0.25em 0.75em;
-		border-radius: 4px;
-		font-size: 0.85em;
+		padding: 0.15em 0.5em;
+		border-radius: 3px;
+		font-size: 0.75em;
 		color: rgb(var(--gray-dark));
+		text-decoration: none;
+		transition: background 0.2s ease;
+	}
+
+	.tag-link:hover {
+		background: var(--accent);
+		color: white;
+	}
+
+	/* Responsive columns */
+	@media (max-width: 1024px) {
+		.poetry-index {
+			column-count: 3;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.poetry-index {
+			column-count: 2;
+			column-gap: 1.5em;
+		}
+	}
+
+	@media (max-width: 500px) {
+		.poetry-index {
+			column-count: 1;
+		}
 	}
 </style>

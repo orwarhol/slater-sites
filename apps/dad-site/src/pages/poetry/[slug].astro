@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import { getEntry, render } from 'astro:content';
+import { slugifyTag } from '../../utils/tags';
 
 // Get the slug from the URL params
 const { slug } = Astro.params;
@@ -42,7 +43,9 @@ const { Content } = await render(poem);
 					{poem.data.tags && poem.data.tags.length > 0 && (
 						<div class="tags">
 							{poem.data.tags.map((tag: string) => (
-								<span class="tag">{tag}</span>
+								<a href={`/poetry/tags/${slugifyTag(tag)}`} class="tag">
+									{tag}
+								</a>
 							))}
 						</div>
 					)}
@@ -91,6 +94,14 @@ const { Content } = await render(poem);
 		border-radius: 4px;
 		font-size: 0.85em;
 		color: rgb(var(--gray-dark));
+		text-decoration: none;
+		display: inline-block;
+		transition: background 0.2s ease;
+	}
+
+	.tag:hover {
+		background: var(--accent);
+		color: white;
 	}
 
 	.poem-content {

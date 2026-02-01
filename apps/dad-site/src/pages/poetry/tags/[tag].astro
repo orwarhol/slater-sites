@@ -1,0 +1,146 @@
+---
+import BaseHead from '../../../components/BaseHead.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import { slugifyTag, getAllUniqueTags } from '../../../utils/tags';
+
+export const prerender = true;
+
+// Get the tag slug from URL params
+const { tag } = Astro.params;
+
+if (!tag) {
+	return new Response(null, {
+		status: 404,
+		statusText: 'Not found'
+	});
+}
+
+// Get all poems
+const allPoems = await getCollection('poetry');
+
+// Find the original tag text by finding a poem that has a tag with this slug
+let originalTag = tag;
+for (const poem of allPoems) {
+	if (poem.data.tags && Array.isArray(poem.data.tags)) {
+		const foundTag = poem.data.tags.find(t => slugifyTag(t) === tag);
+		if (foundTag) {
+			originalTag = foundTag;
+			break;
+		}
+	}
+}
+
+// Filter poems that have this tag
+const poemsWithTag = allPoems.filter(poem => {
+	if (!poem.data.tags || !Array.isArray(poem.data.tags)) {
+		return false;
+	}
+	return poem.data.tags.some(t => slugifyTag(t) === tag);
+});
+
+// Sort by date ascending (oldest first)
+poemsWithTag.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+
+// Generate static paths for all tags
+export async function getStaticPaths() {
+	const uniqueTags = await getAllUniqueTags();
+	return uniqueTags.map(tag => ({
+		params: { tag: slugifyTag(tag) }
+	}));
+}
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead 
+			title={`Tag: ${originalTag} | Charles Slater`}
+			description={`Poems tagged with ${originalTag}`}
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Tag: {originalTag}</h1>
+			
+			{poemsWithTag.length === 0 ? (
+				<p class="no-poems">No poems found with this tag.</p>
+			) : (
+				<ul class="tag-poems-list">
+					{poemsWithTag.map(poem => (
+						<li>
+							<a href={`/poetry/${poem.id}`} class="poem-link">
+								{poem.data.title}
+							</a>
+						</li>
+					))}
+				</ul>
+			)}
+
+			<div class="back-link-container">
+				<a href="/poetry" class="back-link">← Back to all poems</a>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	h1 {
+		margin-bottom: 2em;
+	}
+
+	.no-poems {
+		color: rgb(var(--gray));
+		font-style: italic;
+		margin: 2em 0;
+	}
+
+	.tag-poems-list {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 3em 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+	}
+
+	.tag-poems-list li {
+		padding: 0;
+		margin: 0;
+	}
+
+	.poem-link {
+		color: rgb(var(--black));
+		text-decoration: none;
+		font-size: 1.1em;
+		line-height: 1.4;
+		display: block;
+		padding: 0.5em 0;
+		transition: color 0.2s ease;
+	}
+
+	.poem-link:hover {
+		color: var(--accent-dark);
+		text-decoration: underline;
+	}
+
+	.back-link-container {
+		margin-top: 3em;
+		padding-top: 2em;
+		border-top: 1px solid rgb(var(--gray-light));
+	}
+
+	.back-link {
+		color: var(--accent);
+		text-decoration: none;
+		font-size: 0.95em;
+	}
+
+	.back-link:hover {
+		text-decoration: underline;
+		color: var(--accent-dark);
+	}
+</style>
