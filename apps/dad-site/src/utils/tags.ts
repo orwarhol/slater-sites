@@ -6,13 +6,17 @@ import { getCollection } from 'astro:content';
  * - Trim whitespace
  * - Replace spaces with hyphens
  * - Remove/replace unsafe characters
+ * - Normalize consecutive hyphens
+ * - Remove leading/trailing hyphens
  */
 export function slugifyTag(tag: string): string {
 	return tag
 		.toLowerCase()
 		.trim()
 		.replace(/\s+/g, '-')
-		.replace(/[^a-z0-9-]/g, '');
+		.replace(/[^a-z0-9-]/g, '')
+		.replace(/-+/g, '-')
+		.replace(/^-|-$/g, '');
 }
 
 /**
@@ -30,4 +34,19 @@ export async function getAllUniqueTags(): Promise<string[]> {
 	});
 	
 	return Array.from(tagSet).sort();
+}
+
+/**
+ * Creates a map from tag slugs to original tag text
+ * Used to efficiently find the original casing/formatting of a tag
+ */
+export async function getTagSlugMap(): Promise<Map<string, string>> {
+	const uniqueTags = await getAllUniqueTags();
+	const slugMap = new Map<string, string>();
+	
+	uniqueTags.forEach(tag => {
+		slugMap.set(slugifyTag(tag), tag);
+	});
+	
+	return slugMap;
 }

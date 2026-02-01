@@ -3,34 +3,25 @@ import BaseHead from '../../../components/BaseHead.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
 import { getCollection } from 'astro:content';
-import { slugifyTag, getAllUniqueTags } from '../../../utils/tags';
+import { slugifyTag, getAllUniqueTags, getTagSlugMap } from '../../../utils/tags';
 
 export const prerender = true;
 
-// Get the tag slug from URL params
-const { tag } = Astro.params;
-
-if (!tag) {
-	return new Response(null, {
-		status: 404,
-		statusText: 'Not found'
-	});
+// Generate static paths for all tags
+export async function getStaticPaths() {
+	const tagSlugMap = await getTagSlugMap();
+	return Array.from(tagSlugMap.entries()).map(([slug, originalTag]) => ({
+		params: { tag: slug },
+		props: { originalTag }
+	}));
 }
+
+// Get the tag slug from URL params and original tag from props
+const { tag } = Astro.params;
+const { originalTag } = Astro.props;
 
 // Get all poems
 const allPoems = await getCollection('poetry');
-
-// Find the original tag text by finding a poem that has a tag with this slug
-let originalTag = tag;
-for (const poem of allPoems) {
-	if (poem.data.tags && Array.isArray(poem.data.tags)) {
-		const foundTag = poem.data.tags.find(t => slugifyTag(t) === tag);
-		if (foundTag) {
-			originalTag = foundTag;
-			break;
-		}
-	}
-}
 
 // Filter poems that have this tag
 const poemsWithTag = allPoems.filter(poem => {
@@ -42,14 +33,6 @@ const poemsWithTag = allPoems.filter(poem => {
 
 // Sort by date ascending (oldest first)
 poemsWithTag.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
-
-// Generate static paths for all tags
-export async function getStaticPaths() {
-	const uniqueTags = await getAllUniqueTags();
-	return uniqueTags.map(tag => ({
-		params: { tag: slugifyTag(tag) }
-	}));
-}
 ---
 
 <!doctype html>

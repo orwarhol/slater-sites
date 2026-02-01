@@ -7,6 +7,9 @@ import { slugifyTag } from '../../utils/tags';
 
 const poems = await getCollection('poetry');
 
+// Maximum number of tags to display under each poem title
+const MAX_DISPLAYED_TAGS = 3;
+
 // Group poems by year (oldest first)
 const poemsByYear: Record<number, typeof poems> = {};
 poems.forEach(poem => {
@@ -56,7 +59,7 @@ sortedYears.forEach(year => {
 									</a>
 									{poem.data.tags && poem.data.tags.length > 0 && (
 										<div class="poem-tags">
-											{poem.data.tags.slice(0, 3).map((tag: string) => (
+											{poem.data.tags.slice(0, MAX_DISPLAYED_TAGS).map((tag: string) => (
 												<a href={`/poetry/tags/${slugifyTag(tag)}`} class="tag-link">
 													{tag}
 												</a>
