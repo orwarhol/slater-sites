@@ -85,8 +85,8 @@ sortedYears.forEach(year => {
 	}
 
 	.poetry-index {
-		column-count: 4;
-		column-gap: 2em;
+		column-count: 3;
+		column-gap: 3em;
 		column-rule: 1px solid rgb(var(--gray-light));
 	}
 
@@ -131,19 +131,20 @@ sortedYears.forEach(year => {
 
 	.poem-tags {
 		display: flex;
-		gap: 0.4em;
+		gap: 0.35em;
 		flex-wrap: wrap;
 		margin-top: 0.25em;
 	}
 
 	.tag-link {
 		background: rgb(var(--gray-light));
-		padding: 0.15em 0.5em;
+		padding: 0.12em 0.45em;
 		border-radius: 3px;
-		font-size: 0.75em;
+		font-size: 0.7em;
 		color: rgb(var(--gray-dark));
 		text-decoration: none;
 		transition: background 0.2s ease;
+		white-space: nowrap;
 	}
 
 	.tag-link:hover {
@@ -154,7 +155,8 @@ sortedYears.forEach(year => {
 	/* Responsive columns */
 	@media (max-width: 1024px) {
 		.poetry-index {
-			column-count: 3;
+			column-count: 2;
+			column-gap: 2em;
 		}
 	}
 

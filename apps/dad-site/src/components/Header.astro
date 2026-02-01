@@ -19,19 +19,20 @@ import { SITE_TITLE } from '../consts';
 	header {
 		margin: 0;
 		padding: 0 1em;
-		background: white;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+		background: var(--brand-900);
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 	}
 
 	h1 {
 		margin: 0;
 		font-size: 1.5em;
 		font-weight: 600;
+		font-family: var(--font-brand);
 	}
 
 	h1 a {
 		text-decoration: none;
-		color: rgb(var(--black));
+		color: white;
 	}
 
 	nav {
@@ -48,20 +49,20 @@ import { SITE_TITLE } from '../consts';
 
 	.nav-links a {
 		padding: 0.5em 0;
-		color: rgb(var(--gray-dark));
+		color: rgba(255, 255, 255, 0.9);
 		text-decoration: none;
 		border-bottom: 2px solid transparent;
 		transition: border-color 0.2s;
 	}
 
 	.nav-links a:hover {
-		color: var(--accent-dark);
-		border-bottom-color: var(--accent);
+		color: white;
+		border-bottom-color: var(--brand-600);
 	}
 
 	.nav-links a.active {
-		border-bottom-color: var(--accent);
-		color: var(--accent-dark);
+		border-bottom-color: var(--brand-600);
+		color: white;
 	}
 
 	@media (max-width: 720px) {
