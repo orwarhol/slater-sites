@@ -200,3 +200,7 @@ dist
 
 ### Astro ###
 .astro/
+
+### pnpm ###
+pnpm-lock.yaml
+pnpm-workspace.yaml
