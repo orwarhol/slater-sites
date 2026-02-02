@@ -28,8 +28,6 @@ slater-sites/
 │       │   └── pages/
 │       └── package.json
 ├── scripts/
-│   ├── import-squarespace-ian.mjs  # Import script for Ian's content
-│   └── import-squarespace-dad.mjs  # Import script for Charles's content
 └── package.json           # Root package with workspace config
 ```
 
@@ -44,55 +42,6 @@ All commands are run from the root of the project:
 | `npm run dev:dad`      | Start dad-site dev server at `localhost:4321` |
 | `npm run build:ian`    | Build ian-site for production                 |
 | `npm run build:dad`    | Build dad-site for production                 |
-| `npm run import:ian`   | Import Ian's Squarespace content              |
-| `npm run import:dad`   | Import Charles's Squarespace content          |
-
-## 📥 Importing from Squarespace
-
-This project includes scripts to import content from Squarespace WordPress XML exports.
-
-### Prerequisites
-
-The following export files should be in the repository root:
-- `Ian-Slater-Squarespace-Wordpress-Export-01-31-2026.xml`
-- `Charles-Slater-Squarespace-Wordpress-Export-01-31-2026.xml`
-
-### Import Ian's Content
-
-```bash
-npm run import:ian
-```
-
-**What gets imported:**
-- **5 specific pages** as projects (Hattie, Perspectives, Alyssa Craft, Dark Love, End of Eden)
-- Converts HTML content to Markdown
-- Preserves project metadata (title, date, type, genre)
-- Outputs to `apps/ian-site/src/content/projects/`
-- **Note:** Blog posts are NOT imported (existing blog scaffold is kept)
-
-### Import Charles's Content
-
-```bash
-npm run import:dad
-```
-
-**What gets imported:**
-
-**Poetry (68 poems):**
-- All posts from `/poetry/` URL path
-- Converts HTML to Markdown while preserving poetic formatting
-- Extracts metadata: title, date, tags, excerpt, decorative images
-- Outputs to `apps/dad-site/src/content/poetry/`
-
-**Novels (5 novels):**
-- Parsed from the "Novels and Movies" page
-- Extracts: title, synopsis, publication info, purchase links
-- Outputs to `apps/dad-site/src/content/novels/`
-
-**Important notes:**
-- Import scripts are idempotent (can be run multiple times safely)
-- Images remain as Squarespace CDN URLs (not downloaded yet)
-- Scripts use Turndown for HTML → Markdown conversion
 
 ## 🎨 Features
 
