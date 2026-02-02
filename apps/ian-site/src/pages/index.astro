@@ -3,6 +3,14 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+
+// Get the latest project from the projects collection
+const projects = (await getCollection('projects')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const latestProject = projects.length > 0 ? projects[0] : undefined;
 ---
 
 <!doctype html>
@@ -35,6 +43,51 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				color: var(--muted);
 				line-height: 1.8;
 			}
+			.featured-project {
+				background: var(--surface-1);
+				border: 1px solid var(--lime);
+				box-shadow: var(--shadow), var(--glow-lime);
+				border-radius: var(--radius-lg);
+				padding: var(--pad-lg);
+				color: var(--text);
+				margin-top: 2rem;
+			}
+			.featured-project h2 {
+				margin-bottom: 1em;
+				background: linear-gradient(135deg, var(--lime), var(--cyan));
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+			}
+			.featured-project .project-title {
+				color: var(--text);
+				font-size: 1.5rem;
+				margin: 0.5rem 0;
+			}
+			.featured-project .project-meta {
+				display: flex;
+				gap: 1rem;
+				margin: 0.5rem 0 1rem 0;
+				color: var(--muted);
+				font-size: 0.95rem;
+				flex-wrap: wrap;
+			}
+			.featured-project .project-type {
+				text-transform: capitalize;
+				color: var(--lime);
+				font-weight: 500;
+			}
+			.featured-project .project-link {
+				display: inline-block;
+				margin-top: 1rem;
+				color: var(--lime);
+				text-decoration: none;
+				font-weight: 500;
+			}
+			.featured-project .project-link:hover {
+				text-decoration: underline;
+				text-shadow: var(--glow-lime);
+			}
 		</style>
 	</head>
 	<body>
@@ -56,6 +109,28 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 					capturing the beauty and complexity of the world around him.
 				</p>
 			</section>
+
+			{latestProject && (
+				<section class="featured-project">
+					<h2>Latest Project</h2>
+					<h3 class="project-title">{latestProject.data.title}</h3>
+					<div class="project-meta">
+						<span class="project-type">{latestProject.data.type}</span>
+						{latestProject.data.genre?.length > 0 && (
+							<span class="project-genre">{latestProject.data.genre.join(', ')}</span>
+						)}
+						<span class="project-date">
+							<FormattedDate date={latestProject.data.date} />
+						</span>
+						{latestProject.data.pages && (
+							<span class="project-pages">{latestProject.data.pages} pages</span>
+						)}
+					</div>
+					<a href={`/projects/${latestProject.id}/`} class="project-link">
+						View Project →
+					</a>
+				</section>
+			)}
 		</main>
 		<Footer />
 	</body>
