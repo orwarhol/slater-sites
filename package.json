@@ -10,9 +10,7 @@
 		"dev:ian": "npm run dev --workspace=ian-site",
 		"dev:dad": "npm run dev --workspace=dad-site",
 		"build:ian": "npm run build --workspace=ian-site",
-		"build:dad": "npm run build --workspace=dad-site",
-		"import:ian": "node scripts/import-squarespace-ian.mjs",
-		"import:dad": "node scripts/import-squarespace-dad.mjs"
+		"build:dad": "npm run build --workspace=dad-site"
 	},
 	"devDependencies": {
 		"turndown": "^7.2.0"
