@@ -10,7 +10,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 const projects = (await getCollection('projects')).sort(
 	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
-const latestProject = projects[0];
+const latestProject = projects.length > 0 ? projects[0] : undefined;
 ---
 
 <!doctype html>
@@ -116,7 +116,7 @@ const latestProject = projects[0];
 					<h3 class="project-title">{latestProject.data.title}</h3>
 					<div class="project-meta">
 						<span class="project-type">{latestProject.data.type}</span>
-						{latestProject.data.genre.length > 0 && (
+						{latestProject.data.genre?.length > 0 && (
 							<span class="project-genre">{latestProject.data.genre.join(', ')}</span>
 						)}
 						<span class="project-date">
