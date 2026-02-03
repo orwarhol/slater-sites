@@ -50,7 +50,7 @@ import { SITE_TITLE } from '../consts';
 		drawer.setAttribute('role', 'dialog');
 
 		// Clone nav links into drawer
-		const navLinks = document.querySelector('.internal-links');
+		const navLinks = siteFrame.querySelector('.internal-links');
 		if (navLinks) {
 			const drawerLinks = navLinks.cloneNode(true) as HTMLElement;
 			drawerLinks.className = 'mobile-nav__links';
@@ -128,6 +128,7 @@ import { SITE_TITLE } from '../consts';
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		padding: 1em 0;
 		position: relative;
 	}
 	nav h2 {

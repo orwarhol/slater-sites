@@ -49,7 +49,7 @@ import { SITE_TITLE } from '../consts';
 		drawer.setAttribute('role', 'dialog');
 
 		// Clone nav links into drawer
-		const navLinks = document.querySelector('.nav-links');
+		const navLinks = siteFrame.querySelector('.nav-links');
 		if (navLinks) {
 			const drawerLinks = navLinks.cloneNode(true) as HTMLElement;
 			drawerLinks.className = 'mobile-nav__links';
