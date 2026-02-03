@@ -272,3 +272,100 @@ hr {
 	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
 }
+
+/* Mobile Navigation Drawer */
+:root {
+	--drawer-width: min(80vw, 320px);
+}
+
+#site-frame {
+	transition: transform 0.3s ease;
+}
+
+.mobile-nav__overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.7);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease;
+	z-index: 998;
+}
+
+.mobile-nav__drawer {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: var(--drawer-width);
+	background: var(--surface-1);
+	border-right: 1px solid var(--border-strong);
+	box-shadow: 4px 0 12px rgba(0, 0, 0, 0.5);
+	transform: translateX(-100%);
+	transition: transform 0.3s ease;
+	z-index: 999;
+	overflow-y: auto;
+	padding: 2em 0;
+}
+
+.mobile-nav__links {
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	padding: 0 1em;
+}
+
+.mobile-nav__links a {
+	padding: 1em 1em !important;
+	color: var(--text) !important;
+	text-decoration: none !important;
+	border-bottom: 1px solid var(--border-subtle) !important;
+	display: block !important;
+	transition: background 0.2s ease, color 0.2s ease !important;
+	border-left: 4px solid transparent !important;
+}
+
+.mobile-nav__links a:hover {
+	background: var(--surface-2) !important;
+	color: var(--cyan) !important;
+	border-left-color: var(--cyan) !important;
+	text-shadow: 0 0 6px var(--cyan) !important;
+}
+
+.mobile-nav__links a.active {
+	color: var(--lime) !important;
+	border-left-color: var(--lime) !important;
+	background: var(--surface-2) !important;
+	text-shadow: 0 0 6px var(--lime) !important;
+}
+
+/* Open state */
+body.nav-open {
+	overflow: hidden;
+}
+
+body.nav-open #site-frame {
+	transform: translateX(var(--drawer-width));
+}
+
+body.nav-open .mobile-nav__overlay {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+body.nav-open .mobile-nav__drawer {
+	transform: translateX(0);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	#site-frame,
+	.mobile-nav__overlay,
+	.mobile-nav__drawer,
+	.mobile-nav__links a {
+		transition: none !important;
+	}
+}
