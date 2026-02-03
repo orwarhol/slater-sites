@@ -52,7 +52,7 @@ import { SITE_TITLE } from '../consts';
 		// Clone nav links into drawer
 		const navLinks = document.querySelector('.internal-links');
 		if (navLinks) {
-			const drawerLinks = navLinks.cloneNode(true);
+			const drawerLinks = navLinks.cloneNode(true) as HTMLElement;
 			drawerLinks.className = 'mobile-nav__links';
 			drawer.appendChild(drawerLinks);
 		}
@@ -63,14 +63,17 @@ import { SITE_TITLE } from '../consts';
 		document.body.appendChild(drawer);
 
 		// Get hamburger button
-		const hamburger = document.querySelector('.hamburger');
+		const hamburger = document.querySelector('.hamburger') as HTMLButtonElement | null;
 		if (!hamburger) return;
+
+		// Create a stable reference for the hamburger button
+		const hamburgerElement = hamburger;
 
 		// Toggle navigation
 		function toggleNav(open?: boolean) {
 			const isOpen = open ?? !document.body.classList.contains('nav-open');
 			document.body.classList.toggle('nav-open', isOpen);
-			hamburger.setAttribute('aria-expanded', String(isOpen));
+			hamburgerElement.setAttribute('aria-expanded', String(isOpen));
 			overlay.setAttribute('aria-hidden', String(!isOpen));
 			drawer.setAttribute('aria-hidden', String(!isOpen));
 
@@ -80,12 +83,12 @@ import { SITE_TITLE } from '../consts';
 				firstLink?.focus();
 			} else {
 				// Return focus to hamburger
-				hamburger.focus();
+				hamburgerElement.focus();
 			}
 		}
 
 		// Event listeners
-		hamburger.addEventListener('click', () => toggleNav());
+		hamburgerElement.addEventListener('click', () => toggleNav());
 		overlay.addEventListener('click', () => toggleNav(false));
 
 		// Close on Escape
