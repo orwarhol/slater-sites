@@ -33,15 +33,11 @@ const latestProject = projects.length > 0 ? projects[0] : undefined;
 				color: var(--text);
 			}
 			.bio__layout {
-				display: grid;
-				grid-template-columns: 180px 1fr;
-				gap: 2rem;
-				align-items: start;
+				/* Float-based layout for desktop/tablet */
 			}
 			.bio__headshot {
-				margin: 0;
-				display: flex;
-				justify-content: center;
+				float: left;
+				margin: 0 1.5rem 1rem 0;
 			}
 			.bio__headshot img {
 				width: 180px;
@@ -50,9 +46,11 @@ const latestProject = projects.length > 0 ? projects[0] : undefined;
 				border-radius: 999px;
 				border: 2px solid var(--pink);
 				box-shadow: var(--glow-lime), var(--shadow);
+				/* Use shape-outside to wrap text around the circular shape */
+				shape-outside: circle(50%);
 			}
 			.bio__text {
-				min-width: 0;
+				/* Text flows around the floated headshot */
 			}
 			.bio h1 {
 				margin-bottom: 1em;
@@ -111,12 +109,17 @@ const latestProject = projects.length > 0 ? projects[0] : undefined;
 				text-shadow: var(--glow-lime);
 			}
 			@media (max-width: 720px) {
-				.bio__layout {
-					grid-template-columns: 1fr;
-					justify-items: center;
+				.bio__headshot {
+					/* Disable float on mobile */
+					float: none;
+					margin: 0 auto 1.5rem;
+					display: flex;
+					justify-content: center;
 				}
 				.bio__headshot img {
 					width: 160px;
+					/* Disable shape-outside on mobile */
+					shape-outside: none;
 				}
 				.bio__text {
 					width: 100%;
