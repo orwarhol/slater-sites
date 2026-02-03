@@ -24,6 +24,7 @@ const posts = (await getCollection('blog')).sort(
 			}
 			h1 {
 				margin-bottom: 2em;
+				color: var(--cyan);
 				background: linear-gradient(135deg, var(--cyan), var(--blue));
 				-webkit-background-clip: text;
 				-webkit-text-fill-color: transparent;
@@ -103,7 +104,9 @@ const posts = (await getCollection('blog')).sort(
 							<li>
 								<a href={`/blog/${post.id}/`}>
 									<h2 class="title">{post.data.title}</h2>
-									<p class="description">{post.data.description || ''}</p>
+									{post.data.description && (
+										<p class="description">{post.data.description}</p>
+									)}
 									<p class="date">
 										<FormattedDate date={post.data.pubDate} />
 									</p>
