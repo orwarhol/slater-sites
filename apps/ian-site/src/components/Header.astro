@@ -6,6 +6,11 @@ import { SITE_TITLE } from '../consts';
 <header>
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<button class="hamburger" aria-expanded="false" aria-controls="mobile-nav-drawer" aria-label="Toggle navigation menu">
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
@@ -15,6 +20,92 @@ import { SITE_TITLE } from '../consts';
 		</div>
 	</nav>
 </header>
+
+<script>
+	// Initialize mobile navigation drawer
+	(function initMobileNav() {
+		// Check if already initialized
+		if (document.getElementById('site-frame')) return;
+
+		// Create site frame wrapper
+		const siteFrame = document.createElement('div');
+		siteFrame.id = 'site-frame';
+
+		// Move all body children into site frame
+		while (document.body.firstChild) {
+			siteFrame.appendChild(document.body.firstChild);
+		}
+
+		// Create overlay
+		const overlay = document.createElement('div');
+		overlay.className = 'mobile-nav__overlay';
+		overlay.setAttribute('aria-hidden', 'true');
+
+		// Create drawer
+		const drawer = document.createElement('nav');
+		drawer.id = 'mobile-nav-drawer';
+		drawer.className = 'mobile-nav__drawer';
+		drawer.setAttribute('aria-hidden', 'true');
+		drawer.setAttribute('aria-modal', 'true');
+		drawer.setAttribute('role', 'dialog');
+
+		// Clone nav links into drawer
+		const navLinks = document.querySelector('.internal-links');
+		if (navLinks) {
+			const drawerLinks = navLinks.cloneNode(true) as HTMLElement;
+			drawerLinks.className = 'mobile-nav__links';
+			drawer.appendChild(drawerLinks);
+		}
+
+		// Append to body
+		document.body.appendChild(siteFrame);
+		document.body.appendChild(overlay);
+		document.body.appendChild(drawer);
+
+		// Get hamburger button
+		const hamburger = document.querySelector('.hamburger') as HTMLButtonElement | null;
+		if (!hamburger) return;
+
+		// Create a stable reference for the hamburger button
+		const hamburgerElement = hamburger;
+
+		// Toggle navigation
+		function toggleNav(open?: boolean) {
+			const isOpen = open ?? !document.body.classList.contains('nav-open');
+			document.body.classList.toggle('nav-open', isOpen);
+			hamburgerElement.setAttribute('aria-expanded', String(isOpen));
+			overlay.setAttribute('aria-hidden', String(!isOpen));
+			drawer.setAttribute('aria-hidden', String(!isOpen));
+
+			if (isOpen) {
+				// Focus first link in drawer
+				const firstLink = drawer.querySelector('a');
+				firstLink?.focus();
+			} else {
+				// Return focus to hamburger
+				hamburgerElement.focus();
+			}
+		}
+
+		// Event listeners
+		hamburgerElement.addEventListener('click', () => toggleNav());
+		overlay.addEventListener('click', () => toggleNav(false));
+
+		// Close on Escape
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && document.body.classList.contains('nav-open')) {
+				toggleNav(false);
+			}
+		});
+
+		// Close when clicking drawer links
+		drawer.addEventListener('click', (e) => {
+			if ((e.target as HTMLElement).tagName === 'A') {
+				toggleNav(false);
+			}
+		});
+	})();
+</script>
 <style>
 	header {
 		margin: 0;
@@ -37,14 +128,52 @@ import { SITE_TITLE } from '../consts';
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		position: relative;
 	}
 	nav h2 {
 		margin-right: auto;
 	}
+
+	/* Hamburger button - hidden on desktop */
+	.hamburger {
+		display: none;
+		flex-direction: column;
+		gap: 4px;
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		padding: 0.5em;
+		margin-left: auto;
+		z-index: 1;
+	}
+	.hamburger span {
+		display: block;
+		width: 24px;
+		height: 3px;
+		background: var(--text);
+		border-radius: 2px;
+		transition: all 0.3s ease;
+	}
+	.hamburger:focus {
+		outline: 2px solid var(--cyan);
+		outline-offset: 2px;
+		box-shadow: var(--glow-cyan);
+	}
+
 	.internal-links {
 		display: flex;
 		gap: 0.5em;
 	}
+
+	/* Desktop: center nav links */
+	@media (min-width: 721px) {
+		.internal-links {
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+	}
+
 	nav a {
 		padding: 1em 0.5em;
 		color: var(--text);
@@ -68,12 +197,13 @@ import { SITE_TITLE } from '../consts';
 		outline-offset: 2px;
 		box-shadow: var(--glow-cyan);
 	}
+
 	@media (max-width: 720px) {
-		nav {
-			justify-content: space-between;
+		.hamburger {
+			display: flex;
 		}
 		.internal-links {
-			margin-left: auto;
+			display: none;
 		}
 	}
 </style>
