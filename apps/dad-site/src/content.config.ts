@@ -33,10 +33,11 @@ const gallery = defineCollection({
 		src: z.string(),
 		alt: z.string(),
 		// Date can be a full date (YYYY-MM-DD) or a year-only value (YYYY)
+		// Check for year-only first, then fall back to full date
 		date: z.union([
-			z.coerce.date(),
 			z.number().int().min(1000).max(9999), // Year as number
-			z.string().regex(/^\d{4}$/), // Year as string
+			z.string().regex(/^\d{4}$/), // Year as string "YYYY"
+			z.coerce.date(), // Full date
 		]).optional(),
 		notes: z.string().optional(),
 		camera: z.string().optional(),
