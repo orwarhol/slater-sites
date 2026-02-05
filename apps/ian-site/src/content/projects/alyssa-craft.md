@@ -1,7 +1,7 @@
 ---
 title: "Alyssa Craft"
 date: 2017-06-05
-type: "tv script"
+type: "TV script"
 genre: [Drama,Comedy]
 pages: 56
 ---
