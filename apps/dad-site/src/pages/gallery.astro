@@ -117,10 +117,14 @@ const photos = sortedPhotos.map(photo => ({
 				object-fit: contain;
 			}
 
+			.details-nav {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 1rem;
+			}
+
 			.nav-button {
-				position: absolute;
-				top: 50%;
-				transform: translateY(-50%);
 				background: rgba(255, 255, 255, 0.9);
 				border: none;
 				width: 48px;
@@ -133,7 +137,6 @@ const photos = sortedPhotos.map(photo => ({
 				font-size: 24px;
 				color: rgb(var(--black));
 				transition: all 0.2s;
-				z-index: 10;
 			}
 
 			.nav-button:hover {
@@ -144,14 +147,6 @@ const photos = sortedPhotos.map(photo => ({
 			.nav-button:disabled {
 				opacity: 0.3;
 				cursor: not-allowed;
-			}
-
-			.nav-button.prev {
-				left: 1em;
-			}
-
-			.nav-button.next {
-				right: 1em;
 			}
 
 			.metadata-sidebar {
@@ -215,14 +210,6 @@ const photos = sortedPhotos.map(photo => ({
 					height: 40px;
 					font-size: 20px;
 				}
-
-				.nav-button.prev {
-					left: 0.5em;
-				}
-
-				.nav-button.next {
-					right: 0.5em;
-				}
 			}
 
 			@media (max-width: 720px) {
@@ -254,17 +241,19 @@ const photos = sortedPhotos.map(photo => ({
 			) : (
 				<div class="gallery-viewer">
 					<div class="image-area">
-						<button class="nav-button prev" id="prevBtn" aria-label="Previous photo">‹</button>
 						<img 
 							id="mainImage" 
 							class="main-image" 
 							src={photos[0].src} 
 							alt={photos[0].alt}
 						/>
-						<button class="nav-button next" id="nextBtn" aria-label="Next photo">›</button>
 					</div>
 
 					<div class="metadata-sidebar">
+						<div class="details-nav">
+							<button class="nav-button prev" id="prevBtn" aria-label="Previous photo">‹</button>
+							<button class="nav-button next" id="nextBtn" aria-label="Next photo">›</button>
+						</div>
 						<h2 id="photoTitle">{photos[0].title}</h2>
 						
 						<div id="metadataContainer">
