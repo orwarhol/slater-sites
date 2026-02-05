@@ -7,4 +7,5 @@ location: "Oregon Coast"
 camera: "Canon EOS R5"
 notes: "Long exposure capture of the waves crashing against the rocks at sunset."
 order: 3
+slug: "coastal-sunset"
 ---

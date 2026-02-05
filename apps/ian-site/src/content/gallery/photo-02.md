@@ -7,4 +7,5 @@ location: "Olympic National Forest"
 camera: "Canon EOS R5"
 notes: "Early morning mist created an ethereal atmosphere in the old-growth forest."
 order: 2
+slug: "misty-forest-path"
 ---

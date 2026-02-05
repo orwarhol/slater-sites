@@ -32,11 +32,17 @@ const gallery = defineCollection({
 		title: z.string(),
 		src: z.string(),
 		alt: z.string(),
-		date: z.coerce.date().optional(),
+		// Date can be a full date (YYYY-MM-DD) or a year-only value (YYYY)
+		date: z.union([
+			z.coerce.date(),
+			z.number().int().min(1000).max(9999), // Year as number
+			z.string().regex(/^\d{4}$/), // Year as string
+		]).optional(),
 		notes: z.string().optional(),
 		camera: z.string().optional(),
 		location: z.string().optional(),
 		order: z.number().optional(),
+		slug: z.string().optional(),
 	}),
 });
 

@@ -7,4 +7,5 @@ location: "New Hampshire"
 camera: "Nikon D850"
 notes: "The stark beauty of birch trees against fresh snow is always captivating."
 order: 3
+slug: "winter-birches"
 ---
