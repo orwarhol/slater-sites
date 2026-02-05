@@ -6,7 +6,7 @@ genre: [Drama,Fantasy,Comedy]
 pages: 56
 ---
 
-**Alyssa Craft & Cassandra Black – An Original Pilot by Ian Slater & Matt Penna**
+**An Original Pilot by Ian Slater & Matt Penna**
 
 _Two Sisters and their Search and Destroy Coven_
 
