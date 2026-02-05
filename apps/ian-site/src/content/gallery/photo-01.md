@@ -7,4 +7,5 @@ location: "Glendale, California"
 camera: "Sony"
 notes: "Captured on a very happy day."
 order: 1
+slug: "americana-silver"
 ---

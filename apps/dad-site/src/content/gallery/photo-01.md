@@ -7,4 +7,5 @@ location: "Vermont Woods"
 camera: "Nikon D850"
 notes: "The interplay of light and shadow in the late afternoon created a magical scene."
 order: 1
+slug: "evening-light-through-trees"
 ---

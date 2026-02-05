@@ -7,4 +7,5 @@ location: "New England"
 camera: "Nikon D850"
 notes: "A perfectly still morning allowed for mirror-like reflections of the autumn colors."
 order: 2
+slug: "autumn-reflections"
 ---

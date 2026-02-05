@@ -7,6 +7,25 @@ import { getCollection } from 'astro:content';
 
 const allPhotos = await getCollection('gallery');
 
+// Helper to get Date for sorting (convert year-only to Jan 1 of that year)
+function getDateForSorting(dateValue: Date | number | string | undefined): Date | null {
+	if (!dateValue) return null;
+	if (dateValue instanceof Date) return dateValue;
+	// Year as number or string
+	const year = typeof dateValue === 'number' ? dateValue : parseInt(dateValue, 10);
+	return new Date(year, 0, 1); // January 1 of that year
+}
+
+// Helper to format date for display
+function formatDate(dateValue: Date | number | string | undefined): string | undefined {
+	if (!dateValue) return undefined;
+	if (dateValue instanceof Date) {
+		return dateValue.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+	}
+	// Year-only: display as just the year
+	return String(dateValue);
+}
+
 // Sort photos according to the requirements:
 // 1. If order exists, sort by order ascending
 // 2. Else if date exists, sort by date descending
@@ -21,12 +40,14 @@ const sortedPhotos = allPhotos.sort((a, b) => {
 	if (b.data.order !== undefined) return 1;
 	
 	// If both have date, sort by date descending (newest first)
-	if (a.data.date && b.data.date) {
-		return b.data.date.getTime() - a.data.date.getTime();
+	const dateA = getDateForSorting(a.data.date);
+	const dateB = getDateForSorting(b.data.date);
+	if (dateA && dateB) {
+		return dateB.getTime() - dateA.getTime();
 	}
 	// If only one has date, prioritize it
-	if (a.data.date) return -1;
-	if (b.data.date) return 1;
+	if (dateA) return -1;
+	if (dateB) return 1;
 	
 	// Otherwise sort alphabetically by title
 	return a.data.title.localeCompare(b.data.title);
@@ -36,10 +57,11 @@ const photos = sortedPhotos.map(photo => ({
 	title: photo.data.title,
 	src: photo.data.src,
 	alt: photo.data.alt,
-	date: photo.data.date?.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+	date: formatDate(photo.data.date),
 	location: photo.data.location,
 	camera: photo.data.camera,
 	notes: photo.data.notes,
+	slug: photo.data.slug,
 }));
 ---
 
@@ -311,9 +333,20 @@ const photos = sortedPhotos.map(photo => ({
 
 				// Get initial index from URL query param
 				const urlParams = new URLSearchParams(window.location.search);
-				const urlIndex = parseInt(urlParams.get('i')) || 0;
-				if (urlIndex >= 0 && urlIndex < photos.length) {
-					currentIndex = urlIndex;
+				const urlIndexParam = urlParams.get('i');
+				
+				if (urlIndexParam) {
+					// Try to match by slug first
+					const slugIndex = photos.findIndex(p => p.slug && p.slug === urlIndexParam);
+					if (slugIndex !== -1) {
+						currentIndex = slugIndex;
+					} else {
+						// Fall back to numeric index (1-based from URL, convert to 0-based)
+						const numericIndex = parseInt(urlIndexParam);
+						if (!isNaN(numericIndex) && numericIndex >= 1 && numericIndex <= photos.length) {
+							currentIndex = numericIndex - 1;
+						}
+					}
 				}
 
 				const mainImage = document.getElementById('mainImage');
@@ -381,9 +414,10 @@ const photos = sortedPhotos.map(photo => ({
 					prevBtn.disabled = currentIndex === 0;
 					nextBtn.disabled = currentIndex === photos.length - 1;
 					
-					// Update URL
+					// Update URL - prefer slug if available, otherwise use 1-based numeric index
 					const newUrl = new URL(window.location);
-					newUrl.searchParams.set('i', currentIndex);
+					const urlParam = photo.slug ? photo.slug : (currentIndex + 1).toString();
+					newUrl.searchParams.set('i', urlParam);
 					window.history.pushState({}, '', newUrl);
 				}
 
