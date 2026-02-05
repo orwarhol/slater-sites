@@ -2,13 +2,13 @@
 title: "Alyssa Craft"
 date: 2017-06-05
 type: "TV script"
-genre: [Drama,Comedy]
+genre: [Drama,Fantasy,Comedy]
 pages: 56
 ---
 
-## Alyssa Craft & Cassandra Black – An Original Pilot by Ian Slater & Matt Penna
+**Alyssa Craft & Cassandra Black – An Original Pilot by Ian Slater & Matt Penna**
 
-_**Two Sisters and their Search and Destroy Coven**_
+_Two Sisters and their Search and Destroy Coven_
 
 **Series:** Alyssa Craft, Witch Guardian of Sedona, is pulled from her life into a war where she must make alliances with rebel forces, recruit and train her own coven, and battle a band of desperate demons only to question which side she is on.
 
