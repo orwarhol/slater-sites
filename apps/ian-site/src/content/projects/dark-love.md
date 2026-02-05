@@ -6,8 +6,8 @@ genre: [Thriller]
 pages: 90
 ---
 
-## Dark Love – An Erotic Thriller by Ian Slater
+**An Erotic Thriller by Ian Slater**
 
-_**While searching for her sister in Paris, MK meets a sly Parisian woman with deadly motives.**_
+_While searching for her sister in Paris, MK meets a sly Parisian woman with deadly motives._
 
 Influences: Soderbergh's Side Effects, Lynch's Mulholland Drive, and The Neon Demon.
