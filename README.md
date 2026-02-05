@@ -84,6 +84,7 @@ Each app can be deployed independently to Cloudflare Pages by configuring the Gi
 ### Ian Site Collections
 - **blog** - Blog posts (schema: title, description, pubDate, heroImage)
 - **projects** - Creative projects (schema: title, date, type, genre, pages)
+  - Expected values for project Type: 'feature screenplay' | 'short screenplay' | 'TV script' | 'novel' | 'feature film' | 'short film'
 - **gallery** - Photography (schema: title, src, alt, date, notes, camera, location, order)
 
 ### Dad Site Collections
