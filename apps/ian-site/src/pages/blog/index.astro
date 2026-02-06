@@ -22,14 +22,6 @@ const posts = (await getCollection('blog')).sort(
 				margin: auto;
 				padding: 1em;
 			}
-			h1 {
-				margin-bottom: 2em;
-				color: var(--cyan);
-				background: linear-gradient(135deg, var(--cyan), var(--blue));
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-				background-clip: text;
-			}
 			ul {
 				display: flex;
 				flex-direction: column;
@@ -96,7 +88,7 @@ const posts = (await getCollection('blog')).sort(
 	<body>
 		<Header />
 		<main>
-			<h1>Blog</h1>
+			<h1 class="page-title">Blog</h1>
 			<section>
 				<ul>
 					{

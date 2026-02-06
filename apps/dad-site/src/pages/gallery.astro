@@ -166,21 +166,19 @@ const photos = sortedPhotos.map(photo => ({
 				margin-bottom: 1.5em;
 			}
 
-			.metadata-item:last-child {
-				margin-bottom: 0;
-			}
-
 			.metadata-label {
 				font-size: 0.85em;
 				text-transform: uppercase;
 				letter-spacing: 0.05em;
 				color: rgb(var(--gray));
-				margin-bottom: 0.25em;
+				margin-bottom: 0.5em;
+				font-weight: 600;
 			}
 
 			.metadata-value {
 				color: rgb(var(--gray-dark));
-				line-height: 1.6;
+				line-height: 1.8;
+				font-size: 1rem;
 			}
 
 			.counter {
@@ -378,10 +376,6 @@ const photos = sortedPhotos.map(photo => ({
 					
 					metadataContainer.innerHTML = metadataHTML;
 					
-					// Update buttons
-					prevBtn.disabled = currentIndex === 0;
-					nextBtn.disabled = currentIndex === photos.length - 1;
-					
 					// Update URL - prefer slug if available, otherwise use 1-based numeric index
 					const newUrl = new URL(window.location);
 					const urlParam = photo.slug ? photo.slug : (currentIndex + 1).toString();
@@ -390,17 +384,13 @@ const photos = sortedPhotos.map(photo => ({
 				}
 
 				function showPrevious() {
-					if (currentIndex > 0) {
-						currentIndex--;
-						updateDisplay();
-					}
+					currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+					updateDisplay();
 				}
 
 				function showNext() {
-					if (currentIndex < photos.length - 1) {
-						currentIndex++;
-						updateDisplay();
-					}
+					currentIndex = (currentIndex + 1) % photos.length;
+					updateDisplay();
 				}
 
 				// Button click handlers
