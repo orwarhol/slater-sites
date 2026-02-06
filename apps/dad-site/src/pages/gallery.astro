@@ -162,23 +162,32 @@ const photos = sortedPhotos.map(photo => ({
 				margin-bottom: 0.5em;
 			}
 
-			.metadata-item {
+			.gallery-meta {
+				margin-top: 1.5em;
+			}
+
+			.gallery-meta__row {
 				margin-bottom: 1.5em;
 			}
 
-			.metadata-label {
-				font-size: 0.85em;
-				text-transform: uppercase;
-				letter-spacing: 0.05em;
-				color: rgb(var(--gray));
-				margin-bottom: 0.5em;
-				font-weight: 600;
+			.gallery-meta__row:last-child {
+				margin-bottom: 0;
 			}
 
-			.metadata-value {
-				color: rgb(var(--gray-dark));
-				line-height: 1.8;
+			.gallery-meta dt {
+				font-size: 0.75rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--brand-600);
+				font-weight: 600;
+				margin-bottom: 0.25em;
+			}
+
+			.gallery-meta dd {
 				font-size: 1rem;
+				line-height: 1.8;
+				color: rgb(var(--gray-dark));
+				margin: 0;
 			}
 
 			.counter {
@@ -254,35 +263,35 @@ const photos = sortedPhotos.map(photo => ({
 						</div>
 						<h2 id="photoTitle">{photos[0].title}</h2>
 						
-						<div id="metadataContainer">
+						<dl class="gallery-meta" id="metadataContainer">
 							{photos[0].date && (
-								<div class="metadata-item">
-									<div class="metadata-label">Date</div>
-									<div class="metadata-value" id="photoDate">{photos[0].date}</div>
+								<div class="gallery-meta__row">
+									<dt>Date</dt>
+									<dd id="photoDate">{photos[0].date}</dd>
 								</div>
 							)}
 							
 							{photos[0].location && (
-								<div class="metadata-item">
-									<div class="metadata-label">Location</div>
-									<div class="metadata-value" id="photoLocation">{photos[0].location}</div>
+								<div class="gallery-meta__row">
+									<dt>Location</dt>
+									<dd id="photoLocation">{photos[0].location}</dd>
 								</div>
 							)}
 							
 							{photos[0].camera && (
-								<div class="metadata-item">
-									<div class="metadata-label">Camera</div>
-									<div class="metadata-value" id="photoCamera">{photos[0].camera}</div>
+								<div class="gallery-meta__row">
+									<dt>Camera</dt>
+									<dd id="photoCamera">{photos[0].camera}</dd>
 								</div>
 							)}
 							
 							{photos[0].notes && (
-								<div class="metadata-item">
-									<div class="metadata-label">Notes</div>
-									<div class="metadata-value" id="photoNotes">{photos[0].notes}</div>
+								<div class="gallery-meta__row">
+									<dt>Notes</dt>
+									<dd id="photoNotes">{photos[0].notes}</dd>
 								</div>
 							)}
-						</div>
+						</dl>
 
 						<div class="counter">
 							<span id="currentIndex">1</span> / <span id="totalCount">{photos.length}</span>
@@ -340,36 +349,36 @@ const photos = sortedPhotos.map(photo => ({
 					
 					if (photo.date) {
 						metadataHTML += `
-							<div class="metadata-item">
-								<div class="metadata-label">Date</div>
-								<div class="metadata-value">${photo.date}</div>
+							<div class="gallery-meta__row">
+								<dt>Date</dt>
+								<dd>${photo.date}</dd>
 							</div>
 						`;
 					}
 					
 					if (photo.location) {
 						metadataHTML += `
-							<div class="metadata-item">
-								<div class="metadata-label">Location</div>
-								<div class="metadata-value">${photo.location}</div>
+							<div class="gallery-meta__row">
+								<dt>Location</dt>
+								<dd>${photo.location}</dd>
 							</div>
 						`;
 					}
 					
 					if (photo.camera) {
 						metadataHTML += `
-							<div class="metadata-item">
-								<div class="metadata-label">Camera</div>
-								<div class="metadata-value">${photo.camera}</div>
+							<div class="gallery-meta__row">
+								<dt>Camera</dt>
+								<dd>${photo.camera}</dd>
 							</div>
 						`;
 					}
 					
 					if (photo.notes) {
 						metadataHTML += `
-							<div class="metadata-item">
-								<div class="metadata-label">Notes</div>
-								<div class="metadata-value">${photo.notes}</div>
+							<div class="gallery-meta__row">
+								<dt>Notes</dt>
+								<dd>${photo.notes}</dd>
 							</div>
 						`;
 					}
