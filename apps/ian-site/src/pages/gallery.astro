@@ -179,23 +179,29 @@ const photos = sortedPhotos.map(photo => ({
 				color: var(--text);
 			}
 
-			.metadata-item {
-				margin-bottom: 1.5em;
+			.gallery-meta {
+				margin-top: 1.5em;
 			}
 
-			.metadata-label {
-				font-size: 0.85em;
+			.gallery-meta dt {
+				font-size: 0.75rem;
 				text-transform: uppercase;
-				letter-spacing: 0.05em;
+				letter-spacing: 0.08em;
 				color: var(--cyan);
-				margin-bottom: 0.5em;
 				font-weight: 600;
+				margin-top: 1.5em;
+				margin-bottom: 0.25em;
 			}
 
-			.metadata-value {
-				color: var(--text);
-				line-height: 1.8;
+			.gallery-meta dt:first-of-type {
+				margin-top: 0;
+			}
+
+			.gallery-meta dd {
 				font-size: 1rem;
+				line-height: 1.8;
+				color: var(--text);
+				margin: 0;
 			}
 
 			.counter {
@@ -271,35 +277,35 @@ const photos = sortedPhotos.map(photo => ({
 						</div>
 						<h2 id="photoTitle">{photos[0].title}</h2>
 						
-						<div id="metadataContainer">
+						<dl class="gallery-meta" id="metadataContainer">
 							{photos[0].date && (
-								<div class="metadata-item">
-									<div class="metadata-label">Date</div>
-									<div class="metadata-value" id="photoDate">{photos[0].date}</div>
-								</div>
+								<>
+									<dt>Date</dt>
+									<dd id="photoDate">{photos[0].date}</dd>
+								</>
 							)}
 							
 							{photos[0].location && (
-								<div class="metadata-item">
-									<div class="metadata-label">Location</div>
-									<div class="metadata-value" id="photoLocation">{photos[0].location}</div>
-								</div>
+								<>
+									<dt>Location</dt>
+									<dd id="photoLocation">{photos[0].location}</dd>
+								</>
 							)}
 							
 							{photos[0].camera && (
-								<div class="metadata-item">
-									<div class="metadata-label">Camera</div>
-									<div class="metadata-value" id="photoCamera">{photos[0].camera}</div>
-								</div>
+								<>
+									<dt>Camera</dt>
+									<dd id="photoCamera">{photos[0].camera}</dd>
+								</>
 							)}
 							
 							{photos[0].notes && (
-								<div class="metadata-item">
-									<div class="metadata-label">Notes</div>
-									<div class="metadata-value" id="photoNotes">{photos[0].notes}</div>
-								</div>
+								<>
+									<dt>Notes</dt>
+									<dd id="photoNotes">{photos[0].notes}</dd>
+								</>
 							)}
-						</div>
+						</dl>
 
 						<div class="counter">
 							<span id="currentIndex">1</span> / <span id="totalCount">{photos.length}</span>
@@ -357,37 +363,29 @@ const photos = sortedPhotos.map(photo => ({
 					
 					if (photo.date) {
 						metadataHTML += `
-							<div class="metadata-item">
-								<div class="metadata-label">Date</div>
-								<div class="metadata-value">${photo.date}</div>
-							</div>
+							<dt>Date</dt>
+							<dd>${photo.date}</dd>
 						`;
 					}
 					
 					if (photo.location) {
 						metadataHTML += `
-							<div class="metadata-item">
-								<div class="metadata-label">Location</div>
-								<div class="metadata-value">${photo.location}</div>
-							</div>
+							<dt>Location</dt>
+							<dd>${photo.location}</dd>
 						`;
 					}
 					
 					if (photo.camera) {
 						metadataHTML += `
-							<div class="metadata-item">
-								<div class="metadata-label">Camera</div>
-								<div class="metadata-value">${photo.camera}</div>
-							</div>
+							<dt>Camera</dt>
+							<dd>${photo.camera}</dd>
 						`;
 					}
 					
 					if (photo.notes) {
 						metadataHTML += `
-							<div class="metadata-item">
-								<div class="metadata-label">Notes</div>
-								<div class="metadata-value">${photo.notes}</div>
-							</div>
+							<dt>Notes</dt>
+							<dd>${photo.notes}</dd>
 						`;
 					}
 					
