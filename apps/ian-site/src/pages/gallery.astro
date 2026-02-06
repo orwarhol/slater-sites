@@ -183,7 +183,7 @@ const photos = sortedPhotos.map(photo => ({
 				margin-top: 1.5em;
 			}
 
-			.gallery-meta dt {
+			.gallery-meta :global(dt) {
 				font-size: 0.78rem;
 				text-transform: uppercase;
 				letter-spacing: 0.08em;
@@ -192,11 +192,13 @@ const photos = sortedPhotos.map(photo => ({
 				margin: 0 0 0.35rem 0;
 			}
 
-			.gallery-meta dd {
+			.gallery-meta :global(dd) {
 				font-size: 1rem;
 				line-height: 1.8;
 				color: var(--text);
-				margin: 0 0 0.9rem 0;
+				margin: 0;
+				margin-inline-start: 0;
+				margin-bottom: 0.9rem;
 				padding: 0;
 			}
 
