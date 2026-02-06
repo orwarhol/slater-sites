@@ -183,21 +183,18 @@ const photos = sortedPhotos.map(photo => ({
 				margin-top: 1.5em;
 			}
 
-			.gallery-meta__row {
-				margin-bottom: 1.5em;
-			}
-
-			.gallery-meta__row:last-child {
-				margin-bottom: 0;
-			}
-
 			.gallery-meta dt {
 				font-size: 0.75rem;
 				text-transform: uppercase;
 				letter-spacing: 0.08em;
 				color: var(--cyan);
 				font-weight: 600;
+				margin-top: 1.5em;
 				margin-bottom: 0.25em;
+			}
+
+			.gallery-meta dt:first-of-type {
+				margin-top: 0;
 			}
 
 			.gallery-meta dd {
@@ -282,31 +279,31 @@ const photos = sortedPhotos.map(photo => ({
 						
 						<dl class="gallery-meta" id="metadataContainer">
 							{photos[0].date && (
-								<div class="gallery-meta__row">
+								<>
 									<dt>Date</dt>
 									<dd id="photoDate">{photos[0].date}</dd>
-								</div>
+								</>
 							)}
 							
 							{photos[0].location && (
-								<div class="gallery-meta__row">
+								<>
 									<dt>Location</dt>
 									<dd id="photoLocation">{photos[0].location}</dd>
-								</div>
+								</>
 							)}
 							
 							{photos[0].camera && (
-								<div class="gallery-meta__row">
+								<>
 									<dt>Camera</dt>
 									<dd id="photoCamera">{photos[0].camera}</dd>
-								</div>
+								</>
 							)}
 							
 							{photos[0].notes && (
-								<div class="gallery-meta__row">
+								<>
 									<dt>Notes</dt>
 									<dd id="photoNotes">{photos[0].notes}</dd>
-								</div>
+								</>
 							)}
 						</dl>
 
@@ -366,37 +363,29 @@ const photos = sortedPhotos.map(photo => ({
 					
 					if (photo.date) {
 						metadataHTML += `
-							<div class="gallery-meta__row">
-								<dt>Date</dt>
-								<dd>${photo.date}</dd>
-							</div>
+							<dt>Date</dt>
+							<dd>${photo.date}</dd>
 						`;
 					}
 					
 					if (photo.location) {
 						metadataHTML += `
-							<div class="gallery-meta__row">
-								<dt>Location</dt>
-								<dd>${photo.location}</dd>
-							</div>
+							<dt>Location</dt>
+							<dd>${photo.location}</dd>
 						`;
 					}
 					
 					if (photo.camera) {
 						metadataHTML += `
-							<div class="gallery-meta__row">
-								<dt>Camera</dt>
-								<dd>${photo.camera}</dd>
-							</div>
+							<dt>Camera</dt>
+							<dd>${photo.camera}</dd>
 						`;
 					}
 					
 					if (photo.notes) {
 						metadataHTML += `
-							<div class="gallery-meta__row">
-								<dt>Notes</dt>
-								<dd>${photo.notes}</dd>
-							</div>
+							<dt>Notes</dt>
+							<dd>${photo.notes}</dd>
 						`;
 					}
 					
