@@ -310,13 +310,13 @@ hr {
 .mobile-nav__drawer {
 	position: fixed;
 	top: 0;
-	left: 0;
+	right: 0;
 	bottom: 0;
 	width: var(--drawer-width);
 	background: white;
-	border-right: 1px solid rgb(var(--gray-light));
-	box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
-	transform: translateX(-100%);
+	border-left: 1px solid rgb(var(--gray-light));
+	box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+	transform: translateX(100%);
 	transition: transform 0.3s ease;
 	z-index: 999;
 	overflow-y: auto;
@@ -326,7 +326,7 @@ hr {
 .mobile-nav__links {
 	display: flex;
 	flex-direction: column;
-	gap: 0;
+	gap: 0.5em;
 	padding: 0 1em;
 }
 
@@ -338,6 +338,7 @@ hr {
 	display: block !important;
 	transition: background 0.2s ease, color 0.2s ease !important;
 	border-left: 4px solid transparent !important;
+	position: relative !important;
 }
 
 .mobile-nav__links a:hover {
@@ -359,7 +360,7 @@ body.nav-open {
 }
 
 body.nav-open #site-frame {
-	transform: translateX(var(--drawer-width));
+	transform: translateX(calc(-1 * var(--drawer-width)));
 }
 
 body.nav-open .mobile-nav__overlay {
