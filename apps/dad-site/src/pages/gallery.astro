@@ -166,25 +166,19 @@ const photos = sortedPhotos.map(photo => ({
 				margin-top: 1.5em;
 			}
 
-			.gallery-meta dt {
-				font-size: 0.75rem;
+			.gallery-meta :global(dt) {
+				font-size: 0.78rem;
 				text-transform: uppercase;
 				letter-spacing: 0.08em;
 				color: var(--brand-600);
-				font-weight: 600;
-				margin-top: 1.5em;
-				margin-bottom: 0.25em;
+				font-weight: 700;
+				margin: 0 0 0.35rem 0;
 			}
 
-			.gallery-meta dt:first-of-type {
-				margin-top: 0;
-			}
-
-			.gallery-meta dd {
-				font-size: 1rem;
-				line-height: 1.8;
-				color: rgb(var(--gray-dark));
+			.gallery-meta :global(dd) {
 				margin: 0;
+				margin-inline-start: 0;
+				margin-bottom: 0.9rem;
 			}
 
 			.counter {
