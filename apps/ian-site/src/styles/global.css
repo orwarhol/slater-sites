@@ -297,7 +297,8 @@ hr {
 }
 
 /* External link indicator for prose content */
-.prose a[target="_blank"]:not(.no-ext-icon)::after {
+.prose a[target="_blank"]:not(.no-ext-icon)::after,
+.bio__text a[target="_blank"]:not(.no-ext-icon)::after {
 	content: "↗";
 	font-size: 0.85em;
 	opacity: 0.7;
