@@ -291,6 +291,10 @@ hr {
 	font-weight: 500;
 }
 
+.cta-link:visited {
+	color: var(--lime);
+}
+
 .cta-link:hover {
 	text-decoration: underline;
 	text-shadow: var(--glow-lime);
