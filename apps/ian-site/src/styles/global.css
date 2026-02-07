@@ -283,6 +283,28 @@ hr {
 	white-space: nowrap;
 }
 
+/* Reusable CTA link styling */
+.cta-link {
+	display: inline-block;
+	color: var(--lime);
+	text-decoration: none;
+	font-weight: 500;
+}
+
+.cta-link:hover {
+	text-decoration: underline;
+	text-shadow: var(--glow-lime);
+}
+
+/* External link indicator for prose content */
+.prose a[target="_blank"]:not(.no-ext-icon)::after {
+	content: "↗";
+	font-size: 0.85em;
+	opacity: 0.7;
+	margin-left: 0.15em;
+	display: inline-block;
+}
+
 /* Mobile Navigation Drawer */
 :root {
 	--drawer-width: min(80vw, 320px);

@@ -381,3 +381,13 @@ body.nav-open .mobile-nav__drawer {
 		transition: none !important;
 	}
 }
+
+/* External link indicator for prose content */
+.poem-content a[target="_blank"]:not(.no-ext-icon)::after,
+.novel-content a[target="_blank"]:not(.no-ext-icon)::after {
+	content: "↗";
+	font-size: 0.85em;
+	opacity: 0.7;
+	margin-left: 0.15em;
+	display: inline-block;
+}
