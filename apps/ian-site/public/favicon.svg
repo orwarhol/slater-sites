@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Lightning bolt">
+  <defs>
+    <linearGradient id="split" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF4FD8"/>
+      <stop offset="0.5" stop-color="#FF4FD8"/>
+      <stop offset="0.5" stop-color="#B6FF3B"/>
+      <stop offset="1" stop-color="#B6FF3B"/>
+    </linearGradient>
+  </defs>
+
+  <path
+    d="M36 2 L14 34 H30 L24 62 L50 26 H34 Z"
+    fill="url(#split)"
+    stroke="#060812"
+    stroke-width="2.5"
+    stroke-linejoin="round"
+  />
+</svg>
