@@ -97,16 +97,8 @@ const latestProject = projects.length > 0 ? projects[0] : undefined;
 				color: var(--lime);
 				font-weight: 500;
 			}
-			.featured-project .project-link {
-				display: inline-block;
+			.featured-project .cta-link {
 				margin-top: 1rem;
-				color: var(--lime);
-				text-decoration: none;
-				font-weight: 500;
-			}
-			.featured-project .project-link:hover {
-				text-decoration: underline;
-				text-shadow: var(--glow-lime);
 			}
 			@media (max-width: 720px) {
 				.bio__headshot {
@@ -175,7 +167,7 @@ const latestProject = projects.length > 0 ? projects[0] : undefined;
 							<span class="project-pages">{latestProject.data.pages} pages</span>
 						)}
 					</div>
-					<a href={`/projects/${latestProject.id}/`} class="project-link">
+					<a href={`/projects/${latestProject.id}/`} class="cta-link">
 						View Project →
 					</a>
 				</section>

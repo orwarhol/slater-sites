@@ -70,6 +70,11 @@ const { title, date, type, genre, pages } = Astro.props;
 			.genre {
 				font-style: italic;
 			}
+			.content-footer {
+				margin-top: 3em;
+				padding-top: 2em;
+				border-top: 1px solid var(--border-faint);
+			}
 		</style>
 	</head>
 
@@ -95,6 +100,9 @@ const { title, date, type, genre, pages } = Astro.props;
 						</div>
 					</div>
 					<slot />
+					<footer class="content-footer">
+						<a href="/projects/" class="cta-link">← Back to all projects</a>
+					</footer>
 				</div>
 			</article>
 		</main>

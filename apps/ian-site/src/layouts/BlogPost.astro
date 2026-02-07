@@ -73,6 +73,11 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				font-style: italic;
 				color: var(--cyan);
 			}
+			.content-footer {
+				margin-top: 3em;
+				padding-top: 2em;
+				border-top: 1px solid var(--border-faint);
+			}
 		</style>
 	</head>
 
@@ -101,6 +106,9 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 						</div>
 					)}
 					<slot />
+					<footer class="content-footer">
+						<a href="/blog/" class="cta-link">← Back to all posts</a>
+					</footer>
 				</div>
 			</article>
 		</main>
