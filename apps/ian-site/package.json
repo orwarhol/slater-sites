@@ -18,8 +18,5 @@
 		"@astrojs/sitemap": "3.6.0",
 		"astro": "5.16.2",
 		"typescript": "5.9.3"
-	},
-  	"devDependencies": {
-    	"wrangler": "^4.59.1"
 	}
 }
