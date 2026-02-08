@@ -2,16 +2,52 @@
 const today = new Date();
 ---
 
-<footer>
-	&copy; {today.getFullYear()} Ian Slater. All rights reserved.
-</footer>
+<div class="site-footer">
+	<div class="prefooter">
+		<a href="https://www.linkedin.com/in/iancslater/" target="_blank" rel="noopener noreferrer">Connect with me on LinkedIn.</a>
+	</div>
+	<footer>
+		&copy; {today.getFullYear()} Ian Slater. All rights reserved.
+	</footer>
+</div>
 <style>
+	.prefooter {
+		background: var(--surface-1);
+		color: var(--muted);
+		text-align: center;
+		padding: 0.9em 1em;
+		font-size: 0.95em;
+	}
+	
+	.prefooter a,
+	.prefooter a:visited {
+		color: var(--pink);
+		text-decoration: none;
+		transition: all 0.2s ease;
+	}
+	
+	.prefooter a:hover,
+	.prefooter a:focus-visible,
+	.prefooter a:visited:hover,
+	.prefooter a:visited:focus-visible {
+		color: var(--pink);
+		text-decoration: underline;
+		text-decoration-color: var(--pink);
+		text-underline-offset: 0.2em;
+		text-decoration-thickness: 2px;
+		filter: drop-shadow(0 0 8px var(--pink));
+		outline: none;
+	}
+	
 	footer {
 		padding: 2em 1em 6em 1em;
 		background: var(--surface-1);
 		border-top: 1px solid var(--border-faint);
 		color: var(--muted);
 		text-align: center;
+	}
+	
+	.site-footer {
 		margin-top: 3rem;
 	}
 </style>
