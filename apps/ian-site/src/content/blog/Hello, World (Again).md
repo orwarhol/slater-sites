@@ -63,7 +63,7 @@ The fix was clean once the cause was clear: use `:global()` selectors so the sty
 * `.gallery-meta :global(dt)` for labels
 * `.gallery-meta :global(dd)` for values
 
-And just like that, the metadata card snapped into the hierarchy I’d been aiming for—across both sites. The end result wasn’t just a nicer card. It was that feeling of getting closer to the underlying truth of the system: *this is how scoping works, this is how the DOM is being created, this is how I can intentionally target it.*
+And just like that, the metadata card snapped into the hierarchy I’d been aiming for. The end result wasn’t just a nicer card. It was that feeling of getting closer to the underlying truth of the system: *this is how scoping works, this is how the DOM is being created, this is how I can intentionally target it.*
 
 That kind of clarity is addictive.
 
