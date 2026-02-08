@@ -4,30 +4,38 @@ const today = new Date();
 
 <div class="site-footer">
 	<div class="prefooter">
-		<a href="https://www.linkedin.com/in/iancslater/" target="_blank" rel="noopener noreferrer">Connect with me on LinkedIn!</a>
+		<a href="https://www.linkedin.com/in/iancslater/" target="_blank" rel="noopener noreferrer">Connect with me on LinkedIn.</a>
 	</div>
+	<div class="footer-inner-divider" aria-hidden="true"></div>
 	<footer>
 		&copy; {today.getFullYear()} Ian Slater. All rights reserved.
 	</footer>
 </div>
 <style>
-	.prefooter {
+	.site-footer {
+		margin-top: 3rem;
+		border-top: 1px solid var(--border-faint);
 		background: var(--surface-1);
-		color: var(--muted);
-		text-align: center;
-		padding: 0.9em 1em;
-		font-size: 0.95em;
-		position: relative;
+		padding: 2.25rem 0;
 	}
 	
-	.prefooter::after {
-		content: "";
-		display: block;
+	.prefooter,
+	footer {
+		padding: 1.25rem 1rem;
+		color: var(--muted);
+		text-align: center;
+	}
+	
+	.prefooter {
+		font-size: 0.95em;
+	}
+	
+	.footer-inner-divider {
 		height: 1px;
-		margin: 0.9em auto 0;
 		width: min(520px, calc(100% - 2rem));
 		background: var(--border-faint);
 		opacity: 0.45;
+		margin: 0 auto;
 	}
 	
 	.prefooter a,
@@ -47,17 +55,5 @@ const today = new Date();
 		text-decoration-thickness: 2px;
 		filter: drop-shadow(0 0 8px var(--pink));
 		outline: none;
-	}
-	
-	footer {
-		padding: 2em 1em 6em 1em;
-		background: var(--surface-1);
-		color: var(--muted);
-		text-align: center;
-	}
-	
-	.site-footer {
-		margin-top: 3rem;
-		border-top: 1px solid var(--border-faint);
 	}
 </style>
