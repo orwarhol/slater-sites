@@ -70,10 +70,13 @@ const photos = sortedPhotos.map(photo => ({
 	<head>
 		<BaseHead title={`Gallery - ${SITE_TITLE}`} description="Photography gallery" />
 		<style>
-			.gallery-container {
+			/* Override global main width constraint to allow gallery to use full width up to 1400px */
+			main.gallery-container {
+				width: 100%;
 				max-width: 1400px;
 				margin: 0 auto;
 				padding: 3em 1em;
+				box-sizing: border-box;
 			}
 
 			.gallery-header {
@@ -232,7 +235,7 @@ const photos = sortedPhotos.map(photo => ({
 			}
 
 			@media (max-width: 720px) {
-				.gallery-container {
+				main.gallery-container {
 					padding: 1em 0.5em;
 				}
 
