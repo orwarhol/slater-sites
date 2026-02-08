@@ -73,7 +73,7 @@ const photos = sortedPhotos.map(photo => ({
 			.gallery-container {
 				max-width: 1400px;
 				margin: 0 auto;
-				padding: 2em 1em;
+				padding: 3em 1em;
 			}
 
 			.gallery-header {
@@ -248,7 +248,7 @@ const photos = sortedPhotos.map(photo => ({
 	</head>
 	<body>
 		<Header />
-		<div class="gallery-container">
+		<main class="gallery-container">
 			<div class="gallery-header">
 				<h1 class="page-title">Gallery</h1>
 			</div>
@@ -311,7 +311,7 @@ const photos = sortedPhotos.map(photo => ({
 					</div>
 				</div>
 			)}
-		</div>
+		</main>
 		<Footer />
 
 		<script define:vars={{ photos }}>
