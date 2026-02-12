@@ -30,6 +30,9 @@ const projects = defineCollection({
 		]),
 		genre: z.array(z.string()).default([]),
 		pages: z.number().nullable().optional(),
+		// SEO fields (optional, for meta tags only - not rendered on page)
+		description: z.string().optional(),
+		heroImage: z.string().optional(),
 	}),
 });
 

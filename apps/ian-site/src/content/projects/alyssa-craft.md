@@ -4,6 +4,7 @@ date: 2016-03-28
 type: "TV script"
 genre: [Drama,Fantasy,Comedy]
 pages: 56
+description: "Alyssa wants a normal life. Cassandra wants the truth—loudly. In Sedona, where the desert hums with secrets, the estranged sisters get dragged into a string of supernatural incidents that keeps pulling them back together… whether they like it or not."
 ---
 
 **Logline:**  

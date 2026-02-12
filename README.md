@@ -83,8 +83,9 @@ Each app can be deployed independently to Cloudflare Pages by configuring the Gi
 
 ### Ian Site Collections
 - **blog** - Blog posts (schema: title, description, pubDate, heroImage)
-- **projects** - Creative projects (schema: title, date, type, genre, pages)
+- **projects** - Creative projects (schema: title, date, type, genre, pages, description, heroImage)
   - Expected values for project Type: 'feature screenplay' | 'short screenplay' | 'TV script' | 'novel' | 'feature film' | 'short film'
+  - Note: `description` and `heroImage` are SEO-only fields (not rendered on project pages)
 - **gallery** - Photography (schema: title, src, alt, date, notes, camera, location, order)
 
 ### Dad Site Collections
@@ -93,6 +94,39 @@ Each app can be deployed independently to Cloudflare Pages by configuring the Gi
 - **gallery** - Photography (schema: title, src, alt, date, notes, camera, location, order)
 
 ## 🗺️ SEO & Sitemaps
+
+### Ian Site SEO Meta Registry
+
+The ian-site uses a **centralized SEO meta registry** to manage all meta tags (title, description, og:image, twitter:card, etc.) from a single location.
+
+**How it works:**
+- All SEO meta is defined in `apps/ian-site/src/seo/metaRegistry.ts`
+- Pages pass a `metaKey` and fallback values to `BaseHead` component
+- Registry entries override fallback values when present
+- Missing keys trigger console warnings during build to help discover new content
+
+**Registry key patterns:**
+- Pages: `page:/`, `page:/blog`, `page:/projects`, `page:/gallery`
+- Blog posts: `blog:<slug>` (e.g., `blog:hello-world-again`)
+- Projects: `project:<slug>` (e.g., `project:hattie`)
+
+**Adding new content:**
+1. Create your blog post or project markdown file
+2. Run `npm run build` - you'll see a warning if the meta key is missing
+3. Add the entry to `metaRegistry.ts` with your desired title/description
+4. Rebuild to verify the warning is gone
+
+**Adding hero images to projects:**
+- Projects support an optional `heroImage` field for SEO meta tags (og:image, twitter:image)
+- To add one, include `heroImage: "/path/to/image.jpg"` in the project's frontmatter
+- The image will automatically be used in SEO meta tags but won't be rendered on the project page itself
+- You can also specify the image in the registry entry for that project
+
+**Benefits:**
+- One-stop-shop for all SEO meta across the entire site
+- Edit meta without touching page templates or content files
+- Registry values take precedence over frontmatter defaults
+- Warnings ensure all content has proper SEO coverage
 
 ### Ian Site Custom Sitemap
 
