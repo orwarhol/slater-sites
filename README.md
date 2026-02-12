@@ -92,6 +92,29 @@ Each app can be deployed independently to Cloudflare Pages by configuring the Gi
 - **novels** - Novels (schema: title, publicationDate, printLength, synopsis, purchaseLinks)
 - **gallery** - Photography (schema: title, src, alt, date, notes, camera, location, order)
 
+## 🗺️ SEO & Sitemaps
+
+### Ian Site Custom Sitemap
+
+The ian-site uses a **custom sitemap endpoint** at `/sitemap.xml` instead of Astro's built-in `@astrojs/sitemap` integration.
+
+**Why custom?**
+- Astro's sitemap integration creates `sitemap-index.xml` and `sitemap-0.xml`
+- Our `robots.txt` points to `/sitemap.xml` (custom endpoint)
+- Having both could confuse search engines
+- Custom implementation provides full control over URLs and metadata
+
+**Implementation:**
+- Location: `apps/ian-site/src/pages/sitemap.xml.ts`
+- Includes: Homepage, blog index, projects index, gallery, and all blog posts & projects
+- Uses Astro Content Collections to dynamically generate URLs
+- Includes `lastmod` dates from content metadata
+
+**Important for Astro upgrades:**
+- Do **NOT** re-add `@astrojs/sitemap` to integrations in `astro.config.mjs`
+- Keep the custom endpoint to maintain consistency with `robots.txt`
+- Update `sitemap.xml.ts` if new content collections are added
+
 ## 🛠️ Tech Stack
 
 - **[Astro](https://astro.build)** - Static site framework

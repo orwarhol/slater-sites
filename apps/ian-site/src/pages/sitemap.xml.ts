@@ -1,3 +1,20 @@
+/**
+ * Custom Sitemap Endpoint
+ * 
+ * This is a custom sitemap.xml implementation that replaces Astro's built-in
+ * @astrojs/sitemap integration.
+ * 
+ * Why custom instead of @astrojs/sitemap?
+ * - The native integration creates sitemap-index.xml and sitemap-0.xml
+ * - Our robots.txt points to /sitemap.xml (this file)
+ * - Having both sitemaps could cause confusion for search engines
+ * - Custom implementation gives us full control over URLs and metadata
+ * 
+ * Note for future Astro upgrades:
+ * - Do NOT re-add @astrojs/sitemap to integrations in astro.config.mjs
+ * - Keep this custom endpoint to maintain consistency with robots.txt
+ * - Update this file if new content collections are added
+ */
 import { getCollection } from 'astro:content';
 import type { APIRoute } from 'astro';
 
