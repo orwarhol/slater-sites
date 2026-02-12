@@ -42,7 +42,7 @@ export const metaRegistry: MetaRegistry = {
 	},
 	'page:/gallery': {
 		title: 'Gallery - Ian Slater',
-		description: 'A sampling of my photography. I'll do my best to add to this over time.',
+		description: 'A sampling of my photography. I will do my best to add to this over time.',
 		image: '/ian-slater-profile-photo.jpg',
 	},
 
