@@ -4,6 +4,7 @@ date: 2017-06-10
 type: "feature screenplay"
 genre: [Thriller]
 pages: 90
+description: "When cynical college student MK Cleary flies to Paris after a desperate message from her estranged sister, she's pulled into a sleek underworld of luxury hotels, corrupt power, and dangerous desire—where the one woman who can help her may be the one who ruins her."
 ---
 
 **Logline:**  

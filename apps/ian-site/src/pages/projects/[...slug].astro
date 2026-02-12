@@ -16,6 +16,6 @@ const project = Astro.props;
 const { Content } = await render(project);
 ---
 
-<Project {...project.data}>
+<Project {...project.data} projectId={project.id}>
 <Content />
 </Project>
