@@ -116,6 +116,12 @@ The ian-site uses a **centralized SEO meta registry** to manage all meta tags (t
 3. Add the entry to `metaRegistry.ts` with your desired title/description
 4. Rebuild to verify the warning is gone
 
+**Adding hero images to projects:**
+- Projects support an optional `heroImage` field for SEO meta tags (og:image, twitter:image)
+- To add one, include `heroImage: "/path/to/image.jpg"` in the project's frontmatter
+- The image will automatically be used in SEO meta tags but won't be rendered on the project page itself
+- You can also specify the image in the registry entry for that project
+
 **Benefits:**
 - One-stop-shop for all SEO meta across the entire site
 - Edit meta without touching page templates or content files
