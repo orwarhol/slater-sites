@@ -57,6 +57,7 @@ export const metaRegistry: MetaRegistry = {
 	'project:hattie': {
 		title: 'Hattie | Ian Slater',
 		description: 'A curious teen receives an old typewriter from an elderly neighbor that leads to secrets of the woman\'s missing husband, a drowning boy from her dreams, and her long-gone father.',
+		image: '/ian-slater-profile-photo.jpg',
 	},
 	'project:alyssa-craft': {
 		title: 'Alyssa Craft | Ian Slater',
@@ -65,6 +66,7 @@ export const metaRegistry: MetaRegistry = {
 	'project:dark-love': {
 		title: 'Dark Love | Ian Slater',
 		description: 'When cynical college student MK Cleary flies to Paris after a desperate message from her estranged sister, she\'s pulled into a sleek underworld of luxury hotels, corrupt power, and dangerous desire—where the one woman who can help her may be the one who ruins her.',
+		image: '/ian-slater-profile-photo.jpg',
 	},
 };
 
