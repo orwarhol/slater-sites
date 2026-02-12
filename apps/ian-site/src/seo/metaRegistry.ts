@@ -32,15 +32,18 @@ export const metaRegistry: MetaRegistry = {
 	},
 	'page:/blog': {
 		title: 'Blog - Ian Slater',
-		description: 'Writing about technology, creativity, and the craft of making things.',
+		description: 'My experiences as a creator and product manager.',
+		image: '/ian-slater-profile-photo.jpg',
 	},
 	'page:/projects': {
 		title: 'Projects - Ian Slater',
-		description: 'Screenplays, films, and creative writing projects by Ian Slater.',
+		description: 'Screenplays and other writing by Ian Slater.',
+		image: '/ian-slater-profile-photo.jpg',
 	},
 	'page:/gallery': {
 		title: 'Gallery - Ian Slater',
-		description: 'Photography gallery',
+		description: 'A sampling of my photography. I'll do my best to add to this over time.',
+		image: '/ian-slater-profile-photo.jpg',
 	},
 
 	// Blog posts
