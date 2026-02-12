@@ -28,6 +28,7 @@ export const metaRegistry: MetaRegistry = {
 	'page:/': {
 		title: 'Ian Slater',
 		description: 'Ian Slater is a writer, filmmaker, and photographer. His screenplay Hattie earned an Honorable Mention in the Fresh Voices Screenplay Competition and was a finalist at RIFF. He works in tech product leadership and lives with his wife and two children in Calabasas, California.',
+		image: '/ian-slater-profile-photo.jpg',
 	},
 	'page:/blog': {
 		title: 'Blog - Ian Slater',
