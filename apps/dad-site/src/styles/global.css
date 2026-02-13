@@ -23,12 +23,16 @@
 	
 	/* Glass effect */
 	--glass-border: rgba(120, 144, 156, 0.28);
+	--glass-border-hover: rgba(77, 182, 172, 0.35);
 	--glass-blur: 12px;
 	
 	/* Borders/shadow/focus */
 	--border: rgba(120, 144, 156, 0.35);
 	--focus-ring: 2px solid var(--accent);
 	--shadow: 0 2px 8px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.25);
+	
+	/* Navigation */
+	--nav-link-color: rgba(232, 244, 248, 0.85);
 	
 	/* Spacing & Radius */
 	--radius-lg: 12px;
@@ -289,7 +293,7 @@ hr {
 
 .glass-panel:hover {
 	background: var(--surface-1-hover);
-	border-color: rgba(77, 182, 172, 0.35); /* subtle accent tint, not loud */
+	border-color: var(--glass-border-hover);
 }
 
 .glass-panel--padded {
