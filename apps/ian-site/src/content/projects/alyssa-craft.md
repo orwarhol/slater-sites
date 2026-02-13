@@ -19,3 +19,9 @@ In Alyssa’s world, magic isn’t just mood lighting and myth. It’s a system�
 Then Cassandra blows back into town—volatile, brilliant, and impossible to quit. She leaves spells like fingerprints, signs them like graffiti, and keeps forcing Alyssa to ask the question she hates most: what if the chaos is also the key?
 
 While Alyssa handles bizarre local hexes, a quiet global bureaucracy watches the network start to wobble. Something is wrong at the top of the system. And Alyssa may not have the luxury of staying on the sidelines.
+
+<details> <summary>Concept image</summary>
+
+<img src="/alyssa-craft-social-image.png" alt="Anime-style, colored-pencil poster of a woman seen from behind in the Sedona desert at dusk, holding a brass spyglass as glowing magical lines swirl overhead beneath a crescent moon; red rock mesas, a distant lighthouse-like tower, two shadowy figures (one with a small flame), and a raven near standing stones create a mysterious, atmospheric scene." width="500">
+
+</details>
