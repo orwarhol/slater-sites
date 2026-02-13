@@ -135,13 +135,17 @@ import { SITE_TITLE } from '../consts';
 	nav {
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
+		gap: 1em;
 		padding: 1em 0;
 		position: relative;
 	}
 
 	nav h1 {
-		margin-right: auto;
+		min-width: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	/* Hamburger button - hidden on desktop */
@@ -172,10 +176,12 @@ import { SITE_TITLE } from '../consts';
 	.nav-links {
 		display: flex;
 		gap: 1.5em;
+		white-space: nowrap;
+		flex: 0 0 auto;
 	}
 
 	/* Desktop: center nav links */
-	@media (min-width: 721px) {
+	@media (min-width: 931px) {
 		.nav-links {
 			position: absolute;
 			left: 50%;
@@ -201,7 +207,7 @@ import { SITE_TITLE } from '../consts';
 		color: var(--text);
 	}
 
-	@media (max-width: 720px) {
+	@media (max-width: 930px) {
 		.hamburger {
 			display: flex;
 		}
