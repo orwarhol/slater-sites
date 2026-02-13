@@ -27,11 +27,13 @@
 	--pad-md: 1.5rem;
 	--pad-sm: 1rem;
 	
-	/* Legacy colors (keeping for compatibility) */
-	--black: 232, 244, 248; /* Updated to match --text */
-	--gray: 144, 164, 174; /* Updated to match --muted */
-	--gray-light: 176, 190, 197; /* Updated to match --storm-grey-3 */
-	--gray-dark: 84, 110, 122; /* Updated to match --storm-grey-1 */
+	/* Legacy RGB color variables for backward compatibility with existing pages */
+	/* These use rgb(var(--name)) syntax in Footer, Home, Novels, and Gallery pages */
+	/* Note: Variable names reflect old theme; values updated to Ocean Storm palette */
+	--black: 232, 244, 248; /* Maps to --text for high contrast text */
+	--gray: 144, 164, 174; /* Maps to --muted for secondary text */
+	--gray-light: 176, 190, 197; /* Maps to --storm-grey-3 for subtle accents */
+	--gray-dark: 84, 110, 122; /* Maps to --storm-grey-1 for borders/muted elements */
 	--box-shadow: var(--shadow);
 	
 	/* Typography */
