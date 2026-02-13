@@ -112,11 +112,33 @@ const { Content } = await render(poem);
 	}
 
 	.poem-content {
-		white-space: pre-wrap;
-		font-family: Georgia, 'Times New Roman', serif;
-		line-height: 1.9;
+		/* Clean modern poem reading */
+		font-family: var(--font-body); /* Rubik */
+		line-height: 1.55; /* key fix: no "double spaced" feel */
 		margin: 2em 0;
 		color: var(--text);
+	}
+
+	/* Tight lines within a stanza; stanza separation remains visible */
+	.poem-content p {
+		margin: 0;
+	}
+
+	.poem-content p + p {
+		margin-top: 1.15rem; /* stanza break */
+	}
+
+	/* Desktop-only left inset (avoid huge right whitespace) */
+	@media (min-width: 931px) {
+		.poem-content {
+			padding-left: 100px;
+		}
+	}
+
+	@media (max-width: 930px) {
+		.poem-content {
+			padding-left: 0;
+		}
 	}
 
 	.poem-footer {
