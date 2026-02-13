@@ -110,20 +110,22 @@ import { SITE_TITLE } from '../consts';
 	header {
 		margin: 0;
 		padding: 0 1em;
-		background: var(--brand-900);
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+		background: var(--surface-1);
+		box-shadow: var(--shadow);
+		border-bottom: 1px solid var(--border);
 	}
 
 	h1 {
 		margin: 0;
 		font-size: 1.5em;
-		font-weight: 600;
+		font-weight: 400;
 		font-family: var(--font-brand);
+		text-transform: uppercase;
 	}
 
 	h1 a {
 		text-decoration: none;
-		color: white;
+		color: var(--text);
 	}
 
 	nav {
@@ -154,12 +156,12 @@ import { SITE_TITLE } from '../consts';
 		display: block;
 		width: 24px;
 		height: 3px;
-		background: white;
+		background: var(--text);
 		border-radius: 2px;
 		transition: all 0.3s ease;
 	}
 	.hamburger:focus {
-		outline: 2px solid var(--brand-600);
+		outline: var(--focus-ring);
 		outline-offset: 2px;
 	}
 
@@ -179,20 +181,20 @@ import { SITE_TITLE } from '../consts';
 
 	.nav-links a {
 		padding: 0.5em 0;
-		color: rgba(255, 255, 255, 0.9);
+		color: var(--muted);
 		text-decoration: none;
 		border-bottom: 2px solid transparent;
-		transition: border-color 0.2s;
+		transition: border-color 0.2s, color 0.2s;
 	}
 
 	.nav-links a:hover {
-		color: white;
-		border-bottom-color: var(--brand-600);
+		color: var(--text);
+		border-bottom-color: var(--accent);
 	}
 
 	.nav-links a.active {
-		border-bottom-color: var(--brand-600);
-		color: white;
+		border-bottom-color: var(--accent);
+		color: var(--text);
 	}
 
 	@media (max-width: 720px) {

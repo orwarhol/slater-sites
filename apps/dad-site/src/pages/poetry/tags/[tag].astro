@@ -2,8 +2,9 @@
 import BaseHead from '../../../components/BaseHead.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
+import PoetryDarkReaderToggle from '../../../components/PoetryDarkReaderToggle.astro';
 import { getCollection } from 'astro:content';
-import { slugifyTag, getAllUniqueTags, getTagSlugMap } from '../../../utils/tags';
+import { slugifyTag, getTagSlugMap } from '../../../utils/tags';
 
 export const prerender = true;
 
@@ -48,22 +49,26 @@ poemsWithTag.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 		<main>
 			<h1>Tag: {originalTag}</h1>
 			
-			{poemsWithTag.length === 0 ? (
-				<p class="no-poems">No poems found with this tag.</p>
-			) : (
-				<ul class="tag-poems-list">
-					{poemsWithTag.map(poem => (
-						<li>
-							<a href={`/poetry/${poem.id}`} class="poem-link">
-								{poem.data.title}
-							</a>
-						</li>
-					))}
-				</ul>
-			)}
+			<PoetryDarkReaderToggle />
 
-			<div class="back-link-container">
-				<a href="/poetry" class="back-link">← Back to all poems</a>
+			<div class="poetry-reader-surface" data-poetry-reader>
+				{poemsWithTag.length === 0 ? (
+					<p class="no-poems">No poems found with this tag.</p>
+				) : (
+					<ul class="tag-poems-list">
+						{poemsWithTag.map(poem => (
+							<li>
+								<a href={`/poetry/${poem.id}`} class="poem-link">
+									{poem.data.title}
+								</a>
+							</li>
+						))}
+					</ul>
+				)}
+
+				<div class="back-link-container">
+					<a href="/poetry" class="back-link">← Back to all poems</a>
+				</div>
 			</div>
 		</main>
 		<Footer />
@@ -76,7 +81,7 @@ poemsWithTag.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 	}
 
 	.no-poems {
-		color: rgb(var(--gray));
+		color: var(--muted);
 		font-style: italic;
 		margin: 2em 0;
 	}
@@ -96,7 +101,7 @@ poemsWithTag.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 	}
 
 	.poem-link {
-		color: rgb(var(--black));
+		color: var(--text);
 		text-decoration: none;
 		font-size: 1.1em;
 		line-height: 1.4;
@@ -106,14 +111,14 @@ poemsWithTag.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 	}
 
 	.poem-link:hover {
-		color: var(--accent-dark);
+		color: var(--accent-hover);
 		text-decoration: underline;
 	}
 
 	.back-link-container {
 		margin-top: 3em;
 		padding-top: 2em;
-		border-top: 1px solid rgb(var(--gray-light));
+		border-top: 1px solid var(--border);
 	}
 
 	.back-link {
@@ -124,6 +129,6 @@ poemsWithTag.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 
 	.back-link:hover {
 		text-decoration: underline;
-		color: var(--accent-dark);
+		color: var(--accent-hover);
 	}
 </style>

@@ -1,0 +1,42 @@
+---
+// Poetry Dark Reader Toggle Component
+---
+
+<div class="poetry-dark-reader-toggle">
+	<label>
+		<input type="checkbox" id="dark-reader-toggle" />
+		<span>Dark Reader</span>
+	</label>
+</div>
+
+<script>
+	// Initialize Dark Reader on page load
+	function initDarkReader() {
+		const toggle = document.getElementById('dark-reader-toggle') as HTMLInputElement | null;
+		const readerSurface = document.querySelector('[data-poetry-reader]');
+		
+		if (!toggle || !readerSurface) return;
+		
+		const STORAGE_KEY = 'dadsite:poetry-dark-reader';
+		
+		// Check localStorage for saved preference
+		const isDarkMode = localStorage.getItem(STORAGE_KEY) === 'true';
+		
+		// Apply saved preference
+		toggle.checked = isDarkMode;
+		readerSurface.classList.toggle('is-dark', isDarkMode);
+		
+		// Listen for toggle changes
+		toggle.addEventListener('change', () => {
+			const isChecked = toggle.checked;
+			readerSurface.classList.toggle('is-dark', isChecked);
+			localStorage.setItem(STORAGE_KEY, String(isChecked));
+		});
+	}
+	
+	// Run on initial load
+	initDarkReader();
+	
+	// Re-run on view transitions (if Astro uses them)
+	document.addEventListener('astro:page-load', initDarkReader);
+</script>

@@ -1,19 +1,38 @@
 :root {
-	/* Brand blues */
-	--brand-900: #020f31;
-	--brand-600: #1338a4;
+	/* Ocean Storm Theme - Core Colors */
+	--bg: #0A1628;
+	--surface-1: #152A42;
+	--surface-2: #1E3A56;
+	--storm-grey-1: #546E7A;
+	--storm-grey-2: #78909C;
+	--storm-grey-3: #B0BEC5;
+	--text: #E8F4F8;
+	--muted: #90A4AE;
+	
+	/* Accent Colors */
+	--accent: #4DB6AC;
+	--accent-hover: #26A69A;
+	--accent-dark: #00897B;
+	
+	/* Helper Tokens */
+	--border: rgba(120, 144, 156, 0.4);
+	--focus-ring: 2px solid #4DB6AC;
+	--shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2);
+	
+	/* Spacing & Radius */
+	--radius-lg: 12px;
+	--radius-md: 8px;
+	--radius-sm: 4px;
+	--pad-lg: 2.5rem;
+	--pad-md: 1.5rem;
+	--pad-sm: 1rem;
 	
 	/* Legacy colors (keeping for compatibility) */
-	--accent: var(--brand-600);
-	--accent-dark: var(--brand-900);
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
-	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-		0 16px 32px rgba(var(--gray), 33%);
+	--black: 232, 244, 248; /* Updated to match --text */
+	--gray: 144, 164, 174; /* Updated to match --muted */
+	--gray-light: 176, 190, 197; /* Updated to match --storm-grey-3 */
+	--gray-dark: 84, 110, 122; /* Updated to match --storm-grey-1 */
+	--box-shadow: var(--shadow);
 	
 	/* Typography */
 	--font-body: "Rubik", system-ui, -apple-system, Segoe UI, sans-serif;
@@ -126,10 +145,10 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: #fafafa;
+	background: var(--bg);
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
+	color: var(--text);
 	font-size: 18px;
 	line-height: 1.8;
 }
@@ -149,13 +168,15 @@ h5,
 h6 {
 	font-family: var(--font-heading);
 	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
+	color: var(--text);
 	line-height: 1.3;
 	font-weight: 600;
 }
 
 h1 {
 	font-size: 2.5em;
+	font-family: var(--font-brand);
+	font-weight: 400;
 }
 
 h2 {
@@ -182,11 +203,17 @@ b {
 a {
 	color: var(--accent);
 	text-decoration: none;
+	transition: color 0.2s ease;
 }
 
 a:hover {
-	color: var(--accent-dark);
+	color: var(--accent-hover);
 	text-decoration: underline;
+}
+
+a:focus {
+	outline: var(--focus-ring);
+	outline-offset: 2px;
 }
 
 p {
@@ -205,9 +232,10 @@ img {
 
 code {
 	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
+	background-color: var(--surface-2);
 	border-radius: 2px;
 	font-family: 'Courier New', monospace;
+	color: var(--storm-grey-3);
 }
 
 pre {
@@ -229,7 +257,7 @@ blockquote {
 
 hr {
 	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border-top: 1px solid var(--border);
 	margin: 2em 0;
 }
 
@@ -239,10 +267,11 @@ hr {
 	font-family: Georgia, 'Times New Roman', serif;
 	line-height: 1.8;
 	margin: 2em 0;
+	color: var(--text);
 }
 
 .poem-meta {
-	color: rgb(var(--gray));
+	color: var(--muted);
 	font-size: 0.9em;
 	margin-bottom: 2em;
 }
@@ -255,11 +284,19 @@ hr {
 }
 
 .tag {
-	background: rgb(var(--gray-light));
+	background: var(--surface-2);
+	border: 1px solid var(--storm-grey-2);
 	padding: 0.2em 0.6em;
-	border-radius: 4px;
+	border-radius: var(--radius-sm);
 	font-size: 0.8em;
-	color: rgb(var(--gray-dark));
+	color: var(--muted);
+	transition: all 0.2s ease;
+}
+
+.tag:hover {
+	background: var(--accent);
+	color: white;
+	border-color: var(--accent-hover);
 }
 
 @media (max-width: 720px) {
@@ -313,9 +350,9 @@ hr {
 	right: 0;
 	bottom: 0;
 	width: var(--drawer-width);
-	background: white;
-	border-left: 1px solid rgb(var(--gray-light));
-	box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+	background: var(--surface-1);
+	border-left: 1px solid var(--border);
+	box-shadow: -4px 0 12px rgba(0, 0, 0, 0.4);
 	transform: translateX(100%);
 	transition: transform 0.3s ease;
 	z-index: 999;
@@ -332,9 +369,9 @@ hr {
 
 .mobile-nav__links a {
 	padding: 1em 1em !important;
-	color: rgb(var(--gray-dark)) !important;
+	color: var(--text) !important;
 	text-decoration: none !important;
-	border-bottom: 1px solid rgb(var(--gray-light)) !important;
+	border-bottom: 1px solid var(--border) !important;
 	display: block !important;
 	transition: background 0.2s ease, color 0.2s ease !important;
 	border-left: 4px solid transparent !important;
@@ -342,15 +379,15 @@ hr {
 }
 
 .mobile-nav__links a:hover {
-	background: rgb(var(--gray-light)) !important;
-	color: var(--brand-900) !important;
-	border-left-color: var(--brand-600) !important;
+	background: var(--surface-2) !important;
+	color: var(--accent) !important;
+	border-left-color: var(--accent) !important;
 }
 
 .mobile-nav__links a.active {
-	color: var(--brand-900) !important;
-	border-left-color: var(--brand-600) !important;
-	background: rgb(var(--gray-light)) !important;
+	color: var(--accent) !important;
+	border-left-color: var(--accent) !important;
+	background: var(--surface-2) !important;
 	font-weight: 600 !important;
 }
 
@@ -390,4 +427,100 @@ body.nav-open .mobile-nav__drawer {
 	opacity: 0.7;
 	margin-left: 0.15em;
 	display: inline-block;
+}
+
+/* Poetry Dark Reader Toggle */
+.poetry-dark-reader-toggle {
+	display: flex;
+	align-items: center;
+	margin-bottom: 2em;
+	padding: 0.75em 1em;
+	background: var(--surface-1);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-sm);
+	width: fit-content;
+}
+
+.poetry-dark-reader-toggle label {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	cursor: pointer;
+	margin: 0;
+	font-size: 0.9em;
+	color: var(--muted);
+}
+
+.poetry-dark-reader-toggle input[type="checkbox"] {
+	cursor: pointer;
+	width: 18px;
+	height: 18px;
+	margin: 0;
+}
+
+.poetry-dark-reader-toggle input[type="checkbox"]:focus {
+	outline: var(--focus-ring);
+	outline-offset: 2px;
+}
+
+/* Poetry Reader Surface */
+.poetry-reader-surface {
+	background: var(--surface-1);
+	color: var(--text);
+	padding: var(--pad-lg);
+	border-radius: var(--radius-md);
+	border: 1px solid var(--border);
+	transition: background 0.3s ease, color 0.3s ease;
+}
+
+.poetry-reader-surface.is-dark {
+	background: #1a1a1a;
+	color: #f5f5f5;
+}
+
+.poetry-reader-surface.is-dark h1,
+.poetry-reader-surface.is-dark h2,
+.poetry-reader-surface.is-dark h3,
+.poetry-reader-surface.is-dark .poem-title {
+	color: #f5f5f5;
+}
+
+.poetry-reader-surface.is-dark a {
+	color: #66bb6a;
+}
+
+.poetry-reader-surface.is-dark a:hover {
+	color: #81c784;
+}
+
+.poetry-reader-surface.is-dark .tag {
+	background: #2a2a2a;
+	border-color: #444;
+	color: #bbb;
+}
+
+.poetry-reader-surface.is-dark .tag:hover {
+	background: #66bb6a;
+	color: white;
+	border-color: #81c784;
+}
+
+.poetry-reader-surface.is-dark .poem-meta {
+	color: #aaa;
+}
+
+.poetry-reader-surface.is-dark .poem-content {
+	color: #e0e0e0;
+}
+
+.poetry-reader-surface.is-dark .year-label {
+	color: #f5f5f5;
+	border-bottom-color: #66bb6a;
+}
+
+.poetry-reader-surface.is-dark hr,
+.poetry-reader-surface.is-dark .poem-header,
+.poetry-reader-surface.is-dark .poem-footer,
+.poetry-reader-surface.is-dark .back-link-container {
+	border-color: #444;
 }

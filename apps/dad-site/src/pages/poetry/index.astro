@@ -2,6 +2,7 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import PoetryDarkReaderToggle from '../../components/PoetryDarkReaderToggle.astro';
 import { getCollection } from 'astro:content';
 import { slugifyTag } from '../../utils/tags';
 
@@ -47,30 +48,34 @@ sortedYears.forEach(year => {
 				A collection of poems exploring themes of memory, family, and the moments that define us.
 			</p>
 
-			<div class="poetry-index">
-				{sortedYears.map(year => (
-					<section class="year-group">
-						<h2 class="year-label">{year}</h2>
-						<div class="poems-in-year">
-							{poemsByYear[year].map(poem => (
-								<div class="poem-entry">
-									<a href={`/poetry/${poem.id}`} class="poem-title">
-										{poem.data.title}
-									</a>
-									{poem.data.tags && poem.data.tags.length > 0 && (
-										<div class="poem-tags">
-											{poem.data.tags.slice(0, MAX_DISPLAYED_TAGS).map((tag: string) => (
-												<a href={`/poetry/tags/${slugifyTag(tag)}`} class="tag-link">
-													{tag}
-												</a>
-											))}
-										</div>
-									)}
-								</div>
-							))}
-						</div>
-					</section>
-				))}
+			<PoetryDarkReaderToggle />
+
+			<div class="poetry-reader-surface" data-poetry-reader>
+				<div class="poetry-index">
+					{sortedYears.map(year => (
+						<section class="year-group">
+							<h2 class="year-label">{year}</h2>
+							<div class="poems-in-year">
+								{poemsByYear[year].map(poem => (
+									<div class="poem-entry">
+										<a href={`/poetry/${poem.id}`} class="poem-title">
+											{poem.data.title}
+										</a>
+										{poem.data.tags && poem.data.tags.length > 0 && (
+											<div class="poem-tags">
+												{poem.data.tags.slice(0, MAX_DISPLAYED_TAGS).map((tag: string) => (
+													<a href={`/poetry/tags/${slugifyTag(tag)}`} class="tag-link">
+														{tag}
+													</a>
+												))}
+											</div>
+										)}
+									</div>
+								))}
+							</div>
+						</section>
+					))}
+				</div>
 			</div>
 		</main>
 		<Footer />
@@ -80,14 +85,14 @@ sortedYears.forEach(year => {
 <style>
 	.intro {
 		font-size: 1.1em;
-		color: rgb(var(--gray));
-		margin-bottom: 3em;
+		color: var(--muted);
+		margin-bottom: 2em;
 	}
 
 	.poetry-index {
 		column-count: 3;
 		column-gap: 3em;
-		column-rule: 1px solid rgb(var(--gray-light));
+		column-rule: 1px solid var(--border);
 	}
 
 	.year-group {
@@ -98,10 +103,11 @@ sortedYears.forEach(year => {
 	.year-label {
 		font-size: 1.5em;
 		font-weight: 700;
-		color: rgb(var(--black));
+		color: var(--text);
 		margin: 0 0 1em 0;
 		border-bottom: 2px solid var(--accent);
 		padding-bottom: 0.25em;
+		font-family: var(--font-heading);
 	}
 
 	.poems-in-year {
@@ -116,7 +122,7 @@ sortedYears.forEach(year => {
 
 	.poem-title {
 		display: block;
-		color: rgb(var(--black));
+		color: var(--text);
 		text-decoration: none;
 		font-size: 1em;
 		line-height: 1.4;
@@ -125,7 +131,7 @@ sortedYears.forEach(year => {
 	}
 
 	.poem-title:hover {
-		color: var(--accent-dark);
+		color: var(--accent-hover);
 		text-decoration: underline;
 	}
 
@@ -137,19 +143,21 @@ sortedYears.forEach(year => {
 	}
 
 	.tag-link {
-		background: rgb(var(--gray-light));
+		background: var(--surface-2);
+		border: 1px solid var(--storm-grey-2);
 		padding: 0.12em 0.45em;
 		border-radius: 3px;
 		font-size: 0.7em;
-		color: rgb(var(--gray-dark));
+		color: var(--muted);
 		text-decoration: none;
-		transition: background 0.2s ease;
+		transition: all 0.2s ease;
 		white-space: nowrap;
 	}
 
 	.tag-link:hover {
 		background: var(--accent);
 		color: white;
+		border-color: var(--accent-hover);
 	}
 
 	/* Responsive columns */
