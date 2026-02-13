@@ -5,7 +5,7 @@ import { SITE_TITLE } from '../consts';
 
 <header>
 	<nav>
-		<h1><a href="/">{SITE_TITLE}</a></h1>
+		<h1 class="site-logo"><a href="/">{SITE_TITLE}</a></h1>
 		<button class="hamburger" aria-expanded="false" aria-controls="mobile-nav-drawer" aria-label="Toggle navigation menu">
 			<span></span>
 			<span></span>
@@ -118,9 +118,13 @@ import { SITE_TITLE } from '../consts';
 	h1 {
 		margin: 0;
 		font-size: 1.5em;
-		font-weight: 400;
+		font-weight: 600;
+	}
+
+	h1.site-logo {
 		font-family: var(--font-brand);
 		text-transform: uppercase;
+		font-weight: 400;
 	}
 
 	h1 a {
@@ -181,7 +185,7 @@ import { SITE_TITLE } from '../consts';
 
 	.nav-links a {
 		padding: 0.5em 0;
-		color: var(--muted);
+		color: rgba(232, 244, 248, 0.85); /* readable default */
 		text-decoration: none;
 		border-bottom: 2px solid transparent;
 		transition: border-color 0.2s, color 0.2s;

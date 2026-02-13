@@ -33,7 +33,7 @@ const { Content } = await render(novel);
 	<body>
 		<Header />
 		<main>
-			<article>
+			<article class="glass-panel glass-panel--padded novel-surface">
 				<header class="novel-header">
 					<h1>{novel.data.title}</h1>
 					
@@ -84,6 +84,10 @@ const { Content } = await render(novel);
 </html>
 
 <style>
+	.novel-surface {
+		margin-bottom: 2em;
+	}
+
 	.novel-header {
 		margin-bottom: 3em;
 	}
@@ -97,19 +101,20 @@ const { Content } = await render(novel);
 		flex-direction: column;
 		gap: 0.5em;
 		margin-bottom: 2em;
-		color: rgb(var(--gray));
+		color: var(--muted);
 		font-size: 0.95em;
 	}
 
 	.info-item strong {
-		color: rgb(var(--gray-dark));
+		color: var(--storm-grey-3);
 	}
 
 	.purchase-links {
 		margin-bottom: 2em;
 		padding: 1.5em;
-		background: rgb(var(--gray-light), 0.3);
-		border-radius: 8px;
+		background: var(--surface-2);
+		border-radius: var(--radius-md);
+		border: 1px solid var(--border);
 	}
 
 	.purchase-links h3 {
@@ -136,13 +141,13 @@ const { Content } = await render(novel);
 	}
 
 	.purchase-link:hover {
-		background: var(--accent-dark);
+		background: var(--accent-hover);
 	}
 
 	.synopsis {
 		margin-bottom: 2em;
 		padding-bottom: 2em;
-		border-bottom: 1px solid rgb(var(--gray-light));
+		border-bottom: 1px solid var(--border);
 	}
 
 	.synopsis h3 {
@@ -152,13 +157,13 @@ const { Content } = await render(novel);
 
 	.synopsis p {
 		line-height: 1.7;
-		color: rgb(var(--gray-dark));
+		color: var(--storm-grey-3);
 	}
 
 	.novel-content {
 		line-height: 1.8;
 		margin: 2em 0;
-		color: rgb(var(--gray-dark));
+		color: var(--text);
 	}
 
 	.novel-content :global(img) {
@@ -168,7 +173,7 @@ const { Content } = await render(novel);
 	.novel-footer {
 		margin-top: 3em;
 		padding-top: 2em;
-		border-top: 1px solid rgb(var(--gray-light));
+		border-top: 1px solid var(--border);
 	}
 
 	.back-link {
@@ -179,6 +184,6 @@ const { Content } = await render(novel);
 
 	.back-link:hover {
 		text-decoration: underline;
-		color: var(--accent-dark);
+		color: var(--accent-hover);
 	}
 </style>

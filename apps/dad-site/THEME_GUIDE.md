@@ -13,27 +13,41 @@ The dad-site uses a restrained "Ocean Storm" theme featuring:
 ### Core Colors
 ```css
 --bg: #0A1628           /* Deep ocean background */
---surface-1: #152A42    /* Primary surface/panel */
---surface-2: #1E3A56    /* Secondary surface/nested panel */
+--surface-1: rgba(21, 42, 66, 0.70)  /* Primary glass panel */
+--surface-1-hover: rgba(21, 42, 66, 0.85)  /* Glass panel hover */
+--surface-2: #1E3A56    /* Solid surface fallback / stronger blocks */
 --storm-grey-1: #546E7A /* Primary storm grey - muted text */
 --storm-grey-2: #78909C /* Secondary storm grey - borders/dividers */
 --storm-grey-3: #B0BEC5 /* Tertiary storm grey - subtle accents */
 --text: #E8F4F8         /* Primary text - high contrast */
---muted: #90A4AE        /* Secondary text */
+--muted: #B0BEC5        /* Secondary text - brighter for readability */
 ```
 
-### Accent Colors
+### Accent Colors (Two Greens Only)
 ```css
---accent: #4DB6AC       /* Green accent - links, CTAs */
---accent-hover: #26A69A /* Darker green - hover states */
---accent-dark: #00897B  /* Darkest green - active states */
+--accent: #26A69A       /* Green accent - links, CTAs, interactive base */
+--accent-hover: #00897B /* Darker green - hover/active states */
+--accent-dark: #00897B  /* Same as hover - consolidated to two greens */
+```
+
+### Glass Effect
+```css
+--glass-border: rgba(120, 144, 156, 0.28)
+--glass-blur: 12px
 ```
 
 ### Helper Tokens
 ```css
---border: rgba(120, 144, 156, 0.4)
---focus-ring: 2px solid #4DB6AC
---shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2)
+--border: rgba(120, 144, 156, 0.35)
+--focus-ring: 2px solid var(--accent)
+--shadow: 0 2px 8px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.25)
+```
+
+### Poetry Dark Reader Tokens (Poetry-only)
+```css
+--poetry-dark-bg: #0F1115
+--poetry-dark-text: #F2F5F7
+--poetry-dark-muted: rgba(242, 245, 247, 0.72)
 ```
 
 ### Spacing & Radius
@@ -63,22 +77,17 @@ body {
   color: var(--text);
 }
 
-/* Standard headings */
+/* Standard headings - ALL use Rubik */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);  /* Rubik */
   color: var(--text);
 }
 
-/* H1s can optionally use Chonburi for emphasis */
-h1.display {
-  font-family: var(--font-brand);  /* Chonburi */
-  font-weight: 400;
-}
-
-/* Header logo - always Chonburi + ALL CAPS */
+/* Header logo - ONLY place Chonburi is used, always ALL CAPS */
 .site-logo {
-  font-family: var(--font-brand);
+  font-family: var(--font-brand);  /* Chonburi */
   text-transform: uppercase;
+  font-weight: 400;
 }
 
 /* Poetry content */
@@ -103,23 +112,35 @@ html, body {
 
 **Usage:** Applied globally to html and body elements.
 
-### Layer 2: Content Surfaces
-Primary content containers.
+### Layer 2: Glass Panel Surfaces
+Primary content containers using subtle glassmorphism.
 
 ```css
-.content-surface {
+.glass-panel {
   background: var(--surface-1);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.glass-panel:hover {
+  background: var(--surface-1-hover);
+  border-color: rgba(77, 182, 172, 0.35);
+}
+
+.glass-panel--padded {
   padding: var(--pad-lg);
 }
 ```
 
 **When to use:**
-- Main content areas
+- Main content areas (novels index/singles)
+- Home page cards (Poetry/Novels)
+- Gallery metadata sidebar
 - Poetry reader surface
-- Bio sections
-- Novel cards
+- Any primary content container
 
 ### Layer 3: Nested Panels
 Secondary surfaces that sit inside content surfaces.
@@ -135,7 +156,7 @@ Secondary surfaces that sit inside content surfaces.
 
 **When to use:**
 - Tag chips
-- Nested content within main panels
+- Nested content within main panels (like purchase links in novels)
 - Metadata sections
 
 ## Component Patterns
@@ -236,18 +257,22 @@ The Poetry section includes an optional Dark Reader mode for users who prefer in
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Dark Reader active */
+/* Dark Reader active - uses token-based colors */
 .poetry-reader-surface.is-dark {
-  background: #1a1a1a;
-  color: #f5f5f5;
+  background: var(--poetry-dark-bg);
+  color: var(--poetry-dark-text);
 }
 
 .poetry-reader-surface.is-dark a {
-  color: #66bb6a;
+  color: var(--accent);
 }
 
 .poetry-reader-surface.is-dark a:hover {
-  color: #81c784;
+  color: var(--accent-hover);
+}
+
+.poetry-reader-surface.is-dark .poem-meta {
+  color: var(--poetry-dark-muted);
 }
 ```
 
@@ -292,11 +317,13 @@ a:focus, button:focus, input:focus {
 ✅ Preload Rubik and Chonburi fonts for performance
 
 ### DON'T:
+❌ Use Chonburi for anything except the header logo
 ❌ Overuse the green accent - it should be reserved for interactive elements
 ❌ Create more than 3 levels of surface nesting
-❌ Use pure white (#FFFFFF) or pure black (#000000)
+❌ Use pure white (#FFFFFF) or pure black (#000000) for backgrounds
 ❌ Mix old color values with new tokens
 ❌ Change Dark Reader toggle appearance outside Poetry section
+❌ Hardcode colors in Dark Reader mode - always use CSS tokens
 
 ## Files Modified
 

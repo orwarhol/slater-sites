@@ -1,23 +1,34 @@
 :root {
 	/* Ocean Storm Theme - Core Colors */
 	--bg: #0A1628;
-	--surface-1: #152A42;
-	--surface-2: #1E3A56;
+	
+	/* Glass surfaces */
+	--surface-1: rgba(21, 42, 66, 0.70);  /* primary glass panel */
+	--surface-1-hover: rgba(21, 42, 66, 0.85);
+	--surface-2: #1E3A56;                  /* solid surface fallback / stronger blocks */
+	
+	/* Storm greys */
 	--storm-grey-1: #546E7A;
 	--storm-grey-2: #78909C;
 	--storm-grey-3: #B0BEC5;
+	
+	/* Text */
 	--text: #E8F4F8;
-	--muted: #90A4AE;
+	--muted: #B0BEC5; /* slightly brighter than before for readability */
 	
-	/* Accent Colors */
-	--accent: #4DB6AC;
-	--accent-hover: #26A69A;
-	--accent-dark: #00897B;
+	/* Accents (reduce to two greens; keep var names for compatibility) */
+	--accent: #26A69A;        /* base interactive */
+	--accent-hover: #00897B;  /* hover */
+	--accent-dark: #00897B;   /* same as hover to keep only TWO greens */
 	
-	/* Helper Tokens */
-	--border: rgba(120, 144, 156, 0.4);
-	--focus-ring: 2px solid #4DB6AC;
-	--shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2);
+	/* Glass effect */
+	--glass-border: rgba(120, 144, 156, 0.28);
+	--glass-blur: 12px;
+	
+	/* Borders/shadow/focus */
+	--border: rgba(120, 144, 156, 0.35);
+	--focus-ring: 2px solid var(--accent);
+	--shadow: 0 2px 8px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.25);
 	
 	/* Spacing & Radius */
 	--radius-lg: 12px;
@@ -35,6 +46,11 @@
 	--gray-light: 176, 190, 197; /* Maps to --storm-grey-3 for subtle accents */
 	--gray-dark: 84, 110, 122; /* Maps to --storm-grey-1 for borders/muted elements */
 	--box-shadow: var(--shadow);
+	
+	/* Poetry Dark Reader tokens (scoped to Poetry only) */
+	--poetry-dark-bg: #0F1115;
+	--poetry-dark-text: #F2F5F7;
+	--poetry-dark-muted: rgba(242, 245, 247, 0.72);
 	
 	/* Typography */
 	--font-body: "Rubik", system-ui, -apple-system, Segoe UI, sans-serif;
@@ -177,8 +193,6 @@ h6 {
 
 h1 {
 	font-size: 2.5em;
-	font-family: var(--font-brand);
-	font-weight: 400;
 }
 
 h2 {
@@ -261,6 +275,25 @@ hr {
 	border: none;
 	border-top: 1px solid var(--border);
 	margin: 2em 0;
+}
+
+/* Glass Panel System */
+.glass-panel {
+	background: var(--surface-1);
+	backdrop-filter: blur(var(--glass-blur));
+	-webkit-backdrop-filter: blur(var(--glass-blur));
+	border: 1px solid var(--glass-border);
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow);
+}
+
+.glass-panel:hover {
+	background: var(--surface-1-hover);
+	border-color: rgba(77, 182, 172, 0.35); /* subtle accent tint, not loud */
+}
+
+.glass-panel--padded {
+	padding: var(--pad-lg);
 }
 
 /* Poetry-specific styles */
@@ -476,23 +509,23 @@ body.nav-open .mobile-nav__drawer {
 }
 
 .poetry-reader-surface.is-dark {
-	background: #1a1a1a;
-	color: #f5f5f5;
+	background: var(--poetry-dark-bg);
+	color: var(--poetry-dark-text);
 }
 
 .poetry-reader-surface.is-dark h1,
 .poetry-reader-surface.is-dark h2,
 .poetry-reader-surface.is-dark h3,
 .poetry-reader-surface.is-dark .poem-title {
-	color: #f5f5f5;
+	color: var(--poetry-dark-text);
 }
 
 .poetry-reader-surface.is-dark a {
-	color: #66bb6a;
+	color: var(--accent);
 }
 
 .poetry-reader-surface.is-dark a:hover {
-	color: #81c784;
+	color: var(--accent-hover);
 }
 
 .poetry-reader-surface.is-dark .tag {
@@ -502,13 +535,13 @@ body.nav-open .mobile-nav__drawer {
 }
 
 .poetry-reader-surface.is-dark .tag:hover {
-	background: #66bb6a;
+	background: var(--accent);
 	color: white;
-	border-color: #81c784;
+	border-color: var(--accent-hover);
 }
 
 .poetry-reader-surface.is-dark .poem-meta {
-	color: #aaa;
+	color: var(--poetry-dark-muted);
 }
 
 .poetry-reader-surface.is-dark .poem-content {
@@ -516,8 +549,8 @@ body.nav-open .mobile-nav__drawer {
 }
 
 .poetry-reader-surface.is-dark .year-label {
-	color: #f5f5f5;
-	border-bottom-color: #66bb6a;
+	color: var(--poetry-dark-text);
+	border-bottom-color: var(--accent);
 }
 
 .poetry-reader-surface.is-dark hr,
