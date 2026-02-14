@@ -345,6 +345,7 @@ hr {
 	}
 	main {
 		padding: 1em;
+		max-width: calc(100% - 2em); /* reduce gutters from 4em -> 2em on mobile */
 	}
 }
 
@@ -598,4 +599,45 @@ body.nav-open .mobile-nav__drawer {
 .poetry-reader-surface.is-dark .poem-footer,
 .poetry-reader-surface.is-dark .back-link-container {
 	border-color: var(--storm-grey-1);
+}
+
+/* --- Mobile typography + wrapping fixes (dad-site) --- */
+
+/* Prevent ugly mid-word breaks in poetry/novel headings */
+.poetry-reader-surface h1,
+.poetry-reader-surface .poem-title,
+.novel-surface h1,
+.novel-content h1 {
+	hyphens: none;
+	word-break: normal;
+	overflow-wrap: normal; /* override body overflow-wrap: break-word */
+}
+
+/* Preserve poem line breaks but avoid hyphenation / mid-word breaks in poem text */
+.poem-content,
+.poem {
+	white-space: pre-wrap;
+	hyphens: none;
+	word-break: normal;
+	overflow-wrap: normal;
+}
+
+/* Narrower breakpoint for phones - squeeze more horizontal space */
+@media (max-width: 520px) {
+	main {
+		max-width: calc(100% - 1.25em);
+		padding: 0.9em 0.6em;
+	}
+
+	/* Tighten poetry reader surface padding on mobile (keep surfaces) */
+	.poetry-reader-surface {
+		padding: 1.25rem; /* tighter than var(--pad-lg)=2.5rem */
+	}
+
+	/* Slightly smaller title on narrow phones */
+	.poetry-reader-surface h1,
+	.poetry-reader-surface .poem-title {
+		font-size: clamp(1.9rem, 7vw, 2.4rem);
+		line-height: 1.12;
+	}
 }
