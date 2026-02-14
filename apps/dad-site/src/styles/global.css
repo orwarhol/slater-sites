@@ -625,8 +625,8 @@ body.nav-open .mobile-nav__drawer {
 /* Narrower breakpoint for phones - squeeze more horizontal space */
 @media (max-width: 520px) {
 	main {
-		max-width: calc(100% - 1.25em);
-		padding: 0.9em 0.6em;
+		max-width: calc(100% - 1.2em);
+		padding: 0.9em 0.6em; /* 0.6em × 2 = 1.2em matches max-width */
 	}
 
 	/* Tighten poetry reader surface padding on mobile (keep surfaces) */
