@@ -34,4 +34,3 @@ We are all part of your struggle.
 May all you dream be yours.  
 May you never be alone.  
 May I find your strength.
-
