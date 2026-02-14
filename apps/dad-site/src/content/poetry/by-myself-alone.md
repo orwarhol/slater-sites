@@ -1,5 +1,5 @@
 ---
-title: "BY MYSELF ALONE"
+title: "By Myself Alone"
 date: 2002-10-14
 tags: ["Family","Aging","life"]
 excerpt: "We have gathered in twos and threes, drawn together, linking in the same town as if we can be nourished by the juxtaposition. Still, I woke feeling alone in all the world"
