@@ -42,12 +42,12 @@ const EXISTING_TAGS = [
 ];
 
 /**
- * Extract text from a .wps file using the strings utility
+ * Extract text from a .wps file using Python extractor that preserves blank lines
  */
 function extractTextFromWps(wpsFilePath) {
   try {
-    // Use strings to extract text, preserving some whitespace structure
-    const output = execSync(`strings "${wpsFilePath}"`, { encoding: 'utf8' });
+    const scriptPath = path.join(__dirname, 'extract-wps-text.py');
+    const output = execSync(`python3 "${scriptPath}" "${wpsFilePath}"`, { encoding: 'utf8' });
     return output;
   } catch (error) {
     console.error(`Error extracting text from ${wpsFilePath}:`, error.message);
@@ -119,11 +119,11 @@ function parseWpsContent(rawText) {
     }
   }
   
-  // Get body lines (ignore indentation - just extract text)
+  // Get body lines (preserve blank lines as stanza indicators)
   let bodyEndIndex = signatureIndex > 0 ? signatureIndex : contentLines.length;
   const bodyLines = contentLines.slice(bodyStartIndex, bodyEndIndex);
   
-  // Process lines: merge fragmented lines and trim
+  // Process lines: merge fragmented lines, preserve blank lines
   const processedBody = [];
   let i = 0;
   
@@ -131,7 +131,12 @@ function parseWpsContent(rawText) {
     const line = bodyLines[i];
     const trimmed = line.trim();
     
+    // Preserve blank lines (they indicate stanza breaks)
     if (trimmed === '') {
+      // Only add blank line if we have content before it and it's not a duplicate
+      if (processedBody.length > 0 && processedBody[processedBody.length - 1] !== '') {
+        processedBody.push('');
+      }
       i++;
       continue;
     }
@@ -142,14 +147,25 @@ function parseWpsContent(rawText) {
       continue;
     }
     
-    // Check if this is a fragment (single letter or very short word without punctuation)
-    // that should be merged with the next line
+    // Check if this is a fragment that should be merged with the next line
     if (trimmed.length <= 2 && !trimmed.match(/[.,!?;:]$/) && i < bodyLines.length - 1) {
-      // Merge with next line
       const nextTrimmed = bodyLines[i + 1].trim();
-      // Handle common contractions like I + ve = I've
-      if (trimmed === 'I' && nextTrimmed.startsWith('ve')) {
-        processedBody.push("I'" + nextTrimmed);
+      // Skip if next line is blank
+      if (nextTrimmed === '') {
+        processedBody.push(trimmed);
+        i++;
+        continue;
+      }
+      // Handle common contractions like I + ve = I've, don + t = don't, etc.
+      if (trimmed.match(/^[A-Za-z]$/)) {
+        const nextWord = nextTrimmed.split(/\s/)[0];
+        if (nextWord.match(/^(ve|ll|re|d|t|s|m)(\s|$)/)) {
+          // It's a contraction
+          const restOfLine = nextTrimmed.substring(nextWord.length).trim();
+          processedBody.push(trimmed + "'" + nextWord + (restOfLine ? ' ' + restOfLine : ''));
+        } else {
+          processedBody.push(trimmed + nextTrimmed);
+        }
       } else {
         processedBody.push(trimmed + nextTrimmed);
       }
@@ -157,6 +173,48 @@ function parseWpsContent(rawText) {
     } else {
       processedBody.push(trimmed);
       i++;
+    }
+  }
+  
+  // Post-process to fix common missing apostrophes in contractions
+  for (let i = 0; i < processedBody.length; i++) {
+    let line = processedBody[i];
+    if (line) {
+      // Fix obvious contractions that are missing apostrophes
+      // Be conservative to avoid false positives
+      line = line.replace(/\bIve\b/g, "I've");
+      line = line.replace(/\bId\b/g, "I'd");
+      line = line.replace(/\bIll\b/g, "I'll");
+      line = line.replace(/\bIm\b/g, "I'm");
+      line = line.replace(/\bdont\b/g, "don't");
+      line = line.replace(/\bcant\b/g, "can't");
+      line = line.replace(/\bwont\b/g, "won't");
+      line = line.replace(/\bdidnt\b/g, "didn't");
+      line = line.replace(/\bwouldnt\b/g, "wouldn't");
+      line = line.replace(/\bcouldnt\b/g, "couldn't");
+      line = line.replace(/\bshouldnt\b/g, "shouldn't");
+      line = line.replace(/\bisnt\b/g, "isn't");
+      line = line.replace(/\barent\b/g, "aren't");
+      line = line.replace(/\bwasnt\b/g, "wasn't");
+      line = line.replace(/\bwerent\b/g, "weren't");
+      line = line.replace(/\bhasnt\b/g, "hasn't");
+      line = line.replace(/\bhavent\b/g, "haven't");
+      line = line.replace(/\bhadnt\b/g, "hadn't");
+      line = line.replace(/\byoure\b/g, "you're");
+      line = line.replace(/\byouve\b/g, "you've");
+      line = line.replace(/\byoull\b/g, "you'll");
+      line = line.replace(/\btheyre\b/g, "they're");
+      line = line.replace(/\btheyve\b/g, "they've");
+      line = line.replace(/\btheyll\b/g, "they'll");
+      line = line.replace(/\bweve\b/g, "we've");
+      line = line.replace(/\bthats\b/g, "that's");
+      line = line.replace(/\bwhats\b/g, "what's");
+      line = line.replace(/\bwheres\b/g, "where's");
+      line = line.replace(/\bwhos\b/g, "who's");
+      line = line.replace(/\bhes\b/g, "he's");
+      line = line.replace(/\bshes\b/g, "she's");
+      
+      processedBody[i] = line;
     }
   }
   
