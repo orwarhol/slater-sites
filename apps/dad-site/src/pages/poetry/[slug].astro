@@ -86,31 +86,6 @@ const { Content } = await render(poem);
 		margin-bottom: 1em;
 	}
 
-	.tags {
-		display: flex;
-		gap: 0.5em;
-		flex-wrap: wrap;
-		margin-top: 1em;
-	}
-
-	.tag {
-		background: var(--surface-2);
-		border: 1px solid var(--storm-grey-2);
-		padding: 0.25em 0.75em;
-		border-radius: var(--radius-sm);
-		font-size: 0.85em;
-		color: var(--muted);
-		text-decoration: none;
-		display: inline-block;
-		transition: all 0.2s ease;
-	}
-
-	.tag:hover {
-		background: var(--accent);
-		color: white;
-		border-color: var(--accent-hover);
-	}
-
 	.poem-content {
 		/* Clean modern poem reading */
 		font-family: var(--font-body); /* Rubik */
@@ -145,15 +120,4 @@ const { Content } = await render(poem);
 		margin-top: 3em;
 		padding-top: 2em;
 		border-top: 1px solid var(--border);
-	}
-
-	.back-link {
-		color: var(--accent);
-		text-decoration: none;
-		font-size: 0.95em;
-	}
-
-	.back-link:hover {
-		text-decoration: underline;
-		color: var(--accent-hover);
 	}

@@ -64,7 +64,7 @@ sortedYears.forEach(year => {
 										{poem.data.tags && poem.data.tags.length > 0 && (
 											<div class="poem-tags">
 												{poem.data.tags.slice(0, MAX_DISPLAYED_TAGS).map((tag: string) => (
-													<a href={`/poetry/tags/${slugifyTag(tag)}`} class="tag-link">
+													<a href={`/poetry/tags/${slugifyTag(tag)}`} class="tag">
 														{tag}
 													</a>
 												))}
@@ -142,22 +142,10 @@ sortedYears.forEach(year => {
 		margin-top: 0.25em;
 	}
 
-	.tag-link {
-		background: var(--surface-2);
-		border: 1px solid var(--storm-grey-2);
-		padding: 0.12em 0.45em;
-		border-radius: 3px;
+	.tag {
 		font-size: 0.7em;
-		color: var(--muted);
-		text-decoration: none;
-		transition: all 0.2s ease;
+		padding: 0.12em 0.45em;
 		white-space: nowrap;
-	}
-
-	.tag-link:hover {
-		background: var(--accent);
-		color: white;
-		border-color: var(--accent-hover);
 	}
 
 	/* Responsive columns */
