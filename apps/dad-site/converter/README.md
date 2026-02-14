@@ -1,27 +1,118 @@
-This is a converter that takes .wps files and converts them to Astro .md files for the Poetry Collection within dad-site.
+# WPS to Markdown Converter
 
-GitHub Copilot Agent may edit and reformat this README to any extent needed.
+This converter transforms .wps (Microsoft Works) files into Astro-compatible Markdown files for the Poetry Collection.
 
-This folder contains two subfolders:
-- input - contains .wps files for conversion
-- output - converted .md files get put here
+## Usage
 
-Create additional folders and files as needed and in any structure you see fit.
+### Converting a Single File or Small Batch
 
-There exists already a `scripts` folder at `slater-sites/apps/dad-site/scripts` should you see fit to use it.
+1. Place `.wps` files in the `input/` directory
+2. Run the converter:
+   ```bash
+   node convert.mjs
+   ```
+3. Converted `.md` files will appear in the `output/` directory
 
-A sample file called `poem-title` shows expected output and can be found in the `output` subfolder for reference.
+### Running Future Batches
 
-Conversion rules and notes for outputting .md files:
-- file names shall be all lower case with dashes between words; numbers are ok
-- frontmatter fields
-  - title should be rendered however it is in the .wps file, whether title case, all caps, etc. If no title in .wps file, use file name
-  - date should be pulled from the content of the .wps file if found - might be in the header, might be after the poem. if no date is found, use the creation date or any date found in the .wps file properties
-  - tags - use your judgement based on the poem to assign up to 5 tags. acceptable tag styles can be seen in the sample file `poem-title` - consult existing tag library to avoid creating additional similar tags - see `apps/dad-site/src/utils/tags.ts`
-  - excerpt - use first 140-180 characters of poem. do not cut off mid-word. do not end in ellipses. do not add any ending punctuation that does not exist in the poem text referenced. try to end the excerpt based on the end of a poem sentence ending in a period - if that point falls within the 140-180 characters
+**Important**: The converter processes ALL `.wps` files in the `input/` directory each time it runs.
 
-Poem body as output in .md files:
-- Every line shall end in two spaces, unless it is the last line of a stanza or the last line of the poem
-- Blank line between stanzas
-- One blank line at the end of the file
-- Ignore any creative indentations you find in the source .wps
+#### Option 1: Process and Clear (Recommended)
+
+1. Place new batch of `.wps` files in `input/`
+2. Run converter: `node convert.mjs`
+3. Review output files in `output/`
+4. Move/copy converted `.md` files to `../../src/content/poetry/`
+5. Clear `input/` directory before next batch
+6. Clear `output/` directory (optional, or keep as backup)
+
+```bash
+# Example workflow
+cd apps/dad-site/converter
+# Add files to input/
+node convert.mjs
+# Review output
+cp output/*.md ../src/content/poetry/
+# Clean up for next batch
+rm input/*.wps
+rm output/*.md  # optional
+```
+
+#### Option 2: Organize by Batch
+
+Create subdirectories for each batch:
+
+```bash
+# Structure
+converter/
+  batches/
+    batch-2024-01/
+      input/
+      output/
+    batch-2024-02/
+      input/
+      output/
+```
+
+Process each batch separately and maintain history.
+
+### After Conversion
+
+1. **Review generated files** in `output/` directory
+2. **Verify tags** - may need manual adjustment based on poem content
+3. **Check excerpts** - ensure they end naturally
+4. **Validate frontmatter** - especially dates and titles
+5. **Test stanza breaks** - ensure blank lines are appropriate
+6. **Move to content directory**: Copy validated `.md` files to `apps/dad-site/src/content/poetry/`
+
+## Features
+
+- **Automatic text extraction** from .wps files using custom Python parser
+- **Stanza detection** via blank lines in source documents  
+- **Frontmatter generation** with title, date, tags, and excerpt
+- **Proper line formatting** with two spaces at end of lines (except last line of stanza)
+- **Apostrophe correction** for common contractions (I've, don't, can't, etc.)
+- **Filename normalization** to lowercase with dashes
+
+## Conversion Rules
+
+### Frontmatter Fields
+
+- **title**: Preserved as-is from .wps file (including capitalization)
+- **date**: Extracted from document content or metadata (format: YYYY-MM-DD)
+- **tags**: Auto-generated based on poem content (max 5 tags)
+- **excerpt**: First 140-180 characters, sentence-aware when possible
+
+### Poem Body Formatting
+
+- Every line ends with two spaces (for Markdown line breaks)
+- Except: last line of each stanza (no trailing spaces)
+- Blank lines between stanzas (preserved from source)
+- One blank line at end of file
+- Indentation from source is ignored
+
+### Tag Generation
+
+Tags are suggested based on:
+- Poem content analysis
+- Common themes and keywords detected in the text
+- Existing tag library in `apps/dad-site/src/utils/tags.ts` (as reference)
+
+**Note**: The converter can create new tags as needed based on poem content. Tags will be generated intelligently from the poem's themes and subject matter.
+
+## Files
+
+- `convert.mjs` - Main converter script (Node.js)
+- `extract-wps-text.py` - Python utility for extracting text from .wps files
+- `input/` - Place .wps files here
+- `output/` - Converted .md files appear here
+- `output/poem-title.md` - Sample expected output format
+
+## Requirements
+
+- Node.js
+- Python 3
+
+## Notes
+
+GitHub Copilot Agent may edit and reformat this README as needed.
