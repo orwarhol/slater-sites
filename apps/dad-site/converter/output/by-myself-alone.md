@@ -1,8 +1,8 @@
 ---
 title: "BY MYSELF ALONE"
-date: 2026-02-14
+date: 2002-10-14
 tags: ["Family","Aging","life"]
-excerpt: "We have gathered in twos and threes, drawn together, linking in the same town as if we can be nourished by the juxtaposition. Still, I woke feeling alone in all the world,"
+excerpt: "We have gathered in twos and threes, drawn together, linking in the same town as if we can be nourished by the juxtaposition. Still, I woke feeling alone in all the world"
 ---
 
 We have gathered in twos and threes,  
@@ -32,8 +32,3 @@ likenesses or differences, is the greater measure of me.
 And that mix is passed along.  There is no  
 mystery, yet it is profound.  We have our fate, and  
 we act on it simply by existing.  We are, but we might shape.
-
-Charles Slater     October, 2002
-
-ialyuy
-
