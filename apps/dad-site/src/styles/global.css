@@ -614,9 +614,15 @@ body.nav-open .mobile-nav__drawer {
 }
 
 /* Preserve poem line breaks but avoid hyphenation / mid-word breaks in poem text */
-.poem-content,
 .poem {
 	white-space: pre-wrap;
+	hyphens: none;
+	word-break: normal;
+	overflow-wrap: normal;
+}
+
+/* .poem-content uses normal whitespace to avoid double-spacing from br+newline */
+.poem-content {
 	hyphens: none;
 	word-break: normal;
 	overflow-wrap: normal;
