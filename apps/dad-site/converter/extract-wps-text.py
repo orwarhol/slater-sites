@@ -22,7 +22,7 @@ def extract_text_from_wps(filepath):
                 try:
                     line = bytes(current).decode('latin-1', errors='ignore').strip()
                     lines.append(line)
-                except:
+                except (UnicodeDecodeError, ValueError):
                     pass
             else:
                 # Empty line - preserve it

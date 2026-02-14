@@ -4,12 +4,66 @@ This converter transforms .wps (Microsoft Works) files into Astro-compatible Mar
 
 ## Usage
 
+### Converting a Single File or Small Batch
+
 1. Place `.wps` files in the `input/` directory
 2. Run the converter:
    ```bash
    node convert.mjs
    ```
 3. Converted `.md` files will appear in the `output/` directory
+
+### Running Future Batches
+
+**Important**: The converter processes ALL `.wps` files in the `input/` directory each time it runs.
+
+#### Option 1: Process and Clear (Recommended)
+
+1. Place new batch of `.wps` files in `input/`
+2. Run converter: `node convert.mjs`
+3. Review output files in `output/`
+4. Move/copy converted `.md` files to `../../src/content/poetry/`
+5. Clear `input/` directory before next batch
+6. Clear `output/` directory (optional, or keep as backup)
+
+```bash
+# Example workflow
+cd apps/dad-site/converter
+# Add files to input/
+node convert.mjs
+# Review output
+cp output/*.md ../src/content/poetry/
+# Clean up for next batch
+rm input/*.wps
+rm output/*.md  # optional
+```
+
+#### Option 2: Organize by Batch
+
+Create subdirectories for each batch:
+
+```bash
+# Structure
+converter/
+  batches/
+    batch-2024-01/
+      input/
+      output/
+    batch-2024-02/
+      input/
+      output/
+```
+
+Process each batch separately and maintain history.
+
+### After Conversion
+
+1. **Review generated files** in `output/` directory
+2. **Verify tags** - may need manual adjustment based on poem content
+3. **Check excerpts** - ensure they end naturally
+4. **Validate frontmatter** - especially dates and titles
+5. **Test stanza breaks** - ensure blank lines are appropriate
+6. **Move to content directory**: Copy validated `.md` files to `apps/dad-site/src/content/poetry/`
 
 ## Features
 

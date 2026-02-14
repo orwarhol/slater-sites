@@ -276,11 +276,6 @@ function generateTags(content, title) {
     'poem': ['Little Poems'],
     'brother': ['brotherhood', 'Family'],
     'god': ['religion'],
-    'inspire': ['inspiration'],
-    'courage': ['courage'],
-    'struggle': ['struggle'],
-    'hope': ['hope'],
-    'strength': ['strength']
   };
   
   const usedTags = new Set();
@@ -316,8 +311,8 @@ function generateExcerpt(bodyLines) {
   }
   
   // Try to find a sentence ending within the 140-180 range
-  for (let i = 180; i >= 140; i--) {
-    if (fullText[i] === '.' && fullText[i + 1] === ' ') {
+  for (let i = 180; i >= 140 && i < fullText.length; i--) {
+    if (fullText[i] === '.' && i + 1 < fullText.length && fullText[i + 1] === ' ') {
       return fullText.substring(0, i + 1).trim();
     }
   }
