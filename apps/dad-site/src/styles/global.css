@@ -60,6 +60,11 @@
 	--font-body: "Rubik", system-ui, -apple-system, Segoe UI, sans-serif;
 	--font-heading: "Rubik", system-ui, -apple-system, Segoe UI, sans-serif;
 	--font-brand: "Chonburi", serif;
+	
+	/* Gallery buttons */
+	--button-bg: rgba(232, 244, 248, 0.9);
+	--button-bg-hover: #ffffff;
+	--button-shadow-hover: rgba(10, 22, 40, 0.2);
 }
 
 /* Font faces */
@@ -484,6 +489,23 @@ body.nav-open .mobile-nav__drawer {
 	margin-top: 3em;
 	padding-top: 2em;
 	border-top: 1px solid var(--border);
+}
+
+/* Gallery metadata definition lists */
+.gallery-meta dt {
+	font-size: 0.78rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: var(--accent);
+	font-weight: 700;
+	margin: 0 0 0.35rem 0;
+}
+
+.gallery-meta dd {
+	margin: 0;
+	margin-inline-start: 0;
+	margin-bottom: 0.9rem;
+	color: var(--muted);
 }
 
 /* Poetry Dark Reader Toggle */
