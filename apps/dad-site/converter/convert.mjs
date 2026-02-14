@@ -159,7 +159,7 @@ function parseWpsContent(rawText) {
       // Handle common contractions like I + ve = I've, don + t = don't, etc.
       if (trimmed.match(/^[A-Za-z]$/)) {
         const nextWord = nextTrimmed.split(/\s/)[0];
-        if (nextWord.match(/^(ve|ll|re|d|t|s|m)(\s|$)/)) {
+        if (nextWord.match(/^(ve|ll|re|d|t|s|m)$/)) {
           // It's a contraction
           const restOfLine = nextTrimmed.substring(nextWord.length).trim();
           processedBody.push(trimmed + "'" + nextWord + (restOfLine ? ' ' + restOfLine : ''));
