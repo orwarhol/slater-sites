@@ -60,6 +60,11 @@
 	--font-body: "Rubik", system-ui, -apple-system, Segoe UI, sans-serif;
 	--font-heading: "Rubik", system-ui, -apple-system, Segoe UI, sans-serif;
 	--font-brand: "Chonburi", serif;
+	
+	/* Gallery buttons */
+	--button-bg: rgba(232, 244, 248, 0.9);
+	--button-bg-hover: #ffffff;
+	--button-shadow-hover: rgba(10, 22, 40, 0.2);
 }
 
 /* Font faces */
@@ -238,10 +243,6 @@ a:focus {
 
 p {
 	margin-bottom: 1.2em;
-}
-
-.prose p {
-	margin-bottom: 1.5em;
 }
 
 img {
@@ -468,6 +469,41 @@ body.nav-open .mobile-nav__drawer {
 	display: inline-block;
 }
 
+/* Back link component */
+.back-link {
+	color: var(--accent);
+	text-decoration: none;
+	font-size: 0.95em;
+}
+
+.back-link:hover {
+	text-decoration: underline;
+	color: var(--accent-hover);
+}
+
+.back-link-container {
+	margin-top: 3em;
+	padding-top: 2em;
+	border-top: 1px solid var(--border);
+}
+
+/* Gallery metadata definition lists */
+.gallery-meta dt {
+	font-size: 0.78rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: var(--accent);
+	font-weight: 700;
+	margin: 0 0 0.35rem 0;
+}
+
+.gallery-meta dd {
+	margin: 0;
+	margin-inline-start: 0;
+	margin-bottom: 0.9rem;
+	color: var(--muted);
+}
+
 /* Poetry Dark Reader Toggle */
 .poetry-dark-reader-toggle {
 	display: flex;
@@ -533,9 +569,9 @@ body.nav-open .mobile-nav__drawer {
 }
 
 .poetry-reader-surface.is-dark .tag {
-	background: #2a2a2a;
-	border-color: #444;
-	color: #bbb;
+	background: var(--poetry-dark-bg);
+	border-color: var(--storm-grey-1);
+	color: var(--poetry-dark-muted);
 }
 
 .poetry-reader-surface.is-dark .tag:hover {
@@ -549,7 +585,7 @@ body.nav-open .mobile-nav__drawer {
 }
 
 .poetry-reader-surface.is-dark .poem-content {
-	color: #e0e0e0;
+	color: var(--storm-grey-3);
 }
 
 .poetry-reader-surface.is-dark .year-label {
@@ -561,5 +597,5 @@ body.nav-open .mobile-nav__drawer {
 .poetry-reader-surface.is-dark .poem-header,
 .poetry-reader-surface.is-dark .poem-footer,
 .poetry-reader-surface.is-dark .back-link-container {
-	border-color: #444;
+	border-color: var(--storm-grey-1);
 }

@@ -125,7 +125,7 @@ const photos = sortedPhotos.map(photo => ({
 			}
 
 			.nav-button {
-				background: rgba(255, 255, 255, 0.9);
+				background: var(--button-bg);
 				border: none;
 				width: 48px;
 				height: 48px;
@@ -140,8 +140,8 @@ const photos = sortedPhotos.map(photo => ({
 			}
 
 			.nav-button:hover {
-				background: white;
-				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+				background: var(--button-bg-hover);
+				box-shadow: 0 4px 12px var(--button-shadow-hover);
 			}
 
 			.nav-button:disabled {
@@ -150,13 +150,7 @@ const photos = sortedPhotos.map(photo => ({
 			}
 
 			.metadata-sidebar {
-				background: var(--surface-1);
-				backdrop-filter: blur(var(--glass-blur));
-				-webkit-backdrop-filter: blur(var(--glass-blur));
 				padding: 2em;
-				border-radius: var(--radius-lg);
-				border: 1px solid var(--glass-border);
-				box-shadow: var(--shadow);
 			}
 
 			.metadata-sidebar h2 {
@@ -168,22 +162,6 @@ const photos = sortedPhotos.map(photo => ({
 
 			.gallery-meta {
 				margin-top: 1.5em;
-			}
-
-			.gallery-meta :global(dt) {
-				font-size: 0.78rem;
-				text-transform: uppercase;
-				letter-spacing: 0.08em;
-				color: var(--accent);
-				font-weight: 700;
-				margin: 0 0 0.35rem 0;
-			}
-
-			.gallery-meta :global(dd) {
-				margin: 0;
-				margin-inline-start: 0;
-				margin-bottom: 0.9rem;
-				color: var(--muted);
 			}
 
 			.counter {
@@ -252,7 +230,7 @@ const photos = sortedPhotos.map(photo => ({
 						/>
 					</div>
 
-					<div class="metadata-sidebar">
+					<div class="metadata-sidebar glass-panel">
 						<div class="details-nav">
 							<button class="nav-button prev" id="prevBtn" aria-label="Previous photo">‹</button>
 							<button class="nav-button next" id="nextBtn" aria-label="Next photo">›</button>
