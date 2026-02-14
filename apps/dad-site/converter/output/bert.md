@@ -1,7 +1,7 @@
 ---
 title: "BERT"
 date: 2001-09-08
-tags: ["Aging","age","religion"]
+tags: ["Aging","age","religion","inspiration","courage"]
 excerpt: "STUBBORN OLE GOD-FEARING CUSS, who just happens to inspire me. I've had my days of surrender, floating, barely breathing at the surface of life with my head bent up in hopes of"
 ---
 

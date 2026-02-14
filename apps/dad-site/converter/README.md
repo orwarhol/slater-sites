@@ -95,8 +95,10 @@ Process each batch separately and maintain history.
 
 Tags are suggested based on:
 - Poem content analysis
-- Existing tag library in `apps/dad-site/src/utils/tags.ts`
-- Common themes and keywords
+- Common themes and keywords detected in the text
+- Existing tag library in `apps/dad-site/src/utils/tags.ts` (as reference)
+
+**Note**: The converter can create new tags as needed based on poem content. Tags will be generated intelligently from the poem's themes and subject matter.
 
 ## Files
 

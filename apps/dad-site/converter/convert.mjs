@@ -259,7 +259,7 @@ function generateTags(content, title) {
   const contentLower = content.toLowerCase();
   const titleLower = title.toLowerCase();
   
-  // Keywords to tag mappings
+  // Keywords to tag mappings (including new tags that can be created)
   const tagMappings = {
     'family': ['Family', 'family'],
     'mother': ['mother', 'Family'],
@@ -276,17 +276,45 @@ function generateTags(content, title) {
     'poem': ['Little Poems'],
     'brother': ['brotherhood', 'Family'],
     'god': ['religion'],
+    'inspire': ['inspiration'],
+    'courage': ['courage'],
+    'struggle': ['struggle'],
+    'hope': ['hope'],
+    'strength': ['strength'],
+    'love': ['love'],
+    'friend': ['friendship'],
+    'life': ['life'],
+    'nature': ['nature'],
+    'faith': ['faith'],
+    'joy': ['joy'],
+    'sorrow': ['sorrow'],
+    'pain': ['pain']
   };
   
   const usedTags = new Set();
+  
+  // Helper function to check if a tag already exists (case-insensitive)
+  const findExistingTag = (proposedTag) => {
+    const proposedLower = proposedTag.toLowerCase();
+    for (const existingTag of EXISTING_TAGS) {
+      if (existingTag.toLowerCase() === proposedLower) {
+        return existingTag; // Return with original casing
+      }
+    }
+    return null;
+  };
   
   // Check content for keywords
   for (const [keyword, relatedTags] of Object.entries(tagMappings)) {
     if (contentLower.includes(keyword) || titleLower.includes(keyword)) {
       for (const tag of relatedTags) {
         if (!usedTags.has(tag.toLowerCase()) && tags.length < 5) {
-          tags.push(tag);
-          usedTags.add(tag.toLowerCase());
+          // Check if this tag or a similar one already exists
+          const existingTag = findExistingTag(tag);
+          const tagToUse = existingTag || tag;
+          
+          tags.push(tagToUse);
+          usedTags.add(tagToUse.toLowerCase());
         }
       }
     }
