@@ -1,11 +1,7 @@
 ---
 title: Poem-title
 date: 2012-11-16
-tags:
-  - tag1
-  - Tag2
-  - Tag Three
-  - tag four
+tags: ["tag1","Tag2","Tag Three","tag four"]
 excerpt: There is time to think of the moment only if I have consciousness; I do mean, mind you, the act of being un-asleep. Thoughts are relative. I can be quite awake
 ---
 
