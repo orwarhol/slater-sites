@@ -2,55 +2,69 @@
 
 ## Overview
 
-The dad-site uses a restrained "Ocean Storm" theme featuring:
-- Layered ocean blues with stormy grey accents
-- Dark, contemplative backgrounds suitable for long-form poetry reading
-- Green accents for interactive elements and CTAs
+The dad-site uses a restrained "Ocean Storm" theme designed for contemplative long-form reading:
+- Deep ocean blues with stormy grey accents
+- Dark backgrounds suitable for poetry and prose
+- Teal green accents for interactive elements
 - High contrast for readability and accessibility
 
-This guide documents the **stable theme contract** and best practices for maintaining consistency.
+This guide documents the **stable theme contract** and rules for maintaining consistency.
 
 ---
 
-## Theme Contract: Core Tokens
+## Theme Contract: Semantic Tokens
+
+All semantic tokens are defined in `src/styles/global.css` under `:root`.
 
 ### Backgrounds & Surfaces
 
-Use these tokens for layering content from background to foreground:
+Surface layering hierarchy: `--bg` → `--surface-1` → `--surface-2`
 
 ```css
 --bg              /* Page background: deep ocean #0A1628 */
 --surface-1       /* Primary glass panels: rgba(21, 42, 66, 0.70) */
 --surface-1-hover /* Hovered glass panels: rgba(21, 42, 66, 0.85) */
---surface-2       /* Solid surface fallback / nested elements: #1E3A56 */
+--surface-2       /* Solid surface / nested elements: #1E3A56 */
 ```
 
-**Surface layering hierarchy**: `--bg` → `--surface-1` (glass panel) → `--surface-2` (nested content)
+**Usage**:
+- `--bg`: Body background
+- `--surface-1`: Main content containers (glass panels with blur effect)
+- `--surface-1-hover`: Hover state for interactive glass panels
+- `--surface-2`: Nested content, tag chips, secondary surfaces
 
 ### Text Colors
 
 ```css
---text            /* Primary text: #B0BEC5 (main body copy) */
+--text            /* Primary text: #B0BEC5 */
 --text-secondary  /* Secondary/muted text: #8B9DA6 */
 ```
 
 ### Accent Colors
 
 ```css
---accent       /* Interactive elements, CTAs, links: #26A69A (teal green) */
+--accent       /* Interactive elements: #26A69A (teal green) */
 --accent-hover /* Hover/active state: #00897B (darker teal) */
 ```
 
-**Note**: We use only TWO greens to keep the palette restrained.
+**Note**: We use only TWO greens to keep the palette restrained. Use `--accent` for links/CTAs and `--accent-hover` for their hover states.
 
 ### Borders
 
 ```css
 --border              /* Standard borders: rgba(120, 144, 156, 0.35) */
 --glass-border        /* Glass panel borders: rgba(120, 144, 156, 0.28) */
---glass-border-hover  /* Hovered glass borders: rgba(77, 182, 172, 0.35) */
---fine-border-gradient /* Gradient border (green to sand): linear-gradient(135deg, #26A69A 0%, #C9B896 100%) */
+--glass-border-hover  /* Hovered glass: rgba(77, 182, 172, 0.35) */
+--fine-border-gradient /* Gradient (green to sand): linear-gradient(135deg, #26A69A 0%, #C9B896 100%) */
 ```
+
+### Focus States
+
+```css
+--focus-ring  /* 2px solid var(--accent) */
+```
+
+All interactive elements must have visible focus indicators using `--focus-ring`.
 
 ### Spacing & Radius
 
@@ -64,46 +78,29 @@ Use these tokens for layering content from background to foreground:
 --pad-sm     /* 1rem - Small panel padding */
 ```
 
----
-
-## Component-Specific Tokens
-
-### Poetry Dark Reader Mode
-
-**Only for `.poetry-reader-surface.is-dark`**:
-
-```css
---poetry-dark-bg       /* #0F1115 - Darker background */
---poetry-dark-text     /* #D0D8DE - Softer text */
---poetry-dark-heading  /* #E0E8EE - Softer headings */
---poetry-dark-muted    /* rgba(208, 216, 222, 0.70) - Muted text */
---poetry-dark-border   /* rgba(120, 144, 156, 0.35) - Flat grey border */
-```
-
-### Gallery Buttons
-
-```css
---button-bg            /* rgba(21, 42, 66, 0.70) - Button background */
---button-bg-hover      /* rgba(21, 42, 66, 0.90) - Hovered button */
---button-shadow-hover  /* rgba(10, 22, 40, 0.2) - Hover shadow */
-```
+**Always use these tokens**, not hardcoded pixel values.
 
 ---
 
-## Deprecated: Legacy RGB Vars
+## Poetry Dark Reader Tokens
 
-**DO NOT USE FOR NEW CODE**:
+The Poetry section has an optional "Dark Reader" mode for inverted colors during long reading sessions. These tokens are **only used inside `.poetry-reader-surface.is-dark`**:
 
 ```css
---black      /* DEPRECATED: Use --text instead */
---gray       /* DEPRECATED: Use --text-secondary instead */
---gray-light /* DEPRECATED: Use --storm-grey-3 instead */
---gray-dark  /* DEPRECATED: Use --storm-grey-1 instead */
+--poetry-dark-bg       /* #0f141b - Dark background (moonlit paper) */
+--poetry-dark-heading  /* #d5dce3 - Soft silver headings/titles */
+--poetry-dark-text     /* #c2ccd6 - Comfortable body text (slightly dimmer than headings) */
+--poetry-dark-muted    /* rgba(194, 204, 214, 0.72) - Muted meta text */
+--poetry-dark-border   /* rgba(194, 204, 214, 0.22) - Flat grey border */
 ```
 
-These legacy variables remain for backwards compatibility only. They use `rgb(var(--name))` syntax which is harder to work with than the semantic tokens.
+**Key principle**: Dark Reader uses "moonlit paper" aesthetics — soft, comfortable greys that don't glow or sparkle. Headings are NOT pure white but a muted light grey.
 
-**Migration rule**: When editing old code, replace `rgb(var(--gray))` with `var(--text-secondary)`, etc.
+**Application**:
+- Headings/titles/links: `var(--poetry-dark-heading)`
+- Poem body text: `var(--poetry-dark-text)`
+- Meta text (dates/tags): `var(--poetry-dark-muted)`
+- Borders: `var(--poetry-dark-border)`
 
 ---
 
@@ -111,136 +108,74 @@ These legacy variables remain for backwards compatibility only. They use `rgb(va
 
 ### Font Stack
 
-- **Body & Headings (default):** Rubik - clean, modern sans-serif
-- **Brand/Logo:** Chonburi - distinctive display font, **always in ALL CAPS**
-- **Poetry content:** Georgia, Times New Roman - classic serif for readability
+```css
+--font-body    /* Rubik - body text and headings */
+--font-heading /* Rubik - headings */
+--font-brand   /* Chonburi - logo ONLY, always ALL CAPS */
+```
 
-### Usage Rules
+### Font Usage Rules
+
+- **Body & Headings**: Use Rubik for all text (via `--font-body` or `--font-heading`)
+- **Logo**: Use Chonburi ONLY for the site logo in Header, always in ALL CAPS
+- **Poetry content**: Use Rubik (same as body text) for clean modern reading
 
 ```css
-/* Body text */
-body {
-  font-family: var(--font-body);  /* Rubik */
-  font-size: 18px;
-  line-height: 1.8;
-  color: var(--text);
-}
-
-/* Standard headings - ALL use Rubik */
+/* Standard headings */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);  /* Rubik */
   color: var(--text);
   font-weight: 500;
 }
 
-/* Header logo - ONLY place Chonburi is used, always ALL CAPS */
+/* Site logo - ONLY use case for Chonburi */
 .site-logo {
   font-family: var(--font-brand);  /* Chonburi */
   text-transform: uppercase;
-  font-weight: 400;
 }
 
-/* Poetry content */
+/* Poetry content - uses Rubik for clean modern reading */
 .poem-content {
-  font-family: Georgia, 'Times New Roman', serif;
-  line-height: 1.9;
-  white-space: pre-wrap;
+  font-family: var(--font-body);  /* Rubik */
+  line-height: 1.55;
 }
 ```
 
 ---
 
-## Surface Layering System
-
-### Layer 1: Page Background
-
-The deepest layer - the page background.
-
-```css
-html, body {
-  background: var(--bg);
-  color: var(--text);
-}
-```
-
-### Layer 2: Glass Panel Surfaces
-
-Primary content containers using subtle glassmorphism.
-
-```css
-.glass-panel {
-  background: var(--surface-1);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
-}
-
-.glass-panel:hover {
-  background: var(--surface-1-hover);
-  border-color: var(--glass-border-hover);
-}
-```
-
-**Use cases**:
-- Main content areas (novels index/singles)
-- Home page cards (Poetry/Novels)
-- Gallery metadata sidebar
-- Poetry reader surface
-
-### Layer 3: Nested Panels
-
-Secondary surfaces that sit inside content surfaces.
-
-```css
-.panel {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: var(--pad-md);
-}
-```
-
-**Use cases**:
-- Tag chips
-- Nested content within main panels
-- Metadata sections
-
----
-
-## Critical: Astro Scoped CSS Rules
+## Critical Rule: Astro Scoped CSS
 
 ### The Problem
 
-Astro's scoped CSS adds `data-astro-cid-*` attributes to elements, making page-scoped styles **more specific** than global styles. This breaks state-based overrides like `.poetry-reader-surface.is-dark`.
+Astro's scoped CSS adds `data-astro-cid-*` attributes, making page-scoped styles **more specific** than global styles. This breaks state-based overrides like `.poetry-reader-surface.is-dark`.
 
-**Example of what goes wrong**:
+**Example of the problem**:
 
 ```astro
-<!-- In a .astro page file -->
+<!-- DON'T: Scoped color rule in .astro file -->
 <style>
   .poem-title {
-    color: var(--text);  /* This is scoped, so more specific */
+    color: var(--text);  /* This is scoped, so it's too specific */
   }
 </style>
 ```
 
-The global override in `global.css`:
+The global dark mode override won't work because scoped CSS wins:
 
 ```css
+/* global.css - this WON'T override the scoped rule above */
 .poetry-reader-surface.is-dark .poem-title {
-  color: var(--poetry-dark-heading);  /* This WON'T win - scoped CSS beats it */
+  color: var(--poetry-dark-heading);
 }
 ```
 
 ### The Solution
 
-**Any style that needs to be overridden by a state class (like `.is-dark`) MUST be global.**
+**Any style that changes based on state (like `.is-dark`) MUST be global.**
 
-You have two options:
+Two options:
 
-1. **Move it to `global.css`** (preferred for shared styles):
+1. **Move to `global.css`** (preferred):
 
 ```css
 /* global.css */
@@ -253,16 +188,16 @@ You have two options:
 }
 ```
 
-2. **Use `:global()` wrapper** in page-scoped CSS:
+2. **Use `:global()` in page CSS**:
 
 ```astro
 <style>
-  /* Scoped styles for layout */
+  /* Layout/structure can be scoped */
   .poem-entry {
     break-inside: avoid;
   }
 
-  /* Global styles for state-dependent properties */
+  /* State-dependent styles must be global */
   :global(.poetry-reader-surface .poem-title) {
     color: var(--text);
   }
@@ -271,44 +206,126 @@ You have two options:
 
 ### Rules of Thumb
 
-- **Structure/layout** (columns, gaps, padding) → Can be scoped
-- **Colors that respond to `.is-dark`** → MUST be global
-- **Text properties that respond to state** → MUST be global
-- **Interactive hover states** → Usually safe to scope
+In `.astro` page files:
 
-**Files affected**: Poetry pages (`poetry/index.astro`, `poetry/[slug].astro`, `poetry/tags/[tag].astro`) must avoid scoped color declarations for elements inside `.poetry-reader-surface`.
+- **Structure/layout** (columns, gaps, padding, sizing) → **Can be scoped**
+- **Colors that respond to `.is-dark`** → **MUST be global**
+- **Text colors inside `.poetry-reader-surface`** → **MUST be global**
+- **Interactive hover states** → Usually safe to scope unless state-dependent
+
+**Files that must follow this rule**:
+- `src/pages/poetry/index.astro`
+- `src/pages/poetry/[slug].astro`
+- `src/pages/poetry/tags/[tag].astro`
 
 ---
 
-## Poetry Dark Reader
+## Poetry Dark Reader Implementation
 
-The Poetry section includes an optional Dark Reader mode for users who prefer inverted colors for long reading sessions.
+### Toggle Component
 
-### Implementation
+`src/components/PoetryDarkReaderToggle.astro` provides the toggle checkbox. It:
+- Stores preference in localStorage: `dadsite:poetry-dark-reader`
+- Toggles `.is-dark` class on `.poetry-reader-surface`
+- Toggles `poetry-dark-enabled` class on `<body>` (for page-level headings)
+- Default state: OFF
+
+### Usage in Pages
 
 ```astro
-<!-- Toggle component -->
 <PoetryDarkReaderToggle />
 
-<!-- Wrapper for content that inverts -->
 <div class="poetry-reader-surface" data-poetry-reader>
   <!-- Poetry content here -->
 </div>
 ```
 
-### Default State Styles
+### Styling Contract
+
+**Base (light mode)** in `global.css`:
 
 ```css
 .poetry-reader-surface {
   background: var(--surface-1);
   color: var(--text);
-  padding: var(--pad-lg);
-  border-radius: var(--radius-md);
-  transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Gradient border */
-.poetry-reader-surface::before {
+.poetry-reader-surface .poem-title,
+.poetry-reader-surface .poem-link,
+.poetry-reader-surface .year-label {
+  color: var(--text);
+}
+
+.poetry-reader-surface .poem-meta {
+  color: var(--text-secondary);
+}
+
+.poetry-reader-surface .poem-content {
+  color: var(--text);
+}
+```
+
+**Dark mode** in `global.css`:
+
+```css
+.poetry-reader-surface.is-dark {
+  background: var(--poetry-dark-bg);
+  color: var(--poetry-dark-text);
+}
+
+.poetry-reader-surface.is-dark h1,
+.poetry-reader-surface.is-dark h2,
+.poetry-reader-surface.is-dark h3,
+.poetry-reader-surface.is-dark .poem-title,
+.poetry-reader-surface.is-dark .poem-link,
+.poetry-reader-surface.is-dark .year-label {
+  color: var(--poetry-dark-heading);
+}
+
+.poetry-reader-surface.is-dark .poem-meta {
+  color: var(--poetry-dark-muted);
+}
+
+.poetry-reader-surface.is-dark .poem-content {
+  color: var(--poetry-dark-text);
+}
+
+/* Flat border instead of gradient in dark mode */
+.poetry-reader-surface.is-dark::before {
+  background: var(--poetry-dark-border);
+}
+```
+
+**Page-level headings** (outside the surface):
+
+```css
+/* When Poetry Dark Reader is enabled, page heading also uses dark color */
+body.poetry-dark-enabled main > h1 {
+  color: var(--poetry-dark-heading);
+}
+```
+
+This ensures headings like "Poetry" and "Tag: memory" also shift to the soft grey when Dark Reader is active, preventing stark white text.
+
+---
+
+## Gallery Viewer Styling
+
+The Gallery page (`src/pages/gallery.astro`) displays photos in a windowed viewer with metadata sidebar.
+
+### Image Viewer Window
+
+```css
+.image-area {
+  background: var(--bg);
+  border-radius: var(--radius-md);  /* Rounded corners for windowed feel */
+  overflow: hidden;
+  position: relative;
+  border: 1px solid transparent;
+}
+
+/* Gradient border using pseudo-element */
+.image-area::before {
   content: '';
   position: absolute;
   inset: -1px;
@@ -320,46 +337,103 @@ The Poetry section includes an optional Dark Reader mode for users who prefer in
   pointer-events: none;
   z-index: -1;
 }
+
+.main-image {
+  border-radius: var(--radius-md);
+  max-height: 80vh;
+  object-fit: contain;
+}
 ```
 
-### Dark Reader Active Styles
+**Key features**:
+- Rounded corners (`var(--radius-md)`) create a "window" effect
+- Background uses `var(--bg)` to prevent white letterboxing
+- Gradient border matches Ocean Storm theme
+
+### Navigation Buttons
 
 ```css
-/* Dark Reader active - uses token-based colors */
-.poetry-reader-surface.is-dark {
-  background: var(--poetry-dark-bg);
-  color: var(--poetry-dark-text);
+.nav-button {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text);
+  transition: all 0.2s;
 }
 
-.poetry-reader-surface.is-dark h1,
-.poetry-reader-surface.is-dark h2,
-.poetry-reader-surface.is-dark h3,
-.poetry-reader-surface.is-dark .poem-title,
-.poetry-reader-surface.is-dark .year-label,
-.poetry-reader-surface.is-dark .poem-link {
-  color: var(--poetry-dark-heading);
+.nav-button:hover:not(:disabled) {
+  background: var(--surface-1-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.poetry-reader-surface.is-dark a {
-  color: var(--accent);
+.nav-button:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
 }
 
-.poetry-reader-surface.is-dark .poem-meta {
-  color: var(--poetry-dark-muted);
-}
-
-/* Override gradient border with flat grey in dark mode */
-.poetry-reader-surface.is-dark::before {
-  background: var(--poetry-dark-border);
+.nav-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  color: var(--text-secondary);
 }
 ```
 
-### Behavior
+**Requirements**:
+- Use surface tokens (NOT white background)
+- Visible border for definition
+- Clear hover state with elevated shadow
+- Focus-visible for keyboard navigation
+- Muted disabled state with lower opacity
 
-- Toggle appears only on Poetry pages (index, single poem, tag views)
-- State persists via localStorage with key `dadsite:poetry-dark-reader`
-- Only affects the poetry content surface, not header/footer/navigation
-- Default: OFF
+---
+
+## Glass Panel System
+
+### Standard Glass Panel
+
+```css
+.glass-panel {
+  background: var(--surface-1);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.glass-panel:hover {
+  background: var(--surface-1-hover);
+  border-color: var(--glass-border-hover);
+}
+```
+
+**Use cases**: Home page cards, novels index/singles, gallery metadata sidebar
+
+### Static Glass Panel (Enhanced)
+
+```css
+.glass-panel-static {
+  background: var(--surface-1-hover);
+  border: 1px solid transparent;
+  position: relative;
+}
+
+/* Gradient border via pseudo-element */
+.glass-panel-static::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-lg);
+  padding: 1px;
+  background: var(--fine-border-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: -1;
+}
+```
+
+**Use case**: Gallery metadata sidebar (always enhanced, doesn't respond to hover)
 
 ---
 
@@ -379,22 +453,9 @@ a:hover {
   text-decoration: underline;
 }
 
-a:focus {
+a:focus-visible {
   outline: var(--focus-ring);
   outline-offset: 2px;
-}
-```
-
-### Navigation Active State
-
-```css
-nav a.active {
-  border-bottom-color: var(--accent);
-  color: var(--text);
-}
-
-nav a:hover {
-  border-bottom-color: var(--accent);
 }
 ```
 
@@ -420,34 +481,45 @@ nav a:hover {
 
 ---
 
-## Accessibility
+## Testing Checklist
 
-### Contrast Requirements
+Before considering changes complete:
 
-- Body text on background: Minimum 7:1 (AAA level)
-- Links must maintain 4.5:1 contrast minimum
-- Header navigation links: Ensure high contrast against header background
-- Focus indicators: Visible 2px outline with offset
+### Poetry Pages
 
-### Focus Visibility
+- [ ] **Poetry index** (`/poetry`):
+  - [ ] Titles and year labels readable in both modes
+  - [ ] Dark Reader: titles NOT pure white, use soft grey
+  - [ ] Page-level "Poetry" heading shifts to dark heading color when Dark Reader enabled
+  - [ ] Hover states work in both modes
+  - [ ] Focus states visible on keyboard navigation
 
-All interactive elements must have clear focus states:
+- [ ] **Single poem** (`/poetry/[slug]`):
+  - [ ] Poem title readable in both modes
+  - [ ] Dark Reader: title NOT pure white
+  - [ ] Poem content comfortable to read in dark mode
+  - [ ] Tags work in both modes
 
-```css
-a:focus, button:focus, input:focus {
-  outline: var(--focus-ring);
-  outline-offset: 2px;
-}
-```
+- [ ] **Tag page** (`/poetry/tags/[tag]`):
+  - [ ] "Tag: X" heading shifts to dark color when Dark Reader enabled
+  - [ ] Poem links readable in both modes
+  - [ ] Dark Reader: links NOT pure white
 
-### Testing Checklist
+### Gallery
 
-- ✅ Header nav links readable against dark header background
-- ✅ Body text comfortable for long-form reading
-- ✅ Links distinguishable in both normal and Dark Reader modes
-- ✅ Focus states clearly visible
-- ✅ Tag chips maintain contrast in hover states
-- ✅ Poetry content readable in both light and dark surface modes
+- [ ] Image viewer has rounded corners (windowed feel)
+- [ ] Border is visible and matches theme (gradient in normal mode)
+- [ ] Nav buttons have clear hover state
+- [ ] Nav buttons have focus-visible state
+- [ ] Disabled nav buttons look muted but still on-theme
+- [ ] Buttons are NOT white
+
+### Contrast & Accessibility
+
+- [ ] Body text on background: 7:1 minimum (AAA)
+- [ ] Links maintain 4.5:1 contrast
+- [ ] Focus indicators visible on all interactive elements
+- [ ] Poetry Dark Reader headings comfortable to read (not glaring white)
 
 ---
 
@@ -455,41 +527,47 @@ a:focus, button:focus, input:focus {
 
 ### DO:
 
-✅ Use semantic tokens from the theme contract (`--text`, `--surface-1`, etc.)  
-✅ Use green accent sparingly for CTAs and interactive elements  
-✅ Maintain the surface layering hierarchy (bg → surface-1 → surface-2)  
-✅ Ensure high contrast for poetry content (readability is paramount)  
-✅ Use storm greys for muted text, borders, and subtle separators  
-✅ Move state-dependent styles to `global.css` or use `:global()` wrapper  
-✅ Test Dark Reader mode on Poetry pages after making changes  
+✅ Use semantic tokens (`--text`, `--surface-1`, `--accent`, etc.)  
+✅ Use `--radius-*` tokens instead of hardcoded pixel values  
+✅ Use green accent sparingly (interactive elements only)  
+✅ Maintain surface layering hierarchy (bg → surface-1 → surface-2)  
+✅ Move state-dependent styles to `global.css` (or use `:global()`)  
+✅ Test Dark Reader mode after changes to Poetry pages  
+✅ Ensure focus-visible states on all interactive elements  
+✅ Use `var(--poetry-dark-heading)` for titles in dark mode (NOT pure white)
 
 ### DON'T:
 
 ❌ Use Chonburi for anything except the header logo  
-❌ Overuse the green accent - reserve for interactive elements  
+❌ Overuse the green accent (reserve for CTAs and links)  
 ❌ Create more than 3 levels of surface nesting  
-❌ Use pure white (#FFFFFF) or pure black (#000000) for backgrounds  
-❌ Use deprecated legacy RGB vars (`--black`, `--gray`, etc.) in new code  
+❌ Use pure white (#FFFFFF) or pure black (#000000)  
+❌ Use deprecated legacy RGB vars (`--black`, `--gray`, etc.)  
 ❌ Set `color` in scoped CSS for elements inside `.poetry-reader-surface`  
-❌ Change Dark Reader toggle appearance outside Poetry section  
-❌ Hardcode colors in Dark Reader mode - always use CSS tokens  
+❌ Use hardcoded `8px` instead of `var(--radius-md)`  
+❌ Make Dark Reader headings pure white (use soft grey tokens)  
 
 ---
 
-## Files Modified
+## Files Reference
 
-The following files implement the Ocean Storm theme:
+### Core Theme Files
 
-- `src/styles/global.css` - Core palette, typography, surface system, and Poetry styles
-- `src/components/BaseHead.astro` - Font preloads
-- `src/components/Header.astro` - Navigation with Chonburi logo
-- `src/components/PoetryDarkReaderToggle.astro` - Dark Reader toggle component
-- `src/pages/poetry/index.astro` - Poetry index (layout only in scoped CSS)
-- `src/pages/poetry/[slug].astro` - Single poem (layout only in scoped CSS)
-- `src/pages/poetry/tags/[tag].astro` - Tag page (layout only in scoped CSS)
-- `src/pages/gallery.astro` - Gallery with gradient-bordered image viewer
-- `src/pages/novels/index.astro` - Novels index with glass panels
-- `src/pages/novels/[slug].astro` - Single novel with glass panels
+- **`src/styles/global.css`** - All tokens, typography, surface system, Poetry styles
+- **`src/components/PoetryDarkReaderToggle.astro`** - Dark Reader toggle
+- **`src/pages/poetry/index.astro`** - Poetry index (layout only in scoped CSS)
+- **`src/pages/poetry/[slug].astro`** - Single poem (layout only in scoped CSS)
+- **`src/pages/poetry/tags/[tag].astro`** - Tag page (layout only in scoped CSS)
+- **`src/pages/gallery.astro`** - Gallery with rounded viewer window
+
+### Key Principles
+
+1. **Single source of truth**: All color tokens in `global.css` `:root`
+2. **Surface layering**: bg → surface-1 → surface-2 (max 3 levels)
+3. **Scoped CSS rule**: State-dependent colors must be global
+4. **Dark Reader**: Soft grey headings, NOT pure white
+5. **Accessibility**: High contrast, visible focus states
+6. **Tokens over literals**: Use `var(--radius-md)` not `8px`
 
 ---
 
@@ -497,16 +575,23 @@ The following files implement the Ocean Storm theme:
 
 When updating styles:
 
-1. **Keep color tokens in `global.css` `:root`** - This is the single source of truth
-2. **Maintain the surface layering hierarchy** - Don't mix layers or create too many
-3. **Test accessibility with contrast checkers** - Especially for new color uses
-4. **Verify focus states are clearly visible** - Test with keyboard navigation
-5. **Test Dark Reader mode** - After any changes to Poetry pages
-6. **Prefer semantic tokens over hard-coded colors** - Use `var(--text)` not `#B0BEC5`
-7. **Avoid scoped CSS for state-dependent properties** - Move to global or use `:global()`
+1. **Keep tokens in `global.css` `:root`** - Single source of truth
+2. **Don't break surface hierarchy** - Avoid mixing layers
+3. **Test accessibility** - Check contrast ratios
+4. **Verify focus states** - Test keyboard navigation
+5. **Test Dark Reader** - Check Poetry pages in both modes
+6. **Use semantic tokens** - Prefer `var(--text)` over hardcoded colors
+7. **Respect the scoped CSS rule** - Move state-dependent styles to global
 
 ---
 
 ## Summary
 
-The Ocean Storm theme is built on a stable contract of semantic tokens that separate structure from state. By following the Astro scoped CSS rules and using the documented tokens, you can maintain a consistent, accessible, and maintainable design system for the dad-site.
+The Ocean Storm theme is built on stable semantic tokens that separate structure from state. By following the scoped CSS rules and using the documented tokens, you maintain a consistent, accessible design system for dad-site.
+
+**Core contract**:
+- Semantic tokens for all colors, spacing, and radius
+- State-dependent styles in `global.css` (not scoped)
+- Poetry Dark Reader uses soft grey, not pure white
+- Gallery viewer has rounded corners and proper button states
+- All interactive elements have visible focus indicators

@@ -101,7 +101,7 @@ const photos = sortedPhotos.map(photo => ({
 			.image-area {
 				position: relative;
 				background: var(--bg);
-				border-radius: 8px;
+				border-radius: var(--radius-md);
 				overflow: hidden;
 				min-height: 500px;
 				display: flex;
@@ -115,7 +115,7 @@ const photos = sortedPhotos.map(photo => ({
 				content: '';
 				position: absolute;
 				inset: -1px;
-				border-radius: 8px;
+				border-radius: var(--radius-md);
 				padding: 1px;
 				background: var(--fine-border-gradient);
 				-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -132,7 +132,7 @@ const photos = sortedPhotos.map(photo => ({
 				display: block;
 				max-height: 80vh;
 				object-fit: contain;
-				border-radius: 8px;
+				border-radius: var(--radius-md);
 			}
 
 			.details-nav {
@@ -143,8 +143,8 @@ const photos = sortedPhotos.map(photo => ({
 			}
 
 			.nav-button {
-				background: var(--button-bg);
-				border: none;
+				background: var(--surface-1);
+				border: 1px solid var(--border);
 				width: 48px;
 				height: 48px;
 				border-radius: 50%;
@@ -157,14 +157,21 @@ const photos = sortedPhotos.map(photo => ({
 				transition: all 0.2s;
 			}
 
-			.nav-button:hover {
-				background: var(--button-bg-hover);
-				box-shadow: 0 4px 12px var(--button-shadow-hover);
+			.nav-button:hover:not(:disabled) {
+				background: var(--surface-1-hover);
+				border-color: var(--glass-border-hover);
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+			}
+
+			.nav-button:focus-visible {
+				outline: var(--focus-ring);
+				outline-offset: 2px;
 			}
 
 			.nav-button:disabled {
-				opacity: 0.3;
+				opacity: 0.4;
 				cursor: not-allowed;
+				color: var(--text-secondary);
 			}
 
 			.metadata-sidebar {

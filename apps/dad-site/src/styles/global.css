@@ -101,12 +101,12 @@
 	--gray-dark: 84, 110, 122; /* DEPRECATED: Use --storm-grey-1 instead */
 	--box-shadow: var(--shadow);
 	
-	/* Poetry Dark Reader tokens (scoped to Poetry only) */
-	--poetry-dark-bg: #0F1115;
-	--poetry-dark-text: #D0D8DE;
-	--poetry-dark-heading: #E0E8EE;
-	--poetry-dark-muted: rgba(208, 216, 222, 0.70);
-	--poetry-dark-border: rgba(120, 144, 156, 0.35);
+	/* Poetry — Dark Reader (moonlit paper, not flashlight white) */
+	--poetry-dark-bg: #0f141b;
+	--poetry-dark-heading: #d5dce3;
+	--poetry-dark-text: #c2ccd6;
+	--poetry-dark-muted: rgba(194, 204, 214, 0.72);
+	--poetry-dark-border: rgba(194, 204, 214, 0.22);
 	
 	/* Typography */
 	--font-body: "Rubik", system-ui, -apple-system, Segoe UI, sans-serif;
@@ -380,7 +380,7 @@ hr {
 /* Poetry-specific styles */
 .poem {
 	white-space: pre-wrap;
-	font-family: Georgia, 'Times New Roman', serif;
+	font-family: var(--font-body); /* Rubik - consistent with poem-content */
 	line-height: 1.8;
 	margin: 2em 0;
 	color: var(--text);
@@ -622,6 +622,25 @@ body.nav-open .mobile-nav__drawer {
 	color: var(--text);
 }
 
+.poetry-reader-surface .poem-title:hover,
+.poetry-reader-surface .poem-link:hover {
+	color: var(--accent-hover);
+}
+
+.poetry-reader-surface .poem-title:focus-visible,
+.poetry-reader-surface .poem-link:focus-visible {
+	outline: var(--focus-ring);
+	outline-offset: 2px;
+}
+
+.poetry-reader-surface .poem-meta {
+	color: var(--text-secondary);
+}
+
+.poetry-reader-surface .poem-content {
+	color: var(--text);
+}
+
 /* Poetry Reader Surface with gradient border */
 .poetry-reader-surface {
 	background: var(--surface-1);
@@ -693,11 +712,16 @@ body.nav-open .mobile-nav__drawer {
 }
 
 .poetry-reader-surface.is-dark .poem-content {
-	color: var(--storm-grey-3);
+	color: var(--poetry-dark-text);
 }
 
 .poetry-reader-surface.is-dark .year-label {
 	border-bottom-color: var(--accent);
+}
+
+/* Page-level headings (outside the surface) when Poetry Dark Reader is enabled */
+body.poetry-dark-enabled main > h1 {
+	color: var(--poetry-dark-heading);
 }
 
 .poetry-reader-surface.is-dark hr,
