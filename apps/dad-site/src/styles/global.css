@@ -56,8 +56,10 @@
 	
 	/* Poetry Dark Reader tokens (scoped to Poetry only) */
 	--poetry-dark-bg: #0F1115;
-	--poetry-dark-text: #F2F5F7;
-	--poetry-dark-muted: rgba(242, 245, 247, 0.72);
+	--poetry-dark-text: #D0D8DE;
+	--poetry-dark-heading: #E0E8EE;
+	--poetry-dark-muted: rgba(208, 216, 222, 0.70);
+	--poetry-dark-border: rgba(120, 144, 156, 0.35);
 	
 	/* Typography */
 	--font-body: "Rubik", system-ui, -apple-system, Segoe UI, sans-serif;
@@ -65,8 +67,8 @@
 	--font-brand: "Chonburi", serif;
 	
 	/* Gallery buttons */
-	--button-bg: rgba(232, 244, 248, 0.9);
-	--button-bg-hover: #ffffff;
+	--button-bg: rgba(21, 42, 66, 0.70);
+	--button-bg-hover: rgba(21, 42, 66, 0.90);
 	--button-shadow-hover: rgba(10, 22, 40, 0.2);
 }
 
@@ -601,8 +603,14 @@ body.nav-open .mobile-nav__drawer {
 .poetry-reader-surface.is-dark h1,
 .poetry-reader-surface.is-dark h2,
 .poetry-reader-surface.is-dark h3,
-.poetry-reader-surface.is-dark .poem-title {
-	color: var(--poetry-dark-text);
+.poetry-reader-surface.is-dark .poem-title,
+.poetry-reader-surface.is-dark .year-label {
+	color: var(--poetry-dark-heading);
+}
+
+/* Override gradient border with flat grey in dark mode */
+.poetry-reader-surface.is-dark::before {
+	background: var(--poetry-dark-border);
 }
 
 .poetry-reader-surface.is-dark a {
@@ -634,7 +642,6 @@ body.nav-open .mobile-nav__drawer {
 }
 
 .poetry-reader-surface.is-dark .year-label {
-	color: var(--poetry-dark-text);
 	border-bottom-color: var(--accent);
 }
 
