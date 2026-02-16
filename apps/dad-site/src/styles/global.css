@@ -1,3 +1,50 @@
+/* ============================================================================
+   OCEAN STORM THEME CONTRACT
+   ============================================================================
+   
+   This defines the stable, semantic token API for the dad-site theme.
+   
+   CORE TOKENS - Safe to use anywhere:
+   
+   Backgrounds & Surfaces:
+     --bg              Page background (deep ocean #0A1628)
+     --surface-1       Primary glass panels with blur effect
+     --surface-1-hover Hovered glass panels
+     --surface-2       Solid surface fallback / nested elements
+   
+   Text:
+     --text            Primary text color (main body copy)
+     --text-secondary  Secondary/muted text
+   
+   Accents:
+     --accent          Interactive elements, CTAs, links (base state)
+     --accent-hover    Hover/active state for interactive elements
+   
+   Borders:
+     --border              Standard borders
+     --glass-border        Glass panel borders
+     --glass-border-hover  Hovered glass borders
+     --fine-border-gradient Gradient border (green to sand)
+   
+   Spacing & Radius:
+     --radius-lg, --radius-md, --radius-sm
+     --pad-lg, --pad-md, --pad-sm
+   
+   COMPONENT-SPECIFIC TOKENS:
+   
+   Poetry Dark Reader mode (only for .poetry-reader-surface.is-dark):
+     --poetry-dark-bg, --poetry-dark-text, --poetry-dark-heading,
+     --poetry-dark-muted, --poetry-dark-border
+   
+   Gallery buttons:
+     --button-bg, --button-bg-hover, --button-shadow-hover
+   
+   DEPRECATED - DO NOT USE FOR NEW CODE:
+     --black, --gray, --gray-light, --gray-dark (legacy RGB triplets)
+     These remain for backwards compatibility only. Use semantic tokens above.
+   
+   ============================================================================ */
+
 :root {
 	/* Ocean Storm Theme - Core Colors */
 	--bg: #0A1628;
@@ -45,13 +92,13 @@
 	--pad-md: 1.5rem;
 	--pad-sm: 1rem;
 	
-	/* Legacy RGB color variables for backward compatibility with existing pages */
-	/* These use rgb(var(--name)) syntax in Footer, Home, Novels, and Gallery pages */
-	/* Note: Variable names reflect old theme; values updated to Ocean Storm palette */
-	--black: 232, 244, 248; /* Maps to --text for high contrast text */
-	--gray: 144, 164, 174; /* Maps to --text-secondary for secondary text */
-	--gray-light: 176, 190, 197; /* Maps to --storm-grey-3 for subtle accents */
-	--gray-dark: 84, 110, 122; /* Maps to --storm-grey-1 for borders/muted elements */
+	/* DEPRECATED: Legacy RGB color variables - DO NOT USE FOR NEW CODE
+	   Kept for backward compatibility with old pages only.
+	   Use semantic tokens (--text, --text-secondary, --bg, --surface-*) instead. */
+	--black: 232, 244, 248; /* DEPRECATED: Use --text instead */
+	--gray: 144, 164, 174; /* DEPRECATED: Use --text-secondary instead */
+	--gray-light: 176, 190, 197; /* DEPRECATED: Use --storm-grey-3 instead */
+	--gray-dark: 84, 110, 122; /* DEPRECATED: Use --storm-grey-1 instead */
 	--box-shadow: var(--shadow);
 	
 	/* Poetry Dark Reader tokens (scoped to Poetry only) */
@@ -568,6 +615,13 @@ body.nav-open .mobile-nav__drawer {
 	outline-offset: 2px;
 }
 
+/* Poetry index + tag pages - global styles so dark mode overrides can win */
+.poetry-reader-surface .poem-title,
+.poetry-reader-surface .year-label,
+.poetry-reader-surface .poem-link {
+	color: var(--text);
+}
+
 /* Poetry Reader Surface with gradient border */
 .poetry-reader-surface {
 	background: var(--surface-1);
@@ -604,7 +658,8 @@ body.nav-open .mobile-nav__drawer {
 .poetry-reader-surface.is-dark h2,
 .poetry-reader-surface.is-dark h3,
 .poetry-reader-surface.is-dark .poem-title,
-.poetry-reader-surface.is-dark .year-label {
+.poetry-reader-surface.is-dark .year-label,
+.poetry-reader-surface.is-dark .poem-link {
 	color: var(--poetry-dark-heading);
 }
 
