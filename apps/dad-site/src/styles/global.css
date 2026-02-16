@@ -308,7 +308,7 @@ hr {
 .glass-panel-static {
 	background: var(--surface-1-hover);
 	border: 1px solid transparent !important;
-	border-image: none;
+	border-image: none !important;
 	position: relative;
 }
 
