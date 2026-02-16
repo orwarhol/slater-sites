@@ -112,7 +112,9 @@ import { SITE_TITLE } from '../consts';
 		padding: 0 1em;
 		background: var(--surface-1);
 		box-shadow: var(--shadow);
-		border-bottom: 1px solid var(--border);
+		border-bottom: 1px solid transparent;
+		border-image: var(--fine-border-gradient) 0 0 1 0;
+		border-image-slice: 0 0 1 0;
 	}
 
 	h1 {
