@@ -100,30 +100,15 @@ const photos = sortedPhotos.map(photo => ({
 
 			.image-area {
 				position: relative;
-				background: var(--bg);
+				background: var(--surface-1);
+				border: 1px solid var(--glass-border);
 				border-radius: var(--radius-md);
 				overflow: hidden;
 				min-height: 500px;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				border: 1px solid transparent;
-			}
-			
-			/* Gradient border for image area */
-			.image-area::before {
-				content: '';
-				position: absolute;
-				inset: -1px;
-				border-radius: var(--radius-md);
-				padding: 1px;
-				background: var(--fine-border-gradient);
-				-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-				-webkit-mask-composite: xor;
-				mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-				mask-composite: exclude;
-				pointer-events: none;
-				z-index: -1;
+				box-shadow: var(--shadow);
 			}
 
 			.main-image {
@@ -132,7 +117,6 @@ const photos = sortedPhotos.map(photo => ({
 				display: block;
 				max-height: 80vh;
 				object-fit: contain;
-				border-radius: var(--radius-md);
 			}
 
 			.details-nav {
