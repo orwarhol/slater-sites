@@ -197,7 +197,7 @@ h6 {
 	margin: 0 0 0.5rem 0;
 	color: var(--text);
 	line-height: 1.3;
-	font-weight: 600;
+	font-weight: 500;
 }
 
 h1 {
@@ -222,7 +222,7 @@ h5 {
 
 strong,
 b {
-	font-weight: 700;
+	font-weight: 600;
 }
 
 a {
@@ -435,7 +435,7 @@ hr {
 	color: var(--accent) !important;
 	border-left-color: var(--accent) !important;
 	background: var(--surface-2) !important;
-	font-weight: 600 !important;
+	font-weight: 500 !important;
 }
 
 /* Open state */
@@ -500,7 +500,7 @@ body.nav-open .mobile-nav__drawer {
 	text-transform: uppercase;
 	letter-spacing: 0.08em;
 	color: var(--accent);
-	font-weight: 700;
+	font-weight: 600;
 	margin: 0 0 0.35rem 0;
 }
 
