@@ -13,8 +13,8 @@
 	--storm-grey-3: #B0BEC5;
 	
 	/* Text */
-	--text: #E8F4F8;
-	--muted: #B0BEC5; /* slightly brighter than before for readability */
+	--text: #B0BEC5; /* main text color - softer against dark backgrounds */
+	--text-secondary: #8B9DA6; /* for secondary/muted text */
 	
 	/* Accents (reduce to two greens; keep var names for compatibility) */
 	--accent: #26A69A;        /* base interactive */
@@ -49,7 +49,7 @@
 	/* These use rgb(var(--name)) syntax in Footer, Home, Novels, and Gallery pages */
 	/* Note: Variable names reflect old theme; values updated to Ocean Storm palette */
 	--black: 232, 244, 248; /* Maps to --text for high contrast text */
-	--gray: 144, 164, 174; /* Maps to --muted for secondary text */
+	--gray: 144, 164, 174; /* Maps to --text-secondary for secondary text */
 	--gray-light: 176, 190, 197; /* Maps to --storm-grey-3 for subtle accents */
 	--gray-dark: 84, 110, 122; /* Maps to --storm-grey-1 for borders/muted elements */
 	--box-shadow: var(--shadow);
@@ -307,8 +307,8 @@ hr {
 /* Static variant with permanent enhanced state and gradient border */
 .glass-panel-static {
 	background: var(--surface-1-hover);
-	border: 1px solid transparent;
-	border-image: var(--fine-border-gradient) 1;
+	border: 1px solid transparent !important;
+	border-image: none;
 	position: relative;
 }
 
@@ -338,7 +338,7 @@ hr {
 }
 
 .poem-meta {
-	color: var(--muted);
+	color: var(--text-secondary);
 	font-size: 0.9em;
 	margin-bottom: 2em;
 }
@@ -356,7 +356,7 @@ hr {
 	padding: 0.2em 0.6em;
 	border-radius: var(--radius-sm);
 	font-size: 0.8em;
-	color: var(--muted);
+	color: var(--text-secondary);
 	transition: all 0.2s ease;
 }
 
@@ -529,7 +529,7 @@ body.nav-open .mobile-nav__drawer {
 	margin: 0;
 	margin-inline-start: 0;
 	margin-bottom: 0.9rem;
-	color: var(--muted);
+	color: var(--text-secondary);
 }
 
 /* Poetry Dark Reader Toggle */
@@ -551,7 +551,7 @@ body.nav-open .mobile-nav__drawer {
 	cursor: pointer;
 	margin: 0;
 	font-size: 0.9em;
-	color: var(--muted);
+	color: var(--text-secondary);
 }
 
 .poetry-dark-reader-toggle input[type="checkbox"] {
@@ -572,7 +572,7 @@ body.nav-open .mobile-nav__drawer {
 	color: var(--text);
 	padding: var(--pad-lg);
 	border-radius: var(--radius-md);
-	border: 1px solid transparent;
+	border: none;
 	position: relative;
 	transition: background 0.3s ease, color 0.3s ease;
 }
