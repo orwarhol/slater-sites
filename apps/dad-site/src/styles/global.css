@@ -380,7 +380,7 @@ hr {
 /* Poetry-specific styles */
 .poem {
 	white-space: pre-wrap;
-	font-family: Georgia, 'Times New Roman', serif;
+	font-family: var(--font-body); /* Rubik - consistent with poem-content */
 	line-height: 1.8;
 	margin: 2em 0;
 	color: var(--text);

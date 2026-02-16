@@ -118,7 +118,7 @@ The Poetry section has an optional "Dark Reader" mode for inverted colors during
 
 - **Body & Headings**: Use Rubik for all text (via `--font-body` or `--font-heading`)
 - **Logo**: Use Chonburi ONLY for the site logo in Header, always in ALL CAPS
-- **Poetry content**: Use Georgia/Times New Roman serif for poem text
+- **Poetry content**: Use Rubik (same as body text) for clean modern reading
 
 ```css
 /* Standard headings */
@@ -134,10 +134,10 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
 }
 
-/* Poetry content */
+/* Poetry content - uses Rubik for clean modern reading */
 .poem-content {
-  font-family: Georgia, 'Times New Roman', serif;
-  line-height: 1.9;
+  font-family: var(--font-body);  /* Rubik */
+  line-height: 1.55;
 }
 ```
 
