@@ -33,7 +33,7 @@ const { Content } = await render(novel);
 	<body>
 		<Header />
 		<main>
-			<article class="glass-panel glass-panel--padded novel-surface">
+			<article class="glass-panel glass-panel--padded glass-panel-static novel-surface">
 				<header class="novel-header">
 					<h1>{novel.data.title}</h1>
 					
@@ -174,5 +174,11 @@ const { Content } = await render(novel);
 		margin-top: 3em;
 		padding-top: 2em;
 		border-top: 1px solid var(--border);
+	}
+
+	/* Make hover state permanent for this surface */
+	.glass-panel-static {
+		background: var(--surface-1-hover);
+		border-color: var(--glass-border-hover);
 	}
 </style>

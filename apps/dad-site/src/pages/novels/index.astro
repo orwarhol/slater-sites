@@ -25,7 +25,7 @@ const novels = (await getCollection('novels')).sort((a, b) => {
 	<body>
 		<Header />
 		<main>
-			<section class="glass-panel glass-panel--padded novel-surface">
+			<section class="glass-panel glass-panel--padded glass-panel-static novel-surface">
 				<h1>Novels</h1>
 				<p class="intro">
 					Stories exploring the complexities of human relationships, moral choices, and the paths we take.
@@ -154,5 +154,11 @@ const novels = (await getCollection('novels')).sort((a, b) => {
 	.read-more:hover {
 		text-decoration: underline;
 		color: var(--accent-hover);
+	}
+
+	/* Make hover state permanent for this surface */
+	.glass-panel-static {
+		background: var(--surface-1-hover);
+		border-color: var(--glass-border-hover);
 	}
 </style>

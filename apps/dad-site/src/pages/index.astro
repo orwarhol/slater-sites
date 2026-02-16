@@ -31,14 +31,14 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 			<section class="links">
 				<h2>Explore</h2>
 				<div class="link-cards">
-					<a href="/poetry" class="link-card glass-panel">
-						<h3>Poetry</h3>
+					<div class="link-card glass-panel glass-panel-static">
+						<h3><a href="/poetry">Poetry</a></h3>
 						<p>Read a collection of poems exploring life, memory, and emotion.</p>
-					</a>
-					<a href="/novels" class="link-card glass-panel">
-						<h3>Novels</h3>
+					</div>
+					<div class="link-card glass-panel glass-panel-static">
+						<h3><a href="/novels">Novels</a></h3>
 						<p>Discover stories of human connection, choice, and consequence.</p>
-					</a>
+					</div>
 				</div>
 			</section>
 		</main>
@@ -64,19 +64,31 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	}
 
 	.link-card {
-		display: block;
 		padding: 1.5em;
-		text-decoration: none;
-		transition: all 0.2s;
 	}
 
 	.link-card h3 {
 		margin-top: 0;
+	}
+
+	.link-card h3 a {
 		color: var(--text);
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+
+	.link-card h3 a:hover {
+		color: var(--accent);
 	}
 
 	.link-card p {
 		margin-bottom: 0;
 		color: var(--muted);
+	}
+
+	/* Make hover state permanent for these cards */
+	.glass-panel-static {
+		background: var(--surface-1-hover);
+		border-color: var(--glass-border-hover);
 	}
 </style>
