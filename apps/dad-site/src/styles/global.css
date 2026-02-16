@@ -301,6 +301,12 @@ hr {
 	padding: var(--pad-lg);
 }
 
+/* Static variant with permanent enhanced state */
+.glass-panel-static {
+	background: var(--surface-1-hover);
+	border-color: var(--glass-border-hover);
+}
+
 /* Poetry-specific styles */
 .poem {
 	white-space: pre-wrap;
