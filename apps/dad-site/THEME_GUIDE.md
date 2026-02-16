@@ -36,6 +36,19 @@ The dad-site uses a restrained "Ocean Storm" theme featuring:
 --glass-blur: 12px
 ```
 
+### Fine Outer Border - Gradient
+```css
+--fine-border-gradient: linear-gradient(135deg, #26A69A 0%, #C9B896 100%)
+```
+
+The fine outer border is a distinctive gradient that runs from the accent green (#26A69A) to a warm sand color (#C9B896). This gradient is applied to:
+- Glass panel static surfaces (home page CTAs, novels, gallery metadata)
+- Poetry reader surfaces (poetry index and single poem pages)
+- Gallery image viewer
+- Header navigation bar (bottom edge)
+
+The gradient creates visual consistency across content surfaces while adding a subtle warmth that complements the ocean storm theme.
+
 ### Helper Tokens
 ```css
 --border: rgba(120, 144, 156, 0.35)
