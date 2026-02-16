@@ -22,14 +22,16 @@
 		// Check localStorage for saved preference
 		const isDarkMode = localStorage.getItem(STORAGE_KEY) === 'true';
 		
-		// Apply saved preference
+		// Apply saved preference to both surface and body
 		toggle.checked = isDarkMode;
 		readerSurface.classList.toggle('is-dark', isDarkMode);
+		document.body.classList.toggle('poetry-dark-enabled', isDarkMode);
 		
 		// Listen for toggle changes
 		toggle.addEventListener('change', () => {
 			const isChecked = toggle.checked;
 			readerSurface.classList.toggle('is-dark', isChecked);
+			document.body.classList.toggle('poetry-dark-enabled', isChecked);
 			localStorage.setItem(STORAGE_KEY, String(isChecked));
 		});
 	}
