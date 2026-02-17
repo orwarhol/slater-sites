@@ -25,12 +25,14 @@ const novels = (await getCollection('novels')).sort((a, b) => {
 	<body>
 		<Header />
 		<main>
-			<section class="glass-panel glass-panel--padded glass-panel-static novel-surface">
+			<div class="index-hero">
 				<h1>Novels</h1>
 				<p class="intro">
 					Stories exploring the complexities of human relationships, moral choices, and the paths we take.
 				</p>
+			</div>
 
+			<section class="glass-panel glass-panel--padded glass-panel-static novel-surface">
 				<div class="novels-list">
 					{
 						novels.map((novel) => {
@@ -72,14 +74,18 @@ const novels = (await getCollection('novels')).sort((a, b) => {
 </html>
 
 <style>
-	.novel-surface {
+	.index-hero {
 		margin-bottom: 2em;
 	}
 
 	.intro {
 		font-size: 1.1em;
 		color: var(--text-secondary);
-		margin-bottom: 3em;
+		margin-bottom: 0;
+	}
+
+	.novel-surface {
+		margin-bottom: 2em;
 	}
 
 	.novels-list {
