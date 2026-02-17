@@ -165,7 +165,8 @@ const links = [
 	h1 a:visited,
 	h1 a:hover,
 	h1 a:active,
-	h1 a:focus {
+	h1 a:focus,
+	h1 a:focus-visible {
 		text-decoration: none !important;
 	}
 
@@ -174,7 +175,6 @@ const links = [
 		outline: 2px solid var(--accent);
 		outline-offset: 3px;
 		border-radius: 2px;
-		text-decoration: none !important;
 	}
 
 	nav {
@@ -240,9 +240,9 @@ const links = [
 		text-decoration: none;
 		position: relative;
 		transition: color 0.2s ease;
-		/* Explicit nav typography: Rubik 300 */
+		/* Explicit nav typography: Rubik 400 */
 		font-family: var(--font-body);
-		font-weight: 300;
+		font-weight: 400;
 	}
 
 	/* L-corner indicators using pseudo-elements */
