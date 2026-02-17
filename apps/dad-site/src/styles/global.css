@@ -855,9 +855,12 @@ body.poetry-dark-enabled main > h1 {
 		width: 12px;
 		height: 12px;
 		/* Build L-shape with TWO background layers (2px thick) */
-		background: 
-			var(--accent) 0 0 / 2px 100% no-repeat,
-			var(--accent) 0 0 / 100% 2px no-repeat;
+		background-image: 
+			linear-gradient(var(--accent), var(--accent)),
+			linear-gradient(var(--accent), var(--accent));
+		background-size: 2px 100%, 100% 2px;
+		background-position: 0 0, 0 0;
+		background-repeat: no-repeat, no-repeat;
 		transform: translate(-2px, -2px);
 	}
 
@@ -868,9 +871,12 @@ body.poetry-dark-enabled main > h1 {
 		width: 12px;
 		height: 12px;
 		/* Build L-shape with TWO background layers (2px thick) */
-		background: 
-			var(--accent) 100% 100% / 2px 100% no-repeat,
-			var(--accent) 100% 100% / 100% 2px no-repeat;
+		background-image: 
+			linear-gradient(var(--accent), var(--accent)),
+			linear-gradient(var(--accent), var(--accent));
+		background-size: 2px 100%, 100% 2px;
+		background-position: 100% 100%, 100% 100%;
+		background-repeat: no-repeat, no-repeat;
 		transform: translate(2px, 2px);
 	}
 
@@ -886,18 +892,24 @@ body.poetry-dark-enabled main > h1 {
 		opacity: 1;
 		transform: translate(0, 0);
 		/* Use gradient for active state */
-		background: 
-			var(--fine-border-gradient) 0 0 / 2px 100% no-repeat,
-			var(--fine-border-gradient) 0 0 / 100% 2px no-repeat;
+		background-image: 
+			var(--fine-border-gradient),
+			var(--fine-border-gradient);
+		background-size: 2px 100%, 100% 2px;
+		background-position: 0 0, 0 0;
+		background-repeat: no-repeat, no-repeat;
 	}
 
 	.site-header .site-nav-link.is-active::after {
 		opacity: 1;
 		transform: translate(0, 0);
 		/* Use gradient for active state */
-		background: 
-			var(--fine-border-gradient) 100% 100% / 2px 100% no-repeat,
-			var(--fine-border-gradient) 100% 100% / 100% 2px no-repeat;
+		background-image: 
+			var(--fine-border-gradient),
+			var(--fine-border-gradient);
+		background-size: 2px 100%, 100% 2px;
+		background-position: 100% 100%, 100% 100%;
+		background-repeat: no-repeat, no-repeat;
 	}
 
 	/* Respect reduced motion preference */
