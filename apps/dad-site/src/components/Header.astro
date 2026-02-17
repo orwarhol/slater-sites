@@ -252,8 +252,8 @@ const links = [
 		width: 10px;
 		height: 10px;
 		background: 
-			linear-gradient(to right, var(--accent) 0%, var(--accent) 100%) 0 0 / 1px 100% no-repeat,
-			linear-gradient(to bottom, var(--accent) 0%, var(--accent) 100%) 0 0 / 100% 1px no-repeat;
+			var(--accent) 0 0 / 1px 100% no-repeat,
+			var(--accent) 0 0 / 100% 1px no-repeat;
 	}
 
 	/* Bottom-right L-corner (only for active) */
@@ -263,8 +263,8 @@ const links = [
 		width: 10px;
 		height: 10px;
 		background: 
-			linear-gradient(to right, var(--accent) 0%, var(--accent) 100%) 100% 100% / 1px 100% no-repeat,
-			linear-gradient(to bottom, var(--accent) 0%, var(--accent) 100%) 100% 100% / 100% 1px no-repeat;
+			var(--accent) 100% 100% / 1px 100% no-repeat,
+			var(--accent) 100% 100% / 100% 1px no-repeat;
 	}
 
 	/* Hover state: show top-left corner only */
@@ -277,14 +277,14 @@ const links = [
 	.nav-links a.is-active::after {
 		opacity: 1;
 		background: 
-			linear-gradient(135deg, #26A69A 0%, #C9B896 100%) 0 0 / 1px 100% no-repeat,
-			linear-gradient(135deg, #26A69A 0%, #C9B896 100%) 0 0 / 100% 1px no-repeat;
+			var(--fine-border-gradient) 0 0 / 1px 100% no-repeat,
+			var(--fine-border-gradient) 0 0 / 100% 1px no-repeat;
 	}
 
 	.nav-links a.is-active::after {
 		background: 
-			linear-gradient(135deg, #26A69A 0%, #C9B896 100%) 100% 100% / 1px 100% no-repeat,
-			linear-gradient(135deg, #26A69A 0%, #C9B896 100%) 100% 100% / 100% 1px no-repeat;
+			var(--fine-border-gradient) 100% 100% / 1px 100% no-repeat,
+			var(--fine-border-gradient) 100% 100% / 100% 1px no-repeat;
 	}
 
 	/* Focus visible state */
