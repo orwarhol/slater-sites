@@ -494,6 +494,7 @@ hr {
 	transition: background 0.2s ease, color 0.2s ease !important;
 	border-left: 4px solid transparent !important;
 	position: relative !important;
+	font-weight: 400 !important;
 }
 
 .mobile-nav__links a:hover {
