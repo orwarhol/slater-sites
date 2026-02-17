@@ -716,8 +716,23 @@ body.nav-open .mobile-nav__drawer {
 	color: var(--poetry-dark-text);
 }
 
+/* Year label styling - default mode uses gradient underline */
+.poetry-reader-surface .year-label {
+	font-size: 1.5em;
+	font-weight: 600;
+	margin: 0 0 1em 0;
+	padding-bottom: 0.25em;
+	font-family: var(--font-heading);
+	border-bottom: 2px solid transparent;
+	/* Horizontal teal→sand gradient (matches --fine-border-gradient colors but 90deg for horizontal underline) */
+	border-image-source: linear-gradient(90deg, #26A69A 0%, #C9B896 100%);
+	border-image-slice: 1;
+}
+
+/* Dark Reader mode overrides gradient with solid accent border */
 .poetry-reader-surface.is-dark .year-label {
-	border-bottom-color: var(--accent);
+	border-bottom: 2px solid var(--accent);
+	border-image-source: none;
 }
 
 /* Page-level headings (outside the surface) when Poetry Dark Reader is enabled */
