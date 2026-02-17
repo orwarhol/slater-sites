@@ -1,6 +1,22 @@
 ---
-import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
+
+const { pathname } = Astro.url;
+
+// Helper to determine if a link is active
+function isActive(href: string, currentPath: string): boolean {
+	if (href === '/') {
+		return currentPath === '/';
+	}
+	return currentPath === href || currentPath.startsWith(href + '/');
+}
+
+const links = [
+	{ href: '/', label: 'Home' },
+	{ href: '/poetry', label: 'Poetry' },
+	{ href: '/novels', label: 'Novels' },
+	{ href: '/gallery', label: 'Gallery' },
+];
 ---
 
 <header>
@@ -12,10 +28,18 @@ import { SITE_TITLE } from '../consts';
 			<span></span>
 		</button>
 		<div class="nav-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/poetry">Poetry</HeaderLink>
-			<HeaderLink href="/novels">Novels</HeaderLink>
-			<HeaderLink href="/gallery">Gallery</HeaderLink>
+			{links.map(link => {
+				const active = isActive(link.href, pathname);
+				return (
+					<a 
+						href={link.href} 
+						class:list={['nav-link', { 'is-active': active }]}
+						aria-current={active ? 'page' : undefined}
+					>
+						{link.label}
+					</a>
+				);
+			})}
 		</div>
 	</nav>
 </header>
@@ -53,6 +77,11 @@ import { SITE_TITLE } from '../consts';
 		if (navLinks) {
 			const drawerLinks = navLinks.cloneNode(true) as HTMLElement;
 			drawerLinks.className = 'mobile-nav__links';
+			// Update classes for mobile - keep is-active but change nav-link to work in mobile context
+			const links = drawerLinks.querySelectorAll('a');
+			links.forEach(link => {
+				link.classList.remove('nav-link');
+			});
 			drawer.appendChild(drawerLinks);
 		}
 
@@ -132,6 +161,19 @@ import { SITE_TITLE } from '../consts';
 	h1 a {
 		text-decoration: none;
 		color: var(--text);
+		position: relative;
+	}
+
+	/* Remove underline flash on click/active for logo */
+	h1 a:active {
+		text-decoration: none;
+	}
+
+	/* Focus visible style for logo link */
+	h1 a:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
+		border-radius: 2px;
 	}
 
 	nav {
@@ -177,7 +219,7 @@ import { SITE_TITLE } from '../consts';
 
 	.nav-links {
 		display: flex;
-		gap: 1.5em;
+		gap: clamp(1rem, 2vw, 2rem);
 		white-space: nowrap;
 		flex: 0 0 auto;
 	}
@@ -192,21 +234,77 @@ import { SITE_TITLE } from '../consts';
 	}
 
 	.nav-links a {
-		padding: 0.5em 0;
-		color: var(--nav-link-color);
+		padding: 0.35rem 0.5rem;
+		color: var(--accent);
 		text-decoration: none;
-		border-bottom: 2px solid transparent;
-		transition: border-color 0.2s, color 0.2s;
+		position: relative;
+		transition: color 0.2s ease;
 	}
 
-	.nav-links a:hover {
-		color: var(--text);
-		border-bottom-color: var(--accent);
+	/* L-corner indicators using pseudo-elements */
+	.nav-links a::before,
+	.nav-links a::after {
+		content: '';
+		position: absolute;
+		opacity: 0;
+		transition: opacity 0.2s ease;
 	}
 
-	.nav-links a.active {
-		border-bottom-color: var(--accent);
-		color: var(--text);
+	/* Top-left L-corner (for hover and active) */
+	.nav-links a::before {
+		top: 0;
+		left: 0;
+		width: 10px;
+		height: 10px;
+		background: 
+			linear-gradient(to right, var(--accent) 0%, var(--accent) 100%) 0 0 / 1px 100% no-repeat,
+			linear-gradient(to bottom, var(--accent) 0%, var(--accent) 100%) 0 0 / 100% 1px no-repeat;
+	}
+
+	/* Bottom-right L-corner (only for active) */
+	.nav-links a::after {
+		bottom: 0;
+		right: 0;
+		width: 10px;
+		height: 10px;
+		background: 
+			linear-gradient(to right, var(--accent) 0%, var(--accent) 100%) 100% 100% / 1px 100% no-repeat,
+			linear-gradient(to bottom, var(--accent) 0%, var(--accent) 100%) 100% 100% / 100% 1px no-repeat;
+	}
+
+	/* Hover state: show top-left corner only */
+	.nav-links a:hover::before {
+		opacity: 1;
+	}
+
+	/* Active state: show both corners with gradient */
+	.nav-links a.is-active::before,
+	.nav-links a.is-active::after {
+		opacity: 1;
+		background: 
+			linear-gradient(135deg, #26A69A 0%, #C9B896 100%) 0 0 / 1px 100% no-repeat,
+			linear-gradient(135deg, #26A69A 0%, #C9B896 100%) 0 0 / 100% 1px no-repeat;
+	}
+
+	.nav-links a.is-active::after {
+		background: 
+			linear-gradient(135deg, #26A69A 0%, #C9B896 100%) 100% 100% / 1px 100% no-repeat,
+			linear-gradient(135deg, #26A69A 0%, #C9B896 100%) 100% 100% / 100% 1px no-repeat;
+	}
+
+	/* Focus visible state */
+	.nav-links a:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+		border-radius: 2px;
+	}
+
+	/* Respect reduced motion preference */
+	@media (prefers-reduced-motion: reduce) {
+		.nav-links a::before,
+		.nav-links a::after {
+			transition: none;
+		}
 	}
 
 	@media (max-width: 930px) {
