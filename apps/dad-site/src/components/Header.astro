@@ -245,71 +245,12 @@ const links = [
 		font-weight: 400;
 	}
 
-	/* L-corner indicators using pseudo-elements */
-	.nav-links a::before,
-	.nav-links a::after {
-		content: '';
-		position: absolute;
-		opacity: 0;
-		transition: opacity 0.2s ease;
-	}
-
-	/* Top-left L-corner (for hover and active) */
-	.nav-links a::before {
-		top: 0;
-		left: 0;
-		width: 10px;
-		height: 10px;
-		background: 
-			var(--accent) 0 0 / 1px 100% no-repeat,
-			var(--accent) 0 0 / 100% 1px no-repeat;
-	}
-
-	/* Bottom-right L-corner (only for active) */
-	.nav-links a::after {
-		bottom: 0;
-		right: 0;
-		width: 10px;
-		height: 10px;
-		background: 
-			var(--accent) 100% 100% / 1px 100% no-repeat,
-			var(--accent) 100% 100% / 100% 1px no-repeat;
-	}
-
-	/* Hover state: show top-left corner only */
-	.nav-links a:hover::before,
-	.nav-links a:focus-visible::before {
-		opacity: 1;
-	}
-
-	/* Active state: show both corners with gradient */
-	.nav-links a.is-active::before,
-	.nav-links a.is-active::after {
-		opacity: 1;
-		background: 
-			var(--fine-border-gradient) 0 0 / 1px 100% no-repeat,
-			var(--fine-border-gradient) 0 0 / 100% 1px no-repeat;
-	}
-
-	.nav-links a.is-active::after {
-		background: 
-			var(--fine-border-gradient) 100% 100% / 1px 100% no-repeat,
-			var(--fine-border-gradient) 100% 100% / 100% 1px no-repeat;
-	}
-
+	/* L-corner indicators and focus styles are in global.css for desktop */
 	/* Focus visible state */
 	.nav-links a:focus-visible {
 		outline: 2px solid var(--accent);
 		outline-offset: 2px;
 		border-radius: 2px;
-	}
-
-	/* Respect reduced motion preference */
-	@media (prefers-reduced-motion: reduce) {
-		.nav-links a::before,
-		.nav-links a::after {
-			transition: none;
-		}
 	}
 
 	@media (max-width: 930px) {
