@@ -502,7 +502,7 @@ hr {
 	border-left-color: var(--accent) !important;
 }
 
-.mobile-nav__links a.is-active {
+.mobile-nav__links a.active {
 	color: var(--accent) !important;
 	border-left-color: var(--accent) !important;
 	background: var(--surface-2) !important;

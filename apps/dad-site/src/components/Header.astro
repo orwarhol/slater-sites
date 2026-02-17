@@ -77,11 +77,6 @@ const links = [
 		if (navLinks) {
 			const drawerLinks = navLinks.cloneNode(true) as HTMLElement;
 			drawerLinks.className = 'mobile-nav__links';
-			// Update classes for mobile - keep is-active but change nav-link to work in mobile context
-			const links = drawerLinks.querySelectorAll('a');
-			links.forEach(link => {
-				link.classList.remove('nav-link');
-			});
 			drawer.appendChild(drawerLinks);
 		}
 
