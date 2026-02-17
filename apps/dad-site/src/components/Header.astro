@@ -159,12 +159,18 @@ const links = [
 		position: relative;
 	}
 
-	/* Remove underline flash on click/active for logo */
-	h1 a:active {
-		text-decoration: none;
+	/* Remove underline on all states for logo - comprehensive coverage */
+	h1 a,
+	h1 a:link,
+	h1 a:visited,
+	h1 a:hover,
+	h1 a:active,
+	h1 a:focus,
+	h1 a:focus-visible {
+		text-decoration: none !important;
 	}
 
-	/* Focus visible style for logo link */
+	/* Focus visible style for logo link - keep accessible outline */
 	h1 a:focus-visible {
 		outline: 2px solid var(--accent);
 		outline-offset: 3px;
@@ -234,6 +240,9 @@ const links = [
 		text-decoration: none;
 		position: relative;
 		transition: color 0.2s ease;
+		/* Explicit nav typography: Rubik 400 */
+		font-family: var(--font-body);
+		font-weight: 400;
 	}
 
 	/* L-corner indicators using pseudo-elements */
@@ -268,7 +277,8 @@ const links = [
 	}
 
 	/* Hover state: show top-left corner only */
-	.nav-links a:hover::before {
+	.nav-links a:hover::before,
+	.nav-links a:focus-visible::before {
 		opacity: 1;
 	}
 
