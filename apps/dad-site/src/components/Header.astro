@@ -19,21 +19,21 @@ const links = [
 ];
 ---
 
-<header>
-	<nav>
-		<h1 class="site-logo"><a href="/">{SITE_TITLE}</a></h1>
+<header class="site-header">
+	<nav class="site-nav">
+		<h1 class="site-logo site-brand"><a href="/">{SITE_TITLE}</a></h1>
 		<button class="hamburger" aria-expanded="false" aria-controls="mobile-nav-drawer" aria-label="Toggle navigation menu">
 			<span></span>
 			<span></span>
 			<span></span>
 		</button>
-		<div class="nav-links">
+		<div class="nav-links site-nav-list">
 			{links.map(link => {
 				const active = isActive(link.href, pathname);
 				return (
 					<a 
 						href={link.href} 
-						class:list={['nav-link', { 'is-active': active }]}
+						class:list={['nav-link', 'site-nav-link', { 'is-active': active }]}
 						aria-current={active ? 'page' : undefined}
 					>
 						{link.label}
