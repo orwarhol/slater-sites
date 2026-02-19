@@ -64,10 +64,7 @@ poemsWithTag.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 							return (
 								<li class="tag-poem-item">
 									<div class="tag-poem-titleline">
-										<a href={`/poetry/${poem.id}`} class="poem-link">
-											{poem.data.title}
-										</a>
-										{hasValidYear && (
+										<a href={`/poetry/${poem.id}`} class="poem-link">{poem.data.title}</a>{hasValidYear && (
 											<span class="tag-poem-year"> / {year}</span>
 										)}
 									</div>
