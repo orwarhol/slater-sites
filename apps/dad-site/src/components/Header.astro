@@ -188,9 +188,24 @@ const links = [
 
 	nav h1 {
 		min-width: 0;
-		white-space: nowrap;
+		/* Allow overflow so focus ring can render - ellipsis moved to anchor */
+		overflow: visible;
+	}
+
+	/* Move ellipsis behavior to the anchor inside the h1 */
+	nav h1 a {
+		display: inline-block;
+		max-width: 100%;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	/* Resilient fallback: show focus ring on h1 wrapper when logo link is focused */
+	h1.site-logo.site-brand:focus-within {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
+		border-radius: 2px;
 	}
 
 	/* Hamburger button - hidden on desktop */
