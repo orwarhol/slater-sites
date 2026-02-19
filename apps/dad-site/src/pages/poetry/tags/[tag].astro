@@ -56,13 +56,27 @@ poemsWithTag.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 					<p class="no-poems">No poems found with this tag.</p>
 				) : (
 					<ul class="tag-poems-list">
-						{poemsWithTag.map(poem => (
-							<li>
-								<a href={`/poetry/${poem.id}`} class="poem-link">
-									{poem.data.title}
-								</a>
-							</li>
-						))}
+						{poemsWithTag.map(poem => {
+							const year = poem.data.date ? new Date(poem.data.date).getFullYear() : null;
+							const hasValidYear = year && !Number.isNaN(year);
+							const hasExcerpt = poem.data.excerpt && poem.data.excerpt.trim().length > 0;
+							
+							return (
+								<li class="tag-poem-item">
+									<div class="tag-poem-titleline">
+										<a href={`/poetry/${poem.id}`} class="poem-link">
+											{poem.data.title}
+										</a>
+										{hasValidYear && (
+											<span class="tag-poem-year"> / {year}</span>
+										)}
+									</div>
+									{hasExcerpt && (
+										<p class="tag-poem-excerpt">{poem.data.excerpt}</p>
+									)}
+								</li>
+							);
+						})}
 					</ul>
 				)}
 
@@ -92,24 +106,43 @@ poemsWithTag.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 		margin: 0 0 3em 0;
 		display: flex;
 		flex-direction: column;
-		gap: 1em;
+		gap: 1.5em;
 	}
 
-	.tag-poems-list li {
+	.tag-poem-item {
 		padding: 0;
 		margin: 0;
 	}
 
+	.tag-poem-titleline {
+		display: block;
+		line-height: 1.4;
+	}
+
 	.poem-link {
+		color: var(--text);
 		text-decoration: none;
 		font-size: 1.1em;
-		line-height: 1.4;
-		display: block;
-		padding: 0.5em 0;
+		font-weight: 500;
 		transition: color 0.2s ease;
 	}
 
 	.poem-link:hover {
 		text-decoration: underline;
+	}
+
+	.tag-poem-year {
+		color: var(--text-secondary);
+		font-size: 0.95em;
+		font-weight: 400;
+		white-space: nowrap;
+	}
+
+	.tag-poem-excerpt {
+		color: var(--text-secondary);
+		margin-top: 0.35rem;
+		margin-bottom: 0;
+		font-size: 0.98em;
+		line-height: 1.5;
 	}
 </style>
