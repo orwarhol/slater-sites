@@ -19,6 +19,7 @@
 	"overrides": {
 		"h3": "1.15.5",
 		"wrangler": "^4.63.0",
-		"lodash": "4.17.23"
+		"lodash": "4.17.23",
+		"fast-xml-parser": ">=5.3.6"
 	}
 }
