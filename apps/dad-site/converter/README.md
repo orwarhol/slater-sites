@@ -63,7 +63,17 @@ Process each batch separately and maintain history.
 3. **Check excerpts** - ensure they end naturally
 4. **Validate frontmatter** - especially dates and titles
 5. **Test stanza breaks** - ensure blank lines are appropriate
-6. **Move to content directory**: Copy validated `.md` files to `apps/dad-site/src/content/poetry/`
+6. **Move to content directory**: Move validated `.md` files to `apps/dad-site/src/content/poetry/`
+
+   From the `apps/dad-site/converter/` directory:
+   ```bash
+   mv output/*.md ../src/content/poetry/
+   ```
+
+   Or from the repository root:
+   ```bash
+   mv apps/dad-site/converter/output/*.md apps/dad-site/src/content/poetry/
+   ```
 
 ## Features
 
