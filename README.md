@@ -93,6 +93,45 @@ Each app can be deployed independently to Cloudflare Pages by configuring the Gi
 - **novels** - Novels (schema: title, publicationDate, printLength, synopsis, purchaseLinks)
 - **gallery** - Photography (schema: title, src, alt, date, notes, camera, location, order)
 
+#### dad-site: Novels content frontmatter
+
+The schema lives in `apps/dad-site/src/content.config.ts`.
+
+**Complete frontmatter example:**
+
+```yaml
+---
+title: "My Novel Title"
+publicationDate: 2023-09-15
+printLength: 312
+synopsis: "A one-paragraph description of the novel shown on the novels listing page."
+purchaseLinks:
+  - label: "Amazon"
+    url: "https://www.amazon.com/dp/XXXXXXXXXX"
+  - label: "Barnes & Noble"
+    url: "https://www.barnesandnoble.com/w/my-novel-title/XXXXXXXXXX"
+---
+```
+
+##### `purchaseLinks` field
+
+`purchaseLinks` is an **array of objects**, each with two required sub-fields:
+
+| Sub-field | Type   | Description                                     |
+| :-------- | :----- | :---------------------------------------------- |
+| `label`   | string | Display name for the link (e.g. "Amazon")       |
+| `url`     | string | Absolute URL to the purchase page               |
+
+An empty array (`purchaseLinks: []`) is valid when no purchase links exist yet.
+
+##### Gotchas
+
+- **Dates** — `publicationDate` must be a valid date parsable by JavaScript (e.g. `YYYY-MM-DD`). Avoid month/year-only values like `2023-09` as they may parse incorrectly across environments.
+- **URLs must be absolute** — `url` values in `purchaseLinks` must start with `https://` (or `http://`). Relative URLs will not work as purchase links.
+- **Quote strings containing special characters** — If `title` or `synopsis` contains colons, quotes, or other YAML-special characters, wrap the value in double quotes or use a block scalar (`>`).
+- **`printLength` is a number** — Do not quote it (write `printLength: 312`, not `printLength: "312"`).
+- **`publicationDate` and `printLength` are optional** — The site builds without them, but including them makes the entry a complete record.
+
 ## 🗺️ SEO & Sitemaps
 
 ### Ian Site SEO Meta Registry
