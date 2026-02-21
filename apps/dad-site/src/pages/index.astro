@@ -3,6 +3,19 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+const carouselImages = [
+	{
+		src: '/charles-portrait.jpg',
+		alt: 'Charles Slater, portrait photograph',
+		position: '50% 0%',
+	},
+	{
+		src: '/charles-theatre.jpeg',
+		alt: 'Charles Slater performing on stage in a theatre production',
+		position: '50% 50%',
+	},
+];
 ---
 
 <!doctype html>
@@ -21,6 +34,36 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				<p>
 					The family moved to the little town of El Segundo, California when Charles was four and his father bought the abandoned Sand Dunes Tavern and converted it into the family home. As a child it was his adventure to live as none of his friends did and roam the dunes with a sense of freedom. He had an early passion for architecture and wanted to build things, and at age twelve designed and converted the old bandstand of the Sand Dunes Tavern into his unusual bedroom, and years later designed and built his own home.
 				</p>
+
+				<figure class="bio-carousel" aria-label="Photos of Charles Slater">
+					<div class="bio-carousel__viewport">
+						{carouselImages.map((img, i) => (
+							<img
+								src={img.src}
+								alt={img.alt}
+								class:list={['bio-carousel__img', { 'is-active': i === 0 }]}
+								style={`object-position: ${img.position};`}
+								aria-hidden={i !== 0 ? 'true' : undefined}
+								loading="lazy"
+							/>
+						))}
+						<button
+							type="button"
+							class="carousel-toggle"
+							aria-label="Pause carousel"
+							id="carousel-toggle"
+						>
+							<svg class="icon-pause" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+								<rect x="5" y="4" width="4" height="16" rx="1" fill="currentColor"/>
+								<rect x="15" y="4" width="4" height="16" rx="1" fill="currentColor"/>
+							</svg>
+							<svg class="icon-play" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+								<polygon points="5,3 19,12 5,21" fill="currentColor"/>
+							</svg>
+						</button>
+					</div>
+				</figure>
+
 				<p>
 					Charles “Chuck” Slater taught high school theater and English for thirty-four years at Torrance High School in Torrance, California and frequently starred in college or little theater productions in such roles as Don Quixote in <i>Man of La Mancha</i>, Henry the second in <i>Lion in Winter</i>, Doctor Dysart in <i>Equus</i>, and Sakini in <i>Tea House of the August Moon</i>.
 				</p>
@@ -101,4 +144,161 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		margin-bottom: 0;
 		color: var(--text-secondary);
 	}
+
+	/* ── Carousel ─────────────────────────────────────────────────── */
+
+	.bio-carousel {
+		margin: 0;
+		padding: 0;
+		/* Default (mobile): centred block */
+		display: block;
+		margin: 1.5rem auto;
+		width: min(350px, 100%);
+	}
+
+	.bio-carousel__viewport {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 1 / 1;
+		overflow: hidden;
+		border-radius: var(--radius-md);
+		border: 1px solid var(--border);
+	}
+
+	.bio-carousel__img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		opacity: 0;
+		transition: opacity 0.8s ease;
+	}
+
+	.bio-carousel__img.is-active {
+		opacity: 1;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.bio-carousel__img {
+			transition: opacity 0.01s;
+		}
+	}
+
+	/* ── Toggle button ─────────────────────────────────────────────── */
+
+	.carousel-toggle {
+		position: absolute;
+		bottom: 0.6rem;
+		right: 0.6rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.25rem;
+		height: 2.25rem;
+		padding: 0;
+		background: var(--button-bg);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-sm);
+		color: var(--text);
+		cursor: pointer;
+		transition: background 0.2s ease, border-color 0.2s ease;
+	}
+
+	.carousel-toggle:hover {
+		background: var(--button-bg-hover);
+		border-color: var(--glass-border-hover);
+	}
+
+	.carousel-toggle:focus-visible {
+		outline: var(--focus-ring);
+		outline-offset: 2px;
+	}
+
+	/* Icon visibility controlled by .is-paused on the button */
+	.carousel-toggle .icon-play { display: none; }
+	.carousel-toggle.is-paused .icon-pause { display: none; }
+	.carousel-toggle.is-paused .icon-play  { display: block; }
+
+	/* ── Desktop float layout ──────────────────────────────────────── */
+
+	@media (min-width: 680px) {
+		.bio-carousel {
+			float: right;
+			margin: 0.25rem 0 1.5rem 2.25rem;
+			width: 350px;
+		}
+	}
+
+	/* Clear float after the bio section */
+	.bio::after {
+		content: '';
+		display: table;
+		clear: both;
+	}
 </style>
+
+<script>
+(function () {
+	const INTERVAL_MS = 5000;
+	const viewport = document.querySelector('.bio-carousel__viewport');
+	if (!viewport) return;
+
+	const images = Array.from(viewport.querySelectorAll<HTMLImageElement>('.bio-carousel__img'));
+	const toggleEl = document.getElementById('carousel-toggle');
+	if (!images.length || !toggleEl) return;
+	const toggle: HTMLElement = toggleEl;
+
+	let activeIndex = 0;
+	let intervalId: ReturnType<typeof setInterval> | null = null;
+
+	const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	function showImage(index: number): void {
+		images.forEach((img, i) => {
+			const active = i === index;
+			img.classList.toggle('is-active', active);
+			if (active) {
+				img.removeAttribute('aria-hidden');
+			} else {
+				img.setAttribute('aria-hidden', 'true');
+			}
+		});
+	}
+
+	function advance(): void {
+		activeIndex = (activeIndex + 1) % images.length;
+		showImage(activeIndex);
+	}
+
+	function startInterval(): void {
+		if (intervalId !== null) return;
+		intervalId = setInterval(advance, INTERVAL_MS);
+	}
+
+	function stopInterval(): void {
+		if (intervalId !== null) {
+			clearInterval(intervalId);
+			intervalId = null;
+		}
+	}
+
+	function setPaused(state: boolean): void {
+		toggle.classList.toggle('is-paused', state);
+		toggle.setAttribute('aria-label', state ? 'Play carousel' : 'Pause carousel');
+		if (state) {
+			stopInterval();
+		} else {
+			startInterval();
+		}
+	}
+
+	toggle.addEventListener('click', function () {
+		const paused = toggle.classList.contains('is-paused');
+		setPaused(!paused);
+	});
+
+	// Initialise
+	setPaused(prefersReduced);
+})();
+</script>
