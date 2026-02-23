@@ -61,24 +61,51 @@ function normalizeTitle(t) {
 
 // ─── XML Parsing ───────────────────────────────────────────────────────────────
 
+/**
+ * Extract the text between the first occurrence of <tag> and </tag>.
+ * Uses string split to avoid regex backtracking on large inputs.
+ */
+function extractTag(text, openTag, closeTag) {
+  const start = text.indexOf(openTag);
+  if (start === -1) return null;
+  const contentStart = start + openTag.length;
+  const end = text.indexOf(closeTag, contentStart);
+  if (end === -1) return null;
+  return text.slice(contentStart, end);
+}
+
 /** Extract all <item> entries from the WordPress XML export. */
 function parseXmlItems(xml) {
   const items = [];
-  const itemRe = /<item>([\s\S]*?)<\/item>/g;
-  let m;
-  while ((m = itemRe.exec(xml)) !== null) {
-    const raw = m[1];
-    const titleM = raw.match(/<title>([\s\S]*?)<\/title>/);
-    const dateM = raw.match(/<wp:post_date>([\s\S]*?)<\/wp:post_date>/);
-    const contentM = raw.match(/<content:encoded><!\[CDATA\[([\s\S]*?)\]\]><\/content:encoded>/);
-    if (!titleM || !contentM) continue;
+  // Split on <item> boundaries to avoid regex backtracking over large XML
+  const parts = xml.split('<item>');
+  for (let i = 1; i < parts.length; i++) {
+    const raw = parts[i].split('</item>')[0];
+    const title = extractTag(raw, '<title>', '</title>');
+    const date = extractTag(raw, '<wp:post_date>', '</wp:post_date>');
+    const cdataContent = extractTag(raw, '<content:encoded><![CDATA[', ']]></content:encoded>');
+    if (title === null || cdataContent === null) continue;
     items.push({
-      title: titleM[1].trim(),
-      date: dateM ? dateM[1].trim().slice(0, 7) : '', // YYYY-MM
-      html: contentM[1],
+      title: title.trim(),
+      date: date ? date.trim().slice(0, 7) : '', // YYYY-MM
+      html: cdataContent,
     });
   }
   return items;
+}
+
+/**
+ * Decode common HTML entities in a string.
+ * Uses fixed string replacements rather than regex on numeric codes to
+ * avoid potential issues with large or unusual inputs.
+ */
+function decodeEntities(s) {
+  return s
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n, 10)));
 }
 
 /**
@@ -89,25 +116,21 @@ function parseXmlItems(xml) {
  */
 function htmlToStanzas(html) {
   // Normalise line break tags before extracting <p> blocks
-  let content = html
+  const content = html
     .replace(/<br\s*\/?>\s*/gi, '\n')
     .replace(/\r\n/g, '\n');
 
-  function decodeEntities(s) {
-    return s
-      .replace(/&amp;/g, '&')
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .replace(/&nbsp;/g, ' ')
-      .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n)));
-  }
-
   const stanzas = [];
-  const pRe = /<p[^>]*>([\s\S]*?)<\/p>/gi;
-  let pm;
-  while ((pm = pRe.exec(content)) !== null) {
-    const inner = pm[1]
-      .replace(/<[^>]+>/g, '') // strip remaining HTML tags
+  // Split on </p> to get each paragraph block without backtracking regex
+  const pBlocks = content.split('</p>');
+  for (const block of pBlocks) {
+    // Extract inner content after the opening <p...> tag
+    const pStart = block.indexOf('<p');
+    if (pStart === -1) continue;
+    const tagEnd = block.indexOf('>', pStart);
+    if (tagEnd === -1) continue;
+    const inner = block.slice(tagEnd + 1)
+      .replace(/<[^>]+>/g, '') // strip remaining HTML tags (bounded by >)
       .replace(/\n+$/, '');    // strip trailing newlines from block
     const text = decodeEntities(inner);
     const lines = text.split('\n').map(l => l.trimEnd()).filter(l => l.trim() !== '');
