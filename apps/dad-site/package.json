@@ -8,7 +8,9 @@
 		"build": "astro check && astro build",
 		"postbuild": "node -e \"require('fs').copyFileSync('.assetsignore','dist/.assetsignore')\"",
 		"preview": "astro preview",
-		"astro": "astro"
+		"astro": "astro",
+		"infer-stanzas": "node scripts/infer-stanzas-from-site.mjs",
+		"infer-stanzas:write": "node scripts/infer-stanzas-from-site.mjs --write"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.0",
