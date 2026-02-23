@@ -20,6 +20,7 @@ unit, bend it
 to a known  
 totality.  
 Impossible.  
+
 But, Lord, it’s  
 exciting, So  
 much better  
@@ -33,6 +34,8 @@ us attempt
 to grasp  
 Shakespeare’s  
 comic genius.  
+
 March on,  
 reason.  
+
 Slater, Spring, 1985  

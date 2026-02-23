@@ -11,12 +11,14 @@ heard the sound, the realization that who-
 ever carved the little dude, hollowed out its  
 middle to resonate and giving him a toady-  
 shaped credibility had been artful.  
+
 I want to believe this was done ages ago,  
 before power tools, before electric lights,  
 before marketing and mass production. It  
 could have been, considering it began as a  
 frog-sized block of wood that some cave man  
 could have hand carved with flint.  
+
 So simple in its beauty and sound, such an  
 honoring of nature. Have these carvings  
 been around since the discovery of fire?  

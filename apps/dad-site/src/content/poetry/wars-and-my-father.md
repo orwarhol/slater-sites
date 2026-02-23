@@ -13,6 +13,7 @@ already been in two armies and had
 been shot in the WWI trenches in  
 France, he cried when I got on  
 the bus for Fort Ord.  
+
 He had seen the death of war and  
 here was his boy called from his well-  
 planned life to do battle. Looking back,  
@@ -21,6 +22,7 @@ I even volunteered for the combat.
 I was willing to be the fodder of  
 war for the cause. It was the  
 thinking of a politically  
+
 unformed young man following in  
 the footsteps of his family. I had yet  
 to realize the complexity of pitting boys against  
@@ -29,6 +31,7 @@ or nationalism, or political style. I was
 the perfect fatalist in that ugly brown  
 uniform, more than willing to end  
 my existence in hopes  
+
 of something better down the line,  
 matriculation in the bloodbath of idealism.  
 So there was the veteran standing by the bus  
