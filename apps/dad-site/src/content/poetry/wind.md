@@ -21,4 +21,5 @@ I sat thrilled on the front porch in the
 beginning light before the sun raised  
 it's summer might over the eastern  
 horizon. The stranger had entered smiling.  
+
 _July 19, 2005 Hot Hemet_  

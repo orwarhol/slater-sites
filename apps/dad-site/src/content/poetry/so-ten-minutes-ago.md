@@ -6,14 +6,25 @@ excerpt: "Look here. Now. Do you see? The time is at hand. Wake up dummy. Drink 
 ---
 
 Look here.  
+
 Now.  
+
 Do you see?  
+
 The time is at  
+
 hand. Wake up  
+
 dummy. Drink  
+
 coffee; eat  
+
 a bagel.  
+
 Think  
+
 possibilities.  
+
 Outward not  
+
 inward.  

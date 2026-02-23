@@ -13,6 +13,7 @@ in New York who said he would not
 make it to bird colonel because he  
 thought war was a form of political  
 failure. She listened sweetly.  
+
 The drive back to the present home  
 was colored in diffused memories.  
 The familiar trip, made hundreds of  
@@ -21,6 +22,7 @@ steeped in my mortality as if having
 traveled back to my roots triggered  
 new wonder of the old places. There  
 was question of how to fit in to where  
+
 and what has been most of my life.  
 This wonder is not sadness, nor a  
 sense of a pending end, but baptism  

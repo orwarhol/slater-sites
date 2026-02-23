@@ -12,6 +12,7 @@ uprooted, before the middle
 girls were born, before the  
 first letter of the first word  
 of the first book was struck.  
+
 I am grouped with my young  
 siblings and my mother and  
 father cleaned up for some  
@@ -19,6 +20,7 @@ photographer brought in to
 catch us as an unsophisticated  
 family in that shameful old  
 rattletrap of a converted tavern.  
+
 I am standing behind the  
 bamboo curtain made up  
 to look Japanese poised to  
@@ -26,6 +28,7 @@ say the first line of _Teahouse of_
 _the August Moon_ with my mother  
 in the audience who will not  
 recognize me that close to her end.  
+
 I am standing beside my  
 oldest brother before my  
 father's coffin as he slips the  
@@ -33,6 +36,7 @@ watch off his thin wrist, unable
 to know what to think that the  
 brother's gift to my Dad will  
 not be buried with him.  
+
 I am standing before my first  
 classroom almost delirious after  
 the birth of my daughter full of the  
