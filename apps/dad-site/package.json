@@ -9,7 +9,9 @@
 		"postbuild": "node -e \"require('fs').copyFileSync('.assetsignore','dist/.assetsignore')\"",
 		"preview": "astro preview",
 		"astro": "astro",
-		"sync:decorative-images": "node ./scripts/sync-decorative-image-registry.mjs"
+		"sync:decorative-images": "node ./scripts/sync-decorative-image-registry.mjs",
+		"tags:rename": "node ./scripts/manage-poetry-tags.mjs rename",
+		"tags:delete": "node ./scripts/manage-poetry-tags.mjs delete"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.0",
