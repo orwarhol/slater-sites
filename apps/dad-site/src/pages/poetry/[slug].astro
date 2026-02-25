@@ -6,6 +6,7 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import PoetryDarkReaderToggle from '../../components/PoetryDarkReaderToggle.astro';
 import { getEntry, render } from 'astro:content';
 import { slugifyTag } from '../../utils/tags';
+import { getDecorativeImageForTag, hasRegistryTag } from '../../utils/decorativeImages';
 
 // Get the slug from the URL params
 const { slug } = Astro.params;
@@ -22,6 +23,14 @@ if (!poem) {
 }
 
 const { Content } = await render(poem);
+
+// Resolve decorativeImage: registry tag → /poetry/<filename>, else use as-is
+const rawDecorativeImage = poem.data.decorativeImage;
+const resolvedDecorativeImage = rawDecorativeImage
+	? (hasRegistryTag(rawDecorativeImage)
+		? getDecorativeImageForTag(rawDecorativeImage)
+		: rawDecorativeImage)
+	: undefined;
 ---
 
 <!doctype html>
@@ -40,9 +49,9 @@ const { Content } = await render(poem);
 			<div class="poetry-reader-surface" data-poetry-reader>
 				<article>
 					<header class="poem-header">
-						{poem.data.decorativeImage && (
+						{resolvedDecorativeImage && (
 							<div class="decorative-image-wrap" aria-hidden="true">
-								<img src={poem.data.decorativeImage} alt="" />
+								<img src={resolvedDecorativeImage} alt="" />
 							</div>
 						)}
 						<h1>{poem.data.title}</h1>

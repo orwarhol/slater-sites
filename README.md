@@ -107,7 +107,7 @@ tags:
   - nature
   - reflection
 excerpt: "A short one- or two-sentence teaser shown on the poetry listing page."
-decorativeImage: "/images/poetry/my-poem-image.jpg"
+decorativeImage: "Theatre"
 ---
 ```
 
@@ -118,11 +118,49 @@ decorativeImage: "/images/poetry/my-poem-image.jpg"
 - Provide one tag per line using YAML list syntax (see example above), or use inline syntax: `tags: ["nature", "reflection"]`
 - An empty array (`tags: []`) is valid when no tags apply; the field also defaults to `[]` if omitted entirely.
 
+##### `decorativeImage` field and the Decorative Image Registry
+
+`decorativeImage` is **optional**. When present it drives a small decorative image shown in the upper-right of the poem header. The value can be:
+
+| Form | Example | Behavior |
+| :--- | :------ | :------- |
+| **Tag name (preferred)** | `decorativeImage: "Theatre"` | Resolved via the registry → `/poetry/drama.png` |
+| **Direct path (legacy / backwards-compatible)** | `decorativeImage: "/poetry/rose.png"` | Used as-is |
+
+**Registry location:** `apps/dad-site/src/utils/decorativeImages.ts`
+
+**Images location:** `apps/dad-site/public/poetry/`
+
+**How to map a tag to an image:**
+
+1. Open `apps/dad-site/src/utils/decorativeImages.ts`.
+2. Find the tag key in `DECORATIVE_IMAGE_REGISTRY` (entries are alphabetical).
+3. Change its value from `null` to the image **filename only** — no leading slash, no `/poetry/` prefix (e.g. `"rose.png"`).
+4. Ensure the image file exists in `apps/dad-site/public/poetry/`.
+
+**How to run the sync command** (adds any tags missing from the registry, keeps existing entries):
+
+```bash
+npm run --workspace=dad-site sync:decorative-images
+# or, from inside apps/dad-site:
+npm run sync:decorative-images
+```
+
+**What the sync script does:**
+
+- Scans every `.md` / `.mdx` file in `apps/dad-site/src/content/poetry/`.
+- Adds any tags not yet in the registry (with `null` as the default value, or a seed value if one was pre-configured).
+- Does **not** remove existing registry entries even if a tag no longer appears in content.
+- Registry entries are kept in **alphabetical order** (case-insensitive) — the script re-sorts the file on every run.
+- Prints **warnings** (but does not fail) for:
+  - **Near-duplicate tags** — tags that differ only by casing or extra whitespace (e.g. `"War"` vs `"war"`).
+  - **Missing mapped files** — registry entries whose filename does not exist in `apps/dad-site/public/poetry/`.
+
 ##### Gotchas
 
 - **Dates** — `date` must be a valid date parsable by JavaScript (e.g. `YYYY-MM-DD`). Avoid month/year-only values like `2023-04` as they may parse incorrectly across environments.
 - **`excerpt` is required** — Every poem entry must include an `excerpt`. Omitting it will cause a build error.
-- **`decorativeImage` is optional** — When provided, the value should be an absolute path to an image in the `public/` directory (e.g. `/images/poetry/my-image.jpg`). Omit the field entirely when no decorative image is needed.
+- **`decorativeImage` is optional** — Omit the field entirely when no decorative image is needed. When provided, prefer a tag name (resolved via registry); a direct path is also accepted for backwards compatibility.
 - **Quote strings containing special characters** — If `title` or `excerpt` contains colons, quotes, or other YAML-special characters, wrap the value in double quotes or use a block scalar (`>`).
 
 #### dad-site: Novels content frontmatter
