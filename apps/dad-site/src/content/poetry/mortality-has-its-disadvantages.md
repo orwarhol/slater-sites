@@ -3,6 +3,7 @@ title: "Mortality Has Its Disadvantages"
 date: 2004-10-15
 tags: ["Philosophy","Alfa Romero","cars","mortality","Porsche"]
 excerpt: "If you are painting the window sills for instance, or writing the Great American Novel, or selling the Porsche you can't afford, or would like to change your"
+decorativeImage: "cars"
 ---
 
 If you are painting the window sills  
