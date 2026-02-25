@@ -93,6 +93,38 @@ Each app can be deployed independently to Cloudflare Pages by configuring the Gi
 - **novels** - Novels (schema: title, publicationDate, printLength, synopsis, purchaseLinks)
 - **gallery** - Photography (schema: title, src, alt, date, notes, camera, location, order)
 
+#### dad-site: Poetry content frontmatter
+
+The schema lives in `apps/dad-site/src/content.config.ts`.
+
+**Complete frontmatter example:**
+
+```yaml
+---
+title: "My Poem Title"
+date: 2023-04-01
+tags:
+  - nature
+  - reflection
+excerpt: "A short one- or two-sentence teaser shown on the poetry listing page."
+decorativeImage: "/images/poetry/my-poem-image.jpg"
+---
+```
+
+##### `tags` field
+
+`tags` is an **array of strings** used to categorize and filter poems.
+
+- Provide one tag per line using YAML list syntax (see example above), or use inline syntax: `tags: ["nature", "reflection"]`
+- An empty array (`tags: []`) is valid when no tags apply; the field also defaults to `[]` if omitted entirely.
+
+##### Gotchas
+
+- **Dates** — `date` must be a valid date parsable by JavaScript (e.g. `YYYY-MM-DD`). Avoid month/year-only values like `2023-04` as they may parse incorrectly across environments.
+- **`excerpt` is required** — Every poem entry must include an `excerpt`. Omitting it will cause a build error.
+- **`decorativeImage` is optional** — When provided, the value should be an absolute path to an image in the `public/` directory (e.g. `/images/poetry/my-image.jpg`). Omit the field entirely when no decorative image is needed.
+- **Quote strings containing special characters** — If `title` or `excerpt` contains colons, quotes, or other YAML-special characters, wrap the value in double quotes or use a block scalar (`>`).
+
 #### dad-site: Novels content frontmatter
 
 The schema lives in `apps/dad-site/src/content.config.ts`.
