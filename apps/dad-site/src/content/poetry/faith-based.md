@@ -3,6 +3,7 @@ title: "Faith Based"
 date: 2004-11-09
 tags: ["War"]
 excerpt: "We have shifted out of reason into faith. The believers are our nation’s majority whose collective power have given us a continuation of policy born of predeter"
+decorativeImage: "war"
 ---
 
 We have shifted out of reason into faith.  
