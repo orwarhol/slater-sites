@@ -163,6 +163,63 @@ npm run sync:decorative-images
 - **`decorativeImage` is optional** — Omit the field entirely when no decorative image is needed. When provided, prefer a tag name (resolved via registry); a direct path is also accepted for backwards compatibility.
 - **Quote strings containing special characters** — If `title` or `excerpt` contains colons, quotes, or other YAML-special characters, wrap the value in double quotes or use a block scalar (`>`).
 
+#### Managing Poetry Tags
+
+Because the `sync:decorative-images` script is **additive** (it re-adds any tags found in content), simply editing the registry is not enough to remove or rename a tag — the next sync run would just add it back. The correct workflow is always to **change the source of truth first** (poem frontmatter), then re-run the sync.
+
+**Script:** `apps/dad-site/scripts/manage-poetry-tags.mjs`
+
+Modifies only the `tags:` array in YAML frontmatter across all poetry files. Never touches poem body text or the decorative image registry directly.
+
+**Available npm scripts (run from `apps/dad-site` or with `--workspace=dad-site`):**
+
+| Command | Action |
+| :------ | :----- |
+| `npm run tags:rename -- --from "Old Tag" --to "New Tag"` | Rename / merge a tag everywhere |
+| `npm run tags:delete -- --tag "Tag To Remove"` | Delete a tag everywhere |
+
+Add `--dry-run` to either command to preview changes without writing any files.
+
+> **Note:** Matching is **exact and case-sensitive**. Copy the tag string directly from the registry or frontmatter to avoid typos.
+> The `sync:decorative-images` warnings about near-duplicate tags (e.g. `"War"` vs `"war"`) are a useful guide for identifying candidates to merge.
+
+##### Recommended workflow
+
+1. **Identify** the duplicate/unwanted tag (e.g. from sync script warnings).
+2. **Dry-run** to confirm which files would change.
+3. **Apply** the change.
+4. **Re-sync** the registry so it reflects the updated tag set.
+
+##### Rename / merge example
+
+```bash
+# Preview
+npm run --workspace=dad-site tags:rename -- --from "war" --to "War" --dry-run
+
+# Apply
+npm run --workspace=dad-site tags:rename -- --from "war" --to "War"
+
+# Re-sync registry
+npm run --workspace=dad-site sync:decorative-images
+```
+
+If a poem already contains both `"war"` and `"War"`, the script deduplicates so `"War"` appears only once.
+
+##### Delete example
+
+```bash
+# Preview
+npm run --workspace=dad-site tags:delete -- --tag "obsolete tag" --dry-run
+
+# Apply
+npm run --workspace=dad-site tags:delete -- --tag "obsolete tag"
+
+# Re-sync registry (tag no longer in content → will not be re-added)
+npm run --workspace=dad-site sync:decorative-images
+```
+
+After deleting, if the tag had a registry entry it will remain in the registry (the sync script never removes entries), but it will no longer appear in the near-duplicate warnings and won't be re-added from content.
+
 #### dad-site: Novels content frontmatter
 
 The schema lives in `apps/dad-site/src/content.config.ts`.
