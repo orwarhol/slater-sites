@@ -40,6 +40,11 @@ const { Content } = await render(poem);
 			<div class="poetry-reader-surface" data-poetry-reader>
 				<article>
 					<header class="poem-header">
+						{poem.data.decorativeImage && (
+							<div class="decorative-image-wrap" aria-hidden="true">
+								<img src={poem.data.decorativeImage} alt="" />
+							</div>
+						)}
 						<h1>{poem.data.title}</h1>
 						<div class="poem-meta">
 							<FormattedDate date={poem.data.date} />
@@ -71,9 +76,40 @@ const { Content } = await render(poem);
 
 <style>
 	.poem-header {
+		position: relative;
 		margin-bottom: 3em;
 		padding-bottom: 2em;
+		padding-right: 110px;
+		min-height: 6em;
 		border-bottom: 1px solid var(--border);
+	}
+
+	.decorative-image-wrap {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 90px;
+		height: 90px;
+		pointer-events: none;
+	}
+
+	.decorative-image-wrap img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		display: block;
+	}
+
+	@media (max-width: 600px) {
+		.poem-header {
+			padding-right: 88px;
+			min-height: 5em;
+		}
+
+		.decorative-image-wrap {
+			width: 72px;
+			height: 72px;
+		}
 	}
 
 	h1 {
