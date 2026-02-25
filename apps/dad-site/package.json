@@ -8,7 +8,9 @@
 		"build": "astro check && astro build",
 		"postbuild": "node -e \"require('fs').copyFileSync('.assetsignore','dist/.assetsignore')\"",
 		"preview": "astro preview",
-		"astro": "astro"
+		"astro": "astro",
+		"tags:rename": "node ./scripts/manage-poetry-tags.mjs rename",
+		"tags:delete": "node ./scripts/manage-poetry-tags.mjs delete"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.0",
