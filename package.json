@@ -20,6 +20,8 @@
 		"h3": "1.15.5",
 		"wrangler": "^4.63.0",
 		"lodash": "4.17.23",
-		"fast-xml-parser": ">=5.3.6"
+		"fast-xml-parser": ">=5.3.8",
+		"rollup": ">=4.59.0",
+		"svgo": ">=4.0.1"
 	}
 }
