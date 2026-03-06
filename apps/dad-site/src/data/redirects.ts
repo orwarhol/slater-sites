@@ -52,9 +52,15 @@
  * It does NOT match the bare prefix without a slash (add a separate
  * exact rule for that if needed, e.g. { from: '/old-section', to: '...' }).
  *
+ * HOW TO ADD A REDIRECT
+ * ---------------------
+ * Append a new object inside the `redirects` array at the bottom of this
+ * file.  Do NOT add entries outside the array — they will be ignored and
+ * will cause a TypeScript build error.
+ *
  * TESTING LOCALLY
  * ---------------
- * 1. Add a rule below.
+ * 1. Add a rule inside the `redirects` array below.
  * 2. Run: npm run dev:dad
  * 3. Visit http://localhost:4321/old-path — you should be redirected.
  * 4. Check the Network tab; confirm the status is 301 (or your chosen code).
@@ -132,6 +138,7 @@ export function resolveRedirect(
 	return null;
 }
 
+// ↓↓↓ ADD NEW REDIRECTS INSIDE THIS ARRAY ↓↓↓
 export const redirects: RedirectRule[] = [
 	// Exact redirects — add when a page slug or section name changes.
 	{ from: "/books", to: "/novels", status: 301 },
@@ -140,3 +147,4 @@ export const redirects: RedirectRule[] = [
 	// Every URL under /poems/* is rewritten to the same path under /poetry/*.
 	{ from: "/poems/*", to: "/poetry/*", status: 301 },
 ];
+// ↑↑↑ ADD NEW REDIRECTS INSIDE THIS ARRAY ↑↑↑
