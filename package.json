@@ -10,10 +10,15 @@
 		"dev:ian": "npm run dev --workspace=ian-site",
 		"dev:dad": "npm run dev --workspace=dad-site",
 		"build:ian": "npm run build --workspace=ian-site",
-		"build:dad": "npm run build --workspace=dad-site"
+		"build:dad": "npm run build --workspace=dad-site",
+		"test:ian": "npm run test --workspace=ian-site",
+		"test:dad": "npm run test --workspace=dad-site",
+		"test:ian:integration": "npm run test:integration --workspace=ian-site",
+		"test:dad:integration": "npm run test:integration --workspace=dad-site"
 	},
 	"devDependencies": {
 		"turndown": "^7.2.0",
+		"vitest": "^4.0.18",
 		"wrangler": "^4.63.0"
 	},
 	"overrides": {
