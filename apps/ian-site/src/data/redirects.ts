@@ -141,11 +141,9 @@ export function resolveRedirect(
 // ↓↓↓ ADD NEW REDIRECTS INSIDE THIS ARRAY ↓↓↓
 export const redirects: RedirectRule[] = [
 	// Exact redirects — add when a page slug or section name changes.
-	{ from: "/writing", to: "/projects", status: 301 },
 	{ from: "/photography", to: "/gallery", status: 301 }, // Squarespace site had a photography section, now we just have a gallery
 
 	// Prefix redirects — add when an entire section is renamed or moved.
-	// Every URL under /films/* is rewritten to the same path under /projects/*.
-	{ from: "/films/*", to: "/projects/*", status: 301 },
+
 ];
 // ↑↑↑ ADD NEW REDIRECTS INSIDE THIS ARRAY ↑↑↑
