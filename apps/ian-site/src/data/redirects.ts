@@ -140,3 +140,5 @@ export const redirects: RedirectRule[] = [
 	// Every URL under /films/* is rewritten to the same path under /projects/*.
 	{ from: "/films/*", to: "/projects/*", status: 301 },
 ];
+
+{ from: '/photography', to: '/gallery', status: 301 } // Squarespace site had a photography section, now we just have a gallery
