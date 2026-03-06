@@ -2,7 +2,8 @@
 title: "Eugene O'Neill Looms Large"
 date: 2007-08-08
 tags: ["Billboard","Theatre","biography","drama","Eugene O'Neill","Lion In Winter","playwriting"]
-excerpt: "The broadcast biography of him last night bringing back his tortured productive genius, including the idea he might have been a little in love with death, align"
+excerpt: "The broadcast biography of him last night bringing back his tortured productive genius, including the idea he might have been a little in love with death"
+decorativeImage: "Theatre"
 ---
 
 The broadcast biography of him  
