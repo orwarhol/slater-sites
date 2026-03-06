@@ -1,5 +1,5 @@
 import { defineMiddleware } from "astro:middleware";
-import { redirects } from "./data/redirects";
+import { buildLookup, resolveRedirect, redirects } from "./data/redirects";
 
 // ---------------------------------------------------------------------------
 // Dev-time validation — logged once at startup, never throws.
@@ -23,25 +23,19 @@ if (import.meta.env.DEV) {
 }
 
 // ---------------------------------------------------------------------------
-// Build a Map for O(1) exact-path lookups.
+// Build lookup structures once at module load (not on every request).
 // ---------------------------------------------------------------------------
-const redirectMap = new Map(
-	redirects
-		.filter((rule) => rule.from !== rule.to)
-		.map((rule) => [rule.from, rule]),
-);
+const lookup = buildLookup(redirects);
 
 // ---------------------------------------------------------------------------
 // Middleware
 // ---------------------------------------------------------------------------
 export const onRequest = defineMiddleware((context, next) => {
 	const url = new URL(context.request.url);
-	const rule = redirectMap.get(url.pathname);
+	const match = resolveRedirect(url.pathname, url.search, lookup);
 
-	if (rule) {
-		// Preserve any query string from the original request.
-		const destination = rule.to + url.search;
-		return context.redirect(destination, rule.status ?? 301);
+	if (match) {
+		return context.redirect(match.destination, match.status);
 	}
 
 	return next();

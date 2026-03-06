@@ -26,23 +26,46 @@
  *
  * Default status is 301 when the `status` field is omitted.
  *
- * TESTING LOCALLY
- * ---------------
- * 1. Add a rule below (e.g. { from: '/test-old', to: '/test-new' }).
- * 2. Run: npm run dev:dad
- * 3. Visit http://localhost:4321/test-old — you should be redirected.
- * 4. Check the Network tab; confirm the status is 301 (or your chosen code).
- * 5. Confirm query strings are preserved:
- *    http://localhost:4321/test-old?ref=abc → http://localhost:4321/test-new?ref=abc
- * 6. Remove the test rule before committing.
- *
- * FORMAT
- * ------
+ * RULE FORMAT – EXACT MATCH
+ * -------------------------
  * {
  *   from: '/old-path',   // exact pathname, must start with /
  *   to:   '/new-path',   // destination pathname or absolute URL
  *   status: 301,         // optional; defaults to 301
  * }
+ *
+ * RULE FORMAT – PREFIX (WILDCARD) MATCH
+ * --------------------------------------
+ * End `from` with `/*` to match any path that starts with that prefix.
+ * If `to` also ends with `/*`, the captured tail is rewritten onto the
+ * destination; otherwise the tail is dropped and every request below the
+ * prefix lands on the same `to` URL.
+ *
+ * { from: '/old-section/*', to: '/new-section/*' }
+ *   /old-section/foo       → /new-section/foo
+ *   /old-section/foo/bar   → /new-section/foo/bar
+ *
+ * { from: '/old-section/*', to: '/new-section' }
+ *   /old-section/anything  → /new-section
+ *
+ * Note: `/*` matches paths that start with the prefix + '/'.
+ * It does NOT match the bare prefix without a slash (add a separate
+ * exact rule for that if needed, e.g. { from: '/old-section', to: '...' }).
+ *
+ * TESTING LOCALLY
+ * ---------------
+ * 1. Add a rule below.
+ * 2. Run: npm run dev:dad
+ * 3. Visit http://localhost:4321/old-path — you should be redirected.
+ * 4. Check the Network tab; confirm the status is 301 (or your chosen code).
+ * 5. Confirm query strings are preserved:
+ *    http://localhost:4321/old-path?ref=abc → http://localhost:4321/new-path?ref=abc
+ *
+ * AUTOMATED TESTS
+ * ---------------
+ * Run the unit and integration test suites to verify redirect behaviour:
+ *   npm run test:unit --workspace=dad-site        # fast, no server needed
+ *   npm run test:integration --workspace=dad-site # spins up the dev server
  */
 
 export type RedirectRule = {
@@ -51,10 +74,69 @@ export type RedirectRule = {
 	status?: 301 | 302 | 307 | 308;
 };
 
+// Returned by resolveRedirect when a rule matches.
+export type RedirectMatch = {
+	destination: string;
+	status: 301 | 302 | 307 | 308;
+};
+
+// Pre-built lookup structures created once at startup by buildLookup().
+export type RedirectLookup = {
+	exactMap: Map<string, RedirectRule>;
+	prefixRules: RedirectRule[];
+};
+
+/**
+ * Build fast lookup structures from a rules array.
+ * Self-redirect rules (from === to) are silently dropped.
+ * Exact rules and prefix rules (`from` ending in `/*`) are separated.
+ */
+export function buildLookup(rules: ReadonlyArray<RedirectRule>): RedirectLookup {
+	const safeRules = rules.filter((r) => r.from !== r.to);
+	return {
+		exactMap: new Map(
+			safeRules.filter((r) => !r.from.endsWith("/*")).map((r) => [r.from, r]),
+		),
+		prefixRules: safeRules.filter((r) => r.from.endsWith("/*")),
+	};
+}
+
+/**
+ * Resolve a redirect for the given pathname + query string.
+ * Exact rules are checked first; prefix rules are the fallback.
+ * Returns null when no rule matches.
+ */
+export function resolveRedirect(
+	pathname: string,
+	search: string,
+	lookup: RedirectLookup,
+): RedirectMatch | null {
+	// 1. Exact match (O(1) Map lookup).
+	const exact = lookup.exactMap.get(pathname);
+	if (exact) {
+		return { destination: exact.to + search, status: exact.status ?? 301 };
+	}
+
+	// 2. Prefix match (first matching rule wins).
+	for (const rule of lookup.prefixRules) {
+		const prefix = rule.from.slice(0, -2); // strip trailing '/*'
+		if (pathname.startsWith(prefix + "/")) {
+			const tail = pathname.slice(prefix.length); // leading '/' included
+			const dest = rule.to.endsWith("/*")
+				? rule.to.slice(0, -2) + tail // rewrite tail onto destination prefix
+				: rule.to; // fixed destination — tail is dropped
+			return { destination: dest + search, status: rule.status ?? 301 };
+		}
+	}
+
+	return null;
+}
+
 export const redirects: RedirectRule[] = [
-	// Add permanent redirects below when content moves.
-	// Examples (commented out — do not activate without a real target):
-	//
-	// { from: '/books',             to: '/novels',         status: 301 },
-	// { from: '/poetry/old-title',  to: '/poetry/new-title', status: 301 },
+	// Exact redirects — add when a page slug or section name changes.
+	{ from: "/books", to: "/novels", status: 301 },
+
+	// Prefix redirects — add when an entire section is renamed or moved.
+	// Every URL under /poems/* is rewritten to the same path under /poetry/*.
+	{ from: "/poems/*", to: "/poetry/*", status: 301 },
 ];

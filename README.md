@@ -326,9 +326,9 @@ Content/path redirects are managed **in-app**, not in the Cloudflare dashboard. 
 | ian-site | `apps/ian-site/src/data/redirects.ts` |
 | dad-site | `apps/dad-site/src/data/redirects.ts` |
 
-Each file exports a typed `RedirectRule[]` array. Middleware in each app (`src/middleware.ts`) reads this registry on every incoming request and performs an exact-path redirect when a match is found. Query strings are preserved automatically.
+Each file exports a typed `RedirectRule[]` array. Middleware in each app (`src/middleware.ts`) reads this registry on every incoming request and performs an exact-path or prefix redirect when a match is found. Query strings are preserved automatically.
 
-### Redirect rule format
+### Redirect rule format — exact match
 
 ```ts
 { from: '/old-path', to: '/new-path', status: 301 }
@@ -339,6 +339,22 @@ Each file exports a typed `RedirectRule[]` array. Middleware in each app (`src/m
 | `from`   | `string`                    | ✅       | Exact pathname, must start with `/` |
 | `to`     | `string`                    | ✅       | Destination pathname or absolute URL |
 | `status` | `301 \| 302 \| 307 \| 308` | ❌       | Defaults to `301` when omitted    |
+
+### Redirect rule format — prefix (wildcard) match
+
+End `from` with `/*` to redirect an entire section. If `to` also ends with `/*`, the captured path tail is rewritten onto the destination; otherwise the tail is dropped.
+
+```ts
+// /films/my-film   → /projects/my-film   (tail rewritten)
+{ from: '/films/*', to: '/projects/*', status: 301 }
+
+// /old-section/anything  → /new-section  (tail dropped)
+{ from: '/old-section/*', to: '/new-section', status: 301 }
+```
+
+`/*` matches paths that begin with the prefix followed by `/`. It does **not** match the bare prefix without a trailing slash — add a separate exact rule for that if needed.
+
+Exact rules always take priority over prefix rules.
 
 ### Status code quick guide
 
@@ -356,12 +372,27 @@ Each file exports a typed `RedirectRule[]` array. Middleware in each app (`src/m
 
 ### Testing redirects locally
 
-1. Add a temporary rule to the relevant `src/data/redirects.ts`.
+1. Add a rule to the relevant `src/data/redirects.ts`.
 2. Start the dev server (`npm run dev:ian` or `npm run dev:dad`).
 3. Visit the `from` path in your browser — you should be redirected.
 4. Open DevTools → Network tab and confirm the status code.
 5. Test with a query string (e.g. `/old-path?ref=abc`) and confirm it is preserved in the destination URL.
-6. Remove the test rule before committing.
+
+### Automated tests
+
+Unit tests cover the redirect matching logic (`buildLookup` / `resolveRedirect`) and run in milliseconds — no server required. Integration tests spin up the Astro dev server on a dedicated port and make real HTTP requests.
+
+```bash
+# Unit tests (fast — run these routinely)
+npm run test:ian
+npm run test:dad
+
+# Integration tests (slower — spins up dev servers)
+npm run test:ian:integration
+npm run test:dad:integration
+```
+
+When adding new redirect rules or changing the matching logic, add corresponding unit tests in each app's `tests/unit/redirects.test.ts`.
 
 ### Testing after deploy
 

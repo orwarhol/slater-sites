@@ -8,7 +8,11 @@
 		"build": "astro check && astro build",
 		"postbuild": "node -e \"require('fs').copyFileSync('.assetsignore','dist/.assetsignore')\"",
 		"preview": "astro preview",
-		"astro": "astro"
+		"astro": "astro",
+		"test": "vitest run tests/unit",
+		"test:unit": "vitest run tests/unit",
+		"test:integration": "vitest run tests/integration",
+		"test:all": "vitest run"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.0",
