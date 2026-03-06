@@ -315,6 +315,64 @@ The ian-site uses a **custom sitemap endpoint** at `/sitemap.xml` instead of Ast
 - Keep the custom endpoint to maintain consistency with `robots.txt`
 - Update `sitemap.xml.ts` if new content collections are added
 
+## 🔀 Redirect Management
+
+Content/path redirects are managed **in-app**, not in the Cloudflare dashboard. Each app owns its own redirect rules so they can be reviewed, edited, and version-controlled alongside the content they describe.
+
+### Where redirect rules live
+
+| App | Registry file |
+| :-- | :------------ |
+| ian-site | `apps/ian-site/src/data/redirects.ts` |
+| dad-site | `apps/dad-site/src/data/redirects.ts` |
+
+Each file exports a typed `RedirectRule[]` array. Middleware in each app (`src/middleware.ts`) reads this registry on every incoming request and performs an exact-path redirect when a match is found. Query strings are preserved automatically.
+
+### Redirect rule format
+
+```ts
+{ from: '/old-path', to: '/new-path', status: 301 }
+```
+
+| Field    | Type                        | Required | Notes                             |
+| :------- | :-------------------------- | :------- | :-------------------------------- |
+| `from`   | `string`                    | ✅       | Exact pathname, must start with `/` |
+| `to`     | `string`                    | ✅       | Destination pathname or absolute URL |
+| `status` | `301 \| 302 \| 307 \| 308` | ❌       | Defaults to `301` when omitted    |
+
+### Status code quick guide
+
+- **301** — Permanent. Use when a URL has moved for good. Search engines transfer ranking signals to the new URL. *(Default)*
+- **302** — Temporary. Use when a move is not permanent.
+- **307 / 308** — Like 302/301, but preserve the HTTP method (e.g. keep POST as POST).
+
+### When to use in-app redirects vs Cloudflare
+
+| Scenario | Where to configure |
+| :------- | :----------------- |
+| Renamed page slug, restructured section, migrated URL | **In-app registry** (`src/data/redirects.ts`) |
+| Apex ↔ www normalisation (`www.example.com → example.com`) | **Cloudflare** |
+| Old domain → new domain | **Cloudflare** |
+
+### Testing redirects locally
+
+1. Add a temporary rule to the relevant `src/data/redirects.ts`.
+2. Start the dev server (`npm run dev:ian` or `npm run dev:dad`).
+3. Visit the `from` path in your browser — you should be redirected.
+4. Open DevTools → Network tab and confirm the status code.
+5. Test with a query string (e.g. `/old-path?ref=abc`) and confirm it is preserved in the destination URL.
+6. Remove the test rule before committing.
+
+### Testing after deploy
+
+After a Cloudflare deployment, use `curl -I` to verify:
+
+```bash
+curl -I https://iancharlesslater.com/old-path
+# → HTTP/2 301
+# → location: /new-path
+```
+
 ## 🛠️ Tech Stack
 
 - **[Astro](https://astro.build)** - Static site framework
