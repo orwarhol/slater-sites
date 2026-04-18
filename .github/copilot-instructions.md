@@ -66,6 +66,24 @@ Each app deploys independently to Cloudflare Pages:
 - Don't modify `postbuild` scripts without understanding Cloudflare deployment needs
 - Test changes in both sites when modifying shared patterns
 
+## Dependency Management
+
+### Dependabot PRs
+- **Never merge Dependabot PRs individually.** Consolidate all open Dependabot PRs into a single PR, then close the originals.
+- When consolidating, also run `npm audit` and address any open Dependabot security alerts at the same time — the overlap is high and doing them together avoids a second round.
+- PRs that update the same package in each workspace separately (e.g. `astro` in `ian-site` only, `astro` in `dad-site` only) are always superseded by a single PR that updates both — pick the combined one.
+
+### Security remediations via overrides
+- Security fixes for transitive dependencies go in the `"overrides"` block in the root `package.json`. This avoids pinning in individual workspace `package.json` files.
+- When adding or changing an override, **delete `package-lock.json` entirely and regenerate it** with `npm install --package-lock-only`. Running the command against an existing lock file does not re-resolve already-locked transitive deps and the override will have no effect.
+- Some packages (notably `vite`) have multiple incompatible major versions in the tree simultaneously — e.g. `6.x` required by `astro` and `8.x` required by `vitest`. A single top-level range override will hoist everything to one version and break consumers. Use **nested overrides** instead:
+  ```json
+  "astro": { "vite": ">=6.4.2 <7" },
+  "@astrojs/cloudflare": { "vite": ">=6.4.2 <7" }
+  ```
+  The root `vite` (used by vitest) then resolves naturally without an explicit override.
+- After regenerating, always run `npm audit` to confirm the vulnerability count dropped as expected before committing.
+
 # GitHub Community Guidelines
 
 Millions of developers across the world host millions of projects—both open and closed source—on GitHub. We're fortunate to be able to play a part in enabling collaboration across the developer community every day, which is a responsibility we don’t take lightly. Together, we all have the exciting opportunity to make this a community we can be proud of.
