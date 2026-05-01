@@ -796,16 +796,16 @@ body.poetry-dark-enabled main > h1 {
 }
 
 /* ============================================================================
-   HEADER NAV — UNDERLINE STATES + LOGO UNDERLINE FIX
+   HEADER NAV — LOGO UNDERLINE FIX
    ============================================================================
    
-   Desktop + mobile nav link states use a clean underline treatment.
-   Logo link never shows underline flash (all states).
+   Nav link underline states (active/hover/focus) are intentionally scoped
+   inside Header.astro's <style> block. Global selectors lose to Astro's
+   scoped-style specificity boost (Astro adds data-astro-cid-* attribute
+   selectors, raising specificity above plain class chains in global CSS).
    
-   Nav link states:
-   1. Base: no underline
-   2. Hover / focus-visible: accent underline
-   3. Active (.is-active): persistent accent underline
+   This section retains only the logo underline suppression which uses
+   !important and is correct here.
    
    ============================================================================ */
 
@@ -824,34 +824,4 @@ body.poetry-dark-enabled main > h1 {
 	outline: var(--focus-ring);
 	outline-offset: 3px;
 	border-radius: 2px;
-}
-
-/* NAV LINK UNDERLINE STATES — all breakpoints */
-.site-header .site-nav-link {
-	text-decoration: none;
-}
-
-.site-header .site-nav-link:hover {
-	text-decoration: underline;
-	text-decoration-color: var(--accent-hover);
-	text-decoration-thickness: 2px;
-	text-underline-offset: 0.2em;
-}
-
-.site-header .site-nav-link:focus-visible {
-	text-decoration: underline;
-	text-decoration-color: var(--accent-hover);
-	text-decoration-thickness: 2px;
-	text-underline-offset: 0.2em;
-	outline: var(--focus-ring);
-	outline-offset: 2px;
-	border-radius: 2px;
-}
-
-/* Active page: persistent underline */
-.site-header .site-nav-link.is-active {
-	text-decoration: underline;
-	text-decoration-color: var(--accent);
-	text-decoration-thickness: 2px;
-	text-underline-offset: 0.2em;
 }
