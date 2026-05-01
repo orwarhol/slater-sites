@@ -246,7 +246,33 @@ const links = [
 		font-weight: 400;
 	}
 
-	/* L-corner indicators and focus styles are in global.css for desktop */
+	/* Inactive link: underline on hover */
+	.nav-links a:hover {
+		text-decoration: underline;
+		text-decoration-color: var(--accent-hover);
+		text-decoration-thickness: 2px;
+		text-underline-offset: 3px;
+	}
+
+	/* Focus visible: underline + outline */
+	.nav-links a:focus-visible {
+		text-decoration: underline;
+		text-decoration-color: var(--accent-hover);
+		text-decoration-thickness: 2px;
+		text-underline-offset: 3px;
+		outline: var(--focus-ring);
+		outline-offset: 2px;
+		border-radius: 2px;
+	}
+
+	/* Active page link: persistent underline (higher specificity wins over base + hover) */
+	.nav-links a.is-active,
+	.nav-links a[aria-current="page"] {
+		text-decoration: underline;
+		text-decoration-color: var(--accent);
+		text-decoration-thickness: 2px;
+		text-underline-offset: 3px;
+	}
 
 	@media (max-width: 930px) {
 		.hamburger {
