@@ -796,19 +796,16 @@ body.poetry-dark-enabled main > h1 {
 }
 
 /* ============================================================================
-   HEADER NAV — DESKTOP L-CORNERS (2px) + LOGO UNDERLINE FIX
-   BUILD VERIFICATION MARKER: dad-site-nav-corners-2px-deployed-v2
+   HEADER NAV — UNDERLINE STATES + LOGO UNDERLINE FIX
    ============================================================================
    
-   This section provides desktop-only nav corner styling and logo underline fix.
-   Desktop breakpoint: min-width 931px (matches Header.astro mobile breakpoint)
+   Desktop + mobile nav link states use a clean underline treatment.
+   Logo link never shows underline flash (all states).
    
-   Desktop behavior:
-   1. Nav links show TOP-LEFT L-corner on hover/focus-visible (solid accent, 2px)
-   2. Active nav links show BOTH corners with gradient (2px)
-   3. Logo link never shows underline flash (all states)
-   
-   Mobile: No visual changes to nav (corners hidden, logo fix applies globally)
+   Nav link states:
+   1. Base: no underline
+   2. Hover / focus-visible: accent underline
+   3. Active (.is-active): persistent accent underline
    
    ============================================================================ */
 
@@ -822,101 +819,39 @@ body.poetry-dark-enabled main > h1 {
 	text-decoration: none !important;
 }
 
-/* Accessible focus-visible for logo */
+/* Single accessible focus-visible style for logo — one source of truth */
 .site-header .site-brand a:focus-visible {
-	outline: 2px solid var(--accent);
+	outline: var(--focus-ring);
 	outline-offset: 3px;
 	border-radius: 2px;
 }
 
-/* DESKTOP-ONLY: L-corner indicators for nav links (2px thickness) */
-@media (min-width: 931px) {
-	/* Make nav links position: relative for pseudo-elements */
-	.site-header .site-nav-link {
-		position: relative;
-		display: inline-block;
-		padding: 0.35rem 0.55rem;
-	}
+/* NAV LINK UNDERLINE STATES — all breakpoints */
+.site-header .site-nav-link {
+	text-decoration: none;
+}
 
-	/* L-corner pseudo-elements (initially hidden) */
-	.site-header .site-nav-link::before,
-	.site-header .site-nav-link::after {
-		content: '';
-		position: absolute;
-		opacity: 0;
-		pointer-events: none;
-		transition: opacity 0.2s ease, transform 0.2s ease;
-	}
+.site-header .site-nav-link:hover {
+	text-decoration: underline;
+	text-decoration-color: var(--accent-hover);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 0.2em;
+}
 
-	/* TOP-LEFT L-corner (for hover, focus-visible, and active) */
-	.site-header .site-nav-link::before {
-		top: 0;
-		left: 0;
-		width: 12px;
-		height: 12px;
-		/* Build L-shape with TWO background layers (2px thick) */
-		background-image: 
-			linear-gradient(var(--accent), var(--accent)),
-			linear-gradient(var(--accent), var(--accent));
-		background-size: 2px 100%, 100% 2px;
-		background-position: 0 0, 0 0;
-		background-repeat: no-repeat, no-repeat;
-		transform: translate(-2px, -2px);
-	}
+.site-header .site-nav-link:focus-visible {
+	text-decoration: underline;
+	text-decoration-color: var(--accent-hover);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 0.2em;
+	outline: var(--focus-ring);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
 
-	/* BOTTOM-RIGHT L-corner (active only) */
-	.site-header .site-nav-link::after {
-		bottom: 0;
-		right: 0;
-		width: 12px;
-		height: 12px;
-		/* Build L-shape with TWO background layers (2px thick) */
-		background-image: 
-			linear-gradient(var(--accent), var(--accent)),
-			linear-gradient(var(--accent), var(--accent));
-		background-size: 2px 100%, 100% 2px;
-		background-position: 100% 100%, 100% 100%;
-		background-repeat: no-repeat, no-repeat;
-		transform: translate(2px, 2px);
-	}
-
-	/* HOVER STATE: show top-left corner only (solid accent) */
-	.site-header .site-nav-link:hover::before,
-	.site-header .site-nav-link:focus-visible::before {
-		opacity: 1;
-		transform: translate(0, 0);
-	}
-
-	/* ACTIVE STATE: show BOTH corners with gradient */
-	.site-header .site-nav-link.is-active::before {
-		opacity: 1;
-		transform: translate(0, 0);
-		/* Use gradient for active state */
-		background-image: 
-			var(--fine-border-gradient),
-			var(--fine-border-gradient);
-		background-size: 2px 100%, 100% 2px;
-		background-position: 0 0, 0 0;
-		background-repeat: no-repeat, no-repeat;
-	}
-
-	.site-header .site-nav-link.is-active::after {
-		opacity: 1;
-		transform: translate(0, 0);
-		/* Use gradient for active state */
-		background-image: 
-			var(--fine-border-gradient),
-			var(--fine-border-gradient);
-		background-size: 2px 100%, 100% 2px;
-		background-position: 100% 100%, 100% 100%;
-		background-repeat: no-repeat, no-repeat;
-	}
-
-	/* Respect reduced motion preference */
-	@media (prefers-reduced-motion: reduce) {
-		.site-header .site-nav-link::before,
-		.site-header .site-nav-link::after {
-			transition: none;
-		}
-	}
+/* Active page: persistent underline */
+.site-header .site-nav-link.is-active {
+	text-decoration: underline;
+	text-decoration-color: var(--accent);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 0.2em;
 }
