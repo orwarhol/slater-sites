@@ -23,6 +23,7 @@
 	},
 	"overrides": {
 		"h3": "1.15.11",
+		"vite": ">=7.3.2 <8",
 		"wrangler": "^4.87.0",
 		"lodash": "4.17.23",
 		"fast-xml-parser": ">=5.7.1",
