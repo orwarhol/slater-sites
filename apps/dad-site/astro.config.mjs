@@ -1,5 +1,5 @@
 import cloudflare from '@astrojs/cloudflare';
-import { defineConfig } from 'astro/config';
+import { defineConfig, sessionDrivers } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,5 +13,5 @@ export default defineConfig({
 	}),
 	// Use in-memory session driver to prevent @astrojs/cloudflare from
 	// auto-provisioning a KV namespace on every deploy.
-	session: { driver: 'unstorage/drivers/memory' },
+	session: { driver: sessionDrivers.memory() },
 });
