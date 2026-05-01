@@ -1,0 +1,2 @@
+/books /novels 301
+/poems/* /poetry/:splat 301
