@@ -8,9 +8,8 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
 	site: "https://iancharlesslater.com",
 	integrations: [mdx()],
-	adapter: cloudflare({
-		platformProxy: {
-			enabled: true,
-		},
-	}),
+	adapter: cloudflare(),
+	// Neither site uses sessions; use memory driver to prevent @astrojs/cloudflare
+	// from auto-provisioning a KV namespace on every deploy.
+	session: { driver: "unstorage/drivers/memory" },
 });
