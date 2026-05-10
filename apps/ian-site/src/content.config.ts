@@ -57,4 +57,13 @@ const gallery = defineCollection({
 	}),
 });
 
-export const collections = { blog, projects, gallery };
+const resume = defineCollection({
+	loader: glob({ base: "./src/content/resume", pattern: "**/*.{md,mdx}" }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string().optional(),
+		defaultTransition: z.string().optional(),
+	}),
+});
+
+export const collections = { blog, projects, gallery, resume };
