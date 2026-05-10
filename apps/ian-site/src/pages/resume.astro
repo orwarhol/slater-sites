@@ -1,0 +1,840 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import ResumeSlide from '../components/ResumeSlide.astro';
+import { getCollection, render } from 'astro:content';
+
+const entries = await getCollection('resume');
+const deck = entries[0];
+const { Content } = await render(deck);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			metaKey="page:/resume"
+			title="Resume | Ian Slater"
+			description={deck.data.description ?? 'Senior Product Manager — Legal Operations Technology & Enterprise Platforms'}
+		/>
+		<!-- Prevent global body overflow from affecting the deck -->
+		<style is:global>
+			html.resume-page,
+			html.resume-page body {
+				overflow: hidden;
+				/* dvh accounts for mobile browser chrome; vh is the fallback for older browsers */
+				height: 100dvh;
+				height: 100vh; /* stylelint-disable-line declaration-block-no-duplicate-properties */
+			}
+		</style>
+		<style>
+			/* ── Deck shell ────────────────────────────────────────────────────── */
+			.deck-wrapper {
+				position: fixed;
+				inset: 0;
+				background: var(--bg);
+				display: flex;
+				flex-direction: column;
+				overflow: hidden;
+			}
+
+			/* Contains the rendered MDX output (the <section> slides) */
+			.deck-stage {
+				position: relative;
+				flex: 1;
+				overflow: hidden;
+			}
+
+			/* ── Slides ────────────────────────────────────────────────────────── */
+			:global(.deck-slide) {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				padding: 4rem 2rem 7rem; /* bottom clears the fixed nav */
+				overflow-y: auto;
+				opacity: 0;
+				pointer-events: none;
+				transform: translateY(1.5rem);
+				transition:
+					opacity 0.45s ease,
+					transform 0.45s ease;
+				/* Stagger children in via animation-delay */
+				--stagger: 0.08s;
+			}
+
+			:global(.deck-slide.is-active) {
+				opacity: 1;
+				pointer-events: auto;
+				transform: translateY(0);
+			}
+
+			/* Slide with fade-only transition (no translate) */
+			:global(.deck-slide[data-transition="fade"]) {
+				transform: none;
+			}
+
+			/* Slide inner content container */
+			:global(.slide-content) {
+				max-width: 860px;
+				width: 100%;
+				margin: 0 auto;
+			}
+
+			/* Eyebrow label above main heading */
+			:global(.slide-eyebrow) {
+				font-size: 0.75rem;
+				font-weight: 600;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--cyan);
+				margin: 0 0 1rem;
+				max-width: 860px;
+				width: 100%;
+				margin-left: auto;
+				margin-right: auto;
+				opacity: 0;
+				transform: translateY(0.5rem);
+				transition:
+					opacity 0.35s ease var(--stagger),
+					transform 0.35s ease var(--stagger);
+			}
+
+			:global(.deck-slide.is-active .slide-eyebrow) {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* ── Headings inside slides ─────────────────────────────────────────── */
+			:global(.deck-slide h1),
+			:global(.deck-slide h2) {
+				opacity: 0;
+				transform: translateY(0.75rem);
+				transition:
+					opacity 0.4s ease calc(var(--stagger) * 2),
+					transform 0.4s ease calc(var(--stagger) * 2);
+			}
+
+			:global(.deck-slide.is-active h1),
+			:global(.deck-slide.is-active h2) {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* Paragraphs, lists, hr stagger later */
+			:global(.deck-slide p),
+			:global(.deck-slide ul),
+			:global(.deck-slide ol),
+			:global(.deck-slide hr) {
+				opacity: 0;
+				transform: translateY(0.5rem);
+				transition:
+					opacity 0.4s ease calc(var(--stagger) * 3),
+					transform 0.4s ease calc(var(--stagger) * 3);
+			}
+
+			:global(.deck-slide.is-active p),
+			:global(.deck-slide.is-active ul),
+			:global(.deck-slide.is-active ol),
+			:global(.deck-slide.is-active hr) {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* ── Layout: hero ───────────────────────────────────────────────────── */
+			:global(.deck-slide--hero) {
+				justify-content: center;
+				align-items: flex-start;
+				text-align: left;
+				padding-left: max(2rem, 8vw);
+				padding-right: max(2rem, 8vw);
+				/* Accent strip at the left */
+				border-left: 4px solid transparent;
+				border-image: linear-gradient(180deg, var(--cyan), var(--blue)) 1;
+			}
+
+			:global(.deck-slide--hero h1) {
+				font-size: clamp(2.8rem, 7vw, 5.5rem);
+				font-weight: 700;
+				line-height: 1.05;
+				background: linear-gradient(135deg, var(--cyan) 20%, var(--blue) 80%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				margin-bottom: 0.4em;
+			}
+
+			:global(.deck-slide--hero p) {
+				font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+				line-height: 1.6;
+				color: var(--muted);
+				max-width: 600px;
+			}
+
+			:global(.deck-slide--hero strong) {
+				color: var(--text);
+			}
+
+			:global(.deck-slide--hero a) {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4em;
+				margin-top: 0.5rem;
+				padding: 0.55em 1.25em;
+				border: 1px solid var(--cyan);
+				border-radius: var(--radius-sm);
+				color: var(--cyan);
+				font-size: 0.95rem;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				text-decoration: none;
+				transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+			}
+
+			:global(.deck-slide--hero a:hover) {
+				background: rgba(95, 231, 255, 0.08);
+				box-shadow: var(--glow-cyan);
+				color: var(--text);
+				text-decoration: none;
+			}
+
+			:global(.deck-slide--hero a:visited) {
+				color: var(--cyan);
+			}
+
+			:global(.deck-slide--hero a:focus) {
+				outline: 2px solid var(--cyan);
+				outline-offset: 3px;
+				box-shadow: var(--glow-cyan);
+			}
+
+			/* ── Layout: impact ─────────────────────────────────────────────────── */
+			:global(.deck-slide--impact) {
+				padding-left: max(2rem, 8vw);
+				padding-right: max(2rem, 8vw);
+			}
+
+			:global(.deck-slide--impact h2) {
+				font-size: clamp(2rem, 5.5vw, 4rem);
+				font-weight: 700;
+				line-height: 1.1;
+				background: linear-gradient(135deg, var(--text) 0%, var(--cyan) 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				margin-bottom: 1rem;
+			}
+
+			:global(.deck-slide--impact p) {
+				font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+				line-height: 1.7;
+				color: var(--muted);
+				max-width: 700px;
+			}
+
+			:global(.deck-slide--impact strong) {
+				color: var(--text);
+			}
+
+			/* ── Layout: platform ───────────────────────────────────────────────── */
+			:global(.deck-slide--platform) {
+				padding-left: max(2rem, 6vw);
+				padding-right: max(2rem, 6vw);
+			}
+
+			:global(.deck-slide--platform h2) {
+				font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+				font-weight: 700;
+				line-height: 1.1;
+				color: var(--text);
+				margin-bottom: 0.5em;
+			}
+
+			:global(.deck-slide--platform p:first-of-type) {
+				font-size: clamp(1rem, 2vw, 1.2rem);
+				color: var(--muted);
+				margin-bottom: 1.5rem;
+			}
+
+			:global(.deck-slide--platform ul) {
+				list-style: none;
+				padding: 0;
+				margin: 0 0 1.5rem;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 0.75rem;
+			}
+
+			:global(.deck-slide--platform li) {
+				background: var(--surface-1);
+				border: 1px solid var(--border-medium);
+				border-radius: var(--radius-md);
+				padding: 0.75rem 1rem;
+				font-size: 0.95rem;
+				color: var(--text);
+				position: relative;
+				padding-left: 1.5rem;
+			}
+
+			:global(.deck-slide--platform li::before) {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				width: 3px;
+				background: linear-gradient(180deg, var(--cyan), var(--blue));
+				border-radius: var(--radius-md) 0 0 var(--radius-md);
+			}
+
+			:global(.deck-slide--platform p:last-of-type) {
+				font-size: 0.95rem;
+				color: var(--muted);
+				font-style: italic;
+				border-left: 3px solid var(--cyan);
+				padding-left: 1rem;
+				margin-top: 0.5rem;
+			}
+
+			/* ── Layout: distribution ───────────────────────────────────────────── */
+			:global(.deck-slide--distribution) {
+				padding-left: max(2rem, 6vw);
+				padding-right: max(2rem, 6vw);
+			}
+
+			:global(.deck-slide--distribution h2) {
+				font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+				font-weight: 700;
+				color: var(--text);
+				margin-bottom: 0.5em;
+			}
+
+			:global(.deck-slide--distribution p:first-of-type) {
+				font-size: clamp(1rem, 2vw, 1.2rem);
+				color: var(--muted);
+				margin-bottom: 1.5rem;
+			}
+
+			:global(.deck-slide--distribution ul) {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: flex;
+				flex-direction: column;
+				gap: 0.75rem;
+			}
+
+			:global(.deck-slide--distribution li) {
+				background: var(--surface-1);
+				border: 1px solid var(--border-medium);
+				border-radius: var(--radius-md);
+				padding: 0.85rem 1.25rem;
+				font-size: 1rem;
+				color: var(--text);
+				position: relative;
+			}
+
+			:global(.deck-slide--distribution li::before) {
+				content: '›';
+				color: var(--cyan);
+				font-weight: 700;
+				margin-right: 0.6em;
+			}
+
+			/* ── Layout: governance ─────────────────────────────────────────────── */
+			:global(.deck-slide--governance) {
+				padding-left: max(2rem, 6vw);
+				padding-right: max(2rem, 6vw);
+			}
+
+			:global(.deck-slide--governance h2) {
+				font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+				font-weight: 700;
+				color: var(--text);
+				margin-bottom: 0.5em;
+			}
+
+			:global(.deck-slide--governance p) {
+				font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+				line-height: 1.75;
+				color: var(--muted);
+				max-width: 700px;
+			}
+
+			:global(.deck-slide--governance strong) {
+				color: var(--text);
+			}
+
+			/* ── Layout: ai-products ────────────────────────────────────────────── */
+			:global(.deck-slide--ai-products) {
+				padding-left: max(2rem, 6vw);
+				padding-right: max(2rem, 6vw);
+			}
+
+			:global(.deck-slide--ai-products h2) {
+				font-size: clamp(1.8rem, 4vw, 3rem);
+				font-weight: 700;
+				color: var(--text);
+				margin-bottom: 1rem;
+			}
+
+			:global(.deck-slide--ai-products p) {
+				background: var(--surface-1);
+				border: 1px solid var(--border-medium);
+				border-radius: var(--radius-md);
+				padding: 1.25rem 1.5rem;
+				font-size: 1rem;
+				line-height: 1.7;
+				color: var(--muted);
+				margin-bottom: 1rem;
+				position: relative;
+			}
+
+			:global(.deck-slide--ai-products p::before) {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: linear-gradient(90deg, var(--pink), var(--violet));
+				border-radius: var(--radius-md) var(--radius-md) 0 0;
+			}
+
+			:global(.deck-slide--ai-products strong) {
+				color: var(--text);
+				display: block;
+				margin-bottom: 0.35em;
+			}
+
+			:global(.deck-slide--accent-pink .slide-eyebrow) {
+				color: var(--pink);
+			}
+
+			/* ── Layout: close ──────────────────────────────────────────────────── */
+			:global(.deck-slide--close) {
+				padding-left: max(2rem, 6vw);
+				padding-right: max(2rem, 6vw);
+			}
+
+			:global(.deck-slide--close h2) {
+				font-size: clamp(1.8rem, 4vw, 3rem);
+				font-weight: 700;
+				color: var(--text);
+				margin-bottom: 1.25rem;
+			}
+
+			:global(.deck-slide--close p) {
+				font-size: 0.95rem;
+				line-height: 1.75;
+				color: var(--muted);
+				margin-bottom: 0.4rem;
+			}
+
+			:global(.deck-slide--close strong) {
+				color: var(--text);
+				font-weight: 600;
+			}
+
+			:global(.deck-slide--close hr) {
+				border: none;
+				border-top: 1px solid var(--border-faint);
+				margin: 1.5rem 0;
+			}
+
+			:global(.deck-slide--close a) {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4em;
+				margin-top: 0.75rem;
+				padding: 0.55em 1.25em;
+				border: 1px solid var(--cyan);
+				border-radius: var(--radius-sm);
+				color: var(--cyan);
+				font-size: 0.95rem;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				text-decoration: none;
+				transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+			}
+
+			:global(.deck-slide--close a:hover) {
+				background: rgba(95, 231, 255, 0.08);
+				box-shadow: var(--glow-cyan);
+				color: var(--text);
+				text-decoration: none;
+			}
+
+			:global(.deck-slide--close a:visited) {
+				color: var(--cyan);
+			}
+
+			:global(.deck-slide--close a:focus) {
+				outline: 2px solid var(--cyan);
+				outline-offset: 3px;
+				box-shadow: var(--glow-cyan);
+			}
+
+			/* ── Bottom navigation bar ──────────────────────────────────────────── */
+			.deck-bar {
+				position: relative;
+				z-index: 50;
+				flex-shrink: 0;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0.75rem 1.5rem;
+				background: rgba(1, 11, 24, 0.85);
+				backdrop-filter: blur(8px);
+				border-top: 1px solid var(--border-subtle);
+				gap: 1rem;
+			}
+
+			/* Progress dots */
+			.deck-dots {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				flex: 1;
+				justify-content: center;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+
+			.deck-dots__dot {
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				border: 1.5px solid var(--border);
+				background: transparent;
+				padding: 0;
+				cursor: pointer;
+				transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+				/* Larger touch target */
+				position: relative;
+			}
+
+			.deck-dots__dot::after {
+				content: '';
+				position: absolute;
+				inset: -8px;
+			}
+
+			.deck-dots__dot:hover {
+				border-color: var(--cyan);
+				background: rgba(95, 231, 255, 0.2);
+			}
+
+			.deck-dots__dot.is-active {
+				background: var(--cyan);
+				border-color: var(--cyan);
+				transform: scale(1.25);
+				box-shadow: var(--glow-cyan);
+			}
+
+			.deck-dots__dot:focus {
+				outline: 2px solid var(--cyan);
+				outline-offset: 3px;
+			}
+
+			/* Prev / Next buttons */
+			.deck-btn {
+				background: var(--surface-1);
+				border: 1px solid var(--border-medium);
+				color: var(--cyan);
+				font-family: var(--font-main);
+				font-size: 0.9rem;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				padding: 0.5em 1.1em;
+				border-radius: var(--radius-sm);
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				gap: 0.4em;
+				transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+				white-space: nowrap;
+				min-width: 90px;
+			}
+
+			.deck-btn:hover:not(:disabled) {
+				background: var(--surface-2);
+				border-color: var(--cyan);
+				box-shadow: var(--glow-cyan);
+			}
+
+			.deck-btn:focus {
+				outline: 2px solid var(--cyan);
+				outline-offset: 2px;
+				box-shadow: var(--glow-cyan);
+			}
+
+			.deck-btn:disabled {
+				opacity: 0.3;
+				cursor: not-allowed;
+			}
+
+			.deck-btn--prev {
+				justify-content: flex-start;
+			}
+
+			.deck-btn--next {
+				justify-content: flex-end;
+			}
+
+			/* Counter label */
+			.deck-counter {
+				font-size: 0.8rem;
+				color: var(--muted);
+				white-space: nowrap;
+				min-width: 4ch;
+				text-align: center;
+			}
+
+			/* ── Reduced motion ──────────────────────────────────────────────────── */
+			@media (prefers-reduced-motion: reduce) {
+				:global(.deck-slide),
+				:global(.deck-slide h1),
+				:global(.deck-slide h2),
+				:global(.deck-slide p),
+				:global(.deck-slide ul),
+				:global(.deck-slide ol),
+				:global(.deck-slide hr),
+				:global(.slide-eyebrow) {
+					transition: none !important;
+					animation: none !important;
+					transform: none !important;
+					opacity: 1 !important;
+				}
+
+				:global(.deck-slide:not(.is-active)) {
+					opacity: 0 !important;
+				}
+			}
+
+			/* ── Mobile tweaks ───────────────────────────────────────────────────── */
+			@media (max-width: 640px) {
+				:global(.deck-slide) {
+					padding: 2rem 1.25rem 6rem;
+				}
+
+				:global(.deck-slide--hero),
+				:global(.deck-slide--impact),
+				:global(.deck-slide--platform),
+				:global(.deck-slide--distribution),
+				:global(.deck-slide--governance),
+				:global(.deck-slide--ai-products),
+				:global(.deck-slide--close) {
+					padding-left: 1.25rem;
+					padding-right: 1.25rem;
+					border-left: none;
+				}
+
+				:global(.deck-slide--hero h1) {
+					font-size: 2.4rem;
+				}
+
+				.deck-bar {
+					padding: 0.6rem 0.75rem;
+					gap: 0.5rem;
+				}
+
+				.deck-btn {
+					min-width: 60px;
+					font-size: 0.8rem;
+					padding: 0.45em 0.75em;
+				}
+
+				.deck-dots__dot {
+					width: 6px;
+					height: 6px;
+				}
+
+				:global(.deck-slide--platform ul) {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="resume-deck" class="deck-wrapper" role="application" aria-label="Resume presentation for Ian Slater">
+			<!-- Hidden title for accessibility -->
+			<h1 class="sr-only">{deck.data.title}</h1>
+
+			<!-- Slide stage — rendered MDX slides are injected here -->
+			<div class="deck-stage" id="deck-stage">
+				<Content components={{ ResumeSlide }} />
+			</div>
+
+			<!-- Bottom navigation bar -->
+			<div class="deck-bar" role="group" aria-label="Slide controls">
+				<button
+					id="prev-btn"
+					class="deck-btn deck-btn--prev"
+					aria-label="Previous slide"
+					disabled
+				>
+					← Prev
+				</button>
+
+				<ol class="deck-dots" id="deck-dots" aria-label="Slide progress">
+					<!-- Populated by client script -->
+				</ol>
+
+				<span class="deck-counter" aria-live="polite" aria-atomic="true" id="slide-counter"></span>
+
+				<button
+					id="next-btn"
+					class="deck-btn deck-btn--next"
+					aria-label="Next slide"
+				>
+					Next →
+				</button>
+			</div>
+		</div>
+
+		<script>
+			// ── Setup ──────────────────────────────────────────────────────────
+			document.documentElement.classList.add('resume-page');
+
+			const slides = Array.from(
+				document.querySelectorAll<HTMLElement>('.deck-slide')
+			);
+			const dotsContainer = document.getElementById('deck-dots')!;
+			const counter = document.getElementById('slide-counter')!;
+			const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
+			const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+			const total = slides.length;
+
+			let current = 0;
+
+			// ── Build progress dots ───────────────────────────────────────────
+			slides.forEach((_slide, i) => {
+				const li = document.createElement('li');
+				const btn = document.createElement('button');
+				btn.className = 'deck-dots__dot';
+				btn.setAttribute('aria-label', `Go to slide ${i + 1} of ${total}`);
+				btn.setAttribute('aria-pressed', 'false');
+				btn.addEventListener('click', () => goTo(i));
+				li.appendChild(btn);
+				dotsContainer.appendChild(li);
+			});
+
+			function getDots(): NodeListOf<HTMLButtonElement> {
+				return dotsContainer.querySelectorAll<HTMLButtonElement>('.deck-dots__dot');
+			}
+
+			// ── Core navigation ───────────────────────────────────────────────
+			function goTo(index: number) {
+				if (index < 0 || index >= total || index === current) return;
+
+				const prevSlide = slides[current];
+				const nextSlide = slides[index];
+
+				prevSlide.classList.remove('is-active');
+				prevSlide.setAttribute('aria-hidden', 'true');
+
+				current = index;
+
+				nextSlide.classList.add('is-active');
+				nextSlide.setAttribute('aria-hidden', 'false');
+				// Move focus into the slide for keyboard users
+				nextSlide.focus({ preventScroll: true });
+
+				syncUI();
+
+				// Update URL hash without scrolling
+				const slideId = nextSlide.dataset.slideId;
+				if (slideId) {
+					history.replaceState(null, '', `#${slideId}`);
+				}
+			}
+
+			function showNext() {
+				if (current < total - 1) goTo(current + 1);
+			}
+
+			function showPrev() {
+				if (current > 0) goTo(current - 1);
+			}
+
+			function syncUI() {
+				prevBtn.disabled = current === 0;
+				nextBtn.disabled = current === total - 1;
+				counter.textContent = `${current + 1} / ${total}`;
+
+				const dots = getDots();
+				dots.forEach((dot, i) => {
+					const active = i === current;
+					dot.classList.toggle('is-active', active);
+					dot.setAttribute('aria-pressed', String(active));
+					dot.setAttribute('aria-label', `Go to slide ${i + 1} of ${total}${active ? ' (current)' : ''}`);
+				});
+			}
+
+			// ── Initialise ────────────────────────────────────────────────────
+			function init() {
+				// Resolve start index from URL hash
+				const hash = window.location.hash.slice(1);
+				let startIndex = 0;
+				if (hash) {
+					const found = slides.findIndex(s => s.dataset.slideId === hash);
+					if (found !== -1) startIndex = found;
+				}
+
+				// Activate starting slide, hide the rest
+				slides.forEach((slide, i) => {
+					if (i === startIndex) {
+						slide.classList.add('is-active');
+						slide.setAttribute('aria-hidden', 'false');
+					}
+					// else: aria-hidden="true" is already set in markup
+				});
+
+				current = startIndex;
+				syncUI();
+			}
+
+			init();
+
+			// ── Event listeners ───────────────────────────────────────────────
+			prevBtn.addEventListener('click', showPrev);
+			nextBtn.addEventListener('click', showNext);
+
+			document.addEventListener('keydown', (e) => {
+				// Don't steal keys from focused links/buttons inside slides
+				const tag = (e.target as HTMLElement)?.tagName;
+				if (tag === 'A' || tag === 'BUTTON') return;
+
+				if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+					e.preventDefault();
+					showNext();
+				} else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+					e.preventDefault();
+					showPrev();
+				}
+			});
+
+			// Touch / swipe support
+			let touchX = 0;
+			let touchY = 0;
+
+			document.addEventListener('touchstart', (e) => {
+				touchX = e.changedTouches[0].clientX;
+				touchY = e.changedTouches[0].clientY;
+			}, { passive: true });
+
+			document.addEventListener('touchend', (e) => {
+				const dx = e.changedTouches[0].clientX - touchX;
+				const dy = e.changedTouches[0].clientY - touchY;
+				// Only act if horizontal swipe dominates and is large enough
+				if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) {
+					if (dx < 0) showNext();
+					else showPrev();
+				}
+			}, { passive: true });
+		</script>
+	</body>
+</html>

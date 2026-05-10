@@ -1,0 +1,49 @@
+---
+/**
+ * ResumeSlide — wrapper component used inside resumeDeck.mdx.
+ *
+ * Each instance renders as a <section> with the appropriate data attributes
+ * so the client-side deck controller can show/hide slides and apply transitions.
+ *
+ * Props
+ * -----
+ * id          — URL hash anchor and ARIA label identifier (kebab-case, e.g. "opening")
+ * layout      — visual template: hero | impact | platform | distribution |
+ *               governance | ai-products | close | default
+ * transition  — entrance animation: fade-up | fade
+ * eyebrow     — small label shown above the main heading (e.g. role or category)
+ * accent      — colour accent override: cyan | pink | lime | violet
+ */
+
+interface Props {
+	id?: string;
+	layout?: 'hero' | 'impact' | 'platform' | 'distribution' | 'governance' | 'ai-products' | 'close' | 'default';
+	transition?: 'fade-up' | 'fade';
+	eyebrow?: string;
+	accent?: 'cyan' | 'pink' | 'lime' | 'violet';
+}
+
+const {
+	id,
+	layout = 'default',
+	transition = 'fade-up',
+	eyebrow,
+	accent = 'cyan',
+} = Astro.props;
+---
+
+<section
+	class:list={['deck-slide', `deck-slide--${layout}`, `deck-slide--accent-${accent}`]}
+	data-slide-id={id}
+	data-transition={transition}
+	aria-hidden="true"
+	tabindex="-1"
+	role="tabpanel"
+>
+	{eyebrow && (
+		<p class="slide-eyebrow" aria-label={`Section: ${eyebrow}`}>{eyebrow}</p>
+	)}
+	<div class="slide-content">
+		<slot />
+	</div>
+</section>

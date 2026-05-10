@@ -45,6 +45,11 @@ export const metaRegistry: MetaRegistry = {
 		description: 'A sampling of my photography. I will do my best to add to this over time.',
 		image: '/ian-slater-profile-photo.jpg',
 	},
+	'page:/resume': {
+		title: 'Resume | Ian Slater',
+		description: 'Senior Product Manager — Legal Operations Technology & Enterprise Platforms at The Walt Disney Company. Enterprise platforms, AI-enabled workflows, and scalable product delivery.',
+		image: '/ian-slater-profile-photo.jpg',
+	},
 
 	// Blog posts
 	'blog:hello-world-again': {

@@ -45,11 +45,12 @@ All commands are run from the root of the project:
 
 ## 🎨 Features
 
-### Ian Site (apps/ian-site)
+### Ian Site Features
 - **Homepage:** Bio and introduction
 - **Projects:** Screenplays, short films, and other writing projects
 - **Blog:** Scaffolded but not populated (ready for future content)
 - **Gallery:** Photography viewer with keyboard navigation
+- **Resume:** Immersive presentation-style resume applet at `/resume`
 
 ### Dad Site (apps/dad-site)
 - **Homepage:** Author bio with navigation cards
@@ -64,6 +65,79 @@ All commands are run from the root of the project:
 - Shareable URLs via query parameter (`?i=NUMBER`)
 - Sorting: order field → date → title
 - Responsive design
+
+### Resume Applet (ian-site — `/resume`)
+
+An immersive, full-screen presentation-style resume experience. The visitor advances through a 7-slide resume story using keyboard, touch, or on-screen controls.
+
+**Route:** `/resume`
+
+**Content source:** `apps/ian-site/src/content/resume/resumeDeck.mdx`
+
+All slide content lives in a single MDX file. Each slide is a `<ResumeSlide>` component block. Edit only that file to update resume content — no code changes needed.
+
+#### Slide authoring format
+
+```mdx
+<ResumeSlide id="slide-id" layout="impact" transition="fade-up" eyebrow="Section Label">
+
+## Slide Heading
+
+Content goes here. Markdown is fully supported — **bold**, lists, links, etc.
+
+- Bullet one
+- Bullet two
+
+</ResumeSlide>
+```
+
+#### Available `layout` values
+
+| Value | Description |
+| :---- | :---------- |
+| `hero` | Full-screen opener with large gradient name and LinkedIn CTA button |
+| `impact` | Bold thesis statement, left-aligned, large typography |
+| `platform` | Platform details with grid card bullets and accent strips |
+| `distribution` | Integration / distribution details with icon-prefixed list items |
+| `governance` | Policy / governance narrative with highlighted `strong` terms |
+| `ai-products` | Two-product showcase; each paragraph renders as a card with accent top edge |
+| `close` | Experience timeline + credentials + LinkedIn CTA button |
+| `default` | Basic text layout, no special treatment |
+
+#### Available `transition` values
+
+| Value | Description |
+| :---- | :---------- |
+| `fade-up` | Fade in while translating up (default) |
+| `fade` | Simple fade in/out, no vertical motion |
+
+#### Available `accent` values
+
+| Value | Description |
+| :---- | :---------- |
+| `cyan` | Primary cyan accent for eyebrow label (default) |
+| `pink` | Pink eyebrow — use for AI/zero-to-one moments |
+| `lime` | Lime eyebrow — use sparingly for rare emphasis |
+| `violet` | Violet eyebrow |
+
+#### Navigation features
+
+- **Next / Prev buttons** — bottom navigation bar
+- **Keyboard** — Left/Right arrow keys (also Up/Down)
+- **Touch / swipe** — swipe left for next, swipe right for previous
+- **Dot navigation** — click any dot to jump to that slide
+- **Deep linking** — URL hash updates automatically (e.g. `/resume#platform`)
+- **Reduced motion** — transitions are disabled when `prefers-reduced-motion: reduce` is set
+
+#### Accessibility
+
+- `role="application"` on the deck wrapper with descriptive `aria-label`
+- Each slide has `role="tabpanel"` and `aria-hidden` managed by JavaScript
+- Navigation buttons have explicit `aria-label` values
+- Progress dots include current-slide indication in their `aria-label`
+- `aria-live="polite"` on the slide counter for screen reader announcements
+- All content is present in the DOM (not animation-gated)
+- Focus moves to the new slide on navigation
 
 ## 🚢 Deployment
 
