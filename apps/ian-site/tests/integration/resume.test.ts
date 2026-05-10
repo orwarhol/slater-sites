@@ -109,7 +109,10 @@ describe("/resume page structure", () => {
 	});
 
 	it("title contains 'Ian Slater'", () => {
-		expect(html).toMatch(/Ian Slater/i);
+		// Match inside the actual <title> element, not just anywhere in the HTML
+		const titleMatch = html.match(/<title>([^<]*)<\/title>/i);
+		expect(titleMatch).not.toBeNull();
+		expect(titleMatch![1]).toMatch(/Ian Slater/i);
 	});
 
 	it("contains the deck-slide sections (slides rendered from MDX)", () => {
