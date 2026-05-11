@@ -159,6 +159,31 @@ describe("/resume page structure", () => {
 		expect(html).toMatch(/linkedin\.com/i);
 	});
 
+	it("LinkedIn CTA links have target='_blank'", () => {
+		// Both Slide 1 and Slide 7 LinkedIn anchors must open in a new tab.
+		const linkedinLinks = [...html.matchAll(/<a[^>]*linkedin[^>]*>/gi)].map(
+			(m) => m[0],
+		);
+		expect(linkedinLinks.length).toBeGreaterThanOrEqual(2);
+		for (const tag of linkedinLinks) {
+			expect(tag).toMatch(/target="_blank"/);
+		}
+	});
+
+	it("LinkedIn CTA links have rel='noopener noreferrer'", () => {
+		const linkedinLinks = [...html.matchAll(/<a[^>]*linkedin[^>]*>/gi)].map(
+			(m) => m[0],
+		);
+		for (const tag of linkedinLinks) {
+			expect(tag).toMatch(/rel="noopener noreferrer"/);
+		}
+	});
+
+	it("eyebrow elements are inside .slide-content (aligned with body text)", () => {
+		// The slide-eyebrow must be a descendant of .slide-content, not a sibling.
+		expect(html).toMatch(/class="slide-content"[^]*?class="slide-eyebrow"/);
+	});
+
 	it("does NOT contain a site header", () => {
 		// The resume page intentionally omits the site Header component
 		expect(html).not.toMatch(/<header[^>]*class="[^"]*site-header/i);

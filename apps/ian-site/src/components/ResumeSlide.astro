@@ -40,10 +40,10 @@ const {
 	tabindex="-1"
 	role="tabpanel"
 >
-	{eyebrow && (
-		<p class="slide-eyebrow" aria-label={`Section: ${eyebrow}`}>{eyebrow}</p>
-	)}
 	<div class="slide-content">
+		{eyebrow && (
+			<p class="slide-eyebrow" aria-label={`Section: ${eyebrow}`}>{eyebrow}</p>
+		)}
 		<slot />
 	</div>
 </section>
