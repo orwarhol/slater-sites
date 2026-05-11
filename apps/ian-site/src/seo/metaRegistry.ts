@@ -47,7 +47,7 @@ export const metaRegistry: MetaRegistry = {
 	},
 	'page:/resume': {
 		title: 'Resume | Ian Slater',
-		description: 'Senior Product Manager — Legal Operations Technology & Enterprise Platforms at The Walt Disney Company. Enterprise platforms, AI-enabled workflows, and scalable product delivery.',
+		description: 'Senior Product Manager at The Walt Disney Company. Enterprise platforms, AI-enabled workflows, and scalable product delivery.',
 		image: '/ian-slater-profile-photo.jpg',
 	},
 
