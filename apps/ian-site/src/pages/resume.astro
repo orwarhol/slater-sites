@@ -89,10 +89,6 @@ const { Content } = await render(deck);
 				text-transform: uppercase;
 				color: var(--cyan);
 				margin: 0 0 1rem;
-				max-width: 860px;
-				width: 100%;
-				margin-left: auto;
-				margin-right: auto;
 				opacity: 0;
 				transform: translateY(0.5rem);
 				transition:
@@ -122,7 +118,7 @@ const { Content } = await render(deck);
 			}
 
 			/* Paragraphs, lists, hr stagger later */
-			:global(.deck-slide p),
+			:global(.deck-slide p:not(.slide-eyebrow)),
 			:global(.deck-slide ul),
 			:global(.deck-slide ol),
 			:global(.deck-slide hr) {
@@ -133,7 +129,7 @@ const { Content } = await render(deck);
 					transform 0.4s ease calc(var(--stagger) * 3);
 			}
 
-			:global(.deck-slide.is-active p),
+			:global(.deck-slide.is-active p:not(.slide-eyebrow)),
 			:global(.deck-slide.is-active ul),
 			:global(.deck-slide.is-active ol),
 			:global(.deck-slide.is-active hr) {
@@ -164,7 +160,7 @@ const { Content } = await render(deck);
 				margin-bottom: 0.4em;
 			}
 
-			:global(.deck-slide--hero p) {
+			:global(.deck-slide--hero p:not(.slide-eyebrow)) {
 				font-size: clamp(1.05rem, 2.2vw, 1.35rem);
 				line-height: 1.6;
 				color: var(--muted);
@@ -225,7 +221,7 @@ const { Content } = await render(deck);
 				margin-bottom: 1rem;
 			}
 
-			:global(.deck-slide--impact p) {
+			:global(.deck-slide--impact p:not(.slide-eyebrow)) {
 				font-size: clamp(1.1rem, 2.5vw, 1.4rem);
 				line-height: 1.7;
 				color: var(--muted);
@@ -250,7 +246,8 @@ const { Content } = await render(deck);
 				margin-bottom: 0.5em;
 			}
 
-			:global(.deck-slide--platform p:first-of-type) {
+			/* nth-of-type(2) because eyebrow <p> is now first inside .slide-content */
+			:global(.deck-slide--platform p:nth-of-type(2)) {
 				font-size: clamp(1rem, 2vw, 1.2rem);
 				color: var(--muted);
 				margin-bottom: 1.5rem;
@@ -309,7 +306,8 @@ const { Content } = await render(deck);
 				margin-bottom: 0.5em;
 			}
 
-			:global(.deck-slide--distribution p:first-of-type) {
+			/* nth-of-type(2) because eyebrow <p> is now first inside .slide-content */
+			:global(.deck-slide--distribution p:nth-of-type(2)) {
 				font-size: clamp(1rem, 2vw, 1.2rem);
 				color: var(--muted);
 				margin-bottom: 1.5rem;
@@ -354,7 +352,7 @@ const { Content } = await render(deck);
 				margin-bottom: 0.5em;
 			}
 
-			:global(.deck-slide--governance p) {
+			:global(.deck-slide--governance p:not(.slide-eyebrow)) {
 				font-size: clamp(1.05rem, 2.2vw, 1.3rem);
 				line-height: 1.75;
 				color: var(--muted);
@@ -378,7 +376,7 @@ const { Content } = await render(deck);
 				margin-bottom: 1rem;
 			}
 
-			:global(.deck-slide--ai-products p) {
+			:global(.deck-slide--ai-products p:not(.slide-eyebrow)) {
 				background: var(--surface-1);
 				border: 1px solid var(--border-medium);
 				border-radius: var(--radius-md);
@@ -390,7 +388,7 @@ const { Content } = await render(deck);
 				position: relative;
 			}
 
-			:global(.deck-slide--ai-products p::before) {
+			:global(.deck-slide--ai-products p:not(.slide-eyebrow)::before) {
 				content: '';
 				position: absolute;
 				top: 0;
@@ -424,7 +422,7 @@ const { Content } = await render(deck);
 				margin-bottom: 1.25rem;
 			}
 
-			:global(.deck-slide--close p) {
+			:global(.deck-slide--close p:not(.slide-eyebrow)) {
 				font-size: 0.95rem;
 				line-height: 1.75;
 				color: var(--muted);
@@ -502,7 +500,7 @@ const { Content } = await render(deck);
 				padding: 0;
 			}
 
-			.deck-dots__dot {
+			:global(.deck-dots__dot) {
 				width: 8px;
 				height: 8px;
 				border-radius: 50%;
@@ -510,32 +508,33 @@ const { Content } = await render(deck);
 				background: transparent;
 				padding: 0;
 				cursor: pointer;
-				transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+				transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 				/* Larger touch target */
 				position: relative;
 			}
 
-			.deck-dots__dot::after {
+			:global(.deck-dots__dot::after) {
 				content: '';
 				position: absolute;
 				inset: -8px;
 			}
 
-			.deck-dots__dot:hover {
+			:global(.deck-dots__dot:hover) {
 				border-color: var(--cyan);
 				background: rgba(95, 231, 255, 0.2);
 			}
 
-			.deck-dots__dot.is-active {
-				background: var(--cyan);
+			:global(.deck-dots__dot.is-active) {
+				background: linear-gradient(135deg, var(--cyan), var(--blue));
 				border-color: var(--cyan);
-				transform: scale(1.25);
+				transform: scale(1.35);
 				box-shadow: var(--glow-cyan);
 			}
 
-			.deck-dots__dot:focus {
+			:global(.deck-dots__dot:focus-visible) {
 				outline: 2px solid var(--cyan);
 				outline-offset: 3px;
+				box-shadow: var(--glow-cyan);
 			}
 
 			/* Prev / Next buttons */
@@ -646,7 +645,7 @@ const { Content } = await render(deck);
 					padding: 0.45em 0.75em;
 				}
 
-				.deck-dots__dot {
+				:global(.deck-dots__dot) {
 					width: 6px;
 					height: 6px;
 				}
