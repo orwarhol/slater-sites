@@ -12,14 +12,14 @@
  * Run with:  npm run test:playwright --workspace=ian-site
  */
 
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 
 /** Returns the index (0-based) of the currently active dot button. */
-async function getActiveDotIndex(page: import('@playwright/test').Page): Promise<number> {
+async function getActiveDotIndex(page: Page): Promise<number> {
 	const dots = page.locator('#deck-dots button.deck-dots__dot');
 	const count = await dots.count();
 	for (let i = 0; i < count; i++) {
@@ -31,7 +31,7 @@ async function getActiveDotIndex(page: import('@playwright/test').Page): Promise
 
 /** Returns the aria-pressed value for the dot at the given index. */
 async function getDotAriaPressed(
-	page: import('@playwright/test').Page,
+	page: Page,
 	index: number,
 ): Promise<string | null> {
 	return page
@@ -56,7 +56,7 @@ test.beforeEach(async ({ page }) => {
 
 /** Wait for a specific dot index to become the active dot. */
 async function waitForActiveDot(
-	page: import('@playwright/test').Page,
+	page: Page,
 	index: number,
 ): Promise<void> {
 	await expect(
@@ -159,7 +159,7 @@ test.describe('Active dot — Prev button navigation', () => {
 test.describe('Active dot — dot-click navigation', () => {
 	test('clicking the third dot makes it active', async ({ page }) => {
 		const dots = page.locator('#deck-dots button.deck-dots__dot');
-		// force:true bypasses the Astro dev toolbar overlay in dev mode.
+		// force:true bypasses the Astro dev toolbar overlay in development mode.
 		await dots.nth(2).click({ force: true });
 		await waitForActiveDot(page, 2);
 		expect(await getActiveDotIndex(page)).toBe(2);
@@ -319,7 +319,7 @@ test.describe('Eyebrow alignment', () => {
 // ---------------------------------------------------------------------------
 
 test.describe('Eyebrow styling consistency — Slides 3, 4, 5', () => {
-	async function getEyebrowStyles(page: import('@playwright/test').Page, slideId: string) {
+	async function getEyebrowStyles(page: Page, slideId: string) {
 		const el = page.locator(`[data-slide-id="${slideId}"] .slide-content .slide-eyebrow`);
 		return el.evaluate((node) => {
 			const s = getComputedStyle(node);
