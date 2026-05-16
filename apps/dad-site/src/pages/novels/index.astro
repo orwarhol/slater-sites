@@ -134,6 +134,8 @@ const novels = (await getCollection('novels')).sort((a, b) => {
 	.novel-actions {
 		display: inline-grid;
 		gap: 1.125rem;
+		inline-size: max-content;
+		min-inline-size: 13.5rem;
 	}
 
 	.purchase-links {
