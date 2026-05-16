@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { buildLookup, resolveRedirect } from "../../src/data/redirects";
+import { buildLookup, redirects, resolveRedirect } from "../../src/data/redirects";
 import type { RedirectRule } from "../../src/data/redirects";
 
 /**
@@ -176,6 +176,36 @@ describe("resolveRedirect — prefix match", () => {
 	it("appends query string when to has no `/*`", () => {
 		const result = resolve("/poems/spring", [{ from: "/poems/*", to: "/archive" }], "?ref=test");
 		expect(result!.destination).toBe("/archive?ref=test");
+	});
+});
+
+// ---------------------------------------------------------------------------
+// resolveRedirect — generated legacy poetry redirects
+// ---------------------------------------------------------------------------
+
+describe("resolveRedirect — generated legacy poetry redirects", () => {
+	const lookupFromRegistry = buildLookup(redirects);
+
+	it("redirects a legacy dated poem path to the slug-only path", () => {
+		const result = resolveRedirect(
+			"/poetry/1967/12/a-letter-to-myself",
+			"",
+			lookupFromRegistry,
+		);
+
+		expect(result).not.toBeNull();
+		expect(result!.destination).toBe("/poetry/a-letter-to-myself");
+		expect(result!.status).toBe(301);
+	});
+
+	it("preserves query strings on legacy dated poem redirects", () => {
+		const result = resolveRedirect(
+			"/poetry/1967/12/a-letter-to-myself",
+			"?ref=archive",
+			lookupFromRegistry,
+		);
+
+		expect(result!.destination).toBe("/poetry/a-letter-to-myself?ref=archive");
 	});
 });
 

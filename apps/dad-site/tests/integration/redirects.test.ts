@@ -10,6 +10,7 @@
  * The tests rely on the active redirect rules in src/data/redirects.ts:
  *   { from: '/books',    to: '/novels',    status: 301 }  // exact
  *   { from: '/poems/*',  to: '/poetry/*',  status: 301 }  // prefix
+ *   /poetry/YYYY/MM/slug → /poetry/slug                       // generated exact
  */
 
 import { describe, it, beforeAll, afterAll, expect } from "vitest";
@@ -127,6 +128,30 @@ describe("prefix redirect /poems/* → /poetry/*", () => {
 		const res = await get("/poems");
 		expect(res.status).not.toBe(301);
 		expect(res.status).not.toBe(302);
+	});
+});
+
+// ---------------------------------------------------------------------------
+// Generated legacy poetry redirect: /poetry/YYYY/MM/slug → /poetry/slug
+// ---------------------------------------------------------------------------
+
+describe("generated legacy poetry redirects", () => {
+	it("returns status 301 for a legacy dated poem path", async () => {
+		const res = await get("/poetry/1967/12/a-letter-to-myself");
+		expect(res.status).toBe(301);
+	});
+
+	it("rewrites the legacy dated poem path to the slug-only path", async () => {
+		const res = await get("/poetry/1967/12/a-letter-to-myself");
+		const location = res.headers.get("location") ?? "";
+		expect(location).toContain("/poetry/a-letter-to-myself");
+	});
+
+	it("preserves query strings on legacy dated poem redirects", async () => {
+		const res = await get("/poetry/1967/12/a-letter-to-myself?ref=archive");
+		const location = res.headers.get("location") ?? "";
+		expect(location).toContain("/poetry/a-letter-to-myself");
+		expect(location).toContain("ref=archive");
 	});
 });
 

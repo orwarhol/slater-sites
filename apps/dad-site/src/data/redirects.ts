@@ -55,8 +55,9 @@
  * HOW TO ADD A REDIRECT
  * ---------------------
  * Append a new object inside the `redirects` array at the bottom of this
- * file.  Do NOT add entries outside the array — they will be ignored and
- * will cause a TypeScript build error.
+ * file for manual redirects. Shared/generated redirect helpers may live
+ * above the array, but do NOT add standalone manual entries outside the
+ * array — they will be ignored and will cause a TypeScript build error.
  *
  * TESTING LOCALLY
  * ---------------
@@ -91,6 +92,43 @@ export type RedirectLookup = {
 	exactMap: Map<string, RedirectRule>;
 	prefixRules: RedirectRule[];
 };
+
+type LegacyPoetryFrontmatter = {
+	date?: string | Date;
+};
+
+const legacyPoetryFrontmatters = import.meta.glob("../content/poetry/*.{md,mdx}", {
+	eager: true,
+	import: "frontmatter",
+}) as Record<string, LegacyPoetryFrontmatter>;
+
+function buildLegacyPoetryDateRedirects(): RedirectRule[] {
+	return Object.entries(legacyPoetryFrontmatters).flatMap(([path, frontmatter]) => {
+		const slugMatch = path.match(/\/([^/]+)\.(md|mdx)$/);
+		if (!slugMatch || !frontmatter.date) {
+			return [];
+		}
+
+		const date = new Date(frontmatter.date);
+		if (Number.isNaN(date.valueOf())) {
+			return [];
+		}
+
+		const slug = slugMatch[1];
+		const year = date.getUTCFullYear();
+		const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+
+		return [
+			{
+				from: `/poetry/${year}/${month}/${slug}`,
+				to: `/poetry/${slug}`,
+				status: 301,
+			},
+		];
+	});
+}
+
+const legacyPoetryDateRedirects = buildLegacyPoetryDateRedirects();
 
 /**
  * Build fast lookup structures from a rules array.
@@ -140,6 +178,9 @@ export function resolveRedirect(
 
 // ↓↓↓ ADD NEW REDIRECTS INSIDE THIS ARRAY ↓↓↓
 export const redirects: RedirectRule[] = [
+	// Generated exact redirects for the legacy /poetry/YYYY/MM/slug structure.
+	...legacyPoetryDateRedirects,
+
 	// Exact redirects — add when a page slug or section name changes.
 	{ from: "/books", to: "/novels", status: 301 },
 
