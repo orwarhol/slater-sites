@@ -51,23 +51,20 @@ const { Content } = await render(novel);
 						)}
 					</div>
 
-					{novel.data.purchaseLinks && novel.data.purchaseLinks.length > 0 && (
-						<div class="purchase-links">
-							<h3>Purchase</h3>
-							<div class="links">
-								{novel.data.purchaseLinks.map((link) => (
-									<a href={link.url} target="_blank" rel="noopener noreferrer" class="purchase-link">
-										{link.label}
-									</a>
-								))}
-							</div>
-						</div>
-					)}
-
 					<div class="synopsis">
 						<h3>Synopsis</h3>
 						<p>{novel.data.synopsis}</p>
 					</div>
+
+					{novel.data.purchaseLinks && novel.data.purchaseLinks.length > 0 && (
+						<div class="purchase-links">
+							{novel.data.purchaseLinks.map((link) => (
+								<a href={link.url} target="_blank" rel="noopener noreferrer" class="purchase-link">
+									{link.label}
+								</a>
+							))}
+						</div>
+					)}
 				</header>
 
 				<div class="novel-content">
@@ -111,19 +108,6 @@ const { Content } = await render(novel);
 
 	.purchase-links {
 		margin-bottom: 2em;
-		padding: 1.5em;
-		background: var(--surface-2);
-		border-radius: var(--radius-md);
-		border: 1px solid var(--border);
-	}
-
-	.purchase-links h3 {
-		margin-top: 0;
-		margin-bottom: 1em;
-		font-size: 1.2em;
-	}
-
-	.links {
 		display: flex;
 		gap: 1em;
 		flex-wrap: wrap;
@@ -146,8 +130,6 @@ const { Content } = await render(novel);
 
 	.synopsis {
 		margin-bottom: 2em;
-		padding-bottom: 2em;
-		border-bottom: 1px solid var(--border);
 	}
 
 	.synopsis h3 {
@@ -172,7 +154,5 @@ const { Content } = await render(novel);
 
 	.novel-footer {
 		margin-top: 3em;
-		padding-top: 2em;
-		border-top: 1px solid var(--border);
 	}
 </style>
