@@ -52,16 +52,18 @@ const novels = (await getCollection('novels')).sort((a, b) => {
 										</div>
 									)}
 									<p class="synopsis">{truncatedSynopsis}</p>
-									{novel.data.purchaseLinks && novel.data.purchaseLinks.length > 0 && (
-										<div class="purchase-links">
-											{novel.data.purchaseLinks.map((link) => (
-												<a href={link.url} target="_blank" rel="noopener noreferrer" class="purchase-link">
-													{link.label}
-												</a>
-											))}
-										</div>
-									)}
-									<a href={`/novels/${novel.id}`} class="read-more">Read more →</a>
+									<div class="novel-actions">
+										{novel.data.purchaseLinks && novel.data.purchaseLinks.length > 0 && (
+											<div class="purchase-links">
+												{novel.data.purchaseLinks.map((link) => (
+													<a href={link.url} target="_blank" rel="noopener noreferrer" class="purchase-link">
+														{link.label}
+													</a>
+												))}
+											</div>
+										)}
+										<a href={`/novels/${novel.id}`} class="read-more">Learn more</a>
+									</div>
 								</article>
 							);
 						})
@@ -129,22 +131,33 @@ const novels = (await getCollection('novels')).sort((a, b) => {
 		margin: 1em 0 1.5em 0;
 	}
 
+	.novel-actions {
+		display: inline-grid;
+		gap: 1.125rem;
+	}
+
 	.purchase-links {
 		display: flex;
 		gap: 1em;
 		flex-wrap: wrap;
-		margin-bottom: 1em;
 	}
 
-	.purchase-link {
+	.purchase-link,
+	.read-more {
 		display: inline-block;
+		inline-size: 13.5rem;
 		padding: 0.5em 1em;
-		background: var(--accent);
-		color: white;
 		text-decoration: none;
 		border-radius: 4px;
 		font-size: 0.9em;
-		transition: background 0.2s;
+		box-sizing: border-box;
+		text-align: center;
+		transition: background 0.2s, border-color 0.2s, color 0.2s;
+	}
+
+	.purchase-link {
+		background: var(--accent);
+		color: white;
 	}
 
 	.purchase-link:hover {
@@ -152,13 +165,20 @@ const novels = (await getCollection('novels')).sort((a, b) => {
 	}
 
 	.read-more {
-		color: var(--accent);
-		text-decoration: none;
-		font-size: 0.95em;
+		background: var(--storm-grey-3);
+		border: 1px solid var(--storm-grey-3);
+		color: var(--bg);
 	}
 
 	.read-more:hover {
-		text-decoration: underline;
-		color: var(--accent-hover);
+		background: var(--storm-grey-2);
+		border-color: var(--storm-grey-2);
+		color: var(--bg);
+	}
+
+	.read-more:focus-visible,
+	.purchase-link:focus-visible {
+		outline: var(--focus-ring);
+		outline-offset: 2px;
 	}
 </style>
