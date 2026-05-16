@@ -93,23 +93,35 @@ export type RedirectLookup = {
 	prefixRules: RedirectRule[];
 };
 
-type LegacyPoetryFrontmatter = {
-	date?: string | Date;
-};
-
-const legacyPoetryFrontmatters = import.meta.glob("../content/poetry/*.{md,mdx}", {
+const legacyPoetrySources = import.meta.glob("../content/poetry/*.{md,mdx}", {
 	eager: true,
-	import: "frontmatter",
-}) as Record<string, LegacyPoetryFrontmatter>;
+	import: "default",
+	query: "?raw",
+}) as Record<string, string>;
+
+function extractFrontmatterDate(source: string): string | null {
+	const frontmatterMatch = source.match(/^---\s*\r?\n([\s\S]*?)\r?\n---/);
+	if (!frontmatterMatch) {
+		return null;
+	}
+
+	const dateMatch = frontmatterMatch[1].match(/^date:\s*(.+)$/m);
+	if (!dateMatch) {
+		return null;
+	}
+
+	return dateMatch[1].trim().replace(/^['"]|['"]$/g, "");
+}
 
 function buildLegacyPoetryDateRedirects(): RedirectRule[] {
-	return Object.entries(legacyPoetryFrontmatters).flatMap(([path, frontmatter]) => {
+	return Object.entries(legacyPoetrySources).flatMap(([path, source]) => {
 		const slugMatch = path.match(/\/([^/]+)\.(md|mdx)$/);
-		if (!slugMatch || !frontmatter.date) {
+		const dateValue = extractFrontmatterDate(source);
+		if (!slugMatch || !dateValue) {
 			return [];
 		}
 
-		const date = new Date(frontmatter.date);
+		const date = new Date(dateValue);
 		if (Number.isNaN(date.valueOf())) {
 			return [];
 		}
