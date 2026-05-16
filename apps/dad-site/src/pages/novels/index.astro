@@ -52,16 +52,18 @@ const novels = (await getCollection('novels')).sort((a, b) => {
 										</div>
 									)}
 									<p class="synopsis">{truncatedSynopsis}</p>
-									{novel.data.purchaseLinks && novel.data.purchaseLinks.length > 0 && (
-										<div class="purchase-links">
-											{novel.data.purchaseLinks.map((link) => (
-												<a href={link.url} target="_blank" rel="noopener noreferrer" class="purchase-link">
-													{link.label}
-												</a>
-											))}
-										</div>
-									)}
-									<a href={`/novels/${novel.id}`} class="read-more">Learn more</a>
+									<div class="novel-actions">
+										{novel.data.purchaseLinks && novel.data.purchaseLinks.length > 0 && (
+											<div class="purchase-links">
+												{novel.data.purchaseLinks.map((link) => (
+													<a href={link.url} target="_blank" rel="noopener noreferrer" class="purchase-link">
+														{link.label}
+													</a>
+												))}
+											</div>
+										)}
+										<a href={`/novels/${novel.id}`} class="read-more">Learn more</a>
+									</div>
 								</article>
 							);
 						})
@@ -129,11 +131,17 @@ const novels = (await getCollection('novels')).sort((a, b) => {
 		margin: 1em 0 1.5em 0;
 	}
 
+	.novel-actions {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.75rem;
+	}
+
 	.purchase-links {
 		display: flex;
 		gap: 1em;
 		flex-wrap: wrap;
-		margin-bottom: 1em;
 	}
 
 	.purchase-link,
