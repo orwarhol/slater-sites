@@ -128,15 +128,14 @@ function buildLegacyPoetryDateRedirects(): RedirectRule[] {
 
 		const slug = slugMatch[1];
 		const year = date.getUTCFullYear();
-		const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+		const monthNumber = date.getUTCMonth() + 1;
+		const legacyMonths = [...new Set([String(monthNumber), String(monthNumber).padStart(2, "0")])];
 
-		return [
-			{
-				from: `/poetry/${year}/${month}/${slug}`,
-				to: `/poetry/${slug}`,
-				status: 301,
-			},
-		];
+		return legacyMonths.map((month) => ({
+			from: `/poetry/${year}/${month}/${slug}`,
+			to: `/poetry/${slug}`,
+			status: 301,
+		}));
 	});
 }
 

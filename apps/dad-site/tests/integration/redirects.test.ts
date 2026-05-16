@@ -153,6 +153,13 @@ describe("generated legacy poetry redirects", () => {
 		expect(location).toContain("/poetry/a-letter-to-myself");
 		expect(location).toContain("ref=archive");
 	});
+
+	it("redirects a single-digit legacy month to the slug-only path", async () => {
+		const res = await get("/poetry/2001/6/tradition");
+		const location = res.headers.get("location") ?? "";
+		expect(res.status).toBe(301);
+		expect(location).toContain("/poetry/tradition");
+	});
 });
 
 // ---------------------------------------------------------------------------

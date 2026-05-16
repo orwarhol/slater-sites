@@ -207,6 +207,18 @@ describe("resolveRedirect — generated legacy poetry redirects", () => {
 
 		expect(result!.destination).toBe("/poetry/a-letter-to-myself?ref=archive");
 	});
+
+	it("redirects a legacy dated poem path with a single-digit month", () => {
+		const result = resolveRedirect(
+			"/poetry/2001/6/tradition",
+			"",
+			lookupFromRegistry,
+		);
+
+		expect(result).not.toBeNull();
+		expect(result!.destination).toBe("/poetry/tradition");
+		expect(result!.status).toBe(301);
+	});
 });
 
 // ---------------------------------------------------------------------------

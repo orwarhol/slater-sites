@@ -402,7 +402,7 @@ Content/path redirects are managed **in-app**, not in the Cloudflare dashboard. 
 
 Each file exports a typed `RedirectRule[]` array. Middleware in each app (`src/middleware.ts`) reads this registry on every incoming request and performs an exact-path or prefix redirect when a match is found. Query strings are preserved automatically.
 
-`dad-site` also auto-generates exact redirects for legacy poem URLs in the old `/poetry/YYYY/MM/slug` format by reading each poem's frontmatter date and mapping that path to the current `/poetry/slug` route. You do not need to add those one-by-one.
+`dad-site` also auto-generates exact redirects for legacy poem URLs in the old dated formats (`/poetry/YYYY/MM/slug` and `/poetry/YYYY/M/slug`) by reading each poem's frontmatter date and mapping those paths to the current `/poetry/slug` route. You do not need to add those one-by-one.
 
 ### Redirect rule format — exact match
 
