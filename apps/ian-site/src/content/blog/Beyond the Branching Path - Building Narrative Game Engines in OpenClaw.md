@@ -2,7 +2,7 @@
 title: "Beyond the Branching Path: Building Narrative Game Engines in OpenClaw"
 description: "Moving beyond rigid branching paths, here's how I'm using OpenClaw to turn LLMs into dynamic, research-backed narrative game engines that embrace unpredictability to generate genuine suspense."
 pubDate: "May 23 2026"
-heroImage: ""
+heroImage: "/historical-simulation-agents.png"
 ---
 
 ---
