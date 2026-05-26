@@ -61,6 +61,13 @@ const { title, date, type, genre, pages, description, heroImage, projectId } = A
 				-webkit-text-fill-color: transparent;
 				background-clip: text;
 			}
+			@media (max-width: 640px) {
+				.title h1 {
+					font-size: clamp(1.75rem, 6vw, 2.25rem);
+					line-height: 1.15;
+					text-wrap: balance;
+				}
+			}
 			.meta {
 				margin-bottom: 1em;
 				color: var(--muted);
