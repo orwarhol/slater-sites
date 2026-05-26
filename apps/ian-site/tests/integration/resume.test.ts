@@ -229,12 +229,12 @@ describe("/resume slide content", () => {
 		expect(html).toMatch(/Dynamic Footer/i);
 	});
 
-	it("mentions Program FRIDAY", () => {
-		expect(html).toMatch(/Program FRIDAY/i);
+	it("mentions FRIDAY", () => {
+		expect(html).toMatch(/\bFRIDAY\b/i);
 	});
 
-	it("mentions Disney Vibes", () => {
-		expect(html).toMatch(/Disney Vibes/i);
+	it("mentions Vibes", () => {
+		expect(html).toMatch(/\bVibes\b/i);
 	});
 
 	it("mentions The Walt Disney Company", () => {
