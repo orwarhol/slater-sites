@@ -389,6 +389,21 @@ The ian-site uses a **custom sitemap endpoint** at `/sitemap.xml` instead of Ast
 - Keep the custom endpoint to maintain consistency with `robots.txt`
 - Update `sitemap.xml.ts` if new content collections are added
 
+### Ian Site RSS Feeds
+
+The ian-site exposes RSS at both `/rss.xml` and `/feed`.
+
+**Endpoints:**
+- `https://iancharlesslater.com/rss.xml`
+- `https://iancharlesslater.com/feed`
+
+Both routes are intentionally supported and return equivalent RSS channel/item data.
+
+**Implementation:**
+- Shared feed generator: `apps/ian-site/src/lib/rssFeed.js`
+- `/rss.xml` endpoint: `apps/ian-site/src/pages/rss.xml.js`
+- `/feed` endpoint: `apps/ian-site/src/pages/feed.js`
+
 ## 🔀 Redirect Management
 
 Content/path redirects are managed **in-app**, not in the Cloudflare dashboard. Each app owns its own redirect rules so they can be reviewed, edited, and version-controlled alongside the content they describe.

@@ -8,8 +8,7 @@
  * Run with:  npm run test:integration --workspace=ian-site
  *
  * The tests rely on the active redirect rules in src/data/redirects.ts:
- *   { from: '/writing',  to: '/projects',   status: 301 }  // exact
- *   { from: '/films/*',  to: '/projects/*', status: 301 }  // prefix
+ *   { from: '/photography', to: '/gallery', status: 301 } // exact
  */
 
 import { describe, it, beforeAll, afterAll, expect } from "vitest";
@@ -78,55 +77,24 @@ async function get(path: string) {
 }
 
 // ---------------------------------------------------------------------------
-// Exact redirect: /writing → /projects
+// Exact redirect: /photography → /gallery
 // ---------------------------------------------------------------------------
 
-describe("exact redirect /writing → /projects", () => {
+describe("exact redirect /photography → /gallery", () => {
 	it("returns status 301", async () => {
-		const res = await get("/writing");
+		const res = await get("/photography");
 		expect(res.status).toBe(301);
 	});
 
-	it("Location header points to /projects", async () => {
-		const res = await get("/writing");
-		expect(res.headers.get("location")).toContain("/projects");
+	it("Location header points to /gallery", async () => {
+		const res = await get("/photography");
+		expect(res.headers.get("location")).toContain("/gallery");
 	});
 
 	it("preserves query string", async () => {
-		const res = await get("/writing?ref=abc");
-		expect(res.headers.get("location")).toContain("/projects");
+		const res = await get("/photography?ref=abc");
+		expect(res.headers.get("location")).toContain("/gallery");
 		expect(res.headers.get("location")).toContain("ref=abc");
-	});
-});
-
-// ---------------------------------------------------------------------------
-// Prefix redirect: /films/* → /projects/*
-// ---------------------------------------------------------------------------
-
-describe("prefix redirect /films/* → /projects/*", () => {
-	it("returns status 301 for a path under /films/", async () => {
-		const res = await get("/films/my-film");
-		expect(res.status).toBe(301);
-	});
-
-	it("rewrites the tail onto /projects/", async () => {
-		const res = await get("/films/my-film");
-		const location = res.headers.get("location") ?? "";
-		expect(location).toContain("/projects/my-film");
-	});
-
-	it("preserves query string on prefix redirect", async () => {
-		const res = await get("/films/my-film?year=2024");
-		const location = res.headers.get("location") ?? "";
-		expect(location).toContain("/projects/my-film");
-		expect(location).toContain("year=2024");
-	});
-
-	it("does not redirect the bare /films path (no trailing slash)", async () => {
-		// '/films' has no matching exact rule, so it should NOT redirect.
-		const res = await get("/films");
-		expect(res.status).not.toBe(301);
-		expect(res.status).not.toBe(302);
 	});
 });
 
@@ -135,6 +103,11 @@ describe("prefix redirect /films/* → /projects/*", () => {
 // ---------------------------------------------------------------------------
 
 describe("non-redirect paths", () => {
+	it("an old path without an active rule does not redirect", async () => {
+		const res = await get("/writing");
+		expect(res.status).not.toBe(301);
+		expect(res.status).not.toBe(302);
+	});
 	it("home page returns a non-redirect response", async () => {
 		const res = await fetch(`${BASE}/`, { redirect: "follow" });
 		expect([200, 404]).toContain(res.status);
