@@ -8,7 +8,7 @@ export async function getRssResponse(context) {
 		(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 	);
 
-	return rss({
+	const response = await rss({
 		title: SITE_TITLE,
 		description: SITE_DESCRIPTION,
 		site: context.site,
@@ -19,4 +19,7 @@ export async function getRssResponse(context) {
 			link: `/blog/${post.id}/`,
 		})),
 	});
+
+	response.headers.set("Content-Type", "application/rss+xml; charset=utf-8");
+	return response;
 }
