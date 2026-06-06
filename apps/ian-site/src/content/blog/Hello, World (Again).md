@@ -5,7 +5,7 @@ pubDate: "Feb 07 2026"
 heroImage: "/palette-reference-image-chatgpt.png"
 ---
 
-Hello, world.
+Hello, world..
 
 This site is my latest attempt to build a small, intentional corner of the internet—and a record of a new (to me) way of doing it: **Astro + Cloudflare Pages + GitHub Copilot Coding Agent**.
 
