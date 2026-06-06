@@ -23,6 +23,8 @@ const novels = defineCollection({
 			label: z.string(),
 			url: z.string(),
 		})).default([]),
+		coverImage: z.string().optional(),
+		coverImageAlt: z.string().optional(),
 	}),
 });
 

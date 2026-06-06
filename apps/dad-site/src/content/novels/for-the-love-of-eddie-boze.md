@@ -2,6 +2,8 @@
 title: "For The Love of Eddie Boze"
 synopsis: "/h2> Detective Sergeant Lucas Miller of the Redondo Beach police is on the hunt for his roommate's killer. Eddie was a charming rascal who had a way with women. Lucas' life takes a turn when he meets Rita, the sister of a missing woman who is part of his urgent case file. The politics of policing is"
 purchaseLinks: []
+coverImage: ""
+coverImageAlt: ""
 ---
 
 /h2>

@@ -6,4 +6,6 @@ synopsis: "Derric Evan has inherited wealth, social standing, political influenc
 purchaseLinks:
   - label: "Read on Amazon Kindle"
     url: "https://www.amazon.com/Cutting-Charles-Slater-ebook/dp/B017FCVOIC"
+coverImage: "/cutting-in-cover-shelley-slater-2015_web.jpg"
+coverImageAlt: "Book cover for Cutting In"
 ---
