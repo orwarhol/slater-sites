@@ -8,8 +8,10 @@
  * Run with:  npm run test:integration --workspace=dad-site
  *
  * The tests rely on the active redirect rules in src/data/redirects.ts:
- *   { from: '/books',    to: '/novels',    status: 301 }  // exact
+ *   { from: '/books',    to: '/novels-movies',    status: 301 }  // exact
+ *   { from: '/novels',   to: '/novels-movies',    status: 301 }  // exact
  *   { from: '/poems/*',  to: '/poetry/*',  status: 301 }  // prefix
+ *   { from: '/novels/*', to: '/novels-movies/*', status: 301 } // prefix
  *   /poetry/YYYY/MM/slug → /poetry/slug                       // generated exact
  */
 
@@ -79,24 +81,40 @@ async function get(path: string) {
 }
 
 // ---------------------------------------------------------------------------
-// Exact redirect: /books → /novels
+// Exact redirect: /books → /novels-movies
 // ---------------------------------------------------------------------------
 
-describe("exact redirect /books → /novels", () => {
+describe("exact redirect /books → /novels-movies", () => {
 	it("returns status 301", async () => {
 		const res = await get("/books");
 		expect(res.status).toBe(301);
 	});
 
-	it("Location header points to /novels", async () => {
+	it("Location header points to /novels-movies", async () => {
 		const res = await get("/books");
-		expect(res.headers.get("location")).toContain("/novels");
+		expect(res.headers.get("location")).toContain("/novels-movies");
 	});
 
 	it("preserves query string", async () => {
 		const res = await get("/books?ref=abc");
-		expect(res.headers.get("location")).toContain("/novels");
+		expect(res.headers.get("location")).toContain("/novels-movies");
 		expect(res.headers.get("location")).toContain("ref=abc");
+	});
+});
+
+// ---------------------------------------------------------------------------
+// Exact redirect: /novels → /novels-movies
+// ---------------------------------------------------------------------------
+
+describe("exact redirect /novels → /novels-movies", () => {
+	it("returns status 301", async () => {
+		const res = await get("/novels");
+		expect(res.status).toBe(301);
+	});
+
+	it("Location header points to /novels-movies", async () => {
+		const res = await get("/novels");
+		expect(res.headers.get("location")).toContain("/novels-movies");
 	});
 });
 

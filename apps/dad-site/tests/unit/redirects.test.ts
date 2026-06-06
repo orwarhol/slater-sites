@@ -92,13 +92,13 @@ describe("resolveRedirect — no match", () => {
 
 describe("resolveRedirect — exact match", () => {
 	it("matches an exact path", () => {
-		const result = resolve("/books", [{ from: "/books", to: "/novels" }]);
+		const result = resolve("/books", [{ from: "/books", to: "/novels-movies" }]);
 		expect(result).not.toBeNull();
-		expect(result!.destination).toBe("/novels");
+		expect(result!.destination).toBe("/novels-movies");
 	});
 
 	it("defaults status to 301", () => {
-		const result = resolve("/books", [{ from: "/books", to: "/novels" }]);
+		const result = resolve("/books", [{ from: "/books", to: "/novels-movies" }]);
 		expect(result!.status).toBe(301);
 	});
 
@@ -118,17 +118,17 @@ describe("resolveRedirect — exact match", () => {
 	});
 
 	it("appends the query string to the destination", () => {
-		const result = resolve("/books", [{ from: "/books", to: "/novels" }], "?ref=abc");
-		expect(result!.destination).toBe("/novels?ref=abc");
+		const result = resolve("/books", [{ from: "/books", to: "/novels-movies" }], "?ref=abc");
+		expect(result!.destination).toBe("/novels-movies?ref=abc");
 	});
 
 	it("preserves an empty query string (no trailing ?)", () => {
-		const result = resolve("/books", [{ from: "/books", to: "/novels" }], "");
-		expect(result!.destination).toBe("/novels");
+		const result = resolve("/books", [{ from: "/books", to: "/novels-movies" }], "");
+		expect(result!.destination).toBe("/novels-movies");
 	});
 
 	it("does not match a path that only starts with the from value", () => {
-		expect(resolve("/books/chapter", [{ from: "/books", to: "/novels" }])).toBeNull();
+		expect(resolve("/books/chapter", [{ from: "/books", to: "/novels-movies" }])).toBeNull();
 	});
 });
 
@@ -222,8 +222,40 @@ describe("resolveRedirect — generated legacy poetry redirects", () => {
 });
 
 // ---------------------------------------------------------------------------
-// resolveRedirect — precedence (exact beats prefix)
+// resolveRedirect — /novels → /novels-movies redirects (registry)
 // ---------------------------------------------------------------------------
+
+describe("resolveRedirect — /novels redirects from registry", () => {
+	const lookupFromRegistry = buildLookup(redirects);
+
+	it("redirects /novels to /novels-movies", () => {
+		const result = resolveRedirect("/novels", "", lookupFromRegistry);
+		expect(result).not.toBeNull();
+		expect(result!.destination).toBe("/novels-movies");
+		expect(result!.status).toBe(301);
+	});
+
+	it("redirects /books to /novels-movies", () => {
+		const result = resolveRedirect("/books", "", lookupFromRegistry);
+		expect(result).not.toBeNull();
+		expect(result!.destination).toBe("/novels-movies");
+		expect(result!.status).toBe(301);
+	});
+
+	it("redirects /novels/some-slug to /novels-movies/some-slug", () => {
+		const result = resolveRedirect("/novels/some-slug", "", lookupFromRegistry);
+		expect(result).not.toBeNull();
+		expect(result!.destination).toBe("/novels-movies/some-slug");
+		expect(result!.status).toBe(301);
+	});
+
+	it("preserves query string on /novels prefix redirect", () => {
+		const result = resolveRedirect("/novels/some-slug", "?ref=test", lookupFromRegistry);
+		expect(result!.destination).toBe("/novels-movies/some-slug?ref=test");
+	});
+});
+
+
 
 describe("resolveRedirect — exact takes priority over prefix", () => {
 	const rules: RedirectRule[] = [

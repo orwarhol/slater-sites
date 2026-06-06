@@ -55,7 +55,7 @@ All commands are run from the root of the project:
 ### Dad Site (apps/dad-site)
 - **Homepage:** Author bio with navigation cards
 - **Poetry:** Collection of 68+ poems with tags and dates
-- **Novels:** 5 novels with synopses and purchase links
+- **Novels and Movies:** 5 novels with synopses and purchase links (route: `/novels-movies/`)
 - **Gallery:** Photography viewer with keyboard navigation
 
 ### Gallery Features (both sites)
