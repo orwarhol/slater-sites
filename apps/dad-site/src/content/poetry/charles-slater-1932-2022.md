@@ -9,4 +9,6 @@ A celebration of life was held for Charles Slater on February 25, 2023.
 
 Watch a full-length video of the production and share your memories below.  
 
-(You may need to click the image twice.)  
+<div style="text-align: center;">
+  <iframe src="https://onedrive.live.com/embed?resid=45d489b8916a7a2d%21156001&authkey=!AA1vVRpf4iTb1xk" width="320" height="320" frameborder="0" scrolling="no" allowfullscreen></iframe>
+</div>
