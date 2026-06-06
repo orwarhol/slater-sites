@@ -20,6 +20,11 @@ if (!novel) {
 }
 
 const { Content } = await render(novel);
+
+const coverImage = novel.data.coverImage || '';
+// Use coverImageAlt from frontmatter; fall back to a safe default if coverImage is
+// populated but coverImageAlt is blank, to avoid rendering an inaccessible image.
+const coverImageAlt = novel.data.coverImageAlt || (coverImage ? `Book cover for ${novel.data.title}` : '');
 ---
 
 <!doctype html>
@@ -34,41 +39,53 @@ const { Content } = await render(novel);
 		<Header />
 		<main>
 			<article class="glass-panel glass-panel--padded glass-panel-static novel-surface">
-				<header class="novel-header">
-					<h1>{novel.data.title}</h1>
-					
-					<div class="novel-info">
-						{novel.data.publicationDate && (
-							<div class="info-item">
-								<strong>Published:</strong>{' '}
-								<FormattedDate date={novel.data.publicationDate} />
+				<div class="novel-single-layout">
+					<div class="novel-main">
+						<header class="novel-header">
+							<h1>{novel.data.title}</h1>
+							
+							<div class="novel-info">
+								{novel.data.publicationDate && (
+									<div class="info-item">
+										<strong>Published:</strong>{' '}
+										<FormattedDate date={novel.data.publicationDate} />
+									</div>
+								)}
+								{novel.data.printLength && (
+									<div class="info-item">
+										<strong>Length:</strong> {novel.data.printLength} pages
+									</div>
+								)}
 							</div>
-						)}
-						{novel.data.printLength && (
-							<div class="info-item">
-								<strong>Length:</strong> {novel.data.printLength} pages
+
+							<div class="synopsis">
+								<h3>Synopsis</h3>
+								<p>{novel.data.synopsis}</p>
 							</div>
-						)}
-					</div>
+						</header>
 
-					<div class="synopsis">
-						<h3>Synopsis</h3>
-						<p>{novel.data.synopsis}</p>
-					</div>
-
-					{novel.data.purchaseLinks && novel.data.purchaseLinks.length > 0 && (
-						<div class="purchase-links">
-							{novel.data.purchaseLinks.map((link) => (
-								<a href={link.url} target="_blank" rel="noopener noreferrer" class="purchase-link">
-									{link.label}
-								</a>
-							))}
+						<div class="novel-content">
+							<Content />
 						</div>
-					)}
-				</header>
+					</div>
 
-				<div class="novel-content">
-					<Content />
+					{coverImage && (
+						<aside class="novel-cover" aria-label="Book cover">
+							<img src={coverImage} alt={coverImageAlt} />
+						</aside>
+					)}
+
+					<div class="novel-purchase-links">
+						{novel.data.purchaseLinks && novel.data.purchaseLinks.length > 0 && (
+							<div class="purchase-links">
+								{novel.data.purchaseLinks.map((link) => (
+									<a href={link.url} target="_blank" rel="noopener noreferrer" class="purchase-link">
+										{link.label}
+									</a>
+								))}
+							</div>
+						)}
+					</div>
 				</div>
 
 				<footer class="novel-footer">
@@ -83,6 +100,62 @@ const { Content } = await render(novel);
 <style>
 	.novel-surface {
 		margin-bottom: 2em;
+	}
+
+	/* Two-column grid: main content left, cover right */
+	.novel-single-layout {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		grid-template-areas:
+			"main cover"
+			"purchase cover";
+		gap: 2em;
+		align-items: start;
+	}
+
+	.novel-main {
+		grid-area: main;
+	}
+
+	.novel-cover {
+		grid-area: cover;
+	}
+
+	.novel-cover img {
+		width: auto;
+		max-width: 100%;
+		max-height: 480px;
+		height: auto;
+		display: block;
+		border-radius: var(--radius-md, 4px);
+		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+	}
+
+	.novel-purchase-links {
+		grid-area: purchase;
+	}
+
+	/* Collapse to single column on narrow screens */
+	@media (max-width: 700px) {
+		.novel-single-layout {
+			grid-template-columns: 1fr;
+			grid-template-areas:
+				"main"
+				"cover"
+				"purchase";
+		}
+
+		.novel-header {
+			margin-bottom: 1em;
+		}
+
+		.novel-cover img {
+			max-width: 280px;
+		}
+
+		.novel-purchase-links {
+			margin-top: 1.5em;
+		}
 	}
 
 	.novel-header {

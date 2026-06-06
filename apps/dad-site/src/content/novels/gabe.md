@@ -2,6 +2,8 @@
 title: "Gabe"
 synopsis: "/h2> Tom and Tina struggle with the accidental death of their much loved, three year old son, Gabe. He was the center of their existence making their over-spent lives tolerable. This driven young couple, determined to live the good Southern California beach life are nearly sunk to despair and must f"
 purchaseLinks: []
+coverImage: ""
+coverImageAlt: ""
 ---
 
 /h2>

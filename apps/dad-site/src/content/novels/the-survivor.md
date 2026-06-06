@@ -2,6 +2,8 @@
 title: "The Survivor"
 synopsis: "/h2> The Survivor is Charles Slater's tale of a hopeful, accomplished life spun into unthinkable loss. Philo York is a teacher of college literature, doing what he loves, when in a single day all his presumptions are shattered."
 purchaseLinks: []
+coverImage: ""
+coverImageAlt: ""
 ---
 
 /h2>

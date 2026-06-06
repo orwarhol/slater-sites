@@ -311,6 +311,8 @@ purchaseLinks:
     url: "https://www.amazon.com/dp/XXXXXXXXXX"
   - label: "Barnes & Noble"
     url: "https://www.barnesandnoble.com/w/my-novel-title/XXXXXXXXXX"
+coverImage: "/my-novel-cover.jpg"
+coverImageAlt: "Book cover for My Novel Title"
 ---
 ```
 
@@ -324,6 +326,27 @@ purchaseLinks:
 | `url`     | string | Absolute URL to the purchase page               |
 
 An empty array (`purchaseLinks: []`) is valid when no purchase links exist yet.
+
+##### `coverImage` and `coverImageAlt` fields
+
+Both fields are **optional**. When a novel has a cover image:
+
+- Store the image in `apps/dad-site/public/` and reference it with a root-relative path:
+
+  ```yaml
+  coverImage: "/cutting-in-cover-shelley-slater-2015_web.jpg"
+  coverImageAlt: "Book cover for Cutting In"
+  ```
+
+- `coverImageAlt` should always be populated whenever `coverImage` is populated — it is the accessible alt text rendered on the page.
+- Leave both blank when no cover is available yet:
+
+  ```yaml
+  coverImage: ""
+  coverImageAlt: ""
+  ```
+
+On wide screens the cover displays in a dedicated right-side column alongside the synopsis. On narrow screens it flows beneath the synopsis and before the purchase links.
 
 ##### Gotchas
 
