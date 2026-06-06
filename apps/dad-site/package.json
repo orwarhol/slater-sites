@@ -22,5 +22,8 @@
 		"@astrojs/cloudflare": "13.3.0",
 		"astro": "6.2.1",
 		"typescript": "5.9.3"
+	},
+	"devDependencies": {
+		"vitest": "^4.1.8"
 	}
 }

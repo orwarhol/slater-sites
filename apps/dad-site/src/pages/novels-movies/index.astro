@@ -18,15 +18,15 @@ const novels = (await getCollection('novels')).sort((a, b) => {
 <html lang="en">
 	<head>
 		<BaseHead 
-			title="Novels | Charles Slater" 
-			description="Novels by Charles Slater" 
+			title="Novels and Movies | Charles Slater" 
+			description="Novels and movies by Charles Slater" 
 		/>
 	</head>
 	<body>
 		<Header />
 		<main>
 			<div class="index-hero">
-				<h1>Novels</h1>
+				<h1>Novels and Movies</h1>
 				<p class="intro">
 					Stories exploring the complexities of human relationships, moral choices, and the paths we take.
 				</p>
@@ -43,7 +43,7 @@ const novels = (await getCollection('novels')).sort((a, b) => {
 							return (
 								<article class="novel-card">
 									<h2>
-										<a href={`/novels/${novel.id}`}>{novel.data.title}</a>
+										<a href={`/novels-movies/${novel.id}`}>{novel.data.title}</a>
 									</h2>
 									{novel.data.publicationDate && (
 										<div class="novel-meta">
@@ -62,7 +62,7 @@ const novels = (await getCollection('novels')).sort((a, b) => {
 												))}
 											</div>
 										)}
-										<a href={`/novels/${novel.id}`} class="read-more">Learn more</a>
+										<a href={`/novels-movies/${novel.id}`} class="read-more">Learn more</a>
 									</div>
 								</article>
 							);
