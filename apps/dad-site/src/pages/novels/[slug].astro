@@ -105,7 +105,7 @@ const coverImageAlt = novel.data.coverImageAlt || (coverImage ? `Book cover for 
 	/* Two-column grid: main content left, cover right */
 	.novel-single-layout {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr auto;
 		grid-template-areas:
 			"main cover"
 			"purchase cover";
