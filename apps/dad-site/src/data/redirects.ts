@@ -194,6 +194,7 @@ export const redirects: RedirectRule[] = [
 
 	// Exact redirects — add when a page slug or section name changes.
 	{ from: "/books", to: "/novels", status: 301 },
+	{ from: "/bio", to: "/", status: 301 },
 
 	// Prefix redirects — add when an entire section is renamed or moved.
 	// Every URL under /poems/* is rewritten to the same path under /poetry/*.
