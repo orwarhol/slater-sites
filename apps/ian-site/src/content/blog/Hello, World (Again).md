@@ -5,14 +5,7 @@ pubDate: "Feb 07 2026"
 heroImage: "/palette-reference-image-chatgpt.png"
 ---
 
-Ian Slater
-Los Angeles Metropolitan Area  •  ian.c.slater@gmail.com  •  LinkedIn  •  iancharlesslater.com/resume
-Senior Product Manager — Legal Operations Technology & Enterprise Platforms
-Turning Legal Ops POCs into secure, scalable enterprise products.
-EXECUTIVE SUMMARY
-•	Senior Product Manager in Corporate Audience & Content Engagement, leading enterprise platform products that help corporate teams launch websites, manage content, syndicate structured content, and adopt AI-enabled workflows safely.
-•	Owns Disney Sites, a WordPress multisite PaaS, including customer onboarding, CMS training, website launches, internal marketing, tiered service model rollout, platform adoption, and expansion of related services.
-•	Turns emerging technology into supported products, including Content Syndication for enterprise content distribution, Disney Vibes for vibe-coded internal apps, Program FRIDAY for AI-enabled content management, and Dynamic Footer for scalable privacy/legal link delivery across audiences, regions, and technology stacks.
+Hello, world.
 
 This site is my latest attempt to build a small, intentional corner of the internet—and a record of a new (to me) way of doing it: **Astro + Cloudflare Pages + GitHub Copilot Coding Agent**.
 
