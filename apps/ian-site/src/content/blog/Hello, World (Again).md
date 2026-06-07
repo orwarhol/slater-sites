@@ -13,7 +13,7 @@ For most of my career as a digital product manager, my website-building home bas
 
 But it also has a way of smoothing over the mechanics. You can build quickly while staying a little removed from the *how*—from the seams and decisions that turn content into an experience.
 
-This stack is the opposite of that.
+This stack is the opposite of that. It's oddly refreshing.
 
 It’s static. Content lives in files. The “CMS” is the repo. And yes: even small changes often mean running a build and triggering a deploy.
 
