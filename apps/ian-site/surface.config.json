@@ -37,6 +37,43 @@
         "uiComponent": "image-picker",
         "required": false,
         "aiAnchor": false
+      },
+      {
+        "name": "date",
+        "type": "date",
+        "uiComponent": "date-picker",
+        "required": false,
+        "aiAnchor": false
+      },
+      {
+        "name": "type",
+        "type": "enum",
+        "uiComponent": "select",
+        "options": [
+          "feature screenplay",
+          "short screenplay",
+          "TV script",
+          "novel",
+          "feature film",
+          "short film"
+        ],
+        "required": false,
+        "aiAnchor": false
+      },
+      {
+        "name": "genre",
+        "type": "array",
+        "uiComponent": "tag-cloud",
+        "items": "string",
+        "required": false,
+        "aiAnchor": false
+      },
+      {
+        "name": "pages",
+        "type": "number",
+        "uiComponent": "number-input",
+        "required": false,
+        "aiAnchor": false
       }
     ]
   },
@@ -54,7 +91,20 @@
         "descriptionField": "description",
         "dateField": "pubDate",
         "defaultSort": "-pubDate",
-        "surfaces": ["draft", "paste", "optimize"]
+        "surfaces": ["draft", "paste", "optimize"],
+        "fields": ["title", "description", "pubDate", "heroImage"]
+      },
+      {
+        "id": "projects",
+        "label": "Projects",
+        "contentRoot": "src/content/projects",
+        "extension": "md",
+        "titleField": "title",
+        "descriptionField": "description",
+        "dateField": "date",
+        "defaultSort": "-date",
+        "surfaces": ["draft", "paste", "optimize"],
+        "fields": ["title", "description", "date", "heroImage", "type", "genre", "pages"]
       }
     ]
   }
