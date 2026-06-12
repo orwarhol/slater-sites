@@ -7,7 +7,7 @@ heroImage: "/historical-simulation-agents.png"
 
 ---
 
-As a kid, I loved reading _Choose Your Own Adventure_ books. That moment at the end of a chapter, when I chose which page to jump to, was exciting because I was in control. At least it felt that way. Years later, the _Lifeline_ app series tapped into that same wonder of what lay ahead. Receiving "real" texts from an astronaut stranded on an alien moon created an incredible sense of immediate, personal suspense.
+As a kid, I loved reading _Choose Your Own Adventure_ books. That moment at the end of a chapter, when I chose which page to jump to, was exciting because I was in control. At least it felt that way. Years later, the _Lifeline_ app series tapped into that same wonder of what lay ahead. Receiving "real" texts from an astronaut stranded on an alien moon created an incredible sense of immediate, personal suspense..
 
 Yet, as compelling as those experiences were, they shared a fundamental structural limitation: their paths were hardcoded. The rails were always there, hidden just beneath the surface. You could only ever go where the author had already cleared a track.
 
