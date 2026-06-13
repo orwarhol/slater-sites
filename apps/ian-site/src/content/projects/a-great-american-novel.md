@@ -4,6 +4,7 @@ date: 2026-06-13
 type: novel
 genre: YA
 pages: 320
+description: Here is the description of the novel which is great.
 ---
 # In the beginning
 
