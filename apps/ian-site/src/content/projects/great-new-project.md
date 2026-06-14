@@ -10,6 +10,8 @@ pages: 325
 
 Thanks for reading about my great new project. Here's what I have to say.
 
+I'd love to read your comments!
+
 ## Lists
 
 These are some great ones:
