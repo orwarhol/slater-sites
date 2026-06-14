@@ -5,7 +5,7 @@ type: novel
 genre:
   - YA
 pages: 325
-description: This is a great new project all about lists.
+description: This is a great new project all about lists of all shapes and sizes.
 ---
 # Welcome
 
