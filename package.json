@@ -25,13 +25,8 @@
 	},
 	"overrides": {
 		"h3": "1.15.11",
-		"vite": {
-			"esbuild": "0.28.1"
-		},
-		"astro": {
-			"esbuild": "0.28.1"
-		},
-		"wrangler@*": {
+		"esbuild": "0.28.1",
+		"astro@6.4.6": {
 			"esbuild": "0.28.1"
 		},
 		"@cloudflare/vite-plugin": {
