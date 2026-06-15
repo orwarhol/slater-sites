@@ -20,12 +20,14 @@
 	"devDependencies": {
 		"@playwright/test": "^1.59.1",
 		"turndown": "^7.2.0",
-		"vitest": "^4.0.18",
+		"vitest": "^4.1.8",
 		"wrangler": "^4.87.0"
 	},
 	"overrides": {
 		"h3": "1.15.11",
 		"vite": ">=7.3.2 <8",
+		"esbuild": ">=0.28.1",
+		"ws": ">=8.20.1",
 		"wrangler": "^4.87.0",
 		"lodash": "4.17.23",
 		"fast-xml-parser": ">=5.7.1",
