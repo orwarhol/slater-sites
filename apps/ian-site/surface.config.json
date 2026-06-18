@@ -35,6 +35,7 @@
         "name": "heroImage",
         "type": "image",
         "uiComponent": "image-picker",
+        "assetRoot": "ian-site-public-images",
         "required": false,
         "aiAnchor": false
       },
@@ -91,8 +92,17 @@
         "descriptionField": "description",
         "dateField": "pubDate",
         "defaultSort": "-pubDate",
-        "surfaces": ["draft", "paste", "optimize"],
-        "fields": ["title", "description", "pubDate", "heroImage"]
+        "surfaces": [
+          "draft",
+          "paste",
+          "optimize"
+        ],
+        "fields": [
+          "title",
+          "description",
+          "pubDate",
+          "heroImage"
+        ]
       },
       {
         "id": "projects",
@@ -103,9 +113,57 @@
         "descriptionField": "description",
         "dateField": "date",
         "defaultSort": "-date",
-        "surfaces": ["draft", "paste", "optimize"],
-        "fields": ["title", "description", "date", "heroImage", "type", "genre", "pages"]
+        "surfaces": [
+          "draft",
+          "paste",
+          "generate",
+          "optimize"
+        ],
+        "fields": [
+          "title",
+          "description",
+          "date",
+          "heroImage",
+          "type",
+          "genre",
+          "pages"
+        ]
       }
     ]
+  },
+  "media": {
+    "assetRoots": [
+      {
+        "id": "ian-site-public-images",
+        "label": "Ian Site public images",
+        "systemPath": "public",
+        "publicPrefix": "/",
+        "allowedCollections": [
+          "blog",
+          "projects"
+        ],
+        "readOnly": false
+      }
+    ],
+    "uploadPolicy": {
+      "maxSizeBytes": 5242880,
+      "allowedMimeTypes": [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+      ],
+      "allowedExtensions": [
+        "jpg",
+        "jpeg",
+        "png",
+        "webp"
+      ],
+      "namingStrategy": "{contentSlug}-{hash}-{originalName}.{ext}",
+      "onCollision": "append-hash",
+      "sanitizeSvg": true
+    }
+  },
+  "generate": {
+    "enabled": true
   }
 }
