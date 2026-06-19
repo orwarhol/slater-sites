@@ -1,0 +1,59 @@
+---
+import "../styles/global.css";
+import { LOCALES, LOCALE_LABELS, type Locale } from "../lib/locales";
+
+interface Props {
+	title: string;
+	description: string;
+	/** Active locale, used for the <html lang> attribute and nav highlighting. */
+	locale?: Locale;
+	htmlLang?: string;
+}
+
+const { title, description, locale, htmlLang } = Astro.props;
+const lang = htmlLang ?? "en-US";
+const siteName = "Global Field Guide";
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+	</head>
+	<body>
+		<header class="site-header">
+			<div class="site-header__inner">
+				<div class="site-title"><a href="/">{siteName}</a></div>
+				<nav class="site-nav" aria-label="Locales">
+					{
+						LOCALES.map((l) => (
+							<a
+								href={`/${l}/`}
+								aria-current={l === locale ? "true" : undefined}
+							>
+								{LOCALE_LABELS[l]}
+							</a>
+						))
+					}
+				</nav>
+			</div>
+		</header>
+		<main>
+			<div class="container">
+				<slot />
+			</div>
+		</main>
+		<footer class="site-footer">
+			<div class="container">
+				<p>
+					{siteName} — a small editorial guide to markets, transit, and
+					weekends, published in several regional editions.
+				</p>
+			</div>
+		</footer>
+	</body>
+</html>

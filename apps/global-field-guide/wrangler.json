@@ -1,0 +1,12 @@
+{
+	"name": "global-field-guide",
+	"compatibility_date": "2025-10-08",
+	"assets": {
+		"directory": "./dist",
+		"binding": "ASSETS"
+	},
+	"observability": {
+		"enabled": true
+	},
+	"upload_source_maps": true
+}

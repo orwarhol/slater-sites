@@ -1,0 +1,368 @@
+:root {
+	--bg: #f7f5f1;
+	--surface: #ffffff;
+	--surface-alt: #f0ece4;
+	--text: #1f1c18;
+	--text-muted: #6b655c;
+	--border: #e2dccf;
+	--accent: #2f5d50;
+	--accent-soft: #e4efe9;
+	--badge-bg: #ece6da;
+	--notice-bg: #fbf3e2;
+	--notice-border: #e8d6a8;
+	--radius: 10px;
+	--maxw: 64rem;
+	--font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+		Arial, sans-serif;
+	--font-display: Georgia, "Times New Roman", Times, serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--text);
+	font-family: var(--font-body);
+	line-height: 1.6;
+	font-size: 17px;
+}
+
+a {
+	color: var(--accent);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--font-display);
+	line-height: 1.2;
+	color: var(--text);
+}
+
+.container {
+	max-width: var(--maxw);
+	margin: 0 auto;
+	padding: 0 1.25rem;
+}
+
+/* ---------- Header / footer ---------- */
+.site-header {
+	border-bottom: 1px solid var(--border);
+	background: var(--surface);
+}
+
+.site-header__inner {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1.1rem 1.25rem;
+	max-width: var(--maxw);
+	margin: 0 auto;
+	flex-wrap: wrap;
+}
+
+.site-title {
+	font-family: var(--font-display);
+	font-size: 1.35rem;
+	font-weight: 700;
+	color: var(--text);
+}
+
+.site-title a {
+	color: inherit;
+}
+
+.site-nav {
+	display: flex;
+	gap: 0.9rem;
+	flex-wrap: wrap;
+	font-size: 0.95rem;
+}
+
+.site-footer {
+	border-top: 1px solid var(--border);
+	margin-top: 4rem;
+	padding: 2rem 0;
+	color: var(--text-muted);
+	font-size: 0.9rem;
+}
+
+main {
+	padding: 2.5rem 0;
+}
+
+/* ---------- Hero / intro ---------- */
+.intro {
+	max-width: 42rem;
+}
+
+.intro h1 {
+	font-size: 2.4rem;
+	margin: 0 0 0.5rem;
+}
+
+.intro p {
+	color: var(--text-muted);
+	font-size: 1.1rem;
+}
+
+.eyebrow {
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-size: 0.78rem;
+	font-weight: 600;
+	color: var(--accent);
+	margin: 0 0 0.4rem;
+}
+
+/* ---------- Locale chips ---------- */
+.locale-list {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+	padding: 0;
+	margin: 1.5rem 0 0;
+}
+
+.locale-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.4rem 0.8rem;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	font-size: 0.95rem;
+}
+
+.locale-chip[aria-current="true"] {
+	background: var(--accent-soft);
+	border-color: var(--accent);
+}
+
+.badge {
+	display: inline-block;
+	padding: 0.1rem 0.5rem;
+	border-radius: 999px;
+	background: var(--badge-bg);
+	color: var(--text-muted);
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+}
+
+/* ---------- Section headings ---------- */
+.section-title {
+	margin: 2.75rem 0 1rem;
+	font-size: 1.4rem;
+}
+
+/* ---------- Cards ---------- */
+.card-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+	gap: 1.1rem;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	padding: 1.1rem 1.2rem;
+	height: 100%;
+}
+
+.card h3 {
+	margin: 0;
+	font-size: 1.15rem;
+}
+
+.card p {
+	margin: 0;
+	color: var(--text-muted);
+	font-size: 0.95rem;
+}
+
+.card__meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	align-items: center;
+	margin-top: auto;
+	padding-top: 0.4rem;
+}
+
+/* ---------- Fallback / inherited notice ---------- */
+.notice {
+	background: var(--notice-bg);
+	border: 1px solid var(--notice-border);
+	border-radius: var(--radius);
+	padding: 0.75rem 1rem;
+	font-size: 0.92rem;
+	margin: 1.25rem 0;
+}
+
+.notice--muted {
+	background: var(--surface-alt);
+	border-color: var(--border);
+	color: var(--text-muted);
+}
+
+/* ---------- Guide article ---------- */
+.guide {
+	max-width: 44rem;
+}
+
+.guide__header {
+	margin-bottom: 1.5rem;
+	padding-bottom: 1.25rem;
+	border-bottom: 1px solid var(--border);
+}
+
+.guide__title {
+	font-size: 2.1rem;
+	margin: 0.3rem 0 0.6rem;
+}
+
+.guide__meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	align-items: center;
+	color: var(--text-muted);
+	font-size: 0.9rem;
+}
+
+.guide__body {
+	font-size: 1.05rem;
+}
+
+.guide__body h2 {
+	font-size: 1.35rem;
+	margin-top: 1.8rem;
+}
+
+.guide__body p {
+	margin: 1rem 0;
+}
+
+.region-note {
+	background: var(--accent-soft);
+	border-left: 3px solid var(--accent);
+	padding: 0.75rem 1rem;
+	margin: 1.5rem 0;
+	border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.region-note strong {
+	display: block;
+	font-size: 0.78rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--accent);
+	margin-bottom: 0.25rem;
+}
+
+/* ---------- Locale switcher (guide page) ---------- */
+.switcher {
+	margin: 1.5rem 0;
+	padding: 1rem 1.1rem;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+}
+
+.switcher__title {
+	font-size: 0.78rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--text-muted);
+	margin: 0 0 0.6rem;
+}
+
+.switcher__list {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin: 0;
+	padding: 0;
+}
+
+.switcher__item {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.35rem 0.7rem;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	font-size: 0.9rem;
+	background: var(--surface);
+}
+
+.switcher__item[aria-current="true"] {
+	background: var(--accent-soft);
+	border-color: var(--accent);
+}
+
+.switcher__item--inherited {
+	background: var(--surface-alt);
+	color: var(--text-muted);
+	border-style: dashed;
+}
+
+.switcher__item--unavailable {
+	opacity: 0.55;
+	border-style: dashed;
+}
+
+.tag-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	margin-top: 1rem;
+}
+
+.tag {
+	font-size: 0.8rem;
+	padding: 0.15rem 0.55rem;
+	background: var(--surface-alt);
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	color: var(--text-muted);
+}
+
+.back-link {
+	display: inline-block;
+	margin-top: 2rem;
+}
+
+.empty-state {
+	background: var(--surface);
+	border: 1px dashed var(--border);
+	border-radius: var(--radius);
+	padding: 2rem;
+	text-align: center;
+	color: var(--text-muted);
+}

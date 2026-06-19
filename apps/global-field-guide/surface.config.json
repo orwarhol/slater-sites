@@ -1,0 +1,111 @@
+{
+	"version": "1.0.0",
+	"engine": "git-backed",
+	"workspace": {
+		"framework": "astro",
+		"contentRoot": "src/content/guides",
+		"extension": "md",
+		"monorepoSubdir": "apps/global-field-guide"
+	},
+	"schema": {
+		"strictValidation": true,
+		"fields": [
+			{
+				"name": "title",
+				"type": "string",
+				"uiComponent": "text-input",
+				"required": true,
+				"aiAnchor": true
+			},
+			{
+				"name": "description",
+				"type": "string",
+				"uiComponent": "textarea",
+				"required": true,
+				"aiAnchor": true
+			},
+			{
+				"name": "pubDate",
+				"type": "date",
+				"uiComponent": "date-picker",
+				"required": true,
+				"aiAnchor": false
+			},
+			{
+				"name": "updatedDate",
+				"type": "date",
+				"uiComponent": "date-picker",
+				"required": false,
+				"aiAnchor": false
+			},
+			{
+				"name": "regionNote",
+				"type": "string",
+				"uiComponent": "textarea",
+				"required": false,
+				"aiAnchor": true
+			},
+			{
+				"name": "translationStatus",
+				"type": "enum",
+				"uiComponent": "select",
+				"options": ["source", "localized", "adapted", "needs-review"],
+				"required": true,
+				"aiAnchor": false
+			},
+			{
+				"name": "audience",
+				"type": "enum",
+				"uiComponent": "select",
+				"options": ["travelers", "families", "food", "culture", "transit"],
+				"required": false,
+				"aiAnchor": false
+			},
+			{
+				"name": "tags",
+				"type": "array",
+				"uiComponent": "tag-cloud",
+				"items": "string",
+				"required": false,
+				"aiAnchor": false
+			}
+		]
+	},
+	"regionalization": {
+		"enabled": true,
+		"strategy": "directory",
+		"masterLocale": "en-us",
+		"routingPattern": "src/content/guides/{locale}/{slug}.md",
+		"fallbackMatrix": {
+			"fr-ca": ["fr-fr", "en-us"],
+			"fr-fr": ["en-us"],
+			"es-mx": ["en-us"]
+		}
+	},
+	"contentLibrary": {
+		"collections": [
+			{
+				"id": "guides",
+				"label": "Guides",
+				"contentRoot": "src/content/guides",
+				"extension": "md",
+				"titleField": "title",
+				"descriptionField": "description",
+				"dateField": "updatedDate",
+				"tagField": "tags",
+				"defaultSort": "-updatedDate",
+				"surfaces": ["draft", "paste", "regionalize", "optimize"],
+				"fields": [
+					"title",
+					"description",
+					"pubDate",
+					"updatedDate",
+					"regionNote",
+					"translationStatus",
+					"audience",
+					"tags"
+				]
+			}
+		]
+	}
+}

@@ -9,10 +9,13 @@
 	"scripts": {
 		"dev:ian": "npm run dev --workspace=ian-site",
 		"dev:dad": "npm run dev --workspace=dad-site",
+		"dev:global": "npm run dev --workspace=global-field-guide",
 		"build:ian": "npm run build --workspace=ian-site",
 		"build:dad": "npm run build --workspace=dad-site",
+		"build:global": "npm run build --workspace=global-field-guide",
 		"test:ian": "npm run test --workspace=ian-site",
 		"test:dad": "npm run test --workspace=dad-site",
+		"test:global": "npm run test --workspace=global-field-guide",
 		"test:ian:integration": "npm run test:integration --workspace=ian-site",
 		"test:ian:playwright": "npm run test:playwright --workspace=ian-site",
 		"test:dad:integration": "npm run test:integration --workspace=dad-site"

@@ -1,0 +1,72 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { LOCALES, LOCALE_LABELS, MASTER_LOCALE } from "../lib/locales";
+import { recentMasterGuides } from "../lib/guides";
+
+const recent = await recentMasterGuides(4);
+
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+	year: "numeric",
+	month: "short",
+	day: "numeric",
+});
+---
+
+<BaseLayout
+	title="Global Field Guide"
+	description="A small editorial guide to markets, transit, and weekends — published in several regional editions."
+>
+	<section class="intro">
+		<p class="eyebrow">Editorial travel &amp; culture</p>
+		<h1>Global Field Guide</h1>
+		<p>
+			Short, practical field notes for travelers, families, and the
+			food-curious — markets at dawn, day passes on the regional rail, and
+			slow coastal weekends. Each guide is published in several regional
+			editions so the advice fits the place you are actually in.
+		</p>
+	</section>
+
+	<h2 class="section-title">Choose your edition</h2>
+	<ul class="locale-list">
+		{
+			LOCALES.map((locale) => (
+				<li>
+					<a class="locale-chip" href={`/${locale}/`}>
+						{LOCALE_LABELS[locale]}
+						{locale === MASTER_LOCALE && <span class="badge">Source</span>}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+
+	<h2 class="section-title">Recent guides</h2>
+	<ul class="card-grid">
+		{
+			recent.map((listing) => (
+				<li>
+					<a
+						class="card"
+						href={`/${MASTER_LOCALE}/guides/${listing.slug}/`}
+					>
+						<h3>{listing.entry.data.title}</h3>
+						<p>{listing.entry.data.description}</p>
+						<div class="card__meta">
+							<span class="badge">{listing.entry.data.translationStatus}</span>
+							{listing.entry.data.audience && (
+								<span class="badge">{listing.entry.data.audience}</span>
+							)}
+							<span>
+								{dateFormatter.format(
+									listing.entry.data.updatedDate ??
+										listing.entry.data.pubDate,
+								)}
+							</span>
+						</div>
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</BaseLayout>

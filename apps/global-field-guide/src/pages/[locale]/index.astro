@@ -1,0 +1,90 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+	isLocale,
+	LOCALE_LABELS,
+	LOCALE_HTML_LANG,
+	LOCALE_SHORT_LABELS,
+} from "../../lib/locales";
+import { listGuidesForLocale } from "../../lib/guides";
+
+const { locale } = Astro.params;
+
+if (!isLocale(locale)) {
+	return new Response(null, { status: 404, statusText: "Not found" });
+}
+
+const listings = await listGuidesForLocale(locale);
+const label = LOCALE_LABELS[locale];
+
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+	year: "numeric",
+	month: "short",
+	day: "numeric",
+});
+---
+
+<BaseLayout
+	title={`${label} edition — Global Field Guide`}
+	description={`Guides available in the ${label} edition of Global Field Guide.`}
+	locale={locale}
+	htmlLang={LOCALE_HTML_LANG[locale]}
+>
+	<section class="intro">
+		<p class="eyebrow">{label} edition</p>
+		<h1>Guides for this region</h1>
+		<p>
+			Every guide below is readable in this edition. Where a regional
+			translation is still in progress, we show the closest available edition
+			and label it clearly.
+		</p>
+	</section>
+
+	{
+		listings.length === 0 ? (
+			<div class="empty-state">
+				<p>No guides are available for this edition yet.</p>
+			</div>
+		) : (
+			<ul class="card-grid">
+				{listings.map((listing) => (
+					<li>
+						<a
+							class="card"
+							href={`/${locale}/guides/${listing.slug}/`}
+						>
+							<h3>{listing.entry.data.title}</h3>
+							<p>{listing.entry.data.description}</p>
+							<div class="card__meta">
+								{listing.isFallback ? (
+									<span class="badge">
+										via {LOCALE_SHORT_LABELS[listing.resolvedLocale]}
+									</span>
+								) : (
+									<span class="badge">
+										{LOCALE_SHORT_LABELS[listing.resolvedLocale]}
+									</span>
+								)}
+								<span class="badge">
+									{listing.entry.data.translationStatus}
+								</span>
+								<span>
+									{dateFormatter.format(
+										listing.entry.data.updatedDate ??
+											listing.entry.data.pubDate,
+									)}
+								</span>
+							</div>
+							{listing.isFallback && (
+								<p class="notice notice--muted">
+									Inherited from the{" "}
+									{LOCALE_LABELS[listing.resolvedLocale]} edition.
+								</p>
+							)}
+						</a>
+					</li>
+				))}
+			</ul>
+		)
+	}
+</BaseLayout>
