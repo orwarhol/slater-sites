@@ -2,7 +2,7 @@
 import { render } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import GuideLayout from "../../../layouts/GuideLayout.astro";
-import { isLocale, LOCALE_LABELS } from "../../../lib/locales";
+import { isLocale, LOCALE_LABELS, LOCALE_HTML_LANG } from "../../../lib/locales";
 import {
 	getGuideEntries,
 	groupBySlug,
@@ -20,6 +20,10 @@ const groups = groupBySlug(await getGuideEntries());
 const group = groups.get(slug);
 const resolved = group ? resolveGuide(group, locale) : undefined;
 
+if (!group || !resolved) {
+	Astro.response.status = 404;
+}
+
 const Content = resolved ? (await render(resolved.entry)).Content : undefined;
 const slots = group ? localeSlotsFor(group) : [];
 ---
@@ -34,6 +38,7 @@ const slots = group ? localeSlotsFor(group) : [];
 			title="Guide unavailable — Global Field Guide"
 			description="This guide is not yet available in any edition."
 			locale={locale}
+			htmlLang={LOCALE_HTML_LANG[locale]}
 		>
 			<section class="intro">
 				<p class="eyebrow">{LOCALE_LABELS[locale]} edition</p>
