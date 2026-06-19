@@ -5,6 +5,7 @@ type: "feature screenplay"
 genre: [Family,Drama,Mystery]
 pages: 116
 description: "Logline: A curious teen receives an old typewriter from an elderly neighbor that leads to secrets of the woman’s missing husband, a drowning boy from her…"
+heroImage: /hattie-9f134a8f-charles-slater-sunset.jpg
 ---
 
 **Logline:**  
