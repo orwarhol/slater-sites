@@ -1,0 +1,126 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import {
+	LOCALE_LABELS,
+	LOCALE_SHORT_LABELS,
+	LOCALE_HTML_LANG,
+	type Locale,
+} from "../lib/locales";
+import type { ResolvedGuide, LocaleSlot } from "../lib/guides";
+
+interface Props {
+	resolved: ResolvedGuide;
+	slots: LocaleSlot[];
+}
+
+const { resolved, slots } = Astro.props;
+const { entry, requestedLocale, resolvedLocale, isFallback, slug } = resolved;
+const data = entry.data;
+
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+	year: "numeric",
+	month: "long",
+	day: "numeric",
+});
+const displayDate = data.updatedDate ?? data.pubDate;
+
+const requestedLabel = LOCALE_LABELS[requestedLocale];
+const resolvedLabel = LOCALE_LABELS[resolvedLocale];
+---
+
+<BaseLayout
+	title={`${data.title} — Global Field Guide`}
+	description={data.description}
+	locale={requestedLocale}
+	htmlLang={LOCALE_HTML_LANG[resolvedLocale]}
+>
+	<article class="guide">
+		<header class="guide__header">
+			<p class="eyebrow">{requestedLabel} edition</p>
+			<h1 class="guide__title">{data.title}</h1>
+			<div class="guide__meta">
+				<span class="badge">{LOCALE_SHORT_LABELS[resolvedLocale]}</span>
+				<span class="badge">{data.translationStatus}</span>
+				{data.audience && <span class="badge">{data.audience}</span>}
+				<span>{dateFormatter.format(displayDate)}</span>
+			</div>
+		</header>
+
+		{
+			isFallback && (
+				<div class="notice">
+					Showing the {resolvedLabel} edition while the {requestedLabel}{" "}
+					edition is being prepared.
+				</div>
+			)
+		}
+
+		{
+			data.regionNote && (
+				<aside class="region-note">
+					<strong>Regional note</strong>
+					{data.regionNote}
+				</aside>
+			)
+		}
+
+		<div class="guide__body">
+			<slot />
+		</div>
+
+		{
+			data.tags.length > 0 && (
+				<div class="tag-row">
+					{data.tags.map((tag) => (
+						<span class="tag">{tag}</span>
+					))}
+				</div>
+			)
+		}
+
+		<nav class="switcher" aria-label="Available editions">
+			<p class="switcher__title">Editions</p>
+			<ul class="switcher__list">
+				{
+					slots.map((slot: LocaleSlot) => {
+						const href = `/${slot.locale}/guides/${slug}/`;
+						const isCurrent = slot.locale === requestedLocale;
+						if (slot.unavailable) {
+							return (
+								<li
+									class="switcher__item switcher__item--unavailable"
+									aria-disabled="true"
+								>
+									{LOCALE_LABELS[slot.locale]} · not yet available
+								</li>
+							);
+						}
+						const classes = slot.physical
+							? "switcher__item"
+							: "switcher__item switcher__item--inherited";
+						const suffix =
+							!slot.physical && slot.resolvedLocale
+								? ` · via ${LOCALE_SHORT_LABELS[slot.resolvedLocale as Locale]}`
+								: "";
+						return (
+							<li>
+								<a
+									href={href}
+									class={classes}
+									aria-current={isCurrent ? "true" : undefined}
+								>
+									{LOCALE_LABELS[slot.locale]}
+									{suffix}
+								</a>
+							</li>
+						);
+					})
+				}
+			</ul>
+		</nav>
+
+		<a class="back-link" href={`/${requestedLocale}/`}
+			>← All {requestedLabel} guides</a
+		>
+	</article>
+</BaseLayout>
