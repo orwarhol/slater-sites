@@ -16,6 +16,8 @@ A regional day pass is one of the few travel deals that genuinely rewards lazine
 
 ## Three stops is the sweet spot
 
+Adding an additional paragraph here.
+
 One long ride out and two shorter hops back usually beats a single far-flung destination. Pick a far anchor town, then two smaller places along the return line you would never have planned a separate trip for.
 
 ## Ride against the commute
