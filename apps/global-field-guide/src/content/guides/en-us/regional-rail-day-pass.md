@@ -9,6 +9,7 @@ tags:
   - rail
   - day-trips
   - budget
+  - commute
 ---
 
 A regional day pass is one of the few travel deals that genuinely rewards laziness: buy once in the morning and stop overthinking fares. But the math only works if you actually move.
