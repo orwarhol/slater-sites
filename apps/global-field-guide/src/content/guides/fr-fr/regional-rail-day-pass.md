@@ -10,9 +10,9 @@ tags:
   - excursions
   - budget
 surfaceSystemMeta:
-  surfaceMasterSha: "2222222222222222222222222222222222222222"
-  surfaceDriftStatus: "drifted"
-  surfaceLastReconciled: "2026-04-15T08:45:00Z"
+  surfaceMasterSha: d03c8994920c99998f5b0396650b9f99b6ed92d9
+  surfaceDriftStatus: manualOverride
+  surfaceLastReconciled: "2026-06-21T00:22:33.205Z"
 ---
 
 Le forfait journée régional est l'une des rares bonnes affaires qui récompense vraiment la paresse : on l'achète une fois le matin et on cesse de calculer les billets. Mais le calcul ne fonctionne que si l'on bouge réellement.
