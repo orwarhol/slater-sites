@@ -1,0 +1,126 @@
+{
+  "version": "1.1.0",
+  "engine": "git-backed",
+  "workspace": {
+    "contentRoot": ".",
+    "extension": "md",
+    "framework": "astro"
+  },
+  "schema": {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string",
+        "uiComponent": "text-input"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "uiComponent": "textarea"
+      },
+      {
+        "name": "pubDate",
+        "type": "date",
+        "uiComponent": "date-picker"
+      },
+      {
+        "name": "updatedDate",
+        "type": "date",
+        "uiComponent": "date-picker"
+      },
+      {
+        "name": "translationStatus",
+        "type": "string",
+        "uiComponent": "text-input"
+      },
+      {
+        "name": "audience",
+        "type": "string",
+        "uiComponent": "text-input"
+      },
+      {
+        "items": "string",
+        "name": "tags",
+        "type": "array",
+        "uiComponent": "tag-cloud"
+      },
+      {
+        "name": "regionNote",
+        "type": "string",
+        "uiComponent": "text-input"
+      }
+    ],
+    "strictValidation": true
+  },
+  "regionalization": {
+    "allowedOriginLocales": [
+      "en-us",
+      "es-mx",
+      "fr-ca",
+      "fr-fr"
+    ],
+    "defaultSourceLocale": "en-us",
+    "enabled": true,
+    "familyOriginFallback": "after-matrix",
+    "locales": [
+      {
+        "id": "en-us"
+      },
+      {
+        "id": "es-mx"
+      },
+      {
+        "id": "fr-ca"
+      },
+      {
+        "id": "fr-fr"
+      }
+    ],
+    "originPolicy": "flexible",
+    "routingPattern": "src/content/{locale}/{slug}.md",
+    "strategy": "directory",
+    "variantCreation": {
+      "allowedStartingPoints": [
+        "origin",
+        "fallback",
+        "existing-variant"
+      ],
+      "materializeOn": "first-meaningful-save",
+      "mode": "on-demand"
+    }
+  },
+  "contentLibrary": {
+    "collections": [
+      {
+        "contentRoot": "src/content/guides",
+        "extension": "md",
+        "fields": [
+          "title",
+          "description",
+          "pubDate",
+          "updatedDate",
+          "translationStatus",
+          "audience",
+          "tags",
+          "regionNote"
+        ],
+        "id": "src-content-guides",
+        "label": "Guides",
+        "surfaces": [
+          "draft"
+        ]
+      }
+    ]
+  },
+  "media": {
+    "assetRoots": [
+      {
+        "id": "public",
+        "label": "Public assets",
+        "publicPrefix": "/",
+        "readOnly": true,
+        "systemPath": "public"
+      }
+    ]
+  }
+}
