@@ -1,0 +1,147 @@
+{
+  "version": "1.1.0",
+  "engine": "git-backed",
+  "workspace": {
+    "contentRoot": ".",
+    "extension": "md",
+    "framework": "astro"
+  },
+  "schema": {
+    "fields": [
+      {
+        "name": "title",
+        "required": true,
+        "type": "string",
+        "uiComponent": "text-input"
+      },
+      {
+        "name": "description",
+        "required": true,
+        "type": "string",
+        "uiComponent": "textarea"
+      },
+      {
+        "name": "pubDate",
+        "required": true,
+        "type": "date",
+        "uiComponent": "date-picker"
+      },
+      {
+        "name": "updatedDate",
+        "type": "date",
+        "uiComponent": "date-picker"
+      },
+      {
+        "name": "regionNote",
+        "type": "string",
+        "uiComponent": "textarea"
+      },
+      {
+        "name": "translationStatus",
+        "options": [
+          "source",
+          "localized",
+          "adapted",
+          "needs-review"
+        ],
+        "type": "enum",
+        "uiComponent": "segmented-control"
+      },
+      {
+        "default": [],
+        "items": "string",
+        "name": "tags",
+        "type": "array",
+        "uiComponent": "tag-cloud"
+      },
+      {
+        "name": "audience",
+        "type": "string",
+        "uiComponent": "text-input"
+      }
+    ],
+    "strictValidation": true
+  },
+  "regionalization": {
+    "allowedOriginLocales": [
+      "en-us",
+      "es-ar",
+      "es-mx",
+      "fr-fr",
+      "fr-ca"
+    ],
+    "defaultSourceLocale": "en-us",
+    "enabled": true,
+    "familyOriginFallback": "after-matrix",
+    "locales": [
+      {
+        "id": "en-us"
+      },
+      {
+        "id": "es-ar"
+      },
+      {
+        "id": "es-mx"
+      },
+      {
+        "id": "fr-fr"
+      },
+      {
+        "id": "fr-ca"
+      }
+    ],
+    "originPolicy": "flexible",
+    "routingPattern": "src/content/guides/{locale}/{slug}.md",
+    "strategy": "directory",
+    "variantCreation": {
+      "allowedStartingPoints": [
+        "origin",
+        "fallback",
+        "existing-variant"
+      ],
+      "materializeOn": "first-meaningful-save",
+      "mode": "on-demand"
+    }
+  },
+  "contentLibrary": {
+    "collections": [
+      {
+        "contentRoot": "src/content/guides",
+        "extension": "md",
+        "fields": [
+          "title",
+          "description",
+          "pubDate",
+          "updatedDate",
+          "regionNote",
+          "translationStatus",
+          "tags",
+          "audience"
+        ],
+        "id": "src-content-guides",
+        "label": "Guides",
+        "surfaces": [
+          "draft",
+          "paste",
+          "generate",
+          "optimize",
+          "regionalize"
+        ]
+      }
+    ]
+  },
+  "media": {
+    "assetRoots": [
+      {
+        "id": "public",
+        "label": "Public assets",
+        "publicPrefix": "/",
+        "readOnly": true,
+        "systemPath": "public"
+      }
+    ]
+  },
+  "generate": {
+    "enabled": true
+  }
+}
