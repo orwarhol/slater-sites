@@ -1,6 +1,6 @@
 ---
 title: "Coastal weekend notes in FR CA"
-description: ""
+description: "Coastal weekend notes translated into Canadian French."
 pubDate: "2026-07-12"
 tags: []
 surfaceSystemMeta:
@@ -12,5 +12,6 @@ surfaceSystemMeta:
     originLocale: "en-us"
     reference:
       locale: "fr-fr"
+translationStatus: localized
 ---
-
+Coastal weekend notes in FR CA
