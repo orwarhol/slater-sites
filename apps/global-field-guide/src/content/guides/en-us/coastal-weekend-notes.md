@@ -9,6 +9,13 @@ tags:
   - coast
   - weekends
   - off-season
+surfaceSystemMeta:
+  regionalization:
+    schemaVersion: 1
+    familyId: fam_8268ee5a54560abf8dcdde0d
+    role: origin
+    locale: en-us
+    originLocale: en-us
 ---
 
 A coast out of season is a different town than the one on the postcards. Half the shutters are down, the light is sharper, and the people you meet actually live there. That is the version worth visiting.

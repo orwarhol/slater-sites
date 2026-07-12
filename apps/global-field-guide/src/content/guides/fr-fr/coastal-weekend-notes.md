@@ -10,9 +10,18 @@ tags:
   - week-ends
   - hors-saison
 surfaceSystemMeta:
-  surfaceMasterSha: "3333333333333333333333333333333333333333"
-  surfaceDriftStatus: "synchronized"
+  surfaceMasterSha: 3333333333333333333333333333333333333333
+  surfaceDriftStatus: synchronized
   surfaceLastReconciled: "2026-03-19T17:40:00Z"
+  regionalization:
+    schemaVersion: 1
+    familyId: fam_8268ee5a54560abf8dcdde0d
+    role: variant
+    locale: fr-fr
+    originLocale: en-us
+    reference:
+      locale: en-us
+      commitSha: 54e3bfae39b4431c2a2f1d7deadab6dcef253e53
 ---
 
 Une côte hors saison n'est pas la ville des cartes postales. La moitié des volets sont fermés, la lumière est plus nette, et les gens que vous croisez y vivent vraiment. C'est cette version-là qui vaut le détour.
