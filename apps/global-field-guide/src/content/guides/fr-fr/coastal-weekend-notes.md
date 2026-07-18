@@ -10,7 +10,7 @@ tags:
   - week-ends
   - hors-saison
 surfaceSystemMeta:
-  surfaceMasterSha: 3333333333333333333333333333333333333333
+  surfaceMasterSha: "3333333333333333333333333333333333333333"
   surfaceDriftStatus: synchronized
   surfaceLastReconciled: "2026-03-19T17:40:00Z"
   regionalization:
