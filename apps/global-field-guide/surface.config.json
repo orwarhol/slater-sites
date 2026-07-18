@@ -38,6 +38,7 @@
       },
       {
         "name": "translationStatus",
+        "required": true,
         "options": [
           "source",
           "localized",
