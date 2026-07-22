@@ -14,6 +14,15 @@ surfaceSystemMeta:
   surfaceMasterSha: "1111111111111111111111111111111111111111"
   surfaceDriftStatus: "manualOverride"
   surfaceLastReconciled: "2026-05-24T13:15:00Z"
+  regionalization:
+    schemaVersion: 1
+    familyId: fam_c1aee042d8ef8d9958177881
+    role: variant
+    locale: fr-ca
+    originLocale: en-us
+    reference:
+      locale: en-us
+      commitSha: cdbe75235cef105df243e0ff904a98d840c67b40
 ---
 
 La meilleure façon de comprendre un lieu, c'est d'arriver au marché pendant qu'on monte encore les kiosques. Les producteurs empilent les cagettes, rincent le plancher et échangent les premières nouvelles de la journée. Personne ne cherche encore à vous vendre quoi que ce soit, et c'est précisément pour cela que vous voyez tout.
