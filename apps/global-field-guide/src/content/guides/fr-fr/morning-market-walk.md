@@ -13,6 +13,15 @@ surfaceSystemMeta:
   surfaceMasterSha: "1111111111111111111111111111111111111111"
   surfaceDriftStatus: "synchronized"
   surfaceLastReconciled: "2026-05-20T09:00:00Z"
+  regionalization:
+    schemaVersion: 1
+    familyId: fam_c1aee042d8ef8d9958177881
+    role: variant
+    locale: fr-fr
+    originLocale: en-us
+    reference:
+      locale: en-us
+      commitSha: cdbe75235cef105df243e0ff904a98d840c67b40
 ---
 
 La meilleure façon de comprendre un lieu, c'est d'arriver au marché pendant qu'on monte encore les étals. Les marchands empilent les cagettes, rincent les pavés et échangent les premières nouvelles de la journée. Personne ne cherche encore à vous vendre quoi que ce soit, et c'est précisément pour cela que vous voyez tout.

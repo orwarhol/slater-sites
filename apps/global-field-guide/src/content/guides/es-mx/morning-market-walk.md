@@ -14,6 +14,15 @@ surfaceSystemMeta:
   surfaceMasterSha: "1111111111111111111111111111111111111111"
   surfaceDriftStatus: "unreviewed"
   surfaceLastReconciled: "2026-05-22T15:30:00Z"
+  regionalization:
+    schemaVersion: 1
+    familyId: fam_c1aee042d8ef8d9958177881
+    role: variant
+    locale: es-mx
+    originLocale: en-us
+    reference:
+      locale: en-us
+      commitSha: cdbe75235cef105df243e0ff904a98d840c67b40
 ---
 
 La mejor manera de entender un lugar es llegar a su mercado mientras todavía arman los puestos. Los vendedores apilan las cajas, lavan el piso y comparten las primeras noticias del día. Nadie te está vendiendo nada aún, y por eso mismo lo ves todo.
