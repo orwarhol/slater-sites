@@ -20,6 +20,8 @@ surfaceSystemMeta:
 
 The best way to understand a place is to arrive at its market while the stalls are still being built. Vendors stack crates, hose down the cobbles, and trade the first gossip of the day. Nobody is selling to you yet, which is exactly why you see everything.
 
+![Market stalls being prepared at daybreak](/market.png)
+
 ## Go early, buy little
 
 Aim to arrive within the first hour. Buy one thing you can eat with your hands and one thing you have never seen before. The point is not a full basket; it is a slow loop with your eyes open.
