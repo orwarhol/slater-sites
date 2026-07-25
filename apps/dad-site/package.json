@@ -14,8 +14,8 @@
 		"tags:delete": "node ./scripts/manage-poetry-tags.mjs delete",
 		"test": "vitest run tests/unit",
 		"test:unit": "vitest run tests/unit",
-		"test:integration": "vitest run tests/integration",
-		"test:all": "vitest run"
+		"test:integration": "vitest run tests/integration --maxWorkers=1",
+		"test:all": "vitest run --maxWorkers=1"
 	},
 	"dependencies": {
 		"@astrojs/check": "0.9.9",
