@@ -201,3 +201,4 @@ dist
 ### Astro ###
 .astro/
 test-results/
+playwright-report/

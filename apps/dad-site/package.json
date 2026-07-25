@@ -14,13 +14,13 @@
 		"tags:delete": "node ./scripts/manage-poetry-tags.mjs delete",
 		"test": "vitest run tests/unit",
 		"test:unit": "vitest run tests/unit",
-		"test:integration": "vitest run tests/integration",
-		"test:all": "vitest run"
+		"test:integration": "vitest run tests/integration --maxWorkers=1",
+		"test:all": "vitest run --maxWorkers=1"
 	},
 	"dependencies": {
-		"@astrojs/check": "^0.9.0",
-		"@astrojs/cloudflare": "13.7.0",
-		"astro": "6.4.6",
+		"@astrojs/check": "0.9.9",
+		"@astrojs/cloudflare": "14.1.4",
+		"astro": "7.1.3",
 		"typescript": "5.9.3"
 	},
 	"devDependencies": {
