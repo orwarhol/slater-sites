@@ -127,7 +127,26 @@
           "generate",
           "optimize",
           "regionalize"
-        ]
+        ],
+        "bodyMedia": {
+          "enabled": true,
+          "surfaces": [
+            "draft"
+          ],
+          "placement": "between-top-level-blocks",
+          "pattern": "markdown-image",
+          "assetRoot": "public",
+          "altText": {
+            "required": true,
+            "decorativeAllowed": true
+          },
+          "caption": {
+            "mode": "none"
+          },
+          "layout": {
+            "mode": "site-default"
+          }
+        }
       }
     ]
   },
