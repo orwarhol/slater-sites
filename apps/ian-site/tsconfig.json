@@ -1,7 +1,7 @@
 {
 	"extends": "../../node_modules/astro/tsconfigs/strict.json",
 	"include": [".astro/types.d.ts", "**/*"],
-	"exclude": ["dist", "tests", "vitest.config.ts"],
+	"exclude": ["dist", "tests", "vitest.config.ts", "playwright.config.ts"],
 	"compilerOptions": {
 		"strictNullChecks": true
 	}

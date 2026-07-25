@@ -1,66 +1,66 @@
 {
-	"name": "slater-sites",
-	"description": "Monorepo for Ian and Charles Slater personal websites",
-	"private": true,
-	"type": "module",
-	"workspaces": [
-		"apps/*"
-	],
-	"scripts": {
-		"dev:ian": "npm run dev --workspace=ian-site",
-		"dev:dad": "npm run dev --workspace=dad-site",
-		"dev:global": "npm run dev --workspace=global-field-guide",
-		"build:ian": "npm run build --workspace=ian-site",
-		"build:dad": "npm run build --workspace=dad-site",
-		"build:global": "npm run build --workspace=global-field-guide",
-		"test:ian": "npm run test --workspace=ian-site",
-		"test:dad": "npm run test --workspace=dad-site",
-		"test:global": "npm run test --workspace=global-field-guide",
-		"test:ian:integration": "npm run test:integration --workspace=ian-site",
-		"test:ian:playwright": "npm run test:playwright --workspace=ian-site",
-		"test:dad:integration": "npm run test:integration --workspace=dad-site",
-		"test:dad:playwright": "npm run test:playwright --workspace=dad-site",
-		"test:global:playwright": "npm run test:playwright --workspace=global-field-guide"
-	},
-	"devDependencies": {
-		"@playwright/test": "^1.59.1",
-		"turndown": "^7.2.0",
-		"vitest": "^4.1.8",
-		"wrangler": "^4.114.0"
-	},
-	"overrides": {
-		"h3": "1.15.11",
-		"esbuild": "0.28.1",
-		"@cloudflare/vite-plugin": {
-			"ws": "8.21.0"
-		},
-		"miniflare": {
-			"ws": "8.21.0"
-		},
-		"wrangler": "^4.114.0",
-		"lodash": "4.17.23",
-		"fast-xml-parser": ">=5.10.1",
-		"rollup": ">=4.59.0",
-		"svgo": ">=4.0.2",
-		"undici": ">=8.5.0",
-		"devalue": ">=5.6.4",
-		"picomatch": ">=2.3.2",
-		"smol-toml": ">=1.6.1",
-		"yaml": ">=2.8.3",
-		"js-yaml": ">=4.3.0",
-		"astro": {
-			"js-yaml": "^4.3.0"
-		},
-		"@astrojs/internal-helpers": {
-			"js-yaml": "^4.3.0"
-		},
-		"postcss": ">=8.5.18",
-		"fast-uri": ">=3.1.4",
-		"sharp": ">=0.35.0",
-		"@astrojs/language-server": ">=2.16.5",
-		"@astrojs/cloudflare": {
-			"wrangler": "^4.114.0",
-			"undici": ">=8.5.0"
-		}
-	}
+  "name": "slater-sites",
+  "description": "Monorepo for Ian and Charles Slater personal websites",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:ian": "npm run dev --workspace=ian-site",
+    "dev:dad": "npm run dev --workspace=dad-site",
+    "dev:global": "npm run dev --workspace=global-field-guide",
+    "build:ian": "npm run build --workspace=ian-site",
+    "build:dad": "npm run build --workspace=dad-site",
+    "build:global": "npm run build --workspace=global-field-guide",
+    "test:ian": "npm run test --workspace=ian-site",
+    "test:dad": "npm run test --workspace=dad-site",
+    "test:global": "npm run test --workspace=global-field-guide",
+    "test:ian:integration": "npm run test:integration --workspace=ian-site",
+    "test:ian:playwright": "npm run test:playwright --workspace=ian-site && npm run test:playwright:worker --workspace=ian-site",
+    "test:dad:integration": "npm run test:integration --workspace=dad-site",
+    "test:dad:playwright": "npm run test:playwright --workspace=dad-site && npm run test:playwright:worker --workspace=dad-site",
+    "test:global:playwright": "npm run test:playwright --workspace=global-field-guide && npm run test:playwright:worker --workspace=global-field-guide"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "turndown": "^7.2.0",
+    "vitest": "^4.1.8",
+    "wrangler": "^4.114.0"
+  },
+  "overrides": {
+    "h3": "1.15.11",
+    "esbuild": "0.28.1",
+    "@cloudflare/vite-plugin": {
+      "ws": "8.21.0"
+    },
+    "miniflare": {
+      "ws": "8.21.0"
+    },
+    "wrangler": "^4.114.0",
+    "lodash": "4.17.23",
+    "fast-xml-parser": ">=5.10.1",
+    "rollup": ">=4.59.0",
+    "svgo": ">=4.0.2",
+    "undici": ">=8.5.0",
+    "devalue": ">=5.6.4",
+    "picomatch": ">=2.3.2",
+    "smol-toml": ">=1.6.1",
+    "yaml": ">=2.8.3",
+    "js-yaml": ">=4.3.0",
+    "astro": {
+      "js-yaml": "^4.3.0"
+    },
+    "@astrojs/internal-helpers": {
+      "js-yaml": "^4.3.0"
+    },
+    "postcss": ">=8.5.18",
+    "fast-uri": ">=3.1.4",
+    "sharp": ">=0.35.0",
+    "@astrojs/language-server": ">=2.16.5",
+    "@astrojs/cloudflare": {
+      "wrangler": "^4.114.0",
+      "undici": ">=8.5.0"
+    }
+  }
 }

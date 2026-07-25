@@ -1,4 +1,4 @@
 {
   "extends": "../../node_modules/astro/tsconfigs/strict.json",
-  "exclude": ["dist", "tests", "vitest.config.ts"]
+  "exclude": ["dist", "tests", "vitest.config.ts", "playwright.config.ts"]
 }

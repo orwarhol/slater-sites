@@ -48,8 +48,8 @@ async function assertHomepageSmoke(page: Page) {
   expect(consoleErrors, 'browser console errors on home page').toEqual([]);
 }
 
-test.describe('ian-site home page smoke', () => {
-  test('home page renders human-readable content and produces no fatal browser errors', async ({ page }) => {
+test.describe('ian-site built Cloudflare worker smoke', () => {
+  test('homepage renders human-readable content through the built worker', async ({ page }) => {
     await assertHomepageSmoke(page);
   });
 });

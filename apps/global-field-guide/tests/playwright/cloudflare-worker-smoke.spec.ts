@@ -24,21 +24,8 @@ async function assertHomepageSmoke(page: Page) {
   await expect(main).toBeVisible();
   await expect(page.locator('header').first()).toBeVisible();
   await expect(page.locator('footer').first()).toBeVisible();
-
-  await expect(main.getByRole('heading', { level: 1, name: 'Ian Slater' })).toBeVisible();
-  await expect(main.getByText(/Ian Charles Slater/i).first()).toBeVisible();
-
-  const featuredProject = main.locator('.featured-project').first();
-  await expect(featuredProject.getByRole('heading', { level: 2, name: /Latest Project/i })).toBeVisible();
-  const projectTitle = featuredProject.locator('.project-title').first();
-  await expect(projectTitle).toBeVisible();
-  const projectTitleText = (await projectTitle.innerText()).trim();
-  expect(projectTitleText.length, 'Latest project title should be present').toBeGreaterThan(0);
-
-  const projectMeta = featuredProject.locator('.project-meta').first();
-  await expect(projectMeta).toBeVisible();
-  const projectMetaText = (await projectMeta.innerText()).trim();
-  expect(projectMetaText.length, 'Latest project metadata should be present').toBeGreaterThan(0);
+  await expect(main.getByRole('heading', { level: 1, name: /Global Field Guide/i })).toBeVisible();
+  expect(await main.locator('a').count()).toBeGreaterThan(0);
 
   const visibleText = (await main.innerText()).replace(/\s+/g, ' ');
   expect(visibleText, 'visible main content should not contain object serialization').not.toContain('[object Object]');
@@ -48,8 +35,8 @@ async function assertHomepageSmoke(page: Page) {
   expect(consoleErrors, 'browser console errors on home page').toEqual([]);
 }
 
-test.describe('ian-site home page smoke', () => {
-  test('home page renders human-readable content and produces no fatal browser errors', async ({ page }) => {
+test.describe('global-field-guide built Cloudflare worker smoke', () => {
+  test('homepage renders intentional copy through the built worker', async ({ page }) => {
     await assertHomepageSmoke(page);
   });
 });
