@@ -7,6 +7,7 @@ import cloudflare from "@astrojs/cloudflare";
 // https://astro.build/config
 export default defineConfig({
 	site: "https://iancharlesslater.com",
+	output: 'server',
 	integrations: [mdx()],
 	adapter: cloudflare(),
 	// Neither site uses sessions; use the unstorage in-memory driver to prevent

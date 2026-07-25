@@ -6,170 +6,169 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
 
-// Get the latest project from the projects collection
 const projects = (await getCollection('projects')).sort(
-	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 const latestProject = projects.length > 0 ? projects[0] : undefined;
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead metaKey="page:/" title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 740px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-			}
-			.bio {
-				background: var(--surface-1);
-				border: 1px solid var(--border-strong);
-				box-shadow: var(--shadow);
-				border-radius: var(--radius-lg);
-				padding: var(--pad-lg);
-				color: var(--text);
-			}
-			.bio__layout {
-				/* Float-based layout for desktop/tablet */
-			}
-			.bio__headshot {
-				float: left;
-				margin: 0 1.5rem 1rem 0;
-			}
-			.bio__headshot img {
-				width: 180px;
-				aspect-ratio: 1;
-				object-fit: cover;
-				border-radius: 999px;
-				border: 2px solid var(--pink);
-				box-shadow: var(--glow-lime), var(--shadow);
-				/* Use shape-outside to wrap text around the circular shape */
-				shape-outside: circle(50%);
-			}
-			.bio__text {
-				/* Text flows around the floated headshot */
-			}
-			.bio h1 {
-				margin-bottom: 1em;
-				background: linear-gradient(135deg, var(--cyan), var(--blue));
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-				background-clip: text;
-			}
-			.bio p {
-				color: var(--muted);
-				line-height: 1.8;
-			}
-			.featured-project {
-				background: var(--surface-1);
-				border: 1px solid var(--lime);
-				box-shadow: var(--shadow), var(--glow-lime);
-				border-radius: var(--radius-lg);
-				padding: var(--pad-lg);
-				color: var(--text);
-				margin-top: 2rem;
-			}
-			.featured-project h2 {
-				margin-bottom: 1em;
-				background: linear-gradient(135deg, var(--lime), var(--cyan));
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-				background-clip: text;
-			}
-			.featured-project .project-title {
-				color: var(--text);
-				font-size: 1.5rem;
-				margin: 0.5rem 0;
-			}
-			.featured-project .project-meta {
-				display: flex;
-				gap: 1rem;
-				margin: 0.5rem 0 1rem 0;
-				color: var(--muted);
-				font-size: 0.95rem;
-				flex-wrap: wrap;
-			}
-			.featured-project .project-type {
-				text-transform: capitalize;
-				color: var(--lime);
-				font-weight: 500;
-			}
-			.featured-project .cta-link {
-				margin-top: 1rem;
-			}
-			@media (max-width: 720px) {
-				.bio__headshot {
-					/* Disable float on mobile */
-					float: none;
-					margin: 0 auto 1.5rem;
-					display: flex;
-					justify-content: center;
-				}
-				.bio__headshot img {
-					width: 160px;
-					/* Disable shape-outside on mobile */
-					shape-outside: none;
-				}
-				.bio__text {
-					width: 100%;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section class="bio">
-				<div class="bio__layout">
-					<figure class="bio__headshot">
-						<img
-							src="/ian-slater-profile-photo.jpg"
-							alt="Picture of Ian Slater"
-							width="180"
-							height="180"
-							decoding="async"
-						/>
-					</figure>
-					<div class="bio__text">
-						<h1>Ian Slater</h1>
-						<p>
-							Ian Charles Slater was born on June 20, 1982 in Los Angeles, California. His father, Charles Slater, was a high school drama teacher, and his mother, Ilene Slater, is a mental health specialist. Ian grew up acting in plays directed by his father and, more recently, the two collaborated on a feature film. Ian began his college education studying Film Production and Creative Writing at San Francisco State University, and obtained his bachelor's degree in Communications.
-						</p>
-						<p>
-							Ian's feature screenplay, <a href="/projects/hattie/">Hattie</a>, won an Honorable Mention in the Fresh Voices Screenplay Competition and was a Finalist at the Richmond International Film Festival (RIFF). His television pilot, <a href="/projects/alyssa-craft/">Alyssa Craft</a>, advanced to the semifinals at CineStory. Ian has worked with film directors George Pappy, known for Few Options, and Vitaly Sumin.
-						</p>
-						<p>
-							Ian became the luckiest man in the world when he married his wife Emily, on April 30, 2016. When not writing, Ian's playing with his children and exploring hiking trails near his home in Calabasas, California. He is a Senior Product Manager in Technology at The Walt Disney Company.
-						</p>
-					</div>
-				</div>
-			</section>
+  <head>
+    <BaseHead metaKey="page:/" title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      main {
+        width: 740px;
+        max-width: calc(100% - 2em);
+        margin: auto;
+        padding: 1em;
+      }
+      .bio {
+        background: var(--surface-1);
+        border: 1px solid var(--border-strong);
+        box-shadow: var(--shadow);
+        border-radius: var(--radius-lg);
+        padding: var(--pad-lg);
+        color: var(--text);
+      }
+      .bio__layout {
+        /* Float-based layout for desktop/tablet */
+      }
+      .bio__headshot {
+        float: left;
+        margin: 0 1.5rem 1rem 0;
+      }
+      .bio__headshot img {
+        width: 180px;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 999px;
+        border: 2px solid var(--pink);
+        box-shadow: var(--glow-lime), var(--shadow);
+        /* Use shape-outside to wrap text around the circular shape */
+        shape-outside: circle(50%);
+      }
+      .bio__text {
+        /* Text flows around the floated headshot */
+      }
+      .bio h1 {
+        margin-bottom: 1em;
+        background: linear-gradient(135deg, var(--cyan), var(--blue));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .bio p {
+        color: var(--muted);
+        line-height: 1.8;
+      }
+      .featured-project {
+        background: var(--surface-1);
+        border: 1px solid var(--lime);
+        box-shadow: var(--shadow), var(--glow-lime);
+        border-radius: var(--radius-lg);
+        padding: var(--pad-lg);
+        color: var(--text);
+        margin-top: 2rem;
+      }
+      .featured-project h2 {
+        margin-bottom: 1em;
+        background: linear-gradient(135deg, var(--lime), var(--cyan));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .featured-project .project-title {
+        color: var(--text);
+        font-size: 1.5rem;
+        margin: 0.5rem 0;
+      }
+      .featured-project .project-meta {
+        display: flex;
+        gap: 1rem;
+        margin: 0.5rem 0 1rem 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+        flex-wrap: wrap;
+      }
+      .featured-project .project-type {
+        text-transform: capitalize;
+        color: var(--lime);
+        font-weight: 500;
+      }
+      .featured-project .cta-link {
+        margin-top: 1rem;
+      }
+      @media (max-width: 720px) {
+        .bio__headshot {
+          /* Disable float on mobile */
+          float: none;
+          margin: 0 auto 1.5rem;
+          display: flex;
+          justify-content: center;
+        }
+        .bio__headshot img {
+          width: 160px;
+          /* Disable shape-outside on mobile */
+          shape-outside: none;
+        }
+        .bio__text {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section class="bio">
+        <div class="bio__layout">
+          <figure class="bio__headshot">
+            <img
+              src="/ian-slater-profile-photo.jpg"
+              alt="Picture of Ian Slater"
+              width="180"
+              height="180"
+              decoding="async"
+            />
+          </figure>
+          <div class="bio__text">
+            <h1>Ian Slater</h1>
+            <p>
+              Ian Charles Slater was born on June 20, 1982 in Los Angeles, California. His father, Charles Slater, was a high school drama teacher, and his mother, Ilene Slater, is a mental health specialist. Ian grew up acting in plays directed by his father and, more recently, the two collaborated on a feature film. Ian began his college education studying Film Production and Creative Writing at San Francisco State University, and obtained his bachelor's degree in Communications.
+            </p>
+            <p>
+              Ian's feature screenplay, <a href="/projects/hattie/">Hattie</a>, won an Honorable Mention in the Fresh Voices Screenplay Competition and was a Finalist at the Richmond International Film Festival (RIFF). His television pilot, <a href="/projects/alyssa-craft/">Alyssa Craft</a>, advanced to the semifinals at CineStory. Ian has worked with film directors George Pappy, known for Few Options, and Vitaly Sumin.
+            </p>
+            <p>
+              Ian became the luckiest man in the world when he married his wife Emily, on April 30, 2016. When not writing, Ian's playing with his children and exploring hiking trails near his home in Calabasas, California. He is a Senior Product Manager in Technology at The Walt Disney Company.
+            </p>
+          </div>
+        </div>
+      </section>
 
-			{latestProject && (
-				<section class="featured-project">
-					<h2>Latest Project</h2>
-					<h3 class="project-title">{latestProject.data.title}</h3>
-					<div class="project-meta">
-						<span class="project-type">{latestProject.data.type}</span>
-						{latestProject.data.genre?.length > 0 && (
-							<span class="project-genre">{latestProject.data.genre.join(', ')}</span>
-						)}
-						<span class="project-date">
-							<FormattedDate date={latestProject.data.date} />
-						</span>
-						{latestProject.data.pages && (
-							<span class="project-pages">{latestProject.data.pages} pages</span>
-						)}
-					</div>
-					<a href={`/projects/${latestProject.id}/`} class="cta-link">
-						View Project →
-					</a>
-				</section>
-			)}
-		</main>
-		<Footer />
-	</body>
+      {latestProject && (
+        <section class="featured-project">
+          <h2>Latest Project</h2>
+          <h3 class="project-title">{latestProject.data.title}</h3>
+          <div class="project-meta">
+            <span class="project-type">{latestProject.data.type}</span>
+            {latestProject.data.genre?.length > 0 && (
+              <span class="project-genre">{latestProject.data.genre.join(', ')}</span>
+            )}
+            <span class="project-date">
+              <FormattedDate date={latestProject.data.date} />
+            </span>
+            {latestProject.data.pages && (
+              <span class="project-pages">{latestProject.data.pages} pages</span>
+            )}
+          </div>
+          <a href={`/projects/${latestProject.id}/`} class="cta-link">
+            View Project →
+          </a>
+        </section>
+      )}
+    </main>
+    <Footer />
+  </body>
 </html>
