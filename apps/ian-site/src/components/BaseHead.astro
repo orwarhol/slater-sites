@@ -2,10 +2,9 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
-import { resolveMeta } from '../seo/metaRegistry';
 
 interface Props {
-	metaKey: string;
+	metaKey?: string;
 	title: string;
 	description: string;
 	image?: string;
@@ -13,21 +12,22 @@ interface Props {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { metaKey, title, description, image } = Astro.props;
+const { title, description, image } = Astro.props;
 
-// Resolve meta from registry with fallbacks
-const resolvedMeta = resolveMeta({
-	key: metaKey,
-	fallback: { title, description, image },
-});
+// Use the page-provided values directly so the built Cloudflare SSR path
+// receives normal strings for title/description/image instead of relying on
+// a registry helper that can collapse into malformed output.
+const resolvedTitle = title;
+const resolvedDescription = description;
+const resolvedImage = image;
 
 // Ensure og:image is an absolute URL when possible
-const ogImage = resolvedMeta.image 
-	? (Astro.site ? new URL(resolvedMeta.image, Astro.site).href : resolvedMeta.image)
+const ogImage = resolvedImage
+	? (Astro.site ? new URL(resolvedImage, Astro.site).href : resolvedImage)
 	: (Astro.site ? new URL('/blog-placeholder-1.jpg', Astro.site).href : '/blog-placeholder-1.jpg');
 
 // Use summary_large_image when image exists, otherwise summary
-const twitterCard = resolvedMeta.image ? 'summary_large_image' : 'summary';
+const twitterCard = resolvedImage ? 'summary_large_image' : 'summary';
 ---
 
 <!-- Global Metadata -->
@@ -47,20 +47,20 @@ const twitterCard = resolvedMeta.image ? 'summary_large_image' : 'summary';
 <link rel="canonical" href={canonicalURL} />
 
 <!-- Primary Meta Tags -->
-<title>{resolvedMeta.title}</title>
-<meta name="title" content={resolvedMeta.title} />
-<meta name="description" content={resolvedMeta.description} />
+<title>{resolvedTitle}</title>
+<meta name="title" content={resolvedTitle} />
+<meta name="description" content={resolvedDescription} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={resolvedMeta.title} />
-<meta property="og:description" content={resolvedMeta.description} />
+<meta property="og:title" content={resolvedTitle} />
+<meta property="og:description" content={resolvedDescription} />
 <meta property="og:image" content={ogImage} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content={twitterCard} />
 <meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={resolvedMeta.title} />
-<meta property="twitter:description" content={resolvedMeta.description} />
+<meta property="twitter:title" content={resolvedTitle} />
+<meta property="twitter:description" content={resolvedDescription} />
 <meta property="twitter:image" content={ogImage} />
