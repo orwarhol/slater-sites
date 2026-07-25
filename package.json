@@ -18,7 +18,8 @@
 		"test:global": "npm run test --workspace=global-field-guide",
 		"test:ian:integration": "npm run test:integration --workspace=ian-site",
 		"test:ian:playwright": "npm run test:playwright --workspace=ian-site",
-		"test:dad:integration": "npm run test:integration --workspace=dad-site"
+		"test:dad:integration": "npm run test:integration --workspace=dad-site",
+		"test:worker": "npm run build:global && npm run build:dad && npm run build:ian && playwright test --config playwright.worker.config.ts"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.59.1",
