@@ -4,7 +4,7 @@ This monorepo contains two personal Astro websites (ian-site and dad-site) hoste
 
 ## Tech Stack
 
-- **Astro 5.x** - Static site framework
+- **Astro 7.x** - Static site framework
 - **TypeScript** - All code should be properly typed
 - **Cloudflare Pages** - Deployment platform
 - **npm workspaces** - Monorepo management
