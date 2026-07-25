@@ -51,4 +51,17 @@ test.describe('dad-site built worker', () => {
 		await expectWellFormedContent(page);
 		expectNoPageErrors(errors);
 	});
+
+	// Prerendered route: /poetry/tags/[tag] sets `export const prerender = true`,
+	// so it exercises the @astrojs/cloudflare prerenderer. Guards against the
+	// default 'workerd' prerenderer serializing the body as "[object Object]".
+	test('prerendered poetry tag page renders well-formed content', async ({
+		page,
+	}) => {
+		const errors = captureErrors(page);
+		await gotoOk(page, '/poetry/tags/theatre');
+		await expect(page.locator('h1', { hasText: 'Tag:' })).toBeVisible();
+		await expectWellFormedContent(page);
+		expectNoPageErrors(errors);
+	});
 });

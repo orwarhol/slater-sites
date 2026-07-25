@@ -22,7 +22,17 @@ export function captureErrors(page: Page): CapturedErrors {
 	const captured: CapturedErrors = { pageErrors: [], consoleErrors: [] };
 	page.on('pageerror', (err) => captured.pageErrors.push(err.message));
 	page.on('console', (msg: ConsoleMessage) => {
-		if (msg.type() === 'error') captured.consoleErrors.push(msg.text());
+		if (msg.type() !== 'error') return;
+		const location = msg.location();
+		const url = location?.url ?? '';
+		// Browsers auto-request /favicon.ico when a page does not declare a
+		// <link rel="icon"> for that path. That request is initiated by the
+		// browser, not by the page code, and its 404 is not a production-side
+		// application failure. Ignore only this specific well-known case so
+		// real console errors still fail the suite.
+		if (/\/favicon\.ico(\?|$)/.test(url)) return;
+		const suffix = url ? ` (${url})` : '';
+		captured.consoleErrors.push(`${msg.text()}${suffix}`);
 	});
 	return captured;
 }
@@ -63,10 +73,14 @@ export async function gotoOk(page: Page, path: string) {
 	return response!;
 }
 
-/** Fails the test if any uncaught page exceptions were captured. */
+/** Fails the test if any uncaught page exceptions or console errors were captured. */
 export function expectNoPageErrors(captured: CapturedErrors): void {
 	expect(
 		captured.pageErrors,
 		`uncaught page errors: ${captured.pageErrors.join(' | ')}`,
+	).toEqual([]);
+	expect(
+		captured.consoleErrors,
+		`console errors: ${captured.consoleErrors.join(' | ')}`,
 	).toEqual([]);
 }
