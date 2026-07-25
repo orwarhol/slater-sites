@@ -79,7 +79,9 @@ describe("/novels-movies/ listing page", () => {
 	it('page H1 is "Novels and Movies"', async () => {
 		const res = await fetch(`${BASE}/novels-movies/`, { redirect: "follow" });
 		const html = await res.text();
-		expect(html).toContain("<h1>Novels and Movies</h1>");
+		// Astro scopes styled components by adding a `data-astro-cid-*` attribute
+		// to elements, so match the H1 tolerantly rather than as an exact string.
+		expect(html).toMatch(/<h1[^>]*>Novels and Movies<\/h1>/);
 	});
 
 	it('navigation displays "Novels" label', async () => {
