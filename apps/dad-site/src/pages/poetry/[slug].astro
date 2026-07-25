@@ -36,7 +36,7 @@ const resolvedDecorativeImage = rawDecorativeImage
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead 
+		<BaseHead
 			title={`${poem.data.title} | Charles Slater`}
 			description={poem.data.excerpt}
 		/>
@@ -60,7 +60,7 @@ const resolvedDecorativeImage = rawDecorativeImage
 						</div>
 						{poem.data.tags && poem.data.tags.length > 0 && (
 							<div class="tags">
-								{poem.data.tags.map((tag: string) => (
+								{poem.data.tags.map((tag) => (
 									<a href={`/poetry/tags/${slugifyTag(tag)}`} class="tag">
 										{tag}
 									</a>
@@ -164,3 +164,4 @@ const resolvedDecorativeImage = rawDecorativeImage
 		padding-top: 2em;
 		border-top: 1px solid var(--border);
 	}
+</style>
