@@ -12,10 +12,10 @@
 | Status | Disposable UAT data — safe to delete |
 
 ## Counts by format
-
+Counts below reflect total eligible images (seed + generated fixtures).
 | Extension | Count |
 |---|---|
-| `.jpg` / `.jpeg` | 121 |
+| `.jpg` | 121 |
 | `.png` | 66 |
 | `.webp` | 26 |
 | `.svg` | 15 |
