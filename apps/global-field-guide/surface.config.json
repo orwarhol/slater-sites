@@ -156,10 +156,34 @@
         "id": "public",
         "label": "Public assets",
         "publicPrefix": "/",
-        "readOnly": true,
-        "systemPath": "public"
+        "readOnly": false,
+        "systemPath": "public",
+        "allowedCollections": [
+          "src-content-guides"
+        ]
       }
-    ]
+    ],
+    "uploadPolicy": {
+      "maxSizeBytes": 5242880,
+      "allowedMimeTypes": [
+        "image/jpeg",
+        "image/png",
+        "image/gif",
+        "image/webp",
+        "image/svg+xml"
+      ],
+      "allowedExtensions": [
+        "jpg",
+        "jpeg",
+        "png",
+        "gif",
+        "webp",
+        "svg"
+      ],
+      "namingStrategy": "{originalName}-{hash}.{ext}",
+      "onCollision": "append-hash",
+      "sanitizeSvg": true
+    }
   },
   "generate": {
     "enabled": true
