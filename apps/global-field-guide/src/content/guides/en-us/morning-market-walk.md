@@ -20,7 +20,7 @@ surfaceSystemMeta:
 
 The best way to understand a place is to arrive at its market while the stalls are still being built. Vendors stack crates, hose down the cobbles, and trade the first gossip of the day. Nobody is selling to you yet, which is exactly why you see everything.
 
-![A pretty railroad](/rail.png)
+![](/animations/animation-001.png)
 
 ## Go early, buy little
 
