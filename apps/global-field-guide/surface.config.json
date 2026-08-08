@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "engine": "git-backed",
   "workspace": {
     "contentRoot": ".",
@@ -109,6 +109,10 @@
       {
         "contentRoot": "src/content/guides",
         "extension": "md",
+        "extensions": [
+          "md",
+          "mdx"
+        ],
         "fields": [
           "title",
           "description",
@@ -150,6 +154,29 @@
       }
     ]
   },
+  "components": {
+    "Video": {
+      "label": "Video",
+      "kind": "media.video",
+      "insertable": true,
+      "surfaces": [
+        "draft"
+      ],
+      "allowedCollections": [
+        "src-content-guides"
+      ],
+      "editableAttributes": {
+        "src": {
+          "type": "url",
+          "uiComponent": "url-input"
+        }
+      },
+      "children": {
+        "mode": "none"
+      },
+      "defaultSnippet": "<Video src=\"https://youtube.com/placeholder\" />"
+    }
+  },
   "media": {
     "assetRoots": [
       {
@@ -183,6 +210,16 @@
       "namingStrategy": "{originalName}-{hash}.{ext}",
       "onCollision": "append-hash",
       "sanitizeSvg": true
+    },
+    "externalProviders": {
+      "allowedDomains": [
+        "youtube.com",
+        "youtu.be"
+      ],
+      "allowedProtocols": [
+        "https:"
+      ],
+      "allowRawIframes": false
     }
   },
   "generate": {
