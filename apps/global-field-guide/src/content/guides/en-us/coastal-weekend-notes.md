@@ -42,7 +42,7 @@ Here is some *italic* text.
 
 Thanks.
 
-Here is a `some code`.\
+Here is a `some great code`.\
 And a line break.
 
 And a [link](https://google.com "Google.com").
