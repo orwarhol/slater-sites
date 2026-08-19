@@ -86,3 +86,7 @@ The honest seafood is near the harbor, not the viewpoint. Look for a short chalk
 ## Sunday: one harbor, no plan
 
 Give yourself a single, unhurried morning by the water with a coffee and no schedule. The coast is best when you stop trying to cover it.
+
+```
+this might be allowed
+```
