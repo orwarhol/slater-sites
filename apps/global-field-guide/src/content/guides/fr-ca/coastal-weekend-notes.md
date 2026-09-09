@@ -24,7 +24,7 @@ Une côte hors saison n'est pas la ville des cartes postales. La moitié des vol
 
 ## Samedi : longez tout le front de mer
 
-Partez d'un bout de la digue et marchez jusqu'à l'autre avant de vous engager où que ce soit. Repérez le café où les habitués sont au comptoir et la boulangerie dévalisée avant midi. Vous explorez, vous ne décidez pas.
+Partez d'un bout de la digue et marchez jusqu'à l'autre avant de vous engager où que ce soit. Repérez le café où les habitués sont au comptoir et la boulangerie dévalisée avant midi. Vous explorez, vous ne décidez pas. Adding some *text* here.
 
 ## Samedi soir : mangez là où rentrent les bateaux
 
