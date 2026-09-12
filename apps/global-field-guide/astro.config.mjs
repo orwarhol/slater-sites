@@ -12,6 +12,11 @@ export default defineConfig({
 		// configured in the Cloudflare project, causing the worker to fail at runtime.
 		imageService: 'passthrough',
 	}),
+	vite: {
+		optimizeDeps: {
+			include: ['astro/assets/services/noop', 'astro/logger/json'],
+		},
+	},
 	// Use in-memory session driver to prevent @astrojs/cloudflare from
 	// auto-provisioning a KV namespace on every deploy.
 	session: { driver: sessionDrivers.memory() },
