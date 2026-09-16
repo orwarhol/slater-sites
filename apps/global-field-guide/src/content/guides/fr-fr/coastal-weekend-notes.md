@@ -24,7 +24,7 @@ surfaceSystemMeta:
       commitSha: 54e3bfae39b4431c2a2f1d7deadab6dcef253e53
 ---
 
-Une côte hors saison n'est pas la ville des cartes postales. La moitié des volets sont fermés, la lumière est plus nette, et les gens que vous croisez y vivent vraiment. C'est cette version-là qui vaut le détour.
+Une côte hors saison n'est pas la ville des cartes postales. La moitié des volets sont fermés, la lumière est plus nette, et les gens que vous croisez y vivent vraiment. C'est cette version-là qui vaut le détour. Some more french.
 
 ## Samedi : longez tout le front de mer
 
