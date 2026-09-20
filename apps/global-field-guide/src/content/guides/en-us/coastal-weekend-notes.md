@@ -18,7 +18,7 @@ surfaceSystemMeta:
     originLocale: en-us
 ---
 
-A coast out of season is a different town than the one on the postcards. Half the shutters are down, the light is sharper, and the people you meet actually live there. That is the version worth visiting.
+A coast out of season is a different town than the one on the postcards. Half the shutters are down, the light is sharper, and the people you meet actually live there. That is the version worth visiting. Stay awhile...
 
 ## Saturday: walk the whole front
 
