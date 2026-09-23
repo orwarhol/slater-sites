@@ -19,7 +19,7 @@ Un pase de día regional es una de las pocas ofertas de viaje que de verdad prem
 
 ## Tres paradas es el punto justo
 
-Un trayecto largo de ida y dos saltos cortos de regreso suele ganarle a un único destino lejano. Elige un pueblo lejano como ancla y luego dos lugares más pequeños en la línea de vuelta.
+Un trayecto largo de ida y dos saltos cortos de regreso suele ganarle a un único destino lejano. Elige un pueblo lejano como ancla y luego dos lugares más pequeños en la línea de vuelta. Here is another change to verify.
 
 ## Viaja a contracorriente
 
