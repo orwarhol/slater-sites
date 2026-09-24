@@ -22,7 +22,7 @@ A coast out of season is a different town than the one on the postcards. Half th
 
 ## Saturday: walk the whole front
 
-Start at one end of the seawall and walk to the other before you commit to anywhere. Note which café has locals at the counter and which bakery sells out by noon. You are scouting, not deciding.
+Start at one end of the seawall and walk to the other before you commit to anywhere. Note which café has locals at the counter and which bakery sells out by noon. You are scouting, not deciding. There will be plenty of time to eat later.
 
 ## Saturday night: eat where the boats land
 
