@@ -1,0 +1,212 @@
+{
+  "version": "1.0.0",
+  "engine": "git-backed",
+  "workspace": {
+    "contentRoot": ".",
+    "extension": "md",
+    "framework": "astro"
+  },
+  "schema": {
+    "fields": [
+      {
+        "name": "title",
+        "required": true,
+        "type": "string",
+        "uiComponent": "text-input"
+      },
+      {
+        "name": "description",
+        "required": false,
+        "type": "string",
+        "uiComponent": "textarea"
+      },
+      {
+        "name": "pubDate",
+        "required": true,
+        "type": "date",
+        "uiComponent": "date-picker"
+      },
+      {
+        "name": "updatedDate",
+        "type": "date",
+        "uiComponent": "date-picker"
+      },
+      {
+        "name": "heroImage",
+        "type": "string",
+        "uiComponent": "text-input"
+      },
+      {
+        "name": "src",
+        "required": true,
+        "type": "string",
+        "uiComponent": "text-input"
+      },
+      {
+        "name": "alt",
+        "required": true,
+        "type": "string",
+        "uiComponent": "text-input"
+      },
+      {
+        "name": "date",
+        "required": false,
+        "type": "date",
+        "uiComponent": "date-picker"
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "uiComponent": "text-input"
+      },
+      {
+        "name": "camera",
+        "type": "string",
+        "uiComponent": "text-input"
+      },
+      {
+        "name": "location",
+        "type": "string",
+        "uiComponent": "text-input"
+      },
+      {
+        "name": "order",
+        "type": "number",
+        "uiComponent": "number-input"
+      },
+      {
+        "name": "slug",
+        "type": "string",
+        "uiComponent": "slug-input"
+      },
+      {
+        "name": "type",
+        "options": [
+          "feature screenplay",
+          "short screenplay",
+          "TV script",
+          "novel",
+          "feature film",
+          "short film"
+        ],
+        "required": true,
+        "type": "enum",
+        "uiComponent": "radio-group"
+      },
+      {
+        "default": [],
+        "items": "string",
+        "name": "genre",
+        "type": "array",
+        "uiComponent": "tag-cloud"
+      },
+      {
+        "name": "pages",
+        "type": "number",
+        "uiComponent": "number-input"
+      },
+      {
+        "name": "defaultTransition",
+        "type": "string",
+        "uiComponent": "text-input"
+      }
+    ],
+    "strictValidation": true
+  },
+  "regionalization": {
+    "enabled": false
+  },
+  "contentLibrary": {
+    "collections": [
+      {
+        "contentRoot": "src/content/blog",
+        "extension": "md",
+        "fields": [
+          "title",
+          "description",
+          "pubDate",
+          "updatedDate",
+          "heroImage"
+        ],
+        "id": "src-content-blog",
+        "label": "Blog",
+        "surfaces": [
+          "draft",
+          "paste",
+          "generate",
+          "optimize"
+        ]
+      },
+      {
+        "contentRoot": "src/content/gallery",
+        "extension": "md",
+        "fields": [
+          "title",
+          "src",
+          "alt",
+          "date",
+          "notes",
+          "camera",
+          "location",
+          "order",
+          "slug"
+        ],
+        "id": "src-content-gallery",
+        "label": "Gallery",
+        "surfaces": [
+          "draft",
+          "paste",
+          "generate",
+          "optimize"
+        ]
+      },
+      {
+        "contentRoot": "src/content/projects",
+        "extension": "md",
+        "fields": [
+          "title",
+          "date",
+          "type",
+          "genre",
+          "pages",
+          "description",
+          "heroImage"
+        ],
+        "id": "src-content-projects",
+        "label": "Projects",
+        "surfaces": [
+          "draft",
+          "paste",
+          "generate",
+          "optimize"
+        ]
+      },
+      {
+        "contentRoot": "src/content/resume",
+        "extension": "mdx",
+        "fields": [
+          "title",
+          "description",
+          "defaultTransition"
+        ],
+        "id": "src-content-resume",
+        "label": "Resume",
+        "surfaces": [
+          "draft",
+          "paste",
+          "generate",
+          "optimize"
+        ]
+      }
+    ]
+  },
+  "publishing": {
+    "writeStrategy": "working-branch-pr"
+  },
+  "media": {
+    "assetRoots": []
+  },
+  "generate": {
+    "enabled": true
+  }
+}
