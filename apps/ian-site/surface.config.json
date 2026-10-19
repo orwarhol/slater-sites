@@ -33,14 +33,14 @@
       },
       {
         "name": "heroImage",
-        "type": "string",
-        "uiComponent": "text-input"
+        "type": "image",
+        "uiComponent": "image-picker"
       },
       {
         "name": "src",
         "required": true,
-        "type": "string",
-        "uiComponent": "text-input"
+        "type": "image",
+        "uiComponent": "image-picker"
       },
       {
         "name": "alt",
@@ -119,6 +119,25 @@
   "contentLibrary": {
     "collections": [
       {
+        "bodyMedia": {
+          "altText": {
+            "decorativeAllowed": false,
+            "required": true
+          },
+          "assetRoot": "public",
+          "caption": {
+            "mode": "none"
+          },
+          "enabled": true,
+          "layout": {
+            "mode": "site-default"
+          },
+          "pattern": "markdown-image",
+          "placement": "between-top-level-blocks",
+          "surfaces": [
+            "draft"
+          ]
+        },
         "contentRoot": "src/content/blog",
         "extension": "md",
         "fields": [
@@ -204,7 +223,40 @@
     "writeStrategy": "working-branch-pr"
   },
   "media": {
-    "assetRoots": []
+    "assetRoots": [
+      {
+        "allowedCollections": [
+          "src-content-blog",
+          "src-content-gallery",
+          "src-content-projects",
+          "src-content-resume"
+        ],
+        "id": "public",
+        "label": "Existing public images",
+        "publicPrefix": "/",
+        "readOnly": false,
+        "systemPath": "public"
+      }
+    ],
+    "uploadPolicy": {
+      "allowedExtensions": [
+        "jpg",
+        "jpeg",
+        "png",
+        "gif",
+        "webp"
+      ],
+      "allowedMimeTypes": [
+        "image/jpeg",
+        "image/png",
+        "image/gif",
+        "image/webp"
+      ],
+      "maxSizeBytes": 5242880,
+      "namingStrategy": "{originalName}-{hash}.{ext}",
+      "onCollision": "append-hash",
+      "sanitizeSvg": true
+    }
   },
   "generate": {
     "enabled": true
