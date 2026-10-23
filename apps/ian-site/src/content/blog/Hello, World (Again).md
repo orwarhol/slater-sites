@@ -19,7 +19,7 @@ It’s static. Content lives in files. The “CMS” is the repo. And yes: even 
 
 That *should* feel like friction.
 
-Instead, it’s been surprisingly refreshing.
+Instead, it’s been surprisingly refreshing. And after six months, I haven't grown tired of it.
 
 ## Static, but oddly clarifying
 
