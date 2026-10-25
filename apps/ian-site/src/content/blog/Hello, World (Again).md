@@ -15,6 +15,8 @@ But it also has a way of smoothing over the mechanics. You can build quickly whi
 
 This stack is the opposite of that.
 
+![Image](/blog-placeholder-4.jpg)
+
 It’s static. Content lives in files. The “CMS” is the repo. And yes: even small changes often mean running a build and triggering a deploy.
 
 That *should* feel like friction.
