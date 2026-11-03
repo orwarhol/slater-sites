@@ -13,7 +13,7 @@ When cynical college student MK Cleary flies to Paris after a desperate message 
 **Synopsis:**  
 MK Cleary isn’t sentimental, and she’s not the type to chase ghosts. But when her estranged sister DJ sends a single, panic-laced message from Paris—*Can you get here?*—MK gets on a plane.
 
-DJ doesn’t show. Her apartment is a curated contradiction: luxury on the surface, survival underneath—cash tucked away, condoms in a drawer, and breadcrumbs that keep pointing to the same sleek hotels where money moves quietly and nobody asks questions. A weary detective offers just enough help to be frustrating, and Paris keeps gleaming like it can’t see what’s happening in its shadows.
+DJ doesn’t show. Her apartment is a curated contradiction: luxury on the surface, survival underneath—cash tucked away, condoms in a drawer, and breadcrumbs that keep pointing to the same sleek hotels where money moves quietly and nobody asks questions. A weary detective offers just enough help to be frustrating, and Paris keeps gleaming like it can’t see what’s happening in its shadows. Of course it can...
 
 Then MK meets Camille Baupin—poised, magnetic, and paying far too much attention. Camille knows the rules of this city’s private games. She offers MK direction, protection… and temptation. She slips MK a gun like it’s an accessory, and MK realizes she’s no longer searching *for* danger—she’s being invited into it.
 
