@@ -104,11 +104,6 @@
         "name": "pages",
         "type": "number",
         "uiComponent": "number-input"
-      },
-      {
-        "name": "defaultTransition",
-        "type": "string",
-        "uiComponent": "text-input"
       }
     ],
     "strictValidation": true
@@ -118,6 +113,17 @@
   },
   "contentLibrary": {
     "collections": [
+      {
+        "contentRoot": "src/pages",
+        "extension": "astro",
+        "fields": [],
+        "id": "native-2761141ec2ec4d0b",
+        "label": "Astro source pages",
+        "sourceFormat": "astro",
+        "surfaces": [
+          "draft"
+        ]
+      },
       {
         "bodyMedia": {
           "altText": {
@@ -193,23 +199,6 @@
         ],
         "id": "src-content-projects",
         "label": "Projects",
-        "surfaces": [
-          "draft",
-          "paste",
-          "generate",
-          "optimize"
-        ]
-      },
-      {
-        "contentRoot": "src/content/resume",
-        "extension": "mdx",
-        "fields": [
-          "title",
-          "description",
-          "defaultTransition"
-        ],
-        "id": "src-content-resume",
-        "label": "Resume",
         "surfaces": [
           "draft",
           "paste",
