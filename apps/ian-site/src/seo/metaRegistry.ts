@@ -5,6 +5,8 @@
  * Provides title, description, and optional image for all pages, blog posts, and projects.
  */
 
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
 interface MetaEntry {
 	title: string;
 	description: string;
@@ -25,9 +27,10 @@ interface MetaRegistry {
  */
 export const metaRegistry: MetaRegistry = {
 	// Core pages
+	// Home title and description are edited in src/consts.ts (shared with the header and RSS feed).
 	'page:/': {
-		title: 'Ian Slater',
-		description: 'Ian Slater is a writer, filmmaker, and photographer. His screenplay Hattie earned an Honorable Mention in the Fresh Voices Screenplay Competition and was a finalist at RIFF. He works in tech product leadership and lives with his wife and two children in Calabasas, California.',
+		title: SITE_TITLE,
+		description: SITE_DESCRIPTION,
 		image: '/ian-slater-profile-photo.jpg',
 	},
 	'page:/blog': {

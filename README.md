@@ -367,6 +367,7 @@ The ian-site uses a **centralized SEO meta registry** to manage all meta tags (t
 - Pages pass a `metaKey` and fallback values to `BaseHead` component
 - Registry entries override fallback values when present
 - Missing keys trigger console warnings during build to help discover new content
+- The homepage (`page:/`) title and description come from `SITE_TITLE` and `SITE_DESCRIPTION` in `apps/ian-site/src/consts.ts`, which also feed the site header and RSS feed
 
 **Registry key patterns:**
 - Pages: `page:/`, `page:/blog`, `page:/projects`, `page:/gallery`
