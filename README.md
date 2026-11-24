@@ -33,7 +33,9 @@ slater-sites/
 
 ## 🧞 Commands
 
-All commands are run from the root of the project:
+Use Node.js 22.23.4 (also pinned in each app's `.node-version`) and npm 10.9.2, matching the observed Dad-site Cloudflare build. Run commands from the root unless noted:
+
+After changing the shared lockfile, run `npm clean-install --progress=false` on Linux in a clean checkout from the root and each app directory. `npm run test:ian` also checks the native Satteri packages' optional lockfile metadata.
 
 | Command                | Action                                        |
 | :--------------------- | :-------------------------------------------- |
