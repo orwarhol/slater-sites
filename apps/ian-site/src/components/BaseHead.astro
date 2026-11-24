@@ -2,10 +2,9 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
-import { resolveMeta } from '../seo/metaRegistry';
+import { SITE_TITLE } from '../consts';
 
 interface Props {
-	metaKey: string;
 	title: string;
 	description: string;
 	image?: string;
@@ -13,21 +12,11 @@ interface Props {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { metaKey, title, description, image } = Astro.props;
-
-// Resolve meta from registry with fallbacks
-const resolvedMeta = resolveMeta({
-	key: metaKey,
-	fallback: { title, description, image },
-});
-
-// Ensure og:image is an absolute URL when possible
-const ogImage = resolvedMeta.image 
-	? (Astro.site ? new URL(resolvedMeta.image, Astro.site).href : resolvedMeta.image)
-	: (Astro.site ? new URL('/blog-placeholder-1.jpg', Astro.site).href : '/blog-placeholder-1.jpg');
+const { title, description, image } = Astro.props;
+const ogImage = new URL(image || '/blog-placeholder-1.jpg', Astro.site);
 
 // Use summary_large_image when image exists, otherwise summary
-const twitterCard = resolvedMeta.image ? 'summary_large_image' : 'summary';
+const twitterCard = image ? 'summary_large_image' : 'summary';
 ---
 
 <!-- Global Metadata -->
@@ -45,22 +34,24 @@ const twitterCard = resolvedMeta.image ? 'summary_large_image' : 'summary';
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL('rss.xml', Astro.site)} />
 
 <!-- Primary Meta Tags -->
-<title>{resolvedMeta.title}</title>
-<meta name="title" content={resolvedMeta.title} />
-<meta name="description" content={resolvedMeta.description} />
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={resolvedMeta.title} />
-<meta property="og:description" content={resolvedMeta.description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
 
 <!-- Twitter -->
-<meta property="twitter:card" content={twitterCard} />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={resolvedMeta.title} />
-<meta property="twitter:description" content={resolvedMeta.description} />
-<meta property="twitter:image" content={ogImage} />
+<meta name="twitter:card" content={twitterCard} />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />

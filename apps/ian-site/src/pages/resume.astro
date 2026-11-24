@@ -12,9 +12,9 @@ const { Content } = await render(deck);
 <html lang="en">
 	<head>
 		<BaseHead
-			metaKey="page:/resume"
-			title="Resume | Ian Slater"
-			description={deck.data.description ?? 'Senior Product Manager — Legal Operations Technology & Enterprise Platforms'}
+			title={deck.data.seoTitle?.trim() || deck.data.title || 'Resume | Ian Slater'}
+			description={deck.data.seoDescription?.trim() || deck.data.description || 'Senior Product Manager — Legal Operations Technology & Enterprise Platforms'}
+			image={deck.data.heroImage}
 		/>
 		<!-- Prevent global body overflow from affecting the deck -->
 		<style is:global>

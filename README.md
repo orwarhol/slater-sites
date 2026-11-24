@@ -158,11 +158,13 @@ Each app can be deployed independently to Cloudflare Pages by configuring the Gi
 ## 📝 Content Collections
 
 ### Ian Site Collections
-- **blog** - Blog posts (schema: title, description, pubDate, heroImage)
-- **projects** - Creative projects (schema: title, date, type, genre, pages, description, heroImage)
+- **blog** - Blog posts (schema: title, description, pubDate, heroImage, optional seoTitle and seoDescription)
+- **projects** - Creative projects (schema: title, date, type, genre, pages, description, heroImage, optional seoTitle and seoDescription)
   - Expected values for project Type: 'feature screenplay' | 'short screenplay' | 'TV script' | 'novel' | 'feature film' | 'short film'
   - Note: `description` and `heroImage` are SEO-only fields (not rendered on project pages)
 - **gallery** - Photography (schema: title, src, alt, date, notes, camera, location, order)
+
+Nonblank `seoTitle` (the complete document title) and `seoDescription` override only head metadata; otherwise blog/projects use their title with ` | Ian Slater` and description (or project type/genre fallback).
 
 ### Dad Site Collections
 - **poetry** - Poems (schema: title, date, tags, excerpt, decorativeImage)
@@ -357,77 +359,6 @@ On wide screens the cover displays in a dedicated right-side column alongside th
 - **Quote strings containing special characters** — If `title` or `synopsis` contains colons, quotes, or other YAML-special characters, wrap the value in double quotes or use a block scalar (`>`).
 - **`printLength` is a number** — Do not quote it (write `printLength: 312`, not `printLength: "312"`).
 - **`publicationDate` and `printLength` are optional** — The site builds without them, but including them makes the entry a complete record.
-
-## 🗺️ SEO & Sitemaps
-
-### Ian Site SEO Meta Registry
-
-The ian-site uses a **centralized SEO meta registry** to manage all meta tags (title, description, og:image, twitter:card, etc.) from a single location.
-
-**How it works:**
-- All SEO meta is defined in `apps/ian-site/src/seo/metaRegistry.ts`
-- Pages pass a `metaKey` and fallback values to `BaseHead` component
-- Registry entries override fallback values when present
-- Missing keys trigger console warnings during build to help discover new content
-
-**Registry key patterns:**
-- Pages: `page:/`, `page:/blog`, `page:/projects`, `page:/gallery`
-- Blog posts: `blog:<slug>` (e.g., `blog:hello-world-again`)
-- Projects: `project:<slug>` (e.g., `project:hattie`)
-
-**Adding new content:**
-1. Create your blog post or project markdown file
-2. Run `npm run build` - you'll see a warning if the meta key is missing
-3. Add the entry to `metaRegistry.ts` with your desired title/description
-4. Rebuild to verify the warning is gone
-
-**Adding hero images to projects:**
-- Projects support an optional `heroImage` field for SEO meta tags (og:image, twitter:image)
-- To add one, include `heroImage: "/path/to/image.jpg"` in the project's frontmatter
-- The image will automatically be used in SEO meta tags but won't be rendered on the project page itself
-- You can also specify the image in the registry entry for that project
-
-**Benefits:**
-- One-stop-shop for all SEO meta across the entire site
-- Edit meta without touching page templates or content files
-- Registry values take precedence over frontmatter defaults
-- Warnings ensure all content has proper SEO coverage
-
-### Ian Site Custom Sitemap
-
-The ian-site uses a **custom sitemap endpoint** at `/sitemap.xml` instead of Astro's built-in `@astrojs/sitemap` integration.
-
-**Why custom?**
-- Astro's sitemap integration creates `sitemap-index.xml` and `sitemap-0.xml`
-- Our `robots.txt` points to `/sitemap.xml` (custom endpoint)
-- Having both could confuse search engines
-- Custom implementation provides full control over URLs and metadata
-
-**Implementation:**
-- Location: `apps/ian-site/src/pages/sitemap.xml.ts`
-- Includes: Homepage, blog index, projects index, gallery, and all blog posts & projects
-- Uses Astro Content Collections to dynamically generate URLs
-- Includes `lastmod` dates from content metadata
-
-**Important for Astro upgrades:**
-- Do **NOT** re-add `@astrojs/sitemap` to integrations in `astro.config.mjs`
-- Keep the custom endpoint to maintain consistency with `robots.txt`
-- Update `sitemap.xml.ts` if new content collections are added
-
-### Ian Site RSS Feeds
-
-The ian-site exposes RSS at both `/rss.xml` and `/feed`.
-
-**Endpoints:**
-- `https://iancharlesslater.com/rss.xml`
-- `https://iancharlesslater.com/feed`
-
-Both routes are intentionally supported and return equivalent RSS channel/item data.
-
-**Implementation:**
-- Shared feed generator: `apps/ian-site/src/lib/rssFeed.js`
-- `/rss.xml` endpoint: `apps/ian-site/src/pages/rss.xml.js`
-- `/feed` endpoint: `apps/ian-site/src/pages/feed.js`
 
 ## 🔀 Redirect Management
 

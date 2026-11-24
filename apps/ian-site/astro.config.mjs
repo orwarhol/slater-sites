@@ -1,13 +1,20 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
 
 import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
 	site: "https://iancharlesslater.com",
-	integrations: [mdx()],
+	integrations: [
+		mdx(),
+		sitemap({
+			// Preserve the resume's existing omission without changing its access.
+			filter: (page) => new URL(page).pathname.replace(/\/$/, "") !== "/resume",
+		}),
+	],
 	adapter: cloudflare({
 		// Prerender static pages with Astro's Node environment instead of workerd.
 		// The default 'workerd' prerenderer in @astrojs/cloudflare serializes every

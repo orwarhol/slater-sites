@@ -142,6 +142,7 @@ export function resolveRedirect(
 export const redirects: RedirectRule[] = [
 	// Exact redirects — add when a page slug or section name changes.
 	{ from: "/photography", to: "/gallery", status: 301 }, // Squarespace site had a photography section, now we just have a gallery
+	{ from: "/sitemap.xml", to: "/sitemap-index.xml", status: 301 },
 
 	// Prefix redirects — add when an entire section is renamed or moved.
 

@@ -30,7 +30,7 @@ const IAN_PORT = 8793;
 
 function workerServer(app: string, port: number) {
 	return {
-		command: `npx wrangler dev --config dist/server/wrangler.json --port ${port} --ip 127.0.0.1`,
+		command: `npx wrangler dev --config dist/server/wrangler.json --port ${port} --ip 127.0.0.1 --inspector-port 0`,
 		cwd: `apps/${app}`,
 		url: `http://127.0.0.1:${port}/`,
 		reuseExistingServer: !process.env.CI,

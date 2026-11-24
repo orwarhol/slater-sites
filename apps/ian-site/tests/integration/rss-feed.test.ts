@@ -2,7 +2,10 @@ import { describe, it, beforeAll, afterAll, expect } from "vitest";
 import { spawn, spawnSync, type ChildProcess } from "node:child_process";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { XMLParser } from "fast-xml-parser";
+import { readFileSync, readdirSync } from "node:fs";
+import { parse } from "yaml";
+import { XMLParser, XMLValidator } from "fast-xml-parser";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../src/consts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const APP_ROOT = resolve(__dirname, "../..");
@@ -16,7 +19,14 @@ type ParsedRss = {
 			title: string;
 			description: string;
 			link: string;
-			item?: Array<{ title?: string; link?: string; pubDate?: string }>;
+			item?: Array<{
+				title: string;
+				description: string;
+				link: string;
+				pubDate: string;
+				guid: { "#text": string; "@_isPermaLink": string };
+				"content:encoded"?: string;
+			}>;
 		};
 	};
 };
@@ -50,14 +60,16 @@ async function getXml(path: string) {
 }
 
 beforeAll(async () => {
-	const buildResult = spawnSync("npm", ["run", "build"], {
-		cwd: APP_ROOT,
-		stdio: "ignore",
-		env: { ...process.env, NO_COLOR: "1", BROWSER: "none" },
-	});
-
-	if (buildResult.status !== 0) {
-		throw new Error("ian-site build failed before RSS integration checks");
+	// Reuse a preceding normal build when running the full verification sequence.
+	if (process.env.SKIP_BUILD !== "1") {
+		const buildResult = spawnSync("npm", ["run", "build"], {
+			cwd: APP_ROOT,
+			stdio: "inherit",
+			env: { ...process.env, NO_COLOR: "1", BROWSER: "none" },
+		});
+		if (buildResult.status !== 0) {
+			throw new Error("ian-site build failed before RSS integration checks");
+		}
 	}
 
 	previewProcess = spawn(
@@ -85,39 +97,50 @@ afterAll(() => {
 });
 
 describe("RSS endpoints", () => {
-	it("GET /feed returns RSS XML with channel and item data", async () => {
-		const { response, xml } = await getXml("/feed");
+	it("GET /rss.xml preserves editorial channel, items, dates, links and GUIDs", async () => {
+		const { response, xml } = await getXml("/rss.xml");
+		expect(XMLValidator.validate(xml)).toBe(true);
 		const parsed = parser.parse(xml) as ParsedRss;
 		const items = toArray(parsed.rss.channel.item);
 
 		expect(response.status).toBe(200);
-		expect(response.headers.get("content-type") ?? "").toContain("xml");
-		expect(parsed.rss.channel.title).toBe("Ian Slater");
-		expect(parsed.rss.channel.description.length).toBeGreaterThan(0);
-		expect(items.length).toBeGreaterThan(0);
-		expect(items[0]?.title).toBeTruthy();
-		expect(items[0]?.link).toMatch(/^https:\/\/iancharlesslater\.com\/blog\//);
-		expect(Number.isNaN(Date.parse(items[0]?.pubDate ?? ""))).toBe(false);
+		expect(response.headers.get("content-type")).toBe("application/rss+xml; charset=utf-8");
+		expect(parsed.rss.channel.title).toBe(SITE_TITLE);
+		expect(parsed.rss.channel.description).toBe(SITE_DESCRIPTION);
+		expect(parsed.rss.channel.link).toBe("https://iancharlesslater.com/");
+		const posts = [
+			["Beyond the Branching Path - Building Narrative Game Engines in OpenClaw", "beyond-the-branching-path---building-narrative-game-engines-in-openclaw"],
+			["Hello, World (Again)", "hello-world-again"],
+		];
+		const contentFiles = readdirSync(resolve(APP_ROOT, "src/content/blog"), { recursive: true })
+			.filter(file => /\.(md|mdx)$/.test(file));
+		expect(items).toHaveLength(contentFiles.length);
+		for (const [filename, slug] of posts) {
+			const source = readFileSync(resolve(APP_ROOT, `src/content/blog/${filename}.md`), "utf8");
+			const data = parse(source.split("---")[1]) as { title: string; description: string; pubDate: string };
+			const link = `https://iancharlesslater.com/blog/${slug}/`;
+			const item = items.find(item => item.link === link);
+			expect(item).toMatchObject({
+				title: data.title,
+				description: data.description,
+				link,
+				pubDate: new Date(data.pubDate).toUTCString(),
+				guid: { "#text": link, "@_isPermaLink": "true" },
+			});
+			expect(item?.["content:encoded"]).toBeUndefined();
+		}
+		const dates = items.map(item => Date.parse(item.pubDate));
+		expect(dates).toEqual([...dates].sort((a, b) => b - a));
 	});
 
-	it("GET /rss.xml still returns RSS XML with equivalent feed semantics", async () => {
-		const feed = await getXml("/feed");
-		const rssXml = await getXml("/rss.xml");
-		const parsedFeed = parser.parse(feed.xml) as ParsedRss;
-		const parsedRss = parser.parse(rssXml.xml) as ParsedRss;
-		const feedItems = toArray(parsedFeed.rss.channel.item);
-		const rssItems = toArray(parsedRss.rss.channel.item);
-
-		expect(rssXml.response.status).toBe(200);
-		expect(rssXml.response.headers.get("content-type") ?? "").toContain("xml");
-		expect(parsedRss.rss.channel.title).toBe(parsedFeed.rss.channel.title);
-		expect(parsedRss.rss.channel.description).toBe(parsedFeed.rss.channel.description);
-		expect(parsedRss.rss.channel.link).toBe(parsedFeed.rss.channel.link);
-		expect(rssItems.map((item) => item.title)).toEqual(
-			feedItems.map((item) => item.title),
-		);
-		expect(rssItems.map((item) => item.link)).toEqual(
-			feedItems.map((item) => item.link),
-		);
+	it.each(["/feed", "/feed/", "/feed?ref=abc", "/feed/?ref=abc"])("%s permanently redirects in one hop to the equivalent canonical feed", async (path) => {
+		const legacy = await getXml(path);
+		expect(legacy.response.status).toBe(301);
+		const target = new URL(legacy.response.headers.get("location")!, BASE);
+		expect(target.pathname).toBe("/rss.xml");
+		expect(target.search).toBe(new URL(path, BASE).search);
+		const redirected = await getXml(target.pathname + target.search);
+		expect(redirected.response.status).toBe(200);
+		expect(parser.parse(redirected.xml)).toEqual(parser.parse((await getXml("/rss.xml")).xml));
 	});
 });
