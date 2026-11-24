@@ -33,7 +33,7 @@ slater-sites/
 
 ## 🧞 Commands
 
-All commands are run from the root of the project:
+Use Node.js 22.23.4 (also pinned in each app's `.node-version`). All commands are run from the root of the project:
 
 | Command                | Action                                        |
 | :--------------------- | :-------------------------------------------- |
