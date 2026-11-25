@@ -173,6 +173,65 @@ describe('read-only decorative image validator', () => {
 		expect(errors).not.toContain('private-token');
 	});
 
+	it('accepts portable hyphen, underscore and digit filenames for the exact selected keys', () => {
+		registry([
+			['nature', 'tree_2.png'],
+			['Comma, Tag', 'tree_2.png'],
+			["Eugene O'Neill", 'Sand-Dunes2.png'],
+			['Theatre', 'Sand-Dunes2.png'],
+		]);
+		rmSync(join(fixture, 'public/poetry/tree.png'));
+		rmSync(join(fixture, 'public/poetry/drama.png'));
+		write('public/poetry/tree_2.png', PNG);
+		write('public/poetry/Sand-Dunes2.png', PNG);
+		const result = validateDecorativeImages(fixture);
+		expect(result.errors).toEqual([]);
+		// No "mapped but unused" info proves both selected keys resolved to these files.
+		expect(result.infos).toEqual([]);
+	});
+
+	it.each(['tree#1.png', 'tree%1.png'])('rejects existing PNG %s with a URL-significant filename', filename => {
+		registry([
+			['nature', filename],
+			['Comma, Tag', 'tree.png'],
+			["Eugene O'Neill", 'drama.png'],
+			['Theatre', 'drama.png'],
+		]);
+		write(`public/poetry/${filename}`, PNG);
+		const errors = validateDecorativeImages(fixture).errors;
+		expect(errors).toContain(
+			`src/utils/decorativeImages.ts: key "nature" must map to ASCII letters, digits, hyphens or underscores plus lowercase .png (for example "sand-dunes.png"), got ${JSON.stringify(filename)}`,
+		);
+		expect(errors).toContain('src/content/poetry/tagless.md: decorativeImage "nature" has no valid exact registry mapping');
+		expect(errors.join('\n')).not.toMatch(/cannot be read|PNG signature|has no exact registry mapping/);
+		const cli = runFixtureCli();
+		expect(cli.status).toBe(1);
+		expect(cli.stderr).toContain(`key "nature" must map to ASCII letters, digits, hyphens or underscores`);
+	});
+
+	it.each([
+		['query delimiter', 'tree?1.png'],
+		['encoded delimiter', 'tree%23.png'],
+		['space', 'tree 1.png'],
+		['trailing newline', 'tree.png\n'],
+		['additional dot', 'tree.v2.png'],
+		['uppercase extension', 'tree.PNG'],
+		['non-ASCII', 'trée.png'],
+		['control character', 'tree\u0001.png'],
+	])('rejects a registry filename with a %s', (_name, filename) => {
+		registry([
+			['nature', filename],
+			['Comma, Tag', 'tree.png'],
+			["Eugene O'Neill", 'drama.png'],
+			['Theatre', 'drama.png'],
+		]);
+		const errors = validateDecorativeImages(fixture).errors;
+		expect(errors).toContain(
+			`src/utils/decorativeImages.ts: key "nature" must map to ASCII letters, digits, hyphens or underscores plus lowercase .png (for example "sand-dunes.png"), got ${JSON.stringify(filename)}`,
+		);
+		expect(errors.join('\n')).not.toMatch(/cannot be read|has no exact registry mapping/);
+	});
+
 	it('rejects non-PNG signatures and non-regular files', () => {
 		write('public/poetry/tree.png', 'not a PNG');
 		rmSync(join(fixture, 'public/poetry/drama.png'));

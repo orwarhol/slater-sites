@@ -26,12 +26,10 @@ function describe(value) {
 }
 
 function isPlainPngFilename(value) {
+	// Filenames are inserted into /poetry/<filename> unencoded, so allow only URL-safe portable names.
 	return typeof value === 'string'
 		&& value === value.trim()
-		&& value.length > '.png'.length
-		&& value.endsWith('.png')
-		&& !value.includes('..')
-		&& !/[\/\\:\x00-\x1f\x7f]/.test(value);
+		&& /^[A-Za-z0-9_-]+\.png$/.test(value);
 }
 
 function isUnsafeImageKey(value) {
@@ -219,7 +217,7 @@ export function validateDecorativeImages(siteRoot = APP_ROOT) {
 			normalizedKeys.get(normalized).push(key);
 
 			if (!isPlainPngFilename(filename)) {
-				errors.push(`src/utils/decorativeImages.ts: key ${describe(key)} must map to a nonblank filename-only .png, got ${describe(filename)}`);
+				errors.push(`src/utils/decorativeImages.ts: key ${describe(key)} must map to ASCII letters, digits, hyphens or underscores plus lowercase .png (for example "sand-dunes.png"), got ${describe(filename)}`);
 				continue;
 			}
 			mappedFiles.add(filename);

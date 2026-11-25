@@ -200,7 +200,7 @@ decorativeImage: "Theatre"
 
 The decorative image is hidden from assistive technology and has empty alternative text. It appears in the upper-right of the header in a 90×90 desktop or 72×72 mobile container.
 
-The canonical registry is `apps/dad-site/src/utils/decorativeImages.ts`. Its alphabetically ordered keys map to **PNG filenames only**, such as `"drama.png"`, under `apps/dad-site/public/poetry/`; there are no null placeholders. Case and spelling variants are distinct keys. To add an illustration, put the approved PNG in that directory. To map a new ordinary tag, manually add its exact key and an existing or new filename to the registry; multiple keys can reuse artwork.
+The canonical registry is `apps/dad-site/src/utils/decorativeImages.ts`. Its alphabetically ordered keys map to **PNG filenames only**, such as `"drama.png"`, under `apps/dad-site/public/poetry/`; there are no null placeholders. Filenames must be one or more ASCII letters, digits, hyphens or underscores followed by lowercase `.png` (for example `tree.png`, `sand-dunes.png`, `tree_2.png` or `Tree2.png`); spaces, extra dots, `#`, `?`, `%`, path separators and non-ASCII characters fail validation. Case and spelling variants are distinct keys. To add an illustration, put the approved PNG in that directory. To map a new ordinary tag, manually add its exact key and an existing or new filename to the registry; multiple keys can reuse artwork.
 
 Validate after editing content, artwork or the registry:
 
