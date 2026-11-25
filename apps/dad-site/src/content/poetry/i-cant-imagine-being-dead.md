@@ -3,6 +3,7 @@ title: "I Can't Imagine Being Dead"
 date: 2000-12-01
 tags: ["Meditations"]
 excerpt: "I want to sit facing east before the San Jacinto peak at the computer inventing the particulars of a life that unfolds in my head. First we must build the wall "
+decorativeImage: "construction"
 ---
 
 I want to sit facing east before  

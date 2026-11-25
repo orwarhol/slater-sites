@@ -3,6 +3,7 @@ title: "Sue Could Be a Lion Tamer"
 date: 2012-12-12
 tags: []
 excerpt: "She doesn’t hesitate to pick up Pele after the little beast has been shredding one piece of furniture or another. She simply scoops her onto her shoulder with a"
+decorativeImage: "Sue"
 ---
 
 She doesn’t hesitate  

@@ -3,6 +3,7 @@ title: "Dreams of My Childhood"
 date: 2010-01-20
 tags: ["Family","Time","Bert","brotherhood","dreams","Jack","MGTD","Sand Dunes Tavern"]
 excerpt: "Perhaps it was the old Sand Dunes Tavern, the uniqueness of living in so unconventional a manner. Or the realization that we were different which came to me ear"
+decorativeImage: "Sand Dunes Tavern"
 ---
 
 Perhaps it was  

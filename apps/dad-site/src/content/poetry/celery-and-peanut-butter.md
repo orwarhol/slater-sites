@@ -3,6 +3,7 @@ title: "Celery and Peanut Butter"
 date: 2005-12-15
 tags: ["Little Poems","1940s","1949","childhood","food","Jimmy Carter","Shakespeare"]
 excerpt: "First tasted in 1949 out of Judy’s lunch bag, a luxury never before experienced. A new idea in flavor and crunchy biting, imaginative, setting up possibilities "
+decorativeImage: "childhood"
 ---
 
 First tasted in 1949 out of Judy’s lunch bag,  

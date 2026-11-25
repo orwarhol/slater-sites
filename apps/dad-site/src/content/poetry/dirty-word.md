@@ -3,6 +3,7 @@ title: "Dirty Word"
 date: 2002-11-07
 tags: ["War"]
 excerpt: "Nothing makes one reflect like defeat. I drove a hundred miles to cast my ballot and threw away my vote. America was attacked and now we have entrenched in a wa"
+decorativeImage: "War"
 ---
 
 Nothing makes one reflect like defeat.  

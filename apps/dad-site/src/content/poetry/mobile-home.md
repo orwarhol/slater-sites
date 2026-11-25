@@ -3,6 +3,7 @@ title: "Mobile Home"
 date: 2002-04-06
 tags: ["Philosophy","architecture","art","builder","building","construction","house","mobile home","Renaissance Man"]
 excerpt: "In 1970 the house was built, not from the ground up, of course, but pushed up from the ground floor, and what an experience to have piggybacked the new floor jo"
+decorativeImage: "house"
 ---
 
 In 1970 the house was built,  

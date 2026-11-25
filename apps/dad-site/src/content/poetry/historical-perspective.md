@@ -3,6 +3,7 @@ title: "Historical Perspective"
 date: 2004-12-29
 tags: ["History","politics","religion","history","family"]
 excerpt: "Do you believe in God? No, my mother told me, and my nine- year-old world shifted. I had learned the word infinity somewhere, and had looked up to the night sky"
+decorativeImage: "childhood"
 ---
 
 Do you believe in God?  

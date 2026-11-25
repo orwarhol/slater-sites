@@ -3,6 +3,7 @@ title: "Tradition"
 date: 2001-06-03
 tags: ["Theatre"]
 excerpt: "bathes in the habit of self-aggrandizement. Hugs and kisses and clever praises slather in the wake of the last performance where the glory has vaporized and the"
+decorativeImage: "Theatre"
 ---
 
 bathes in the habit of self-aggrandizement.  

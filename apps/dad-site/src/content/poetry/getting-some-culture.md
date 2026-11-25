@@ -3,6 +3,7 @@ title: "Getting Some Culture"
 date: 2004-12-03
 tags: ["Billboard","Time","art","art exhibition","culture","Edgar Degas","fine art","Henri Matisse","Jean Renoir","museum","museum exhibition","painting","passion"]
 excerpt: "This morning early, after yesterday having seen the Renoir poster child, Matisse and Degas, et al, I wonder what has transpired. Yes, I was spoken to, I felt th"
+decorativeImage: "art exhibition"
 ---
 
 This morning early, after yesterday having seen  

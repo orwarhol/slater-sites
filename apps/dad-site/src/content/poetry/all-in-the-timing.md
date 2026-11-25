@@ -3,6 +3,7 @@ title: "All in the Timing"
 date: 2003-12-21
 tags: ["Aging"]
 excerpt: "Acquired wisdom slips through the cracks of diminishing memory. Old mastered procedures become annoying; no more doing without careful arrangement, step by step"
+decorativeImage: "Aging"
 ---
 
 Acquired wisdom  

@@ -3,6 +3,7 @@ title: "Asleep with my eyes open"
 date: 2012-11-16
 tags: ["Billboard","Meditations","consciousness","daydreaming","productivity"]
 excerpt: "There is time to think of the moment only if I have consciousness; I do mean, mind you, the act of being un-asleep. Thoughts are relative. I can be quite awake "
+decorativeImage: "consciousness"
 ---
 
 There is time to think  

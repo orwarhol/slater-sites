@@ -3,6 +3,7 @@ title: "Directing"
 date: 1985-02-28
 tags: ["Theatre"]
 excerpt: "The dreams are back. My cyclic pressure pushes psychic replays of past and present mixed into an edgy tangle. I am a boy again weighted with all my adult sins a"
+decorativeImage: "Theatre"
 ---
 
 The dreams are back.  

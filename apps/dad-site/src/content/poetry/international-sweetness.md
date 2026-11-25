@@ -3,6 +3,7 @@ title: "International Sweetness"
 date: 2004-09-17
 tags: ["Meditations","On the Road","automobiles","cars","driving","music","Vanagan"]
 excerpt: "My seventeen-year-old German vehicle, practical, sweet to drive, timeless in design - a box, really, is resurrected with a modern Japanese engine, finally sorte"
+decorativeImage: "Vanagan"
 ---
 
 My seventeen-year-old German vehicle,  

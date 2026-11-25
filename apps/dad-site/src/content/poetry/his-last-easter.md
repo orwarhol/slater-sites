@@ -3,6 +3,7 @@ title: "His Last Easter"
 date: 2003-04-20
 tags: ["Family","Bert","church","Easter","holidays","worship"]
 excerpt: "The new church is still only a shiny, steel skeleton standing beside the revival-meeting tent for the throngs of Easter faithful, gathering to celebrate the res"
+decorativeImage: "Easter"
 ---
 
 The new church is still only a shiny, steel  

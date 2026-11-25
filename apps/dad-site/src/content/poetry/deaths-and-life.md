@@ -3,6 +3,7 @@ title: "Deaths and Life"
 date: 2001-10-26
 tags: ["Death"]
 excerpt: "I wake with some aches dreading the jobs of the day before my coffee. Sitting up against the big pillows, hearing the shower sound of my early-morning wife, I s"
+decorativeImage: "Death"
 ---
 
 I wake with some aches dreading  

@@ -3,6 +3,7 @@ title: "Wind"
 date: 2005-07-19
 tags: ["Places","Little Poems","cats","desert","heat","nature","porch","summer","wind","Ziggy"]
 excerpt: "This morning before the oppressive heat arrived, new life danced across the fields through the tall grasses with the trees swaying rhythmically. Ziggy meowed un"
+decorativeImage: "Ziggy"
 ---
 
 This morning before the oppressive  

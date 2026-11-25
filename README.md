@@ -181,9 +181,7 @@ The schema lives in `apps/dad-site/src/content.config.ts`.
 ---
 title: "My Poem Title"
 date: 2023-04-01
-tags:
-  - nature
-  - reflection
+tags: ["nature"]
 excerpt: "A short one- or two-sentence teaser shown on the poetry listing page."
 decorativeImage: "Theatre"
 ---
@@ -191,63 +189,43 @@ decorativeImage: "Theatre"
 
 ##### `tags` field
 
-`tags` is an **array of strings** used to categorize and filter poems.
+`tags` is an **array of strings** used to categorize and filter poems. Every ordinary tag needs an exact registry mapping, including tags added through a CMS.
 
-- Provide one tag per line using YAML list syntax (see example above), or use inline syntax: `tags: ["nature", "reflection"]`
+- Use inline syntax, as above, or a YAML block list with one tag per line.
 - An empty array (`tags: []`) is valid when no tags apply; the field also defaults to `[]` if omitted entirely.
 
 ##### `decorativeImage` field and the Decorative Image Registry
 
-`decorativeImage` is **optional**. When present it drives a small decorative image shown in the upper-right of the poem header. The value can be:
+`decorativeImage` is an **optional**, exact, case-sensitive registry key, independent of the poem's ordinary tags. In the example, `Theatre` selects the local `/poetry/drama.png` header image even though it is not in `tags`; this also works with `tags: []`. Omit the field for no image. A blank, unknown, filename, path, or URL value fails validation.
 
-| Form | Example | Behavior |
-| :--- | :------ | :------- |
-| **Tag name (preferred)** | `decorativeImage: "Theatre"` | Resolved via the registry → `/poetry/drama.png` |
-| **Direct path (legacy / backwards-compatible)** | `decorativeImage: "/poetry/rose.png"` | Used as-is |
+The decorative image is hidden from assistive technology and has empty alternative text. It appears in the upper-right of the header in a 90×90 desktop or 72×72 mobile container.
 
-**Registry location:** `apps/dad-site/src/utils/decorativeImages.ts`
+The canonical registry is `apps/dad-site/src/utils/decorativeImages.ts`. Its alphabetically ordered keys map to **PNG filenames only**, such as `"drama.png"`, under `apps/dad-site/public/poetry/`; there are no null placeholders. Filenames must be one or more ASCII letters, digits, hyphens or underscores followed by lowercase `.png` (for example `tree.png`, `sand-dunes.png`, `tree_2.png` or `Tree2.png`); spaces, extra dots, `#`, `?`, `%`, path separators and non-ASCII characters fail validation. Case and spelling variants are distinct keys. To add an illustration, put the approved PNG in that directory. To map a new ordinary tag, manually add its exact key and an existing or new filename to the registry; multiple keys can reuse artwork.
 
-**Images location:** `apps/dad-site/public/poetry/`
-
-**How to map a tag to an image:**
-
-1. Open `apps/dad-site/src/utils/decorativeImages.ts`.
-2. Find the tag key in `DECORATIVE_IMAGE_REGISTRY` (entries are alphabetical).
-3. Change its value from `null` to the image **filename only** — no leading slash, no `/poetry/` prefix (e.g. `"rose.png"`).
-4. Ensure the image file exists in `apps/dad-site/public/poetry/`.
-
-**How to run the sync command** (adds any tags missing from the registry, keeps existing entries):
+Validate after editing content, artwork or the registry:
 
 ```bash
-npm run --workspace=dad-site sync:decorative-images
-# or, from inside apps/dad-site:
-npm run sync:decorative-images
+# From the repository root
+npm run validate:decorative-images --workspace=dad-site
+
+# From apps/dad-site
+npm run validate:decorative-images
 ```
 
-**What the sync script does:**
-
-- Scans every `.md` / `.mdx` file in `apps/dad-site/src/content/poetry/`.
-- Adds any tags not yet in the registry (with `null` as the default value, or a seed value if one was pre-configured).
-- Does **not** remove existing registry entries even if a tag no longer appears in content.
-- Registry entries are kept in **alphabetical order** (case-insensitive) — the script re-sorts the file on every run.
-- Prints **warnings** (but does not fail) for:
-  - **Near-duplicate tags** — tags that differ only by casing or extra whitespace (e.g. `"War"` vs `"war"`).
-  - **Missing mapped files** — registry entries whose filename does not exist in `apps/dad-site/public/poetry/`.
+The validator is read-only and runs first in the dad-site build. Errors fail validation and the build: correct malformed or duplicate frontmatter, map every ordinary tag, use a valid exact `decorativeImage` key when present, and ensure each registry value names an existing regular PNG with a valid signature. Warnings identify unreferenced registry keys and case/whitespace near-duplicates; review them without automatically merging or removing keys. Informational messages identify artwork unused by the registry or not currently selected as a primary illustration. Warnings and information alone do not fail validation.
 
 ##### Gotchas
 
 - **Dates** — `date` must be a valid date parsable by JavaScript (e.g. `YYYY-MM-DD`). Avoid month/year-only values like `2023-04` as they may parse incorrectly across environments.
 - **`excerpt` is required** — Every poem entry must include an `excerpt`. Omitting it will cause a build error.
-- **`decorativeImage` is optional** — Omit the field entirely when no decorative image is needed. When provided, prefer a tag name (resolved via registry); a direct path is also accepted for backwards compatibility.
+- **`decorativeImage` is optional** — Future poems may omit it; any value supplied must be an exact mapped key.
 - **Quote strings containing special characters** — If `title` or `excerpt` contains colons, quotes, or other YAML-special characters, wrap the value in double quotes or use a block scalar (`>`).
 
 #### Managing Poetry Tags
 
-Because the `sync:decorative-images` script is **additive** (it re-adds any tags found in content), simply editing the registry is not enough to remove or rename a tag — the next sync run would just add it back. The correct workflow is always to **change the source of truth first** (poem frontmatter), then re-run the sync.
-
 **Script:** `apps/dad-site/scripts/manage-poetry-tags.mjs`
 
-Modifies only the `tags:` array in YAML frontmatter across all poetry files. Never touches poem body text or the decorative image registry directly.
+Modifies only inline `tags:` arrays in top-level poetry files. It does not change poem bodies, the registry, or independent `decorativeImage` selections; review nested files and block-style tag arrays separately.
 
 **Available npm scripts (run from `apps/dad-site` or with `--workspace=dad-site`):**
 
@@ -258,15 +236,15 @@ Modifies only the `tags:` array in YAML frontmatter across all poetry files. Nev
 
 Add `--dry-run` to either command to preview changes without writing any files.
 
-> **Note:** Matching is **exact and case-sensitive**. Copy the tag string directly from the registry or frontmatter to avoid typos.
-> The `sync:decorative-images` warnings about near-duplicate tags (e.g. `"War"` vs `"war"`) are a useful guide for identifying candidates to merge.
+> **Note:** Matching is **exact and case-sensitive**. Near-duplicate warnings (e.g. `"War"` and `"war"`) are informational; merge variants only after an intentional editorial decision.
 
 ##### Recommended workflow
 
-1. **Identify** the duplicate/unwanted tag (e.g. from sync script warnings).
+1. **Identify** the tag and decide whether the taxonomy should change.
 2. **Dry-run** to confirm which files would change.
 3. **Apply** the change.
-4. **Re-sync** the registry so it reflects the updated tag set.
+4. **Review** ordinary tags, registry mappings and independent `decorativeImage` references manually. Map new keys and retain any keys still referenced by a poem.
+5. **Validate** before committing.
 
 ##### Rename / merge example
 
@@ -277,8 +255,8 @@ npm run --workspace=dad-site tags:rename -- --from "war" --to "War" --dry-run
 # Apply
 npm run --workspace=dad-site tags:rename -- --from "war" --to "War"
 
-# Re-sync registry
-npm run --workspace=dad-site sync:decorative-images
+# Review registry mappings and decorativeImage references, then validate
+npm run validate:decorative-images --workspace=dad-site
 ```
 
 If a poem already contains both `"war"` and `"War"`, the script deduplicates so `"War"` appears only once.
@@ -292,11 +270,11 @@ npm run --workspace=dad-site tags:delete -- --tag "obsolete tag" --dry-run
 # Apply
 npm run --workspace=dad-site tags:delete -- --tag "obsolete tag"
 
-# Re-sync registry (tag no longer in content → will not be re-added)
-npm run --workspace=dad-site sync:decorative-images
+# Review registry mappings and decorativeImage references, then validate
+npm run validate:decorative-images --workspace=dad-site
 ```
 
-After deleting, if the tag had a registry entry it will remain in the registry (the sync script never removes entries), but it will no longer appear in the near-duplicate warnings and won't be re-added from content.
+An unreferenced registry key is reported as a warning. A key used only by `decorativeImage` is still referenced and must be retained unless that selection is intentionally changed.
 
 #### dad-site: Novels content frontmatter
 

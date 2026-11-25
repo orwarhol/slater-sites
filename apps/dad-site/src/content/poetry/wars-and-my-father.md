@@ -3,6 +3,7 @@ title: "Wars and My Father"
 date: 2005-09-09
 tags: ["Family","War","death","draft","father","fatherhood","Fort Ord","Korea","Truman","veteran","war","WWI"]
 excerpt: "When I was drafted out of college, and Americans were dying at a fierce rate in Korea, and Truman’s War put the President in political hot water, and my father "
+decorativeImage: "War"
 ---
 
 When I was drafted out of college, and  

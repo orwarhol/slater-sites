@@ -3,6 +3,7 @@ title: "My Brother's Dead Weight"
 date: 2003-04-11
 tags: ["Family","War"]
 excerpt: "His body no longer serves him, and he is reduced to the care of others. None of his family says it out loud, but think the duration of his dying, and the work h"
+decorativeImage: "Family"
 ---
 
 His body no longer serves him, and he  

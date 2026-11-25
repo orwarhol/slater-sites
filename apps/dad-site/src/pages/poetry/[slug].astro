@@ -6,7 +6,7 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import PoetryDarkReaderToggle from '../../components/PoetryDarkReaderToggle.astro';
 import { getEntry, render } from 'astro:content';
 import { slugifyTag } from '../../utils/tags';
-import { getDecorativeImageForTag, hasRegistryTag } from '../../utils/decorativeImages';
+import { getDecorativeImageForTag } from '../../utils/decorativeImages';
 
 // Get the slug from the URL params
 const { slug } = Astro.params;
@@ -24,13 +24,10 @@ if (!poem) {
 
 const { Content } = await render(poem);
 
-// Resolve decorativeImage: registry tag → /poetry/<filename>, else use as-is
 const rawDecorativeImage = poem.data.decorativeImage;
 const resolvedDecorativeImage = rawDecorativeImage
-	? (hasRegistryTag(rawDecorativeImage)
-		? getDecorativeImageForTag(rawDecorativeImage)
-		: rawDecorativeImage)
-	: undefined;
+	? getDecorativeImageForTag(rawDecorativeImage)
+	: null;
 ---
 
 <!doctype html>

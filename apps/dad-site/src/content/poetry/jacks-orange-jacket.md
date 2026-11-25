@@ -3,6 +3,7 @@ title: "Jack's Orange Jacket"
 date: 2012-12-01
 tags: []
 excerpt: "I don’t really know why he gave it to me all those years ago, but I’m guessing Laura didn’t like its color. It’s rather like a Cal-trans worker’s jacket to prev"
+decorativeImage: "Jack"
 ---
 
 I don’t really know  

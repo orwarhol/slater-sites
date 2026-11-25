@@ -3,6 +3,7 @@ title: "Lost Phone"
 date: 2009-02-09
 tags: ["Little Poems","cellphones"]
 excerpt: "Oh no! The damn thing is gone and my life is suddenly isolated. Sue cannot be told that all is well, that I want to communicate but the instrument has vanished."
+decorativeImage: "cellphones"
 ---
 
 Oh no!  

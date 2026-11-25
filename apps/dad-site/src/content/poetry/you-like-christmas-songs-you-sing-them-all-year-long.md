@@ -3,6 +3,7 @@ title: "You Like Christmas Songs; You Sing Them All Year Long"
 date: 2009-11-08
 tags: ["Billboard","Family","Time","Little Poems","Christmas","Christmas songs","holidays","memory","Santa Claus","singing","theatre","xmas"]
 excerpt: "Sue told me. I laughed and said I’d write a poem about the idea. There is some- thing command- ing about Christmas conjuring childhood memories. Of course, I ma"
+decorativeImage: "Christmas songs"
 ---
 
 Sue told me.  

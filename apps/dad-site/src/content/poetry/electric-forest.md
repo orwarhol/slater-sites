@@ -3,7 +3,7 @@ title: "Electric Forest"
 date: 2005-01-28
 tags: ["Abstract"]
 excerpt: "Through the cave, having passed the enchanted gate, step up into the dense intentional image jumble, pulsing politic, art, philosophy, swinging moods north east"
-decorativeImage: "https://images.squarespace-cdn.com/content/v1/575b6e7c859fd018178ffcaf/1587003571675-8ADTNN22GQ6FIY9SLXFE/pattern-barcelona-painting-art-mosaic-mural.jpg?format=original"
+decorativeImage: "art"
 ---
 
 Through the cave, having passed the  
@@ -33,4 +33,3 @@ for conformity grabs their hearts and shackles
 them. No. It’s too strong to abandon to  
 pale organization. These days will never  
 disappear completely. Colors last.  
-![](https://images.squarespace-cdn.com/content/v1/575b6e7c859fd018178ffcaf/1587003571675-8ADTNN22GQ6FIY9SLXFE/pattern-barcelona-painting-art-mosaic-mural.jpg?format=original)  

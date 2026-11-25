@@ -3,6 +3,7 @@ title: "Payback"
 date: 2004-01-08
 tags: ["Family","mother","family","Vanagan","driving","work"]
 excerpt: "As a boy I watched my 19th century mother wash seven sets of sheets every Monday in the machine with the rhythmic agitator sounding like drums in elevator music"
+decorativeImage: "childhood"
 ---
 
 As a boy I watched my 19th century mother  

@@ -3,6 +3,7 @@ title: "The Light in a New Season"
 date: 2003-11-21
 tags: ["Family","family","flowers","giraffe","seasons","winter"]
 excerpt: "The upended dresser, its drawers splayed like the legs of a shot giraffe, lay for weeks spewing their contents, a symbol of her life's slipped-away order. The W"
+decorativeImage: "seasons"
 ---
 
 The upended dresser, its drawers  

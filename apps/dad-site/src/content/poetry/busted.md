@@ -3,6 +3,7 @@ title: "Busted"
 date: 2004-12-28
 tags: ["Time","authority","Christmas","driving","holidays","pulled-over","Vanagan"]
 excerpt: "Have you been drinking? I don't drink, I lied. You didn't have a little something at your brother's? It's the season. I don't drink. His light shone in my eyes "
+decorativeImage: "Vanagan"
 ---
 
 Have you been drinking?  

@@ -3,6 +3,7 @@ title: "Cabin Fever"
 date: 1993-02-11
 tags: ["Metaphor"]
 excerpt: "The first snow has yet to fall when she screeches into life. The tall, reflective mother had lain down her books to give birth. The father, like a puffed jay pr"
+decorativeImage: "mother"
 ---
 
 The first snow has yet to fall  

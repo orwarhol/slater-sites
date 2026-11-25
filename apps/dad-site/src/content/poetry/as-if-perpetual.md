@@ -3,6 +3,7 @@ title: "As If Perpetual"
 date: 2001-03-27
 tags: ["Abstract"]
 excerpt: "Guided energy drives it forward trailing sentiment and memory, a steel marble, a ball bearing rolling in the moving salad bowl of the universe round and round, "
+decorativeImage: "mortality"
 ---
 
 Guided energy drives it forward  

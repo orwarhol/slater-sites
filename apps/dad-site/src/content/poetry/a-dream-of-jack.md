@@ -3,6 +3,7 @@ title: "A Dream of Jack"
 date: 2011-12-02
 tags: []
 excerpt: "I dreamed of my dead brother, Jack. We were talking about a newly purchased house in central California somewhere that is in need of restoration. It was a quick"
+decorativeImage: "construction"
 ---
 
 I dreamed of my  

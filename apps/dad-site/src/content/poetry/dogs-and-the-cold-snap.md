@@ -3,6 +3,7 @@ title: "Dogs and the Cold Snap"
 date: 2004-12-03
 tags: ["Family","Meditations","War"]
 excerpt: "We pretend the discipline of once-a-day feeding, old raggedy assed Coco and the Queensland Heeler. They do their morning dance as the dishes are put before them"
+decorativeImage: "Meditations"
 ---
 
 We pretend the discipline of once-a-day feeding,  

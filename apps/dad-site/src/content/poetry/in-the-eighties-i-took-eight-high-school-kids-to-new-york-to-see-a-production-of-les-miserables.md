@@ -3,6 +3,7 @@ title: "In the Eighties I Took Eight High School Kids to New York to See a Produ
 date: 2012-12-31
 tags: []
 excerpt: "Dear Lord, I was blown away. Though I had been in theatre for decades, and was teaching it, and directing several shows a year, I was deeply enough touched to r"
+decorativeImage: "Theatre"
 ---
 
 Dear Lord, I was blown  
