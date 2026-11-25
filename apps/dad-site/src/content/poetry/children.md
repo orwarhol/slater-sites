@@ -3,6 +3,7 @@ title: "Children"
 date: 2006-01-24
 tags: ["Family","age","Aquarium of the Pacific","children","Fiat","Sue"]
 excerpt: "Today at The Aquarium of the Pacific I saw a child’s face with the look of perceptive age, of worry beyond her years as if she understood war, and life expectan"
+decorativeImage: "Sue"
 ---
 
 Today at The Aquarium of the Pacific I saw a  

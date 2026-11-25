@@ -3,6 +3,7 @@ title: "Swamped"
 date: 2004-11-17
 tags: ["Philosophy","War","family","war"]
 excerpt: "Perhaps it is the early morning before people wake and the empty house, save my sleeping wife who must rest for her work day, or this old room having been here "
+decorativeImage: "Philosophy"
 ---
 
 Perhaps it is the early morning  

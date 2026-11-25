@@ -3,6 +3,7 @@ title: "The Sunday Trains"
 date: 2005-09-18
 tags: ["Places","Little Poems","students","teaching","THS","Torrance","Torrance High School","train tracks","trains"]
 excerpt: "The Sunday Trains come through clogging weekend traffic like a fatty buildup in veins. I dashed out from the new little house at the first distant whistle, afra"
+decorativeImage: "trains"
 ---
 
 The Sunday Trains  

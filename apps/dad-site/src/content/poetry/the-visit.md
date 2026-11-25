@@ -3,6 +3,7 @@ title: "The Visit"
 date: 2003-07-19
 tags: ["Aging","Death","death","brotherhood","age"]
 excerpt: "His hair is spiked by the hospital bed, with oxygen mask straps haltered there, a Roman soldier from Spartacus . He moves only his eyes like a downed horse who "
+decorativeImage: "brotherhood"
 ---
 
 His hair is spiked by the hospital bed, with oxygen  

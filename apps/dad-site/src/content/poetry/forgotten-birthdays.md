@@ -3,6 +3,7 @@ title: "Forgotten Birthdays"
 date: 2004-08-06
 tags: ["Family"]
 excerpt: "The time was rich Political vitality thundering THS with over 3000 students A pink two-bedroom stucco The Beatles Long-haired men Then there were the two of you"
+decorativeImage: "Family"
 ---
 
 The time was rich  

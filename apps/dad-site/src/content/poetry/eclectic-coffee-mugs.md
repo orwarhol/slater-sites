@@ -3,6 +3,7 @@ title: "Eclectic Coffee Mugs"
 date: 2005-03-03
 tags: ["Meditations"]
 excerpt: "At seventy-two, I drink a hell of a lot of coffee, sometimes in the middle of the day when my energy sags and I just don’t want to pick up the damn tool to cont"
+decorativeImage: "coffee"
 ---
 
 At seventy-two, I drink a hell of a lot of  

@@ -3,7 +3,7 @@ title: "Charged with Concert Glory and Fear"
 date: 2005-01-09
 tags: ["Meditations"]
 excerpt: "Springsteen, at the top of one phase, sold out, of course, the mid eighties, thundering his blue collar magic to so many white collars, poets, old protesters, b"
-decorativeImage: "https://images.squarespace-cdn.com/content/v1/575b6e7c859fd018178ffcaf/1587514554687-5MSYPH6MWOU3P6NNJ42D/LA-Coliseum-Bruce-Springsteen-1985.jpg?format=original"
+decorativeImage: "music"
 ---
 
 Springsteen, at the top of one phase,  
@@ -43,4 +43,3 @@ for songs of love and loss and championing.
 It was two hours not since matched.  
 
 January, 2005 listening to the recorded concert  
-![](https://images.squarespace-cdn.com/content/v1/575b6e7c859fd018178ffcaf/1587514554687-5MSYPH6MWOU3P6NNJ42D/LA-Coliseum-Bruce-Springsteen-1985.jpg?format=original)  

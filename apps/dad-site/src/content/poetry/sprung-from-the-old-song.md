@@ -3,6 +3,7 @@ title: "Sprung From The Old Song"
 date: 2012-09-15
 tags: ["Family","Bob Dylan","children","dancing","family","family gathering","hope","music"]
 excerpt: "There we were dancing upstairs by the window wall Nicole and Casie and I, maybe when they were four and five, maybe to Dylan’s Hey Mr. Tambourine Man. The sweet"
+decorativeImage: "Bob Dylan"
 ---
 
 There we were dancing  

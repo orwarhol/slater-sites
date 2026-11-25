@@ -3,6 +3,7 @@ title: "The Bull's Out!"
 date: 2012-08-28
 tags: ["Places","bull","bull pen","dairy farm","el segundo dairy","randall dairy el segundo"]
 excerpt: "I was a naïve twelve or so when Harry Randall’s folks gave me a job at their little dairy in western most El Segundo. It was a small herd and they had one bull "
+decorativeImage: "bull"
 ---
 
 I was a naïve twelve  

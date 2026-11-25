@@ -2,8 +2,8 @@
 /**
  * manage-poetry-tags.mjs
  *
- * Rename or delete tags in Poetry content frontmatter across all poem files.
- * Only modifies the `tags:` array in YAML frontmatter — never touches poem bodies.
+ * Rename or delete tags in inline `tags:` arrays of top-level poetry files.
+ * Never touches poem bodies or independent decorativeImage selections.
  *
  * Usage (from apps/dad-site):
  *
@@ -13,7 +13,9 @@
  *   Delete a tag:
  *     node ./scripts/manage-poetry-tags.mjs delete --tag "Tag To Remove" [--dry-run]
  *
- * After running, re-run `npm run sync:decorative-images` to keep the registry consistent.
+ * After running, manually review the registry and independent decorativeImage
+ * references; retain keys still in use, map new keys, and run
+ * `npm run validate:decorative-images`.
  */
 
 import { readFileSync, readdirSync, writeFileSync } from 'fs';
@@ -40,7 +42,8 @@ if (subcommand !== 'rename' && subcommand !== 'delete') {
   console.error(
     'Usage:\n' +
     '  node ./scripts/manage-poetry-tags.mjs rename --from "Old Tag" --to "New Tag" [--dry-run]\n' +
-    '  node ./scripts/manage-poetry-tags.mjs delete --tag "Tag To Remove" [--dry-run]'
+    '  node ./scripts/manage-poetry-tags.mjs delete --tag "Tag To Remove" [--dry-run]\n' +
+    'Review registry mappings and independent decorativeImage references, then run npm run validate:decorative-images.'
   );
   process.exit(1);
 }

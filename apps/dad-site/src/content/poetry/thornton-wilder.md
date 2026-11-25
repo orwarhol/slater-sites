@@ -3,6 +3,7 @@ title: "Thornton Wilder"
 date: 2002-11-24
 tags: ["Theatre","By The Skin Of Our Teeth","Casie","drama","high school","Our Town","plays","Shakespearean","Thornton Wilder","THS","Torrance High School"]
 excerpt: "Was he called Thor? In 1960 I read that Our Town was the most produced high school play ever. It was my first production as a teacher. I still remember some of "
+decorativeImage: "Thornton Wilder"
 ---
 
 Was he called Thor?  

@@ -3,6 +3,7 @@ title: "Irony"
 date: 2012-02-05
 tags: ["Places","Little Poems","bird","buildings","city","hawk","nature","street","urban"]
 excerpt: "In the city surrounded by taller buildings, a light standard directly in front of the second story window over looking the traffic on the boulevard below, a win"
+decorativeImage: "hawk"
 ---
 
 In the city  

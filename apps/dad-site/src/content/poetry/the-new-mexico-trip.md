@@ -3,6 +3,7 @@ title: "The New Mexico Trip"
 date: 2005-10-15
 tags: ["On the Road","Places","architecture","art","design","New Mexico","Portales","streets","traveling"]
 excerpt: "Portales has some unloved curbs and driveways, victims of age and too little thought about design, and some root intrusion. The town full of sweet-natured peopl"
+decorativeImage: "New Mexico"
 ---
 
 Portales has some unloved curbs and driveways,  

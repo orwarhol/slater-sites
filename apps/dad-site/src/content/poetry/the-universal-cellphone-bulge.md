@@ -3,6 +3,7 @@ title: "The Universal Cellphone Bulge"
 date: 2009-09-29
 tags: ["Education","auditions","Casie","cellphones","plays","teenagers","THS","Torrance High School"]
 excerpt: "Helping Casie audition for her fall play, students paraded before us down stage cen- ter and their commonality was nearly all carried cellphones tucked in their"
+decorativeImage: "cellphones"
 ---
 
 Helping Casie audition for  

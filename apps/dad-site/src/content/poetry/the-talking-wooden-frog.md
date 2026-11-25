@@ -3,6 +3,7 @@ title: "The Talking Wooden Frog"
 date: 2006-02-15
 tags: ["Meditations","Little Poems","toad","wood carving"]
 excerpt: "I drag the pestle across the wooden toad’s arched ridge so it may croak. When I first heard the sound, the realization that who- ever carved the little dude, ho"
+decorativeImage: "toad"
 ---
 
 I drag the pestle across the wooden toad’s  

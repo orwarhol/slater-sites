@@ -3,6 +3,7 @@ title: "Contained Time"
 date: 2002-11-01
 tags: ["Time"]
 excerpt: "I am immersed, caught in time that at moments is as clear as glass, a shaft of flashing life wherein I see my young mother, long before the flight at Kittyhawk,"
+decorativeImage: "Time"
 ---
 
 I am immersed, caught in time that at  

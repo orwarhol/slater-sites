@@ -5,11 +5,11 @@
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",
-		"build": "astro check && astro build",
+		"build": "npm run validate:decorative-images && astro check && astro build",
 		"postbuild": "node -e \"require('fs').copyFileSync('.assetsignore','dist/.assetsignore')\"",
 		"preview": "astro preview",
 		"astro": "astro",
-		"sync:decorative-images": "node ./scripts/sync-decorative-image-registry.mjs",
+		"validate:decorative-images": "node ./scripts/validate-decorative-images.mjs",
 		"tags:rename": "node ./scripts/manage-poetry-tags.mjs rename",
 		"tags:delete": "node ./scripts/manage-poetry-tags.mjs delete",
 		"test": "vitest run tests/unit",

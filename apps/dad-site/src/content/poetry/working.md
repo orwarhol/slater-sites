@@ -3,6 +3,7 @@ title: "Working"
 date: 2012-12-09
 tags: []
 excerpt: "Working productively is its own reward. Boring paint- ing allows thinking of more import- ant things than the completed job, while exerting a greater physical e"
+decorativeImage: "work"
 ---
 
 Working productively is  

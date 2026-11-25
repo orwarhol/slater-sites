@@ -3,6 +3,7 @@ title: "Now What Do I Do?"
 date: 2005-08-01
 tags: ["Time","age","family gathering","Nelson Rockefeller","work","zen"]
 excerpt: "I'm 73 with limited energy. The fierce struggle to get the floors done is over. The party was a success. We gathered and talked of aging, dying, the hoped-for a"
+decorativeImage: "work"
 ---
 
 I'm 73 with limited energy.  

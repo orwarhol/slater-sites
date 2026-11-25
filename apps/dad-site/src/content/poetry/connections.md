@@ -3,6 +3,7 @@ title: "Connections"
 date: 2002-11-14
 tags: ["Aging","Family"]
 excerpt: "Out the sun porch window, looking south with the morning sun slanting across the huge dirt yard, a lone bluebird stands jittery as a high school boy walks by th"
+decorativeImage: "Christmas"
 ---
 
 Out the sun porch window, looking south  

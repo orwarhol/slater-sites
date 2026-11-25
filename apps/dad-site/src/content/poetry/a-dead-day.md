@@ -3,6 +3,7 @@ title: "A Dead Day"
 date: 2006-03-31
 tags: []
 excerpt: "A dead day Slept away, empty Standing on the Hermosa Strand wind-blown, chilly, where the youngest ones surely stood in their formative years, the moist air no "
+decorativeImage: "cats"
 ---
 
 A dead day  

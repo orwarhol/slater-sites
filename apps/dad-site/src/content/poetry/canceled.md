@@ -3,6 +3,7 @@ title: "Canceled"
 date: 2003-08-30
 tags: ["Theatre"]
 excerpt: "Put the best spin on it. What else can a risk taker do? I am not equipped to accept defeat. Like some general with the right battle plan, I must flatten any obs"
+decorativeImage: "Theatre"
 ---
 
 Put the best spin on it.  

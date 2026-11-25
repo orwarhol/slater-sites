@@ -3,6 +3,7 @@ title: "Memories Born of Music"
 date: 2012-03-16
 tags: ["Family","driving","Neil Diamond","sadness"]
 excerpt: "More than forty years has slipped away from the sounds long de- parted as I drove aimlessly home. Was it the years that brought a sense of my dead brother, or t"
+decorativeImage: "Neil Diamond"
 ---
 
 More than forty  

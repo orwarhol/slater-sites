@@ -3,6 +3,7 @@ title: "The Newly Found Dead Brother's Picture Book"
 date: 2004-03-15
 tags: ["Family","Meditations"]
 excerpt: "sits on the dining table for now, too precious yet to store. Proof of a past — of mortality. Such fun in the humid Mexican heat, the clear waters a blessing. Th"
+decorativeImage: "Family"
 ---
 
 sits on the dining table for now,  

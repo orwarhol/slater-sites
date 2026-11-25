@@ -3,6 +3,7 @@ title: "A Visit With Nicole"
 date: 2005-10-08
 tags: ["Billboard","Family","Time","memory","mortality","mother","Nicole","pacifism","war"]
 excerpt: "We sat in my daughter’s comfortable home and talked of what made me a pacifist, my non-combatant military experience and the lieutenant colonel in New York who "
+decorativeImage: "memory"
 ---
 
 We sat in my daughter’s comfortable  

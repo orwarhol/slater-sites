@@ -3,6 +3,7 @@ title: "Bad News Bears"
 date: 2005-09-12
 tags: ["Film","film","movies","theatre"]
 excerpt: "The 1976 film with Tatum and Walter, et al has staying power, maybe even grown in stature over the years. That hasn’t stopped a remake just released. I’m curiou"
+decorativeImage: "Film"
 ---
 
 The 1976 film with Tatum and Walter,  

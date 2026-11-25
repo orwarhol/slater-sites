@@ -3,6 +3,7 @@ title: "Boxes of Childhood at the Curb"
 date: 2005-01-15
 tags: ["Family","college","growing-up","growth","moving","time"]
 excerpt: "Down from college, the young man sorts through the closet filled with past treasures, willingly shedding grade school mementos, small ceramic attempts, unused p"
+decorativeImage: "house"
 ---
 
 Down from college, the  

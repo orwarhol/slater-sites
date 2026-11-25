@@ -3,6 +3,7 @@ title: "Barry walked up today,"
 date: 2005-04-28
 tags: ["Little Poems","neighbor","dark humor","black humor"]
 excerpt: "five days before the moving van will arrive. He joked (as he always must) that since my van was outside and the house was tented, he was afraid they set off the"
+decorativeImage: "neighbor"
 ---
 
 five days before the moving van will arrive.  

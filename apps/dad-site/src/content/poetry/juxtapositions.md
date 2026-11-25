@@ -3,6 +3,7 @@ title: "Juxtapositions"
 date: 2005-10-02
 tags: ["Billboard","Family","Time","father","funeral","mother","Sand Dunes Tavern","Silver Street","Teahouse of the August Moon"]
 excerpt: "I am next to the palm tree just before the slope down to Silver Street before it was uprooted, before the middle girls were born, before the first letter of the"
+decorativeImage: "Silver Street"
 ---
 
 I am next to the palm tree just  

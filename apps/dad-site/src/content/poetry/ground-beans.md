@@ -3,6 +3,7 @@ title: "Ground Beans"
 date: 2002-09-22
 tags: ["Metaphor","War"]
 excerpt: "The high pitched whine of the grinder disturbs the early morning like a banging screen door across a graveyard. The charm of the pet’s waking routines and the s"
+decorativeImage: "War"
 ---
 
 The high pitched whine of the grinder disturbs  
