@@ -8,6 +8,8 @@ const blog = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
+		seoTitle: z.string().optional(),
+		seoDescription: z.string().optional(),
 		// Transform string to Date object
 		pubDate: z.coerce.date(),
 		updatedDate: z.coerce.date().optional(),
@@ -31,6 +33,8 @@ const projects = defineCollection({
 		genre: z.array(z.string()).default([]),
 		pages: z.number().nullable().optional(),
 		// SEO fields (optional, for meta tags only - not rendered on page)
+		seoTitle: z.string().optional(),
+		seoDescription: z.string().optional(),
 		description: z.string().optional(),
 		heroImage: z.string().optional(),
 	}),
@@ -62,6 +66,9 @@ const resume = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		description: z.string().optional(),
+		seoTitle: z.string().optional(),
+		seoDescription: z.string().optional(),
+		heroImage: z.string().optional(),
 		defaultTransition: z.string().optional(),
 	}),
 });

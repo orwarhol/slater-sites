@@ -3,7 +3,7 @@ import { defineConfig, sessionDrivers } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com', // Update this to the actual site URL when deploying
+	site: 'https://charlesslater.com',
 	output: 'server',
 	adapter: cloudflare({
 		// Use passthrough image service: dad-site has no <Image /> usage and the

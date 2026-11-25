@@ -34,6 +34,32 @@ test.describe('dad-site built worker', () => {
 		expectNoPageErrors(errors);
 	});
 
+	test('canonical and social URLs use Charles Slater production origin on SSR and static routes', async ({ page }) => {
+		for (const path of [
+			'/', '/poetry', '/novels-movies/', '/gallery',
+			'/poetry/historical-perspective', '/novels-movies/cutting-in',
+			'/poetry/tags/theatre/',
+		]) {
+			const errors = captureErrors(page);
+			await gotoOk(page, `${path}?ref=preview`);
+			const canonical = `https://charlesslater.com${path}`;
+			await expect(page.locator('head title')).toHaveCount(1);
+			await expect(page.locator('meta[name="description"]')).toHaveCount(1);
+			await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
+			await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', canonical);
+			for (const property of ['og:url', 'twitter:url']) {
+				await expect(page.locator(`meta[property="${property}"]`)).toHaveCount(1);
+				await expect(page.locator(`meta[property="${property}"]`)).toHaveAttribute('content', canonical);
+			}
+			for (const property of ['og:image', 'twitter:image']) {
+				const image = await page.locator(`meta[property="${property}"]`).getAttribute('content');
+				expect(new URL(image!).origin).toBe('https://charlesslater.com');
+			}
+			await expectWellFormedContent(page);
+			expectNoPageErrors(errors);
+		}
+	});
+
 	test('poetry listing renders well-formed content', async ({ page }) => {
 		const errors = captureErrors(page);
 		await gotoOk(page, '/poetry');

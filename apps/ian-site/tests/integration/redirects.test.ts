@@ -108,6 +108,7 @@ describe("non-redirect paths", () => {
 		expect(res.status).not.toBe(301);
 		expect(res.status).not.toBe(302);
 	});
+
 	it("home page returns a non-redirect response", async () => {
 		const res = await fetch(`${BASE}/`, { redirect: "follow" });
 		expect([200, 404]).toContain(res.status);
@@ -117,5 +118,17 @@ describe("non-redirect paths", () => {
 		const res = await get("/this-path-does-not-match-any-rule");
 		expect(res.status).not.toBe(301);
 		expect(res.status).not.toBe(302);
+	});
+});
+
+describe("legacy discovery redirects", () => {
+	it.each([
+		["/sitemap.xml", "/sitemap-index.xml"],
+		["/feed", "/rss.xml"],
+		["/feed/", "/rss.xml"],
+	])("%s permanently redirects with its query string", async (from, to) => {
+		const res = await get(`${from}?ref=abc`);
+		expect(res.status).toBe(301);
+		expect(res.headers.get("location")).toBe(`${to}?ref=abc`);
 	});
 });

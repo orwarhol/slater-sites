@@ -1,6 +1,7 @@
 ---
 title: "Hello, World (Again)"
 description: "Learning Astro, shipping on Cloudflare Pages, and rediscovering what “control” can feel like."
+seoDescription: "Learning Astro, shipping on Cloudflare Pages, and rediscovering what \"control\" can feel like."
 pubDate: "Feb 07 2026"
 heroImage: "/palette-reference-image-chatgpt.png"
 ---

@@ -21,6 +21,18 @@
         "uiComponent": "textarea"
       },
       {
+        "name": "seoTitle",
+        "required": false,
+        "type": "string",
+        "uiComponent": "text-input"
+      },
+      {
+        "name": "seoDescription",
+        "required": false,
+        "type": "string",
+        "uiComponent": "textarea"
+      },
+      {
         "name": "pubDate",
         "required": true,
         "type": "date",
@@ -149,6 +161,8 @@
         "fields": [
           "title",
           "description",
+          "seoTitle",
+          "seoDescription",
           "pubDate",
           "updatedDate",
           "heroImage"
@@ -195,6 +209,8 @@
           "genre",
           "pages",
           "description",
+          "seoTitle",
+          "seoDescription",
           "heroImage"
         ],
         "id": "src-content-projects",
