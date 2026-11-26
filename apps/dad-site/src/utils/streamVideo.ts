@@ -6,7 +6,7 @@ import { z } from 'astro/zod';
  * The accepted value is only the `src` of a Cloudflare Stream embed iframe:
  *   https://customer-<code>.cloudflarestream.com/<video-id>/iframe[?query]
  *
- * Checks use the parsed URL, never substring matching, and never fetch the URL.
+ * Checks the original authority and parsed URL without fetching the URL.
  */
 const STREAM_CUSTOMER_HOSTNAME = /^customer-[a-z0-9]+\.cloudflarestream\.com$/;
 const STREAM_IFRAME_PATH = /^\/[A-Za-z0-9_-]+\/iframe$/;
@@ -14,6 +14,12 @@ const STREAM_IFRAME_PATH = /^\/[A-Za-z0-9_-]+\/iframe$/;
 export function streamVideoUrlProblem(value: string): string | null {
 	if (!value.trim()) return 'must not be blank';
 	if (/\s/.test(value)) return 'must not contain whitespace';
+	if (!value.startsWith('https://')) return 'must start with https://';
+
+	const authority = value.slice('https://'.length).split(/[/?#]/, 1)[0];
+	if (!STREAM_CUSTOMER_HOSTNAME.test(authority.toLowerCase())) {
+		return 'must use a customer-<code>.cloudflarestream.com host without credentials or a port';
+	}
 
 	let url: URL;
 	try {

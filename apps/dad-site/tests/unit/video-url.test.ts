@@ -22,6 +22,14 @@ const STREAM_URL =
 const VIDEO_PATH = '/c540a969fb9588fa5cce2779d3fb54c3/iframe';
 const HOST = 'customer-c123v39c6391mh3k.cloudflarestream.com';
 
+const VALID: Array<[string, string]> = [
+	['encoded poster query', STREAM_URL],
+	['bare iframe src', `https://${HOST}${VIDEO_PATH}`],
+	['ordinary player parameters', `https://${HOST}${VIDEO_PATH}?muted=true&loop=true&preload=metadata`],
+	['nested query URL with a port and @', `https://${HOST}${VIDEO_PATH}?poster=https://images.example.com:8443/path@2x.jpg&loop=true`],
+	['mixed-case hostname', `https://${HOST.toUpperCase()}${VIDEO_PATH}`],
+];
+
 const poem = {
 	title: 'Test Poem',
 	date: '2022-11-20',
@@ -56,10 +64,23 @@ const INVALID: Array<[string, unknown]> = [
 	['malformed URL', 'customer-c123v39c6391mh3k.cloudflarestream.com/abc/iframe'],
 	['relative path', VIDEO_PATH],
 	['http', `http://${HOST}${VIDEO_PATH}`],
+	['uppercase scheme', `HTTPS://${HOST}${VIDEO_PATH}`],
 	['protocol-relative', `//${HOST}${VIDEO_PATH}`],
 	['javascript scheme', 'javascript:alert(1)'],
+	['https without slashes', `https:${HOST}${VIDEO_PATH}`],
+	['https with one slash', `https:/${HOST}${VIDEO_PATH}`],
+	['extra slash and empty authority', `https:///${HOST}${VIDEO_PATH}`],
+	['empty authority before query', 'https://?poster=example'],
+	['backslashes in scheme separator', `https:\\\\${HOST}${VIDEO_PATH}`],
+	['mixed slash and backslash in scheme separator', `https:/\\${HOST}${VIDEO_PATH}`],
+	['backslash before authority', `https://\\${HOST}${VIDEO_PATH}`],
+	['backslash immediately after hostname', `https://${HOST}\\${VIDEO_PATH.slice(1)}`],
 	['credentials', `https://user:pass@${HOST}${VIDEO_PATH}`],
 	['username only', `https://user@${HOST}${VIDEO_PATH}`],
+	['empty userinfo', `https://@${HOST}${VIDEO_PATH}`],
+	['explicit default port', `https://${HOST}:443${VIDEO_PATH}`],
+	['zero-padded default port', `https://${HOST}:0443${VIDEO_PATH}`],
+	['empty port', `https://${HOST}:${VIDEO_PATH}`],
 	['non-default port', `https://${HOST}:8443${VIDEO_PATH}`],
 	['unrelated host', `https://example.com${VIDEO_PATH}`],
 	['lookalike suffix', `https://${HOST}.evil.example${VIDEO_PATH}`],
@@ -83,28 +104,24 @@ const INVALID: Array<[string, unknown]> = [
 ];
 
 describe('streamVideoUrl', () => {
-	it('accepts the Cloudflare Stream customer iframe src, preserving the encoded poster query', () => {
-		const result = streamVideoUrl.safeParse(STREAM_URL);
+	it.each(VALID)('accepts %s unchanged', (_label, value) => {
+		const result = streamVideoUrl.safeParse(value);
 		expect(result.success).toBe(true);
-		expect(result.data).toBe(STREAM_URL);
-	});
-
-	it('accepts a bare iframe src and ordinary player parameters', () => {
-		for (const value of [
-			`https://${HOST}${VIDEO_PATH}`,
-			`https://${HOST}${VIDEO_PATH}?muted=true&loop=true&preload=metadata`,
-		]) {
-			expect(streamVideoUrl.safeParse(value).success, value).toBe(true);
-		}
+		expect(result.data).toBe(value);
 	});
 
 	it.each(INVALID)('rejects %s', (_label, value) => {
 		expect(streamVideoUrl.safeParse(value).success).toBe(false);
 	});
 
-	it('explains the accepted form in the validation message', () => {
-		const result = streamVideoUrl.safeParse(`https://${HOST}/abc/watch`);
+	it.each([
+		['wrong path', `https://${HOST}/abc/watch`],
+		['missing authority separator', `https:${HOST}${VIDEO_PATH}`],
+		['explicit default port', `https://${HOST}:443${VIDEO_PATH}`],
+	])('explains the accepted form for %s', (_label, value) => {
+		const result = streamVideoUrl.safeParse(value);
 		expect(result.success).toBe(false);
+		expect(result.error?.issues[0]?.message).toContain('copy only the src of a Cloudflare Stream embed');
 		expect(result.error?.issues[0]?.message).toMatch(/\/<video-id>\/iframe/);
 	});
 });
@@ -116,10 +133,10 @@ describe.each(schemas)('%s collection schema — videoUrl', (_name, schema, base
 		expect(result.data).not.toHaveProperty('videoUrl');
 	});
 
-	it('accepts a valid Stream iframe src unchanged', () => {
-		const result = schema.safeParse({ ...base, videoUrl: STREAM_URL });
+	it.each(VALID)('accepts %s unchanged', (_label, value) => {
+		const result = schema.safeParse({ ...base, videoUrl: value });
 		expect(result.success).toBe(true);
-		expect(result.data?.videoUrl).toBe(STREAM_URL);
+		expect(result.data?.videoUrl).toBe(value);
 	});
 
 	it.each(INVALID)('rejects videoUrl: %s', (_label, value) => {
