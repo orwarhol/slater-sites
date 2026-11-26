@@ -39,6 +39,9 @@
    Gallery buttons:
      --button-bg, --button-bg-hover, --button-shadow-hover
    
+   Video theater (only for main.video-theater):
+     --theater-bg, --theater-ink
+   
    DEPRECATED - DO NOT USE FOR NEW CODE:
      --black, --gray, --gray-light, --gray-dark (legacy RGB triplets)
      These remain for backwards compatibility only. Use semantic tokens above.
@@ -117,6 +120,10 @@
 	--button-bg: rgba(21, 42, 66, 0.70);
 	--button-bg-hover: rgba(21, 42, 66, 0.90);
 	--button-shadow-hover: rgba(10, 22, 40, 0.2);
+	
+	/* Video theater */
+	--theater-bg: #080d16;
+	--theater-ink: #e1e6e8;
 }
 
 /* Font faces */
@@ -824,4 +831,176 @@ body.poetry-dark-enabled main > h1 {
 	outline: var(--focus-ring);
 	outline-offset: 3px;
 	border-radius: 2px;
+}
+
+/* ============================================================================
+   VIDEO THEATER PRESENTATION
+   ============================================================================
+   
+   Poetry and novels entries with a `videoUrl` render VideoPresentation.astro.
+   Everything here is scoped to main.video-theater; the curtain treatment
+   belongs to this stage only, never to the site header or footer.
+   
+   ============================================================================ */
+
+main.video-theater {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	width: 100%;
+	max-width: none;
+	margin: 0;
+	padding: 0;
+	background: radial-gradient(ellipse at 50% 8%, #1c2632 0%, #101722 37%, var(--theater-bg) 72%);
+	border-bottom: 1px solid #232a35;
+}
+
+.video-theater,
+.video-theater::before,
+.video-theater::after,
+.video-theater *,
+.video-theater *::before,
+.video-theater *::after {
+	box-sizing: border-box;
+}
+
+/* Muted burgundy curtains, kept behind the stage content */
+.video-theater::before,
+.video-theater::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: clamp(65px, 17vw, 300px);
+	z-index: -1;
+	pointer-events: none;
+	background:
+		linear-gradient(90deg, #080a10aa 0%, transparent 20%, transparent 60%, #080d16 100%),
+		linear-gradient(180deg, #080a10aa, transparent 25%, #080d1600 55%, #080d16 100%),
+		repeating-linear-gradient(99deg, #190f17 0%, #361b25 7%, #502831 11%, #321923 15%, #170e15 22%, #24131e 26%);
+	-webkit-mask-image: linear-gradient(90deg, #000 40%, transparent 100%);
+	mask-image: linear-gradient(90deg, #000 40%, transparent 100%);
+}
+
+.video-theater::before {
+	left: 0;
+}
+
+.video-theater::after {
+	right: 0;
+	transform: scaleX(-1);
+}
+
+/* The stage meets the footer directly on video pages only */
+main.video-theater ~ footer {
+	margin-top: 0;
+}
+
+.video-theater .video-item {
+	width: min(1150px, calc(100% - 64px));
+	margin: auto;
+	padding: clamp(36px, 5vw, 70px) 0 58px;
+}
+
+.video-theater .video-title {
+	font-size: clamp(1.95rem, 3.8vw, 2.8rem);
+	font-weight: 400;
+	line-height: 1.2;
+	text-align: center;
+	color: var(--theater-ink);
+	margin: 0 0 28px;
+	letter-spacing: -0.035em;
+	text-wrap: balance;
+}
+
+.video-theater .screen-frame {
+	padding: clamp(5px, 0.65vw, 9px);
+	background: linear-gradient(145deg, #332b2b, #12151a 45%, #23262c 80%, #39302b);
+	border: 1px solid #74635480;
+	border-radius: var(--radius-md);
+	box-shadow: 0 0 0 1px #000a, 0 16px 45px #000b, 0 0 65px #0006;
+}
+
+.video-theater .player {
+	aspect-ratio: 16 / 9;
+	position: relative;
+	background: #040506;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.video-theater .player:focus-within {
+	outline: var(--focus-ring);
+	outline-offset: 4px;
+}
+
+.video-theater .player iframe {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+.video-theater .video-prose {
+	width: min(760px, 100%);
+	margin: 34px auto 0;
+	color: var(--text);
+	font-size: 1.02rem;
+	line-height: 1.8;
+	overflow-wrap: anywhere;
+}
+
+.video-theater .video-prose p {
+	margin: 0 0 1em;
+}
+
+.video-theater .video-prose > :first-child {
+	margin-top: 0;
+}
+
+.video-theater .video-prose > :last-child {
+	margin-bottom: 0;
+}
+
+.video-theater .video-return {
+	width: min(760px, 100%);
+	margin: 32px auto 0;
+	padding-top: 20px;
+	border-top: 1px solid var(--border);
+	font-size: 0.92rem;
+}
+
+.video-theater .video-return a:focus-visible {
+	outline: var(--focus-ring);
+	outline-offset: 4px;
+}
+
+@media (max-width: 720px) {
+	.video-theater .video-item {
+		width: calc(100% - 24px);
+		padding: 32px 0 36px;
+	}
+
+	.video-theater .video-title {
+		margin-bottom: 22px;
+	}
+
+	.video-theater::before,
+	.video-theater::after {
+		opacity: 0.45;
+		width: 12vw;
+	}
+
+	.video-theater .video-prose,
+	.video-theater .video-return {
+		width: calc(100% - 12px);
+	}
+
+	.video-theater .video-prose {
+		margin-top: 24px;
+	}
+
+	.video-theater .video-return {
+		margin-top: 24px;
+	}
 }

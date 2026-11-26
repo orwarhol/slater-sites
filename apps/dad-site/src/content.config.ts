@@ -1,5 +1,6 @@
 import { glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
+import { streamVideoUrl } from "./utils/streamVideo";
 
 const poetry = defineCollection({
 	loader: glob({ base: "./src/content/poetry", pattern: "**/*.{md,mdx}" }),
@@ -9,6 +10,7 @@ const poetry = defineCollection({
 		tags: z.array(z.string()).default([]),
 		excerpt: z.string(),
 		decorativeImage: z.string().optional(),
+		videoUrl: streamVideoUrl.optional(),
 	}),
 });
 
@@ -25,6 +27,7 @@ const novels = defineCollection({
 		})).default([]),
 		coverImage: z.string().optional(),
 		coverImageAlt: z.string().optional(),
+		videoUrl: streamVideoUrl.optional(),
 	}),
 });
 

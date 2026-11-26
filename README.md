@@ -167,8 +167,8 @@ Each app can be deployed independently to Cloudflare Pages by configuring the Gi
 Nonblank `seoTitle` (the complete document title) and `seoDescription` override only head metadata; otherwise blog/projects use their title with ` | Ian Slater` and description (or project type/genre fallback).
 
 ### Dad Site Collections
-- **poetry** - Poems (schema: title, date, tags, excerpt, decorativeImage)
-- **novels** - Novels (schema: title, publicationDate, printLength, synopsis, purchaseLinks)
+- **poetry** - Poems (schema: title, date, tags, excerpt, decorativeImage, optional videoUrl)
+- **novels** - Novels (schema: title, publicationDate, printLength, synopsis, purchaseLinks, optional videoUrl)
 - **gallery** - Photography (schema: title, src, alt, date, notes, camera, location, order)
 
 #### dad-site: Poetry content frontmatter
@@ -337,6 +337,19 @@ On wide screens the cover displays in a dedicated right-side column alongside th
 - **Quote strings containing special characters** — If `title` or `synopsis` contains colons, quotes, or other YAML-special characters, wrap the value in double quotes or use a block scalar (`>`).
 - **`printLength` is a number** — Do not quote it (write `printLength: 312`, not `printLength: "312"`).
 - **`publicationDate` and `printLength` are optional** — The site builds without them, but including them makes the entry a complete record.
+
+#### dad-site: Video entries (`videoUrl`)
+
+Any poetry or novels entry may add one optional `videoUrl` to show its detail page as a video presentation. Omit the field for standard rendering.
+
+```yaml
+videoUrl: "https://customer-<CUSTOMER_CODE>.cloudflarestream.com/<VIDEO_ID>/iframe"
+```
+
+- **Value** — Copy only the `src` URL from the iframe in Cloudflare Stream's embed code, not the embed HTML. It must be `https://customer-<code>.cloudflarestream.com/<video-id>/iframe`; Stream query options such as `poster` may follow. Other hosts or paths, ports, credentials, fragments, whitespace and any `autoplay` parameter fail the build.
+- **One video per entry** — Do not also paste embed HTML into the Markdown body.
+- **Display** — The page shows the entry title, the Stream player, the Markdown body (optional) and a link back to the collection. The date, tags, decorative image, cover, synopsis, publication details and purchase links are not displayed there.
+- **Metadata still required** — The collection's normal required fields still apply and continue to feed listings, tag pages and page metadata, which are unchanged.
 
 ## 🔀 Redirect Management
 

@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import PoetryDarkReaderToggle from '../../components/PoetryDarkReaderToggle.astro';
+import VideoPresentation from '../../components/VideoPresentation.astro';
 import { getEntry, render } from 'astro:content';
 import { slugifyTag } from '../../utils/tags';
 import { getDecorativeImageForTag } from '../../utils/decorativeImages';
@@ -40,6 +41,16 @@ const resolvedDecorativeImage = rawDecorativeImage
 	</head>
 	<body>
 		<Header />
+		{poem.data.videoUrl ? (
+			<VideoPresentation
+				title={poem.data.title}
+				src={poem.data.videoUrl}
+				backHref="/poetry"
+				backLabel="← Back to all poems"
+			>
+				<Content />
+			</VideoPresentation>
+		) : (
 		<main>
 			<PoetryDarkReaderToggle />
 			
@@ -76,6 +87,7 @@ const resolvedDecorativeImage = rawDecorativeImage
 				</article>
 			</div>
 		</main>
+		)}
 		<Footer />
 	</body>
 </html>
