@@ -74,7 +74,7 @@ function elements(root: Node, name: string, className?: string): ElementNode[] {
 	return found;
 }
 
-function poems(): Array<{ file: string; slug: string; image: string | null }> {
+function poems(): Array<{ file: string; slug: string; image: string | null; video: boolean }> {
 	return globSync('**/*.{md,mdx}', { cwd: CONTENT_DIR, expandDirectories: false })
 		.map(file => {
 			const filename = join(CONTENT_DIR, file);
@@ -85,6 +85,7 @@ function poems(): Array<{ file: string; slug: string; image: string | null }> {
 				file,
 				slug: file.replace(/\.(?:md|mdx)$/, ''),
 				image: data.decorativeImage ? getDecorativeImageForTag(data.decorativeImage) : null,
+				video: Object.hasOwn(data, 'videoUrl'),
 			};
 		})
 		.sort((a, b) => a.file.localeCompare(b.file));
@@ -109,9 +110,17 @@ async function page(path: string) {
 describe('poetry decorative images end-to-end', () => {
 	it('renders each published selection once and serves every selected PNG', async () => {
 		const entries = poems();
-		await withConcurrency(entries, 4, async ({ file, slug, image }) => {
+		await withConcurrency(entries, 4, async ({ file, slug, image, video }) => {
 			const document = await page(`/poetry/${slug}`);
 			const headers = elements(document, 'header', 'poem-header');
+			if (video) {
+				// Video entries use the theater presentation, which shows no poem header or illustration.
+				expect(elements(document, 'main', 'video-theater').length, file).toBe(1);
+				expect(headers.length, file).toBe(0);
+				expect(elements(document, 'div', 'decorative-image-wrap').length, file).toBe(0);
+				return;
+			}
+			expect(elements(document, 'main', 'video-theater').length, file).toBe(0);
 			expect(headers.length, file).toBe(1);
 			const wrappers = elements(headers[0], 'div', 'decorative-image-wrap');
 			expect(wrappers.length, file).toBe(image ? 1 : 0);

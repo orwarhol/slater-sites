@@ -1,0 +1,40 @@
+---
+/**
+ * Theater-style detail presentation for a poetry or novels entry whose
+ * frontmatter supplies a Cloudflare Stream `videoUrl`. Renders the entry title,
+ * one Stream player, the entry's Markdown body (passed as the default slot) and
+ * a return link. Styles live in global.css under "Video theater presentation".
+ */
+interface Props {
+	title: string;
+	src: string;
+	backHref: string;
+	backLabel: string;
+}
+
+const { title, src, backHref, backLabel } = Astro.props;
+
+// Render the body up front so an empty Markdown body leaves no blank prose block.
+const prose = Astro.slots.has('default') ? (await Astro.slots.render('default')).trim() : '';
+---
+
+<main class="video-theater">
+	<article class="video-item">
+		<h1 class="video-title">{title}</h1>
+		<div class="screen-frame">
+			<div class="player">
+				<iframe
+					src={src}
+					title={title}
+					loading="lazy"
+					allow="picture-in-picture"
+					allowfullscreen
+				></iframe>
+			</div>
+		</div>
+		{prose && <div class="video-prose" set:html={prose} />}
+		<div class="video-return">
+			<a href={backHref}>{backLabel}</a>
+		</div>
+	</article>
+</main>
